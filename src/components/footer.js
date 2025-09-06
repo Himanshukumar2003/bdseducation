@@ -1,267 +1,141 @@
+import { Separator } from "@/components/ui/separator";
 import {
-  Facebook,
-  Twitter,
-  Linkedin,
-  Instagram,
-  MapPin,
-  Phone,
-  Mail,
+  DribbbleIcon,
+  GithubIcon,
+  TwitchIcon,
+  TwitterIcon,
 } from "lucide-react";
-import Image from "next/image";
+import Link from "next/link";
+
+const footerSections = [
+  {
+    title: "Product",
+    links: [
+      { title: "Overview", href: "#" },
+      { title: "Features", href: "#" },
+      { title: "Solutions", href: "#" },
+      { title: "Tutorials", href: "#" },
+      { title: "Pricing", href: "#" },
+      { title: "Releases", href: "#" },
+    ],
+  },
+  {
+    title: "Company",
+    links: [
+      { title: "About us", href: "#" },
+      { title: "Careers", href: "#" },
+      { title: "Press", href: "#" },
+      { title: "News", href: "#" },
+      { title: "Media kit", href: "#" },
+      { title: "Contact", href: "#" },
+    ],
+  },
+  {
+    title: "Resources",
+    links: [
+      { title: "Blog", href: "#" },
+      { title: "Newsletter", href: "#" },
+      { title: "Events", href: "#" },
+      { title: "Help centre", href: "#" },
+      { title: "Tutorials", href: "#" },
+      { title: "Support", href: "#" },
+    ],
+  },
+  {
+    title: "Social",
+    links: [
+      { title: "Twitter", href: "#" },
+      { title: "LinkedIn", href: "#" },
+      { title: "Facebook", href: "#" },
+      { title: "GitHub", href: "#" },
+      { title: "AngelList", href: "#" },
+      { title: "Dribbble", href: "#" },
+    ],
+  },
+  {
+    title: "Legal",
+    links: [
+      { title: "Terms", href: "#" },
+      { title: "Privacy", href: "#" },
+      { title: "Cookies", href: "#" },
+      { title: "Licenses", href: "#" },
+      { title: "Settings", href: "#" },
+      { title: "Contact", href: "#" },
+    ],
+  },
+];
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-100 border-t border-gray-200 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
-          <div className="lg:col-span-1">
-            <div className="flex items-center space-x-2 mb-4">
-              {/* <div className="flex space-x-1">
-                <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
-                <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                <div className="w-3 h-3 bg-purple-500 rounded-full"></div>
-              </div>
-              <span className="text-xl font-semibold text-gray-800">
-                FreshMart
-              </span> */}
-            </div>
-            <p className="text-gray-600 text-sm leading-relaxed mb-6">
-              FreshMart is the biggest market of grocery products. Get your
-              daily needs from our store.
+    <footer className="bg-black text-white">
+      <div className="max-w-screen-xl mx-auto">
+        {/* Top Section */}
+        <div className="py-12 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 gap-x-8 gap-y-10 px-6 xl:px-0">
+          <div className="col-span-full xl:col-span-2">
+            {/* Logo */}
+            <svg
+              id="logo-7"
+              width="124"
+              height="32"
+              viewBox="0 0 124 32"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              className="text-white fill-white"
+            >
+              <path d="M28.48 10.62C27.97..." className="fill-white" />
+            </svg>
+
+            <p className="mt-4 text-gray-400">
+              Design amazing digital experiences that create more happy in the
+              world.
             </p>
           </div>
 
-          {/* Category Column */}
-          <div>
-            <h3 className="text-gray-800 font-semibold mb-4">Category</h3>
-            <ul className="space-y-3">
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-600 hover:text-gray-800 text-sm"
-                >
-                  Snacks
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-600 hover:text-gray-800 text-sm"
-                >
-                  Juice
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-600 hover:text-gray-800 text-sm"
-                >
-                  Chips
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-600 hover:text-gray-800 text-sm"
-                >
-                  Spices
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-600 hover:text-gray-800 text-sm"
-                >
-                  Sauces
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-600 hover:text-gray-800 text-sm"
-                >
-                  Fruit
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Company Column */}
-          <div>
-            <h3 className="text-gray-800 font-semibold mb-4">Company</h3>
-            <ul className="space-y-3">
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-600 hover:text-gray-800 text-sm"
-                >
-                  About us
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-600 hover:text-gray-800 text-sm"
-                >
-                  Delivery
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-600 hover:text-gray-800 text-sm"
-                >
-                  Legal Notice
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-600 hover:text-gray-800 text-sm"
-                >
-                  Terms & conditions
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-600 hover:text-gray-800 text-sm"
-                >
-                  Secure payment
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-600 hover:text-gray-800 text-sm"
-                >
-                  Contact us
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Account Column */}
-          <div>
-            <h3 className="text-gray-800 font-semibold mb-4">Account</h3>
-            <ul className="space-y-3">
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-600 hover:text-gray-800 text-sm"
-                >
-                  Sign In
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-600 hover:text-gray-800 text-sm"
-                >
-                  View Cart
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-600 hover:text-gray-800 text-sm"
-                >
-                  Return Policy
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-600 hover:text-gray-800 text-sm"
-                >
-                  Become a Vendor
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-600 hover:text-gray-800 text-sm"
-                >
-                  Affiliate Program
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-600 hover:text-gray-800 text-sm"
-                >
-                  Payments
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Contact Column */}
-          <div>
-            <h3 className="text-gray-800 font-semibold mb-4">Contact</h3>
-            <div className="space-y-3">
-              <div className="flex items-start space-x-3">
-                <MapPin className="w-4 h-4 text-gray-500 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-600 text-sm">
-                  123 Business St, Commerce City, State 12345
-                </span>
-              </div>
-              <div className="flex items-center space-x-3">
-                <Phone className="w-4 h-4 text-gray-500 flex-shrink-0" />
-                <span className="text-gray-600 text-sm">+1 234 567 8900</span>
-              </div>
-              <div className="flex items-center space-x-3">
-                <Mail className="w-4 h-4 text-gray-500 flex-shrink-0" />
-                <span className="text-gray-600 text-sm">
-                  hello@freshmart.com
-                </span>
-              </div>
+          {footerSections.map(({ title, links }) => (
+            <div key={title}>
+              <h6 className="font-semibold text-white">{title}</h6>
+              <ul className="mt-6 space-y-4">
+                {links.map(({ title, href }) => (
+                  <li key={title}>
+                    <Link
+                      href={href}
+                      className="text-gray-400 hover:text-white transition-colors duration-300"
+                    >
+                      {title}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </div>
-
-            {/* Social Media Icons */}
-            <div className="flex space-x-3 mt-6">
-              <a
-                href="#"
-                className="w-8 h-8 bg-gray-800 text-white rounded flex items-center justify-center hover:bg-gray-700 transition-colors"
-              >
-                <Facebook className="w-4 h-4" />
-              </a>
-              <a
-                href="#"
-                className="w-8 h-8 bg-gray-800 text-white rounded flex items-center justify-center hover:bg-gray-700 transition-colors"
-              >
-                <Twitter className="w-4 h-4" />
-              </a>
-              <a
-                href="#"
-                className="w-8 h-8 bg-gray-800 text-white rounded flex items-center justify-center hover:bg-gray-700 transition-colors"
-              >
-                <Linkedin className="w-4 h-4" />
-              </a>
-              <a
-                href="#"
-                className="w-8 h-8 bg-gray-800 text-white rounded flex items-center justify-center hover:bg-gray-700 transition-colors"
-              >
-                <Instagram className="w-4 h-4" />
-              </a>
-            </div>
-          </div>
+          ))}
         </div>
 
-        {/* Bottom Section */}
-        <div className="border-t border-gray-200 mt-12 pt-8 flex flex-col lg:flex-row justify-between items-center">
-          <div className="text-gray-600 text-sm mb-4 lg:mb-0">
-            Copyright © 2024 <span className="text-blue-600">FreshMart</span>{" "}
-            all rights reserved.
-          </div>
+        <Separator className="bg-gray-700" />
 
-          {/* Payment Icons */}
-          <Image
-            src="/payment.png"
-            width={300}
-            height={40}
-            alt="payment"
-          ></Image>
+        {/* Bottom Section */}
+        <div className="py-8 flex flex-col-reverse sm:flex-row items-center justify-between gap-x-2 gap-y-5 px-6 xl:px-0">
+          <span className="text-gray-400 text-sm">
+            &copy; {new Date().getFullYear()}{" "}
+            <Link href="/" target="_blank" className="hover:text-white">
+              Brandingwaale Webtech
+            </Link>
+            . All rights reserved.
+          </span>
+
+          <div className="flex items-center gap-5 text-gray-400">
+            <Link href="#" target="_blank" className="hover:text-white">
+              <TwitterIcon className="h-5 w-5" />
+            </Link>
+            <Link href="#" target="_blank" className="hover:text-white">
+              <DribbbleIcon className="h-5 w-5" />
+            </Link>
+            <Link href="#" target="_blank" className="hover:text-white">
+              <TwitchIcon className="h-5 w-5" />
+            </Link>
+            <Link href="#" target="_blank" className="hover:text-white">
+              <GithubIcon className="h-5 w-5" />
+            </Link>
+          </div>
         </div>
       </div>
     </footer>
