@@ -7,10 +7,12 @@ import GetInTouch from "@/components/cta";
 import TableVariation from "./_components/table";
 import VideoSection from "./_components/video";
 import TestimonialsSection from "./_components/review";
+import Tabs from "./_components/nav";
 
 export default function MTinySection() {
   return (
     <>
+      <Tabs />
       <section className="bg-gray-50 py-16">
         <div className="container mx-auto grid grid-cols-12 gap-10 items-center px-6">
           {/* Left Content (6 cols) */}
@@ -39,13 +41,7 @@ export default function MTinySection() {
 
           {/* Right Image (6 cols) */}
           <div className="col-span-12 md:col-span-6 flex justify-center">
-            <Image
-              src="/images/product-img.png"
-              alt="mTiny Robot"
-              width={500}
-              height={500}
-              className="w-full object-contain"
-            />
+          
           </div>
         </div>
       </section>

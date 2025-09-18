@@ -1,25 +1,13 @@
 "use client";
 
-import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
-
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
-export default function VideoSection() {
-  const videos = [
-    "https://www.youtube.com/embed/pDRkHkmHdx0?si=0EVaPmReTFUJ6O67",
-    "https://www.youtube.com/embed/pDRkHkmHdx0?si=0EVaPmReTFUJ6O67",
-    "https://www.youtube.com/embed/pDRkHkmHdx0?si=0EVaPmReTFUJ6O67",
-    "https://www.youtube.com/embed/pDRkHkmHdx0?si=0EVaPmReTFUJ6O67",
-    "https://www.youtube.com/embed/pDRkHkmHdx0?si=0EVaPmReTFUJ6O67",
-    "https://www.youtube.com/embed/pDRkHkmHdx0?si=0EVaPmReTFUJ6O67",
-    "https://www.youtube.com/embed/pDRkHkmHdx0?si=0EVaPmReTFUJ6O67",
-    "https://www.youtube.com/embed/pDRkHkmHdx0?si=0EVaPmReTFUJ6O67",
-    "https://www.youtube.com/embed/pDRkHkmHdx0?si=0EVaPmReTFUJ6O67",
-  ];
+export default function VideoSection({ videos = [] }) {
+  if (!videos || videos.length === 0) return null; // no videos → no render
 
   return (
     <section className="py-12 bg-gray-100">
@@ -48,16 +36,14 @@ export default function VideoSection() {
         >
           {videos.map((src, i) => (
             <SwiperSlide key={i}>
-              <div className=" w-full overflow-hidden rounded-lg shadow-md">
+              <div className="w-full overflow-hidden rounded-lg shadow-md">
                 <iframe
-                  width="100%"
-                  height="100%"
                   src={src}
                   title={`YouTube video ${i + 1}`}
                   frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share "
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   allowFullScreen
-                  className="min-h-[350px]"
+                  className="w-full min-h-[350px]"
                 ></iframe>
               </div>
             </SwiperSlide>

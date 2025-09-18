@@ -4,7 +4,7 @@ import { Puzzle, Heart, ArrowRight } from "lucide-react";
 export default function AboutSection() {
   return (
     <section className="py-16 bg-gray-50">
-      <div className="container mx-auto px-4">
+      <div className="container  mx-auto px-4">
         <div className="flex flex-col lg:flex-row items-center gap-8">
           {/* Left side - Image */}
           <div className="lg:w-5/12 mb-8 lg:mb-0">

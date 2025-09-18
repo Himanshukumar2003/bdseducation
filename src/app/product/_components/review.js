@@ -83,7 +83,7 @@ export default function TestimonialsSection() {
 
   return (
     <div className="bg-gray-50/70 section py-16">
-      <div className="max-w-6xl mx-auto px-4">
+      <div className="container mx-auto px-4">
         <div className="text-center mb-14">
           <h2 className="text-4xl font-bold tracking-tight text-foreground mb-4">
             We never failed to reach expectations
@@ -101,7 +101,7 @@ export default function TestimonialsSection() {
           pagination={{ clickable: true }}
           breakpoints={{
             0: { slidesPerView: 1 },
-            1024: { slidesPerView: 2 },
+            1024: { slidesPerView: 3 },
           }}
           className="max-w-6xl mx-auto"
         >

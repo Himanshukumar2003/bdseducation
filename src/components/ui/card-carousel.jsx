@@ -54,7 +54,7 @@ export const CardCarousel = ({
     <section className="w-ace-y-4">
       <style>{css}</style>
       <div>
-        <div className="flex w-full max-w-6xl mx-auto items-center justify-center gap-4">
+        <div className="flex w-full max-w-7xl mx-auto items-center justify-center gap-4">
           <div className="w-full">
             <Swiper
               spaceBetween={25}
@@ -85,10 +85,10 @@ export const CardCarousel = ({
               modules={[EffectCoverflow, Autoplay, Pagination, Navigation]}
             >
               {images.map((card, index) => (
-                <SwiperSlide key={index}>
+                <SwiperSlide key={index} className="pt-5">
                   <div
                     key={index}
-                    className="relative rounded-2xl overflow-hidden shadow-lg group transition-transform duration-500 hover:scale-105"
+                    className="relative rounded-2xl overflow-hidden shadow-lg group transition-transform duration-500 hover:scale-105 "
                     style={{ transform: "translateZ(20px)" }}
                   >
                     {/* Card Image */}
@@ -120,7 +120,7 @@ export const CardCarousel = ({
                 </SwiperSlide>
               ))}
               {images.map((card, index) => (
-                <SwiperSlide key={index}>
+                <SwiperSlide key={index} className="pt-5">
                   <div
                     key={index}
                     className="relative rounded-2xl overflow-hidden shadow-lg group transition-transform duration-500 hover:scale-105"

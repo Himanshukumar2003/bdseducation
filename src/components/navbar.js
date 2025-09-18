@@ -9,35 +9,17 @@ import ProductDropdown from "./product-dropdown";
 import MobileProductMenu from "./mobile-product-menu";
 import { useDispatch } from "react-redux";
 import { toggleCart } from "@/lib/features/slice";
+import Image from "next/image";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
   return (
-    <nav className="sticky top-0 z-50 w-full bg-white shadow-sm">
+    <nav className="sticky top-0 z-50 w-full bg-white shadow-sm h-[100px] py-4 flex justify-center items-center">
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between ">
           <Link href="/" className="flex items-center text-decoration-none">
-            <div className="relative w-12 h-10 mr-3">
-              <div
-                className="absolute w-6 h-5 rounded top-0 right-0 transform rotate-12"
-                style={{ background: "var(--accent-red)" }}
-              ></div>
-              <div
-                className="absolute w-5 h-6 rounded bottom-0 left-0 transform -rotate-12"
-                style={{ background: "var(--accent-green)" }}
-              ></div>
-              <div
-                className="absolute w-4 h-4 rounded top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rotate-45"
-                style={{ background: "var(--accent-yellow)" }}
-              ></div>
-            </div>
-            <h1
-              className="text-2xl font-bold drop-shadow-sm"
-              style={{ color: "var(--primary-blue)" }}
-            >
-              Kindergarten
-            </h1>
+         <Image src="/images/logo.png" alt="" height={300} width={300} className="w-full" ></Image>
           </Link>
 
           {/* Desktop Navigation */}
