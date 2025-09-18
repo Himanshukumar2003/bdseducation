@@ -27,6 +27,9 @@ function Navbar() {
             <Link href="/" className="nav-link active">
               Home
             </Link>
+               <Link href="/about" className="nav-link active">
+              About
+            </Link>
             <Link href="/product" className="nav-link">
               product
             </Link>
@@ -34,7 +37,7 @@ function Navbar() {
             <Link href="/product-details" className="nav-link">
               Product Details
             </Link>
-            <Link href="#" className="nav-link">
+            <Link href="gallery" className="nav-link">
               Gallery
             </Link>
             <Link href="#" className="nav-link">
