@@ -6,9 +6,8 @@ import { Menu, X, Search, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import ProductDropdown from "./product-dropdown";
-import MobileProductMenu from "./mobile-product-menu";
 import { useDispatch } from "react-redux";
-import { toggleCart } from "@/lib/features/slice";
+import { toggleCart, totalItems } from "@/lib/features/slice";
 import { fetchBooks } from "@/lib/features/productsSlice";
 
 import Image from "next/image";
@@ -21,32 +20,44 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
   NavigationMenuViewport,
-} from "@/components/ui/navigation-menu"
+} from "@/components/ui/navigation-menu";
 import ListItem from "./product-dropdown";
 
-import {  useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { fetchProducts } from "@/lib/features/productsSlice";
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
- const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-
- 
- 
-  const {books, products, loading, error } = useSelector((state) => state.products);
-  const combinedItems = [...(books.map(i=>({...i,type:"type-2"})) || []), ...(products.map(i=>({...i,type:"type-1"})) || [])];
-console.log({combinedItems})
+  const { books, products, loading, error } = useSelector(
+    (state) => state.products
+  );
+  const combinedItems = [
+    ...(books.map((i) => ({ ...i, type: "type-2" })) || []),
+    ...(products.map((i) => ({ ...i, type: "type-1" })) || []),
+  ];
+  console.log({ combinedItems });
   useEffect(() => {
     // Fetch both APIs on mount
     dispatch(fetchProducts());
     dispatch(fetchBooks());
   }, [dispatch]);
+
+  const total = useSelector((state) =>
+    state.cart.items.reduce((sum, item) => sum + item.quantity, 0)
+  );
   return (
     <nav className="sticky top-0 z-50 w-full bg-white shadow-sm h-[100px] py-4 flex justify-center items-center">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between ">
           <Link href="/" className="flex items-center text-decoration-none">
-         <Image src="/images/logo.png" alt="" height={300} width={300} className="w-full" ></Image>
+            <Image
+              src="/images/logo.png"
+              alt=""
+              height={300}
+              width={300}
+              className="w-full"
+            ></Image>
           </Link>
 
           {/* Desktop Navigation */}
@@ -54,39 +65,39 @@ console.log({combinedItems})
             <Link href="/" className="nav-link active">
               Home
             </Link>
-               <Link href="/about" className="nav-link active">
+            <Link href="/about" className="nav-link active">
               About
             </Link>
-            <Link href="/product" className="nav-link">
-              product
-            </Link>
-    <NavigationMenu >
-  <NavigationMenuList>
-    <NavigationMenuItem>
-      <NavigationMenuTrigger>Products</NavigationMenuTrigger>
-      <NavigationMenuContent >
-      
-        <ul className="grid  w-[400px] gap-2 md:w-[500px] md:grid-cols-4 lg:w-[1200px]">
-          {combinedItems.map((component,index) => (
-            <ListItem
-              key={index}
-              title={component.title}
-                    href={`/${component.type === "type-1" ? "product" : "product-two"}/${component.slug}`}
 
-              image={component.pictures}
-            >
-              {component.description}
-            </ListItem>
-          ))}
-        </ul>
-      </NavigationMenuContent>
-    </NavigationMenuItem>
-  </NavigationMenuList>
-</NavigationMenu>
-
+            <NavigationMenu>
+              <NavigationMenuList>
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger className="nav-link">
+                    Products
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <ul className="grid  w-[400px] gap-2 md:w-[500px] md:grid-cols-4 lg:w-[1200px]">
+                      {combinedItems.map((component, index) => (
+                        <ListItem
+                          key={index}
+                          title={component.title}
+                          href={`/${component.type === "type-1" ? "product" : "product-two"}/${component.slug}`}
+                          image={component.pictures}
+                        >
+                          {component.description}
+                        </ListItem>
+                      ))}
+                    </ul>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
 
             <Link href="gallery" className="nav-link">
               Gallery
+            </Link>
+            <Link href="gallery" className="nav-link">
+              Blogs
             </Link>
             <Link href="#" className="nav-link">
               Shop
@@ -116,11 +127,11 @@ console.log({combinedItems})
             </Button> */}
 
             <div className="flex items-center gap-2 text-sm">
-              <Link href="#" className="auth-link">
+              <Link href="#" className="auth-link nav-link">
                 Login
               </Link>
               <span style={{ color: "var(--text-muted)" }}>|</span>
-              <Link href="#" className="auth-link">
+              <Link href="#" className="auth-link nav-link">
                 Register
               </Link>
             </div>
@@ -134,15 +145,17 @@ console.log({combinedItems})
               >
                 <ShoppingCart className="w-5 h-5" />
               </Button>
-              <Badge
-                className="absolute -top-2 -right-2 w-4 h-4 text-xs font-bold rounded-full flex items-center justify-center p-0"
-                style={{
-                  background: "var(--accent-red)",
-                  color: "var(--white)",
-                }}
-              >
-                3
-              </Badge>
+              {total > 0 && (
+                <Badge
+                  className="absolute -top-2 -right-2 w-4 h-4 text-xs font-bold rounded-full flex items-center justify-center p-0"
+                  style={{
+                    background: "var(--accent-red)",
+                    color: "var(--white)",
+                  }}
+                >
+                  {total}
+                </Badge>
+              )}
             </div>
 
             <button className="btn">
@@ -182,7 +195,6 @@ console.log({combinedItems})
               <Link href="#" className="nav-link-mobile block">
                 Courses
               </Link>
-              <MobileProductMenu />
               <Link href="#" className="nav-link-mobile block">
                 Blog
               </Link>

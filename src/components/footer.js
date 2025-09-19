@@ -13,67 +13,87 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="bg-black text-gray-300 px-6 py-12 mt-0">
+    <footer className=" text-white px-6 py-12 mt-0 bg-gradient-to-b from-[#30338B] to-[#505BDD]">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-8">
           {/* Brand Section */}
           <div className="lg:col-span-2">
             <div className="flex items-center gap-2 mb-4">
               <Image
-                src="/images/logo.png"
+                src="/logo-white.png"
                 alt="BDS Education Logo"
                 width={200}
                 height={200}
                 className="w-[150px] md:w-[200px] scale-105"
               />
             </div>
-            <h5 className="font-medium text-gray-400 mb-3">
+            <h5 className="font-medium text-white mb-3">
               BDS Education – Empowering Schools & Colleges
             </h5>
-            <p className="text-sm text-gray-400 mb-4 leading-relaxed">
+            <p className="text-sm text-white mb-4 leading-relaxed">
               BDS Education helps schools and colleges establish modern skill
-              development labs in coding, AI, and robotics. We provide class-wise
-              books, teacher training, online support, and access to a rich
-              library of projects and competitions.
+              development labs in coding, AI, and robotics. We provide
+              class-wise books, teacher training, online support, and access to
+              a rich library of projects and competitions.
             </p>
-            <p className="text-sm text-gray-400 leading-relaxed">
-              With a mission to support NEP 2020, our products cover a wide grade
-              span (class 1 to college) and include 3-in-1 software solutions for
-              Scratch, Python, and Arduino C.
+            <p className="text-sm text-white leading-relaxed">
+              With a mission to support NEP 2020, our products cover a wide
+              grade span (class 1 to college) and include 3-in-1 software
+              solutions for Scratch, Python, and Arduino C.
             </p>
           </div>
 
           {/* Company Section */}
           <div>
-            <h3 className="text-lg font-semibold text-white mb-4">Company</h3>
+            <h3 className="text-lg font-semibold text-gray-400 mb-4">
+              Company
+            </h3>
             <ul className="space-y-3">
               <li>
-                <Link href="/" className="text-gray-400 hover:text-white transition-colors">
+                <Link
+                  href="/"
+                  className="text-white hover:text-white transition-colors"
+                >
                   Home
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="text-gray-400 hover:text-white transition-colors">
+                <Link
+                  href="/about"
+                  className="text-white hover:text-white transition-colors"
+                >
                   About Us
                 </Link>
               </li>
               <li>
-                <Link href="/books" className="text-gray-400 hover:text-white transition-colors">
+                <Link
+                  href="/books"
+                  className="text-white hover:text-white transition-colors"
+                >
                   Books
                 </Link>
               </li>
               <li>
-                <Link href="/teacher-guide" className="text-gray-400 hover:text-white transition-colors">
+                <Link
+                  href="/teacher-guide"
+                  className="text-white hover:text-white transition-colors"
+                >
                   Teacher Guide
                 </Link>
               </li>
               <li>
-                <Link href="/gallery" className="text-gray-400 hover:text-white transition-colors">
+                <Link
+                  href="/gallery"
+                  className="text-white hover:text-white transition-colors"
+                >
                   Gallery
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="text-gray-400 hover:text-white transition-colors">
+                <Link
+                  href="/contact"
+                  className="text-white hover:text-white transition-colors"
+                >
                   Contact Us
                 </Link>
               </li>
@@ -82,44 +102,51 @@ export default function Footer() {
 
           {/* Products / Solutions Section */}
           <div>
-            <h3 className="text-lg font-semibold text-white mb-4">Solutions</h3>
+            <h3 className="text-lg font-semibold text-gray-400 mb-4">
+              Solutions
+            </h3>
             <ul className="space-y-3">
               <li>
-                <span className="text-gray-400">Skill Development Labs</span>
+                <span className="text-white">Skill Development Labs</span>
               </li>
               <li>
-                <span className="text-gray-400">Coding & Robotics (NEP 2020)</span>
+                <span className="text-white">Coding & Robotics (NEP 2020)</span>
               </li>
               <li>
-                <span className="text-gray-400">Grade-wise Student Books</span>
+                <span className="text-white">Grade-wise Student Books</span>
               </li>
               <li>
-                <span className="text-gray-400">Teacher Training & Support</span>
+                <span className="text-white">Teacher Training & Support</span>
               </li>
               <li>
-                <span className="text-gray-400">Project Library & Competitions</span>
+                <span className="text-white">
+                  Project Library & Competitions
+                </span>
               </li>
             </ul>
           </div>
 
           {/* Contact Section */}
           <div>
-            <h3 className="text-lg font-semibold text-white mb-4">Contact</h3>
+            <h3 className="text-lg font-semibold text-gray-400 mb-4">
+              Contact
+            </h3>
             <div className="space-y-4">
               <div className="flex items-start gap-3">
-                <MapPin className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
-                <p className="text-sm text-gray-400">
-                  BDS Education Pvt. Ltd.<br />
+                <MapPin className="w-5 h-5 text-white mt-0.5 flex-shrink-0" />
+                <p className="text-sm text-white">
+                  BDS Education Pvt. Ltd.
+                  <br />
                   India
                 </p>
               </div>
               <div className="flex items-center gap-3">
-                <Phone className="w-5 h-5 text-gray-400 flex-shrink-0" />
-                <p className="text-sm text-gray-400">+91 9319714345</p>
+                <Phone className="w-5 h-5 text-white flex-shrink-0" />
+                <p className="text-sm text-white">+91 9319714345</p>
               </div>
               <div className="flex items-center gap-3">
-                <Mail className="w-5 h-5 text-gray-400 flex-shrink-0" />
-                <p className="text-sm text-gray-400">nc@bdseducation.in</p>
+                <Mail className="w-5 h-5 text-white flex-shrink-0" />
+                <p className="text-sm text-white">nc@bdseducation.in</p>
               </div>
 
               <div className="flex gap-3 mt-4">
@@ -164,35 +191,38 @@ export default function Footer() {
         </div>
 
         {/* Bottom Section */}
-        <div className="border-t border-slate-700 pt-6 flex flex-col lg:flex-row justify-between items-center gap-4">
-          <p className="text-sm text-gray-400 text-center">
-            © {new Date().getFullYear()} BDS Education | Designed & Developed by{" "}
-            <a href="https://brandingwaale.com/" target="_blank" className="hover:underline">
+        <div className="border-t  pt-6 flex flex-col lg:flex-row justify-between items-center gap-4">
+          <p className="text-sm text-white text-center">
+            © {new Date().getFullYear()} BDS Education | Designed & Developed
+            by{" "}
+            <a
+              href="https://brandingwaale.com/"
+              target="_blank"
+              className="hover:underline"
+            >
               Brandingwaale Webtech
             </a>
           </p>
 
           <div className="flex items-center gap-2">
-              <div className="w-12 h-8 bg-white rounded flex items-center justify-center">
-                <span className="text-blue-600 font-bold text-xs">VISA</span>
-              </div>
-              <div className="w-12 h-8 bg-white rounded flex items-center justify-center">
-                <div className="flex gap-0.5">
-                  <div className="w-2 h-2 bg-red-500 rounded-full"></div>
-                  <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
-                </div>
-              </div>
-
-              <div className="w-12 h-8 bg-white rounded flex items-center justify-center">
-                <span className="text-purple-600 font-bold text-xs">
-                  Skrill
-                </span>
-              </div>
-             
-              <div className="w-12 h-8 bg-white rounded flex items-center justify-center">
-                <span className="text-blue-600 font-bold text-xs">VISA</span>
+            <div className="w-12 h-8 bg-white rounded flex items-center justify-center">
+              <span className="text-blue-600 font-bold text-xs">VISA</span>
+            </div>
+            <div className="w-12 h-8 bg-white rounded flex items-center justify-center">
+              <div className="flex gap-0.5">
+                <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+                <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
               </div>
             </div>
+
+            <div className="w-12 h-8 bg-white rounded flex items-center justify-center">
+              <span className="text-purple-600 font-bold text-xs">Skrill</span>
+            </div>
+
+            <div className="w-12 h-8 bg-white rounded flex items-center justify-center">
+              <span className="text-blue-600 font-bold text-xs">VISA</span>
+            </div>
+          </div>
         </div>
       </div>
     </footer>

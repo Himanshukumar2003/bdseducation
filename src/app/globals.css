@@ -263,3 +263,25 @@
 .prose :where(tbody td:first-child, tfoot td:first-child):not(:where([class~="not-prose"], [class~="not-prose"] *)):not(:is(:lang(ae), :lang(ar), :lang(arc), :lang(bcc), :lang(bqi), :lang(ckb), :lang(dv), :lang(fa), :lang(glk), :lang(he), :lang(ku), :lang(mzn), :lang(nqo), :lang(pnb), :lang(ps), :lang(sd), :lang(ug), :lang(ur), :lang(yi))){
   padding-left: 20px !important;
 }
+
+.nav-link{
+  font-size: 18px;
+  font-weight: 400;
+  padding: 6px 10px;
+  border-radius: 10px;
+  background-color: transparent;
+
+}
+.nav-link:hover{ background-color: #f4f4f4; font-size: 18px; color: var(--primary-800); transform: scale(1);  -webkit-transform: scale(1); -moz-transform: scale(1); -ms-transform: scale(1); -o-transform: scale(1);
+}
+
+
+h2 p{
+  font-size: 16px;
+  font-weight: 400 !important;
+}
+
+
+.prose-p{
+  font-weight: 400 !important;
+}
