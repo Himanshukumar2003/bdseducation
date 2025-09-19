@@ -26,6 +26,9 @@ export default async function BookPage({ params }) {
     ? product.content.replace(/<[^/>][^>]*><\/[^>]+>/g, "").replace(/\s{2,}/g, " ").trim()
     : "";
 
+
+    
+
   return (
     <>
       <div className="max-w-7xl mx-auto px-6 py-12">

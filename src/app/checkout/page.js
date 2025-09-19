@@ -41,13 +41,13 @@ export default function CheckoutPage() {
   ];
 
   return (
-    <div className="section">
-      <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8 ">
+    <div className="section bg-gray-50">
+      <div className="  py-12 px-4 sm:px-6 lg:px-8 ">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-10">
           {/* Checkout Forms */}
           <div className="lg:col-span-2 space-y-8">
             {/* Contact Information */}
-            <Card className="shadow-lg rounded-xl border-none">
+            <Card className="shadow-lg rounded-xl border-none py-5">
               <CardHeader className="pb-4">
                 <CardTitle className="text-2xl font-bold text-gray-800">
                   Contact Information
@@ -63,7 +63,7 @@ export default function CheckoutPage() {
             </Card>
 
             {/* Delivery Details */}
-            <Card className="shadow-lg rounded-xl border-none">
+            <Card className="shadow-lg rounded-xl border-none py-5">
               <CardHeader className="pb-4">
                 <CardTitle className="text-2xl font-bold text-gray-800">
                   Delivery Details
@@ -136,7 +136,7 @@ export default function CheckoutPage() {
             </Card>
 
             {/* Payment Section */}
-            <Card className="shadow-lg rounded-xl border-none">
+            <Card className="shadow-lg rounded-xl border-none py-5">
               <CardHeader className="pb-4">
                 <CardTitle className="text-2xl font-bold text-gray-800">
                   Payment
@@ -155,7 +155,7 @@ export default function CheckoutPage() {
                     Please try again later or contact support.
                   </p>
                 </div>
-                <Button className="btn">Pay now</Button>
+                <button className="btn">Pay now</button>
               </CardContent>
             </Card>
           </div>
@@ -178,7 +178,7 @@ export default function CheckoutPage() {
                   >
                     <div className="relative w-20 h-20 flex-shrink-0 border rounded-lg  bg-gray-100">
                       <Image
-                        src={item.image}
+                        src={`${process.env.NEXT_PUBLIC_FILE_BASE_URL}${item.pictures[0]}`}
                         alt={item.title}
                         fill
                         className="object-contain p-1"

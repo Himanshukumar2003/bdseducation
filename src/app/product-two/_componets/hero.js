@@ -8,8 +8,15 @@ import "swiper/css";
 import "swiper/css/navigation";
 import Image from "next/image";
 import { Star } from 'lucide-react';
+import { useDispatch } from 'react-redux';
+import { addItem, toggleCart } from '@/lib/features/slice';
+
+
 
 export default function BookImageGallery({ bookImages, product }) {
+
+    const dispatch = useDispatch();
+
   const [activeIndex, setActiveIndex] = useState(0);
   const mainSwiperRef = useRef(null);
 
@@ -19,6 +26,13 @@ export default function BookImageGallery({ bookImages, product }) {
       mainSwiperRef.current.slideTo(index);
     }
   };
+
+  
+    const handleAddToCart = () => {
+      dispatch(addItem(product));
+      dispatch(toggleCart()); // agar toggleCart use karna hai to import kar lena
+    };
+  
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
@@ -160,7 +174,7 @@ export default function BookImageGallery({ bookImages, product }) {
             </span>
           </button>
 
-          <button className="btn bg-transparent border-2 border-blue-700 text-blue-500 hover:text-white">
+          <button   onClick={handleAddToCart} className="btn bg-transparent border-2 border-blue-700 text-blue-500 hover:text-white">
             <span>
               Add TO CART{" "}
               <svg

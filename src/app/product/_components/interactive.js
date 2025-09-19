@@ -20,8 +20,7 @@ import Image from "next/image";
           {features.map((feature, index) => (
             <Card key={index} className="overflow-hidden rounded-0">
               <Image
-                src= {`  ${process.env.NEXT_PUBLIC_FILE_BASE_URL}
-${feature.image}`}
+                src= {`${process.env.NEXT_PUBLIC_FILE_BASE_URL}${feature.image}`}
                 alt={feature.title}
                 width={500}
                 height={500}
