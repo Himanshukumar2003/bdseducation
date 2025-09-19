@@ -10,48 +10,18 @@ import Tabs from "../_components/nav";
 import Image from "next/image";
 import { FILE_BASE_URL } from "@/lib/features/productsSlice";
 
-export async function generateMetadata({ params }) {
-  const { slug } = params;
-
-  try {
-    const response = await fetch(`https://bdsapi.bwdemo.in/v1/products/${slug}`, {
-      cache: "no-store",
-    });
-    const data = await response.json();
-
-    if (!data?.data) {
-      return {
-        title: "Product Not Found",
-        description: "This product does not exist.",
-      };
-    }
-
-    const product = data.data;
-
-    return {
-      title: product?.meta_title || product?.title,
-      description: product?.meta_description || product?.description,
-      keywords: product?.meta_keywords || "",
-      alternates: {
-        canonical: `/products/${product?.slug}`,
-      },
-    };
-  } catch (error) {
-    return {
-      title: "Error",
-      description: "Unable to fetch product data",
-    };
-  }
-}
 
 export default async function Page({ params }) {
-  const { slug } = params;
+ const { slug } = await params;
+
 
   const response = await fetch(
     `https://bdsapi.bwdemo.in/v1/products/${slug}`,
-    { cache: "no-store" }
+    
   );
   const data = await response.json();
+
+console.log(data)
 
   if (!data?.data) {
     return <div>Not Found</div>;

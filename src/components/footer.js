@@ -1,141 +1,198 @@
-import { Separator } from "@/components/ui/separator";
 import {
-  DribbbleIcon,
-  GithubIcon,
-  TwitchIcon,
-  TwitterIcon,
+  Facebook,
+  Twitter,
+  Linkedin,
+  Instagram,
+  MapPin,
+  Phone,
+  Mail,
+  YoutubeIcon,
 } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
-
-const footerSections = [
-  {
-    title: "Product",
-    links: [
-      { title: "Overview", href: "#" },
-      { title: "Features", href: "#" },
-      { title: "Solutions", href: "#" },
-      { title: "Tutorials", href: "#" },
-      { title: "Pricing", href: "#" },
-      { title: "Releases", href: "#" },
-    ],
-  },
-  {
-    title: "Company",
-    links: [
-      { title: "About us", href: "#" },
-      { title: "Careers", href: "#" },
-      { title: "Press", href: "#" },
-      { title: "News", href: "#" },
-      { title: "Media kit", href: "#" },
-      { title: "Contact", href: "#" },
-    ],
-  },
-  {
-    title: "Resources",
-    links: [
-      { title: "Blog", href: "#" },
-      { title: "Newsletter", href: "#" },
-      { title: "Events", href: "#" },
-      { title: "Help centre", href: "#" },
-      { title: "Tutorials", href: "#" },
-      { title: "Support", href: "#" },
-    ],
-  },
-  {
-    title: "Social",
-    links: [
-      { title: "Twitter", href: "#" },
-      { title: "LinkedIn", href: "#" },
-      { title: "Facebook", href: "#" },
-      { title: "GitHub", href: "#" },
-      { title: "AngelList", href: "#" },
-      { title: "Dribbble", href: "#" },
-    ],
-  },
-  {
-    title: "Legal",
-    links: [
-      { title: "Terms", href: "#" },
-      { title: "Privacy", href: "#" },
-      { title: "Cookies", href: "#" },
-      { title: "Licenses", href: "#" },
-      { title: "Settings", href: "#" },
-      { title: "Contact", href: "#" },
-    ],
-  },
-];
 
 export default function Footer() {
   return (
-    <footer className="bg-black text-white">
-      <div className="max-w-screen-xl mx-auto">
-        {/* Top Section */}
-        <div className="py-12 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 gap-x-8 gap-y-10 px-6 xl:px-0">
-          <div className="col-span-full xl:col-span-2">
-            {/* Logo */}
-            <svg
-              id="logo-7"
-              width="124"
-              height="32"
-              viewBox="0 0 124 32"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className="text-white fill-white"
-            >
-              <path d="M28.48 10.62C27.97..." className="fill-white" />
-            </svg>
-
-            <p className="mt-4 text-gray-400">
-              Design amazing digital experiences that create more happy in the
-              world.
+    <footer className="bg-black text-gray-300 px-6 py-12 mt-0">
+      <div className="container mx-auto px-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-8">
+          {/* Brand Section */}
+          <div className="lg:col-span-2">
+            <div className="flex items-center gap-2 mb-4">
+              <Image
+                src="/images/logo.png"
+                alt="BDS Education Logo"
+                width={200}
+                height={200}
+                className="w-[150px] md:w-[200px] scale-105"
+              />
+            </div>
+            <h5 className="font-medium text-gray-400 mb-3">
+              BDS Education – Empowering Schools & Colleges
+            </h5>
+            <p className="text-sm text-gray-400 mb-4 leading-relaxed">
+              BDS Education helps schools and colleges establish modern skill
+              development labs in coding, AI, and robotics. We provide class-wise
+              books, teacher training, online support, and access to a rich
+              library of projects and competitions.
+            </p>
+            <p className="text-sm text-gray-400 leading-relaxed">
+              With a mission to support NEP 2020, our products cover a wide grade
+              span (class 1 to college) and include 3-in-1 software solutions for
+              Scratch, Python, and Arduino C.
             </p>
           </div>
 
-          {footerSections.map(({ title, links }) => (
-            <div key={title}>
-              <h6 className="font-semibold text-white">{title}</h6>
-              <ul className="mt-6 space-y-4">
-                {links.map(({ title, href }) => (
-                  <li key={title}>
-                    <Link
-                      href={href}
-                      className="text-gray-400 hover:text-white transition-colors duration-300"
-                    >
-                      {title}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+          {/* Company Section */}
+          <div>
+            <h3 className="text-lg font-semibold text-white mb-4">Company</h3>
+            <ul className="space-y-3">
+              <li>
+                <Link href="/" className="text-gray-400 hover:text-white transition-colors">
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link href="/about" className="text-gray-400 hover:text-white transition-colors">
+                  About Us
+                </Link>
+              </li>
+              <li>
+                <Link href="/books" className="text-gray-400 hover:text-white transition-colors">
+                  Books
+                </Link>
+              </li>
+              <li>
+                <Link href="/teacher-guide" className="text-gray-400 hover:text-white transition-colors">
+                  Teacher Guide
+                </Link>
+              </li>
+              <li>
+                <Link href="/gallery" className="text-gray-400 hover:text-white transition-colors">
+                  Gallery
+                </Link>
+              </li>
+              <li>
+                <Link href="/contact" className="text-gray-400 hover:text-white transition-colors">
+                  Contact Us
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Products / Solutions Section */}
+          <div>
+            <h3 className="text-lg font-semibold text-white mb-4">Solutions</h3>
+            <ul className="space-y-3">
+              <li>
+                <span className="text-gray-400">Skill Development Labs</span>
+              </li>
+              <li>
+                <span className="text-gray-400">Coding & Robotics (NEP 2020)</span>
+              </li>
+              <li>
+                <span className="text-gray-400">Grade-wise Student Books</span>
+              </li>
+              <li>
+                <span className="text-gray-400">Teacher Training & Support</span>
+              </li>
+              <li>
+                <span className="text-gray-400">Project Library & Competitions</span>
+              </li>
+            </ul>
+          </div>
+
+          {/* Contact Section */}
+          <div>
+            <h3 className="text-lg font-semibold text-white mb-4">Contact</h3>
+            <div className="space-y-4">
+              <div className="flex items-start gap-3">
+                <MapPin className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
+                <p className="text-sm text-gray-400">
+                  BDS Education Pvt. Ltd.<br />
+                  India
+                </p>
+              </div>
+              <div className="flex items-center gap-3">
+                <Phone className="w-5 h-5 text-gray-400 flex-shrink-0" />
+                <p className="text-sm text-gray-400">+91 9319714345</p>
+              </div>
+              <div className="flex items-center gap-3">
+                <Mail className="w-5 h-5 text-gray-400 flex-shrink-0" />
+                <p className="text-sm text-gray-400">nc@bdseducation.in</p>
+              </div>
+
+              <div className="flex gap-3 mt-4">
+                <Link
+                  href="https://www.facebook.com"
+                  target="_blank"
+                  className="w-10 h-10 bg-slate-700 hover:bg-blue-600 rounded-lg flex items-center justify-center transition-colors"
+                >
+                  <Facebook className="w-5 h-5" />
+                </Link>
+                <Link
+                  href="https://twitter.com"
+                  target="_blank"
+                  className="w-10 h-10 bg-slate-700 hover:bg-blue-400 rounded-lg flex items-center justify-center transition-colors"
+                >
+                  <Twitter className="w-5 h-5" />
+                </Link>
+                <Link
+                  href="https://www.youtube.com"
+                  target="_blank"
+                  className="w-10 h-10 bg-slate-700 hover:bg-red-600 rounded-lg flex items-center justify-center transition-colors"
+                >
+                  <YoutubeIcon className="w-5 h-5" />
+                </Link>
+                <Link
+                  href="https://www.instagram.com"
+                  target="_blank"
+                  className="w-10 h-10 bg-slate-700 hover:bg-pink-600 rounded-lg flex items-center justify-center transition-colors"
+                >
+                  <Instagram className="w-5 h-5" />
+                </Link>
+                <Link
+                  href="https://www.linkedin.com"
+                  target="_blank"
+                  className="w-10 h-10 bg-slate-700 hover:bg-blue-700 rounded-lg flex items-center justify-center transition-colors"
+                >
+                  <Linkedin className="w-5 h-5" />
+                </Link>
+              </div>
             </div>
-          ))}
+          </div>
         </div>
 
-        <Separator className="bg-gray-700" />
-
         {/* Bottom Section */}
-        <div className="py-8 flex flex-col-reverse sm:flex-row items-center justify-between gap-x-2 gap-y-5 px-6 xl:px-0">
-          <span className="text-gray-400 text-sm">
-            &copy; {new Date().getFullYear()}{" "}
-            <Link href="/" target="_blank" className="hover:text-white">
+        <div className="border-t border-slate-700 pt-6 flex flex-col lg:flex-row justify-between items-center gap-4">
+          <p className="text-sm text-gray-400 text-center">
+            © {new Date().getFullYear()} BDS Education | Designed & Developed by{" "}
+            <a href="https://brandingwaale.com/" target="_blank" className="hover:underline">
               Brandingwaale Webtech
-            </Link>
-            . All rights reserved.
-          </span>
+            </a>
+          </p>
 
-          <div className="flex items-center gap-5 text-gray-400">
-            <Link href="#" target="_blank" className="hover:text-white">
-              <TwitterIcon className="h-5 w-5" />
-            </Link>
-            <Link href="#" target="_blank" className="hover:text-white">
-              <DribbbleIcon className="h-5 w-5" />
-            </Link>
-            <Link href="#" target="_blank" className="hover:text-white">
-              <TwitchIcon className="h-5 w-5" />
-            </Link>
-            <Link href="#" target="_blank" className="hover:text-white">
-              <GithubIcon className="h-5 w-5" />
-            </Link>
-          </div>
+          <div className="flex items-center gap-2">
+              <div className="w-12 h-8 bg-white rounded flex items-center justify-center">
+                <span className="text-blue-600 font-bold text-xs">VISA</span>
+              </div>
+              <div className="w-12 h-8 bg-white rounded flex items-center justify-center">
+                <div className="flex gap-0.5">
+                  <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+                  <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
+                </div>
+              </div>
+
+              <div className="w-12 h-8 bg-white rounded flex items-center justify-center">
+                <span className="text-purple-600 font-bold text-xs">
+                  Skrill
+                </span>
+              </div>
+             
+              <div className="w-12 h-8 bg-white rounded flex items-center justify-center">
+                <span className="text-blue-600 font-bold text-xs">VISA</span>
+              </div>
+            </div>
         </div>
       </div>
     </footer>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Menu, X, Search, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -9,11 +9,38 @@ import ProductDropdown from "./product-dropdown";
 import MobileProductMenu from "./mobile-product-menu";
 import { useDispatch } from "react-redux";
 import { toggleCart } from "@/lib/features/slice";
-import Image from "next/image";
+import { fetchBooks } from "@/lib/features/productsSlice";
 
+import Image from "next/image";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuIndicator,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  NavigationMenuViewport,
+} from "@/components/ui/navigation-menu"
+import ListItem from "./product-dropdown";
+
+import {  useSelector } from "react-redux";
+import { fetchProducts } from "@/lib/features/productsSlice";
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const dispatch = useDispatch();
+ const dispatch = useDispatch();
+
+
+ 
+ 
+  const {books, products, loading, error } = useSelector((state) => state.products);
+  const combinedItems = [...(books.map(i=>({...i,type:"type-2"})) || []), ...(products.map(i=>({...i,type:"type-1"})) || [])];
+console.log({combinedItems})
+  useEffect(() => {
+    // Fetch both APIs on mount
+    dispatch(fetchProducts());
+    dispatch(fetchBooks());
+  }, [dispatch]);
   return (
     <nav className="sticky top-0 z-50 w-full bg-white shadow-sm h-[100px] py-4 flex justify-center items-center">
       <div className="container mx-auto px-4">
@@ -33,17 +60,38 @@ function Navbar() {
             <Link href="/product" className="nav-link">
               product
             </Link>
-            <ProductDropdown />
-            <Link href="/product-details" className="nav-link">
-              Product Details
-            </Link>
+    <NavigationMenu >
+  <NavigationMenuList>
+    <NavigationMenuItem>
+      <NavigationMenuTrigger>Products</NavigationMenuTrigger>
+      <NavigationMenuContent >
+      
+        <ul className="grid  w-[400px] gap-2 md:w-[500px] md:grid-cols-4 lg:w-[1200px]">
+          {combinedItems.map((component,index) => (
+            <ListItem
+              key={index}
+              title={component.title}
+                    href={`/${component.type === "type-1" ? "product" : "product-two"}/${component.slug}`}
+
+              image={component.pictures}
+            >
+              {component.description}
+            </ListItem>
+          ))}
+        </ul>
+      </NavigationMenuContent>
+    </NavigationMenuItem>
+  </NavigationMenuList>
+</NavigationMenu>
+
+
             <Link href="gallery" className="nav-link">
               Gallery
             </Link>
             <Link href="#" className="nav-link">
               Shop
             </Link>
-            <Link href="#" className="nav-link">
+            <Link href="/contact" className="nav-link">
               Contact
             </Link>
           </div>
