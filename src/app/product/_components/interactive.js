@@ -3,7 +3,6 @@
 
 import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
-import { FILE_BASE_URL } from "@/lib/features/productsSlice";
 
  export default function Interactive({ features }) {
   return (
@@ -21,7 +20,8 @@ import { FILE_BASE_URL } from "@/lib/features/productsSlice";
           {features.map((feature, index) => (
             <Card key={index} className="overflow-hidden rounded-0">
               <Image
-                src= {`${FILE_BASE_URL}${feature.image}`}
+                src= {`  ${process.env.NEXT_PUBLIC_FILE_BASE_URL}
+${feature.image}`}
                 alt={feature.title}
                 width={500}
                 height={500}

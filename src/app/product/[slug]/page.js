@@ -8,7 +8,6 @@ import VideoSection from "../_components/video";
 import TestimonialsSection from "../_components/review";
 import Tabs from "../_components/nav";
 import Image from "next/image";
-import { FILE_BASE_URL } from "@/lib/features/productsSlice";
 
 
 export default async function Page({ params }) {
@@ -54,7 +53,8 @@ console.log(data)
             {product.pictures?.length > 0 && (
               <Image
                 // src={product.pictures[0].replace("public", "")}
-                   src={`https://bdsapi.bwdemo.in/${product.pictures[0]}`}
+                     src={`${process.env.NEXT_PUBLIC_FILE_BASE_URL}${product.pictures[0]}`}
+
 
 
                 alt={product.title}

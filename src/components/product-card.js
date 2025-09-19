@@ -4,7 +4,6 @@ import Image from "next/image";
 import { ShoppingCart } from "lucide-react";
 import { useDispatch } from "react-redux";
 import { addItem, toggleCart } from "@/lib/features/slice";
-import { FILE_BASE_URL } from "@/lib/features/productsSlice";
 import Link from "next/link";
 
 export default function ProductCard({ product }) {
@@ -31,11 +30,11 @@ export default function ProductCard({ product }) {
       <div className="relative overflow-hidden h-72">
 {product.pictures?.length > 0 && (
   <Image
-    src={`${FILE_BASE_URL}${product.pictures[0]}`}
-    alt={title}
-    fill
-    className="object-cover transition-transform duration-300 group-hover:scale-110"
-  />
+  src={`${process.env.NEXT_PUBLIC_FILE_BASE_URL}${product.pictures[0]}`}
+  alt={title}
+  fill
+/>
+
 )}
 
 

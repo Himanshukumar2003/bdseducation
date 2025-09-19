@@ -33,7 +33,8 @@ export default function BookPage() {
 
   const book = books[3];
   const bookImages = products.pictures?.length
-    ? book.pictures.map((img) => `${FILE_BASE_URL}${img}`)
+    ? book.pictures.map((img) => `  ${process.env.NEXT_PUBLIC_FILE_BASE_URL}
+${img}`)
     : ["/placeholder.svg"];
 
   const handleThumbnailClick = (index) => {
