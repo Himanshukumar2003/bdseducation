@@ -152,19 +152,21 @@ function Navbar() {
               {isAuthenticated ? (
                 <div className="flex items-center gap-3">
                   {user?.avatar ? (
-                    <img
+                    <Image
                       src={user.avatar}
                       alt={user.firstName}
+                      width={100}
+                      height={100}
                       className="w-9 h-9 rounded-full object-cover border"
                     />
                   ) : (
-                    <div className="w-9 h-9 flex items-center justify-center rounded-full bg-blue-600 text-white font-bold">
+                    <div className="w-12 h-12 flex items-center justify-center capitalize rounded-full bg-gray-200 text-blue-500 font-bold">
                       {user?.firstName ? user.firstName.charAt(0) : "U"}
                     </div>
                   )}
-                  {/* <button onClick={() => dispatch(logout())} className="btn">
+                  <button onClick={() => dispatch(logout())} className="btn">
                     Logout
-                  </button> */}
+                  </button>
                 </div>
               ) : (
                 <div className="flex items-center gap-2 text-sm">
