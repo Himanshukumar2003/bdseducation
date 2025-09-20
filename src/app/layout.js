@@ -5,6 +5,7 @@ import Footer from "@/components/footer";
 import Providers from "@/lib/povider";
 import CartSidebar from "@/components/ui/cart-sidebar";
 import SmoothScrollProvider from "@/providers/smooth-scroll-provider";
+import Layout from "@/components/layout/layout";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,6 +23,10 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  // const path = usePathname();
+  // const pathName = ["/dashboard"];
+  // if (pathName.includes(path)) return children;
+
   return (
     <html lang="en">
       <body
@@ -29,12 +34,9 @@ export default function RootLayout({ children }) {
       >
         <Providers>
           <SmoothScrollProvider>
-            <Navbar></Navbar>
-            {children}
-            <CartSidebar></CartSidebar>
+            <Layout>{children}</Layout>
           </SmoothScrollProvider>
         </Providers>
-        <Footer />
       </body>
     </html>
   );

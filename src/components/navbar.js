@@ -2,333 +2,362 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Menu, X, Search, ShoppingCart } from "lucide-react";
+import { Menu, X, ShoppingCart, User, LogIn } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import ProductDropdown from "./product-dropdown";
-import { useDispatch } from "react-redux";
-import { toggleCart, totalItems } from "@/lib/features/slice";
-import { fetchBooks } from "@/lib/features/productsSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleCart } from "@/lib/features/slice";
+import { fetchBooks, fetchProducts } from "@/lib/features/productsSlice";
+import { logout } from "@/lib/features/authSlice"; // ✅ correct slice
 
 import Image from "next/image";
 import {
   NavigationMenu,
   NavigationMenuContent,
-  NavigationMenuIndicator,
   NavigationMenuItem,
-  NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  NavigationMenuViewport,
 } from "@/components/ui/navigation-menu";
 import ListItem from "./product-dropdown";
 
-import { useSelector } from "react-redux";
-import { fetchProducts } from "@/lib/features/productsSlice";
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const dispatch = useDispatch();
+  const [isScrolled, setIsScrolled] = useState(false);
 
-  const { books, products, loading, error } = useSelector(
-    (state) => state.products
-  );
+  const dispatch = useDispatch();
+  const { books, products } = useSelector((state) => state.products);
+  const { user, isAuthenticated } = useSelector((state) => state.auth);
+
   const combinedItems = [
-    ...(books.map((i) => ({ ...i, type: "type-2" })) || []),
-    ...(products.map((i) => ({ ...i, type: "type-1" })) || []),
+    ...(books?.map((i) => ({ ...i, type: "type-2" })) || []),
+    ...(products?.map((i) => ({ ...i, type: "type-1" })) || []),
   ];
-  console.log({ combinedItems });
+
   useEffect(() => {
-    // Fetch both APIs on mount
     dispatch(fetchProducts());
     dispatch(fetchBooks());
   }, [dispatch]);
 
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? "hidden" : "unset";
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isOpen]);
+
   const total = useSelector((state) =>
     state.cart.items.reduce((sum, item) => sum + item.quantity, 0)
   );
+
+  const navigationItems = [
+    { href: "/", label: "Home", isActive: true },
+    { href: "/about", label: "About" },
+    { href: "/blog", label: "Blog" },
+    { href: "/gallery", label: "Gallery" },
+  ];
+
   return (
-    <nav className="sticky top-0 z-50 w-full bg-white shadow-sm h-[100px] py-4 flex justify-center items-center">
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between ">
-          <Link href="/" className="flex items-center text-decoration-none">
-            <Image
-              src="/images/logo.png"
-              alt=""
-              height={300}
-              width={300}
-              className="w-full"
-            ></Image>
-          </Link>
-
-          {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-8">
-            <Link href="/" className="nav-link active">
-              Home
+    <>
+      {/* Top Navbar */}
+      <nav
+        className={`sticky top-0 z-40 w-full transition-all duration-500 ease-in-out ${
+          isScrolled
+            ? "bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-100"
+            : "bg-white shadow-sm"
+        } h-[100px] py-4 flex justify-center items-center`}
+      >
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between">
+            {/* Logo */}
+            <Link href="/" className="flex items-center group">
+              <div className="transition-transform duration-300 group-hover:scale-105">
+                <Image
+                  src="/images/logo.png"
+                  alt="Logo"
+                  height={60}
+                  width={120}
+                  className="h-12 w-auto object-contain"
+                />
+              </div>
             </Link>
-            <Link href="/about" className="nav-link active">
-              About
-            </Link>
 
-            <NavigationMenu>
-              <NavigationMenuList>
-                <NavigationMenuItem>
-                  <NavigationMenuTrigger className="nav-link">
-                    Products
-                  </NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <ul className="grid  w-[400px] gap-2 md:w-[500px] md:grid-cols-4 lg:w-[1200px]">
-                      {combinedItems.map((component, index) => (
-                        <ListItem
-                          key={index}
-                          title={component.title}
-                          href={`/${component.type === "type-1" ? "product" : "product-two"}/${component.slug}`}
-                          image={component.pictures}
-                        >
-                          {component.description}
-                        </ListItem>
-                      ))}
-                    </ul>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
-              </NavigationMenuList>
-            </NavigationMenu>
-
-            <Link href="gallery" className="nav-link">
-              Gallery
-            </Link>
-            <Link href="gallery" className="nav-link">
-              Blogs
-            </Link>
-            <Link href="#" className="nav-link">
-              Shop
-            </Link>
-            <Link href="/contact" className="nav-link">
-              Contact
-            </Link>
-          </div>
-
-          <div className="hidden lg:flex items-center gap-4">
-            {/* <Button
-              variant="default"
-              size="icon"
-              className="w-10 h-10 rounded-md transition-all duration-300 hover:transform hover:-translate-y-0.5"
-              style={{
-                background: "var(--primary-blue)",
-                color: "var(--primary-contrast)",
-              }}
-              onMouseEnter={(e) =>
-                (e.currentTarget.style.background = "var(--primary-700)")
-              }
-              onMouseLeave={(e) =>
-                (e.currentTarget.style.background = "var(--primary-blue)")
-              }
-            >
-              <Search className="w-5 h-5" />
-            </Button> */}
-
-            <div className="flex items-center gap-2 text-sm">
-              <Link href="#" className="auth-link nav-link">
-                Login
-              </Link>
-              <span style={{ color: "var(--text-muted)" }}>|</span>
-              <Link href="#" className="auth-link nav-link">
-                Register
-              </Link>
-            </div>
-
-            <div className="relative">
-              <Button
-                variant="ghost"
-                size="icon"
-                className="cart-btn"
-                onClick={() => dispatch(toggleCart())}
-              >
-                <ShoppingCart className="w-5 h-5" />
-              </Button>
-              {total > 0 && (
-                <Badge
-                  className="absolute -top-2 -right-2 w-4 h-4 text-xs font-bold rounded-full flex items-center justify-center p-0"
-                  style={{
-                    background: "var(--accent-red)",
-                    color: "var(--white)",
-                  }}
+            {/* Desktop Navigation */}
+            <div className="hidden lg:flex items-center space-x-2 xl:space-x-4">
+              {navigationItems.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`nav-link ${item.isActive ? "active" : ""}`}
                 >
-                  {total}
-                </Badge>
-              )}
-            </div>
+                  {item.label}
+                </Link>
+              ))}
 
-            <button className="btn">
-              <span>Contact Us</span>
-            </button>
-          </div>
+              <NavigationMenu>
+                <NavigationMenuList>
+                  <NavigationMenuItem>
+                    <NavigationMenuTrigger className="nav-link">
+                      Products
+                    </NavigationMenuTrigger>
+                    <NavigationMenuContent className="animate-in slide-in-from-top-2 duration-300">
+                      <ul className="grid w-[400px] gap-2 p-4 md:w-[500px] md:grid-cols-2 lg:w-[800px] xl:w-[1000px] lg:grid-cols-3 xl:grid-cols-4">
+                        {combinedItems.map((component, index) => (
+                          <ListItem
+                            key={index}
+                            title={component.title}
+                            href={`/${
+                              component.type === "type-1"
+                                ? "product"
+                                : "product-two"
+                            }/${component.slug}`}
+                            image={component.pictures}
+                          >
+                            {component.description}
+                          </ListItem>
+                        ))}
+                      </ul>
+                    </NavigationMenuContent>
+                  </NavigationMenuItem>
+                </NavigationMenuList>
+              </NavigationMenu>
 
-          <Button
-            variant="ghost"
-            size="icon"
-            className="lg:hidden p-2 rounded-md hover:bg-gray-100 transition-colors"
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            {isOpen ? (
-              <X
-                className="w-6 h-6"
-                style={{ color: "var(--text-secondary)" }}
-              />
-            ) : (
-              <Menu
-                className="w-6 h-6"
-                style={{ color: "var(--text-secondary)" }}
-              />
-            )}
-          </Button>
-        </div>
-
-        {isOpen && (
-          <div
-            className="lg:hidden border-t bg-white"
-            style={{ borderColor: "var(--border)" }}
-          >
-            <div className="py-4 space-y-1">
-              <Link href="#" className="nav-link-mobile block">
-                Home
-              </Link>
-              <Link href="#" className="nav-link-mobile block">
-                Courses
-              </Link>
-              <Link href="#" className="nav-link-mobile block">
-                Blog
-              </Link>
-              <Link href="#" className="nav-link-mobile block">
-                Gallery
-              </Link>
-              <Link href="#" className="nav-link-mobile block">
-                Shop
-              </Link>
-              <Link href="#" className="nav-link-mobile block">
+              <Link href="/contact" className="nav-link">
                 Contact
               </Link>
             </div>
 
-            <div
-              className="px-4 py-4 border-t"
-              style={{ borderColor: "var(--border)" }}
-            >
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-4">
-                  <Button
-                    variant="default"
-                    size="icon"
-                    className="w-10 h-10 rounded-md"
-                    style={{
-                      background: "var(--primary-blue)",
-                      color: "var(--primary-contrast)",
-                    }}
-                  >
-                    <Search className="w-5 h-5" />
-                  </Button>
-
-                  <div className="relative">
-                    <Button variant="ghost" size="icon" className="cart-btn">
-                      <ShoppingCart className="w-5 h-5" />
-                    </Button>
-                    <Badge
-                      className="absolute -top-2 -right-2 w-4 h-4 text-xs font-bold rounded-full flex items-center justify-center p-0"
-                      style={{
-                        background: "var(--accent-red)",
-                        color: "var(--white)",
-                      }}
-                    >
-                      3
+            {/* Right Section (Desktop) */}
+            <div className="hidden lg:flex items-center gap-2 xl:gap-4">
+              <div className="relative">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="cart-btn relative"
+                  onClick={() => dispatch(toggleCart())}
+                >
+                  <ShoppingCart className="w-5 h-5" />
+                  {total > 0 && (
+                    <Badge className="absolute -top-2 -right-2 w-5 h-5 text-xs font-bold rounded-full flex items-center justify-center p-0 bg-red-500 text-white">
+                      {total}
                     </Badge>
-                  </div>
+                  )}
+                </Button>
+              </div>
+              {isAuthenticated ? (
+                <div className="flex items-center gap-3">
+                  {user?.avatar ? (
+                    <img
+                      src={user.avatar}
+                      alt={user.firstName}
+                      className="w-9 h-9 rounded-full object-cover border"
+                    />
+                  ) : (
+                    <div className="w-9 h-9 flex items-center justify-center rounded-full bg-blue-600 text-white font-bold">
+                      {user?.firstName ? user.firstName.charAt(0) : "U"}
+                    </div>
+                  )}
+                  {/* <button onClick={() => dispatch(logout())} className="btn">
+                    Logout
+                  </button> */}
                 </div>
-
+              ) : (
                 <div className="flex items-center gap-2 text-sm">
-                  <Link href="#" className="auth-link">
+                  <Link
+                    href="/login"
+                    className="auth-link nav-link flex items-center gap-1"
+                  >
+                    <LogIn className="w-4 h-4" />
                     Login
                   </Link>
-                  <span style={{ color: "var(--text-muted)" }}>|</span>
-                  <Link href="#" className="auth-link">
-                    Register
+                  <span className="text-muted-foreground">|</span>
+                  <Link
+                    href="/signup"
+                    className="auth-link nav-link flex items-center gap-1"
+                  >
+                    <User className="w-4 h-4" />
+                    Sign Up
                   </Link>
                 </div>
-              </div>
+              )}
 
-              <Button className="btn w-full">
-                <span>Contact Us</span>
-              </Button>
+              {/* Cart */}
+            </div>
+
+            {/* Mobile Menu Toggle */}
+            <Button
+              variant="ghost"
+              size="icon"
+              className="lg:hidden p-2 rounded-md hover:bg-gray-100 transition-all duration-200 relative z-50"
+              onClick={() => setIsOpen(!isOpen)}
+            >
+              {isOpen ? (
+                <X className="w-6 h-6" />
+              ) : (
+                <Menu className="w-6 h-6" />
+              )}
+            </Button>
+          </div>
+        </div>
+      </nav>
+
+      {/* Mobile Sidebar */}
+      <div
+        className={`fixed inset-0 z-50 lg:hidden transition-all duration-500 ease-in-out ${
+          isOpen ? "visible" : "invisible"
+        }`}
+      >
+        {/* Backdrop */}
+        <div
+          className={`absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity duration-500 ${
+            isOpen ? "opacity-100" : "opacity-0"
+          }`}
+          onClick={() => setIsOpen(false)}
+        />
+
+        {/* Panel */}
+        <div
+          className={`absolute top-0 right-0 h-full w-full max-w-sm bg-white shadow-2xl transform transition-transform duration-500 ease-in-out ${
+            isOpen ? "translate-x-0" : "translate-x-full"
+          }`}
+        >
+          {/* Header */}
+          <div className="flex items-center justify-between p-6 border-b border-gray-100">
+            <div className="flex items-center gap-3">
+              <Image
+                src="/images/logo.png"
+                alt="Logo"
+                height={40}
+                width={80}
+                className="h-8 w-auto object-contain"
+              />
+              <span className="font-bold text-lg text-gray-800">Menu</span>
+            </div>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setIsOpen(false)}
+              className="rounded-full hover:bg-gray-100"
+            >
+              <X className="w-5 h-5" />
+            </Button>
+          </div>
+
+          {/* Items */}
+          <div className="flex-1 overflow-y-auto py-6 px-6">
+            {navigationItems.map((item, index) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={() => setIsOpen(false)}
+                className="block p-3 rounded-lg hover:bg-gray-100 text-gray-800 font-semibold"
+              >
+                {item.label}
+              </Link>
+            ))}
+
+            {/* Account Section */}
+            <div className="mt-8 bg-gray-50 rounded-xl p-4">
+              <h3 className="font-semibold text-gray-800 mb-3">Account</h3>
+              {isAuthenticated ? (
+                <div className="flex items-center gap-3">
+                  {user?.avatar ? (
+                    <img
+                      src={user.avatar}
+                      className="w-9 h-9 rounded-full border"
+                    />
+                  ) : (
+                    <div className="w-9 h-9 flex items-center justify-center rounded-full bg-blue-600 text-white font-bold">
+                      {user?.firstName ? user.firstName.charAt(0) : "U"}
+                    </div>
+                  )}
+                  <button
+                    onClick={() => {
+                      dispatch(logout());
+                      setIsOpen(false);
+                    }}
+                    className="btn"
+                  >
+                    Logout
+                  </button>
+                </div>
+              ) : (
+                <>
+                  <Link
+                    href="/login"
+                    onClick={() => setIsOpen(false)}
+                    className="flex items-center gap-3 p-2 rounded-lg hover:bg-white"
+                  >
+                    <LogIn className="w-4 h-4 text-primary" />
+                    <span>Login</span>
+                  </Link>
+                  <Link
+                    href="/signup"
+                    onClick={() => setIsOpen(false)}
+                    className="flex items-center gap-3 p-2 rounded-lg hover:bg-white"
+                  >
+                    <User className="w-4 h-4 text-primary" />
+                    <span>Sign Up</span>
+                  </Link>
+                </>
+              )}
             </div>
           </div>
-        )}
+
+          {/* Footer */}
+          <div className="border-t border-gray-100 p-6 bg-gray-50">
+            <div className="flex items-center justify-between">
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => {
+                  dispatch(toggleCart());
+                  setIsOpen(false);
+                }}
+                className="cart-btn relative"
+              >
+                <ShoppingCart className="w-5 h-5" />
+                {total > 0 && (
+                  <Badge className="absolute -top-2 -right-2 w-5 h-5 text-xs font-bold flex items-center justify-center p-0 bg-red-500 text-white">
+                    {total}
+                  </Badge>
+                )}
+              </Button>
+              <span className="text-sm text-gray-600">
+                Cart ({total} items)
+              </span>
+            </div>
+          </div>
+        </div>
       </div>
 
+      {/* Styles */}
       <style jsx>{`
         .nav-link {
-          font-family: "Patrick Hand", cursive;
-          font-weight: 600;
-          color: var(--black);
-          padding: 8px 16px;
-          border-radius: 6px;
+          font-weight: 700;
+          color: hsl(var(--foreground));
+          padding: 8px 12px;
+          border-radius: 8px;
           transition: all 0.3s ease;
           text-transform: uppercase;
           font-size: 14px;
           letter-spacing: 0.5px;
-          font-weight: 900;
-          text-decoration: none;
         }
-
         .nav-link:hover {
-          background-color: var(--primary-10);
-          color: var(--primary-blue);
+          background-color: hsl(var(--primary) / 0.1);
+          color: hsl(var(--primary));
         }
-
         .nav-link.active {
-          background-color: transparent;
-          color: var(--text-primary);
-          border: 2px solid var(--text-primary);
-        }
-
-        .nav-link-mobile {
-          font-family: "Patrick Hand", cursive;
-          font-weight: 600;
-          color: var(--black);
-          padding: 12px 0;
-          text-transform: uppercase;
-          font-size: 14px;
-          letter-spacing: 0.5px;
-          font-weight: 900;
-          text-decoration: none;
-          transition: color 0.3s ease;
-        }
-
-        .nav-link-mobile:hover {
-          color: var(--primary-blue);
-        }
-
-        .auth-link {
-          color: var(--text-secondary);
-          text-decoration: none;
-          font-weight: 600;
-          transition: color 0.3s ease;
-        }
-
-        .auth-link:hover {
-          color: var(--primary-blue);
-        }
-
-        .cart-btn {
-          background: none;
-          border: none;
-          color: var(--text-secondary);
-          transition: color 0.3s ease;
-          cursor: pointer;
-        }
-
-        .cart-btn:hover {
-          color: var(--primary-blue);
+          background-color: hsl(var(--primary));
+          color: hsl(var(--primary-foreground));
         }
       `}</style>
-    </nav>
+    </>
   );
 }
 

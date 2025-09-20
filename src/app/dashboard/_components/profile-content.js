@@ -1,0 +1,95 @@
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
+import { CalendarCheck, ShieldCheck } from "lucide-react";
+
+export function ProfileContent({ user, orders }) {
+  return (
+    <div className="space-y-6">
+      {/* Page Title */}
+      <div>
+        <h1 className="text-3xl font-bold tracking-tight text-blue-900">
+          Profile
+        </h1>
+        <p className="text-muted-foreground">
+          Manage your account information and preferences
+        </p>
+      </div>
+
+      {/* Grid */}
+      <div className="grid gap-6 md:grid-cols-2">
+        {/* Profile Card */}
+        <Card className="bg-gradient-to-b from-blue-50 to-white border-none shadow-md">
+          <CardHeader className="text-center flex flex-col items-center space-y-2">
+            <Avatar className="h-24 w-24 shadow-lg ring-2 ring-blue-300">
+              <AvatarImage
+                src={user.avatar || "/placeholder.svg"}
+                alt={user.name}
+              />
+              <AvatarFallback className="bg-blue-100 text-blue-800 text-lg">
+                {user.name
+                  .split(" ")
+                  .map((n) => n[0])
+                  .join("")
+                  .toUpperCase()}
+              </AvatarFallback>
+            </Avatar>
+            <CardTitle className="text-xl text-blue-900 font-semibold">
+              {user.name}
+            </CardTitle>
+            <p className="text-muted-foreground text-sm">{user.email}</p>
+          </CardHeader>
+
+          <CardContent className="space-y-4 px-6 pb-6">
+            <Separator />
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-muted-foreground flex items-center gap-1">
+                  <CalendarCheck className="h-4 w-4" />
+                  Member since
+                </span>
+                <span className="text-sm font-medium text-foreground">
+                  {user.joinDate || "January 2024"}
+                </span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-muted-foreground flex items-center gap-1">
+                  <ShieldCheck className="h-4 w-4" />
+                  Account Status
+                </span>
+                <span className="text-sm font-medium text-green-600">
+                  Active
+                </span>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Quick Stats */}
+        <Card className="shadow-md">
+          <CardHeader>
+            <CardTitle className="text-blue-900">Quick Stats</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="text-center p-4 bg-blue-50 rounded-lg shadow-sm">
+                <div className="text-3xl font-bold text-blue-900">
+                  {orders.length}
+                </div>
+                <div className="text-sm text-muted-foreground">
+                  Total Orders
+                </div>
+              </div>
+              <div className="text-center p-4 bg-green-50 rounded-lg shadow-sm">
+                <div className="text-3xl font-bold text-green-700">
+                  {orders.filter((o) => o.status === "delivered").length}
+                </div>
+                <div className="text-sm text-muted-foreground">Completed</div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  );
+}
