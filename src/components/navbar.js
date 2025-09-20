@@ -8,8 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleCart } from "@/lib/features/slice";
 import { fetchBooks, fetchProducts } from "@/lib/features/productsSlice";
-import { logout } from "@/lib/features/authSlice"; // ✅ correct slice
-
+import { logout } from "@/lib/features/authSlice";
 import Image from "next/image";
 import {
   NavigationMenu,
@@ -19,12 +18,14 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import ListItem from "./product-dropdown";
+import { useRouter } from "next/navigation";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-
   const dispatch = useDispatch();
+  const router = useRouter();
+
   const { books, products } = useSelector((state) => state.products);
   const { user, isAuthenticated } = useSelector((state) => state.auth);
 
@@ -56,15 +57,21 @@ function Navbar() {
   );
 
   const navigationItems = [
-    { href: "/", label: "Home", isActive: true },
+    { href: "/", label: "Home" },
     { href: "/about", label: "About" },
     { href: "/blog", label: "Blog" },
     { href: "/gallery", label: "Gallery" },
+    { href: "/contact", label: "Contact" },
   ];
+
+  const handleLogout = () => {
+    dispatch(logout());
+    router.push("/");
+  };
 
   return (
     <>
-      {/* Top Navbar */}
+      {/* Desktop + Mobile Navbar */}
       <nav
         className={`sticky top-0 z-40 w-full transition-all duration-500 ease-in-out ${
           isScrolled
@@ -90,15 +97,12 @@ function Navbar() {
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center space-x-2 xl:space-x-4">
               {navigationItems.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={`nav-link ${item.isActive ? "active" : ""}`}
-                >
+                <Link key={item.href} href={item.href} className="nav-link">
                   {item.label}
                 </Link>
               ))}
 
+              {/* Products Dropdown */}
               <NavigationMenu>
                 <NavigationMenuList>
                   <NavigationMenuItem>
@@ -127,12 +131,17 @@ function Navbar() {
                 </NavigationMenuList>
               </NavigationMenu>
 
-              <Link href="/contact" className="nav-link">
-                Contact
-              </Link>
+              {isAuthenticated && (
+                <Link
+                  href="/dashboard"
+                  className="nav-link font-semibold text-blue-600"
+                >
+                  Dashboard
+                </Link>
+              )}
             </div>
 
-            {/* Right Section (Desktop) */}
+            {/* Right Section Desktop */}
             <div className="hidden lg:flex items-center gap-2 xl:gap-4">
               <div className="relative">
                 <Button
@@ -149,6 +158,7 @@ function Navbar() {
                   )}
                 </Button>
               </div>
+
               {isAuthenticated ? (
                 <div className="flex items-center gap-3">
                   {user?.avatar ? (
@@ -164,7 +174,10 @@ function Navbar() {
                       {user?.firstName ? user.firstName.charAt(0) : "U"}
                     </div>
                   )}
-                  <button onClick={() => dispatch(logout())} className="btn">
+                  <button
+                    onClick={handleLogout}
+                    className="btn font-medium text-sm"
+                  >
                     Logout
                   </button>
                 </div>
@@ -187,8 +200,6 @@ function Navbar() {
                   </Link>
                 </div>
               )}
-
-              {/* Cart */}
             </div>
 
             {/* Mobile Menu Toggle */}
@@ -228,7 +239,6 @@ function Navbar() {
             isOpen ? "translate-x-0" : "translate-x-full"
           }`}
         >
-          {/* Header */}
           <div className="flex items-center justify-between p-6 border-b border-gray-100">
             <div className="flex items-center gap-3">
               <Image
@@ -250,9 +260,9 @@ function Navbar() {
             </Button>
           </div>
 
-          {/* Items */}
+          {/* Mobile Navigation Links */}
           <div className="flex-1 overflow-y-auto py-6 px-6">
-            {navigationItems.map((item, index) => (
+            {navigationItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
@@ -263,11 +273,21 @@ function Navbar() {
               </Link>
             ))}
 
+            {isAuthenticated && (
+              <Link
+                href="/dashboard"
+                onClick={() => setIsOpen(false)}
+                className="block p-3 mt-2 rounded-lg hover:bg-gray-100 text-gray-800 font-semibold"
+              >
+                Dashboard
+              </Link>
+            )}
+
             {/* Account Section */}
             <div className="mt-8 bg-gray-50 rounded-xl p-4">
               <h3 className="font-semibold text-gray-800 mb-3">Account</h3>
               {isAuthenticated ? (
-                <div className="flex items-center gap-3">
+                <Link href="/dashboard" className="flex items-center gap-3">
                   {user?.avatar ? (
                     <img
                       src={user.avatar}
@@ -280,14 +300,14 @@ function Navbar() {
                   )}
                   <button
                     onClick={() => {
-                      dispatch(logout());
+                      handleLogout();
                       setIsOpen(false);
                     }}
-                    className="btn"
+                    className="btn font-medium text-sm"
                   >
                     Logout
                   </button>
-                </div>
+                </Link>
               ) : (
                 <>
                   <Link
@@ -311,7 +331,7 @@ function Navbar() {
             </div>
           </div>
 
-          {/* Footer */}
+          {/* Footer - Cart */}
           <div className="border-t border-gray-100 p-6 bg-gray-50">
             <div className="flex items-center justify-between">
               <Button

@@ -21,19 +21,18 @@ export function ProfileDetails({ user }) {
         <Card className="border flex h-100 justify-items-center items-center shadow-sm rounded-xl bg-gradient-to-b from-blue-50 to-white ">
           <div className="flex flex-col items-center justify-center w-100  text-center h-100">
             <Avatar className="h-24 w-24 mb-4 shadow-md ring-2 ring-blue-200">
-              <AvatarImage
-                src={user.avatar || "/placeholder.svg"}
-                alt={user.name}
-              />
-              <AvatarFallback className="bg-blue-100 text-blue-700 text-xl">
-                {user.name
-                  .split(" ")
-                  .map((n) => n[0])
-                  .join("")
-                  .toUpperCase()}
-              </AvatarFallback>
+              {user.avatar ? (
+                <AvatarImage src={user.avatar} alt={user.name} />
+              ) : (
+                <AvatarFallback className="bg-blue-100 text-blue-700 text-xl">
+                  {user.firstName ? user.firstName[0].toUpperCase() : "U"}
+                </AvatarFallback>
+              )}
             </Avatar>
-            <CardTitle className="text-blue-900 text-xl">{user.name}</CardTitle>
+
+            <CardTitle className="text-blue-900 text-xl">
+              {user.firstName} {user.lastName}
+            </CardTitle>
             <p className="text-sm text-muted-foreground">{user.email}</p>
           </div>
         </Card>
@@ -49,14 +48,12 @@ export function ProfileDetails({ user }) {
               <div className="space-y-1">
                 <span className="text-sm text-muted-foreground">Full Name</span>
                 <p className="font-semibold text-lg text-foreground">
-                  {user.name}
+                  {user.firstName} {user.lastName}
                 </p>
               </div>
               <div className="space-y-1">
                 <span className="text-sm text-muted-foreground">User ID</span>
-                <p className="font-semibold text-lg text-blue-800">
-                  {user.userId}
-                </p>
+                <p className="font-semibold text-lg text-blue-800">2334445</p>
               </div>
               <hr></hr>
               <hr></hr>

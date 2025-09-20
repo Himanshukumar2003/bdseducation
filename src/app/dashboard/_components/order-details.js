@@ -1,6 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Package, Eye, TrendingUp, Clock, CheckCircle } from "lucide-react";
 import Image from "next/image";
 
@@ -14,99 +13,86 @@ const statusConfig = {
 export function OrdersDetails({ orders }) {
   return (
     <div className="space-y-6">
+      {/* Dashboard Header */}
       <div>
-        <h2 className="text-3xl font-bold text-foreground mb-2">
+        <h2 className="text-3xl font-bold text-foreground mb-1">
           Dashboard Overview
         </h2>
-        <p className="text-muted-foreground">
+        <p className="text-muted-foreground text-sm">
           Track and manage all your orders in one place.
         </p>
       </div>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card className="border-blue-200 bg-blue-50/50">
-          <CardContent className="p-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-blue-700">
-                  Total Orders
-                </p>
-                <p className="text-2xl font-bold text-blue-900">
-                  {orders.length}
-                </p>
-              </div>
-              <Package className="h-8 w-8 text-blue-600" />
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="border-green-200 bg-green-50/50">
-          <CardContent className="p-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-green-700">Delivered</p>
-                <p className="text-2xl font-bold text-green-900">
-                  {orders.filter((o) => o.status === "delivered").length}
-                </p>
-              </div>
-              <CheckCircle className="h-8 w-8 text-green-600" />
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="border-purple-200 bg-purple-50/50">
-          <CardContent className="p-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-purple-700">
-                  In Transit
-                </p>
-                <p className="text-2xl font-bold text-purple-900">
-                  {orders.filter((o) => o.status === "shipped").length}
-                </p>
-              </div>
-              <TrendingUp className="h-8 w-8 text-purple-600" />
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="border-cyan-200 bg-cyan-50/50">
-          <CardContent className="p-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-cyan-700">Total Spent</p>
-                <p className="text-2xl font-bold text-cyan-900">
-                  $
-                  {orders
-                    .reduce((sum, order) => sum + order.total, 0)
-                    .toFixed(2)}
-                </p>
-              </div>
-              <TrendingUp className="h-8 w-8 text-cyan-600" />
-            </div>
-          </CardContent>
-        </Card>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+        {[
+          {
+            title: "Total Orders",
+            value: orders.length,
+            icon: Package,
+            color: "blue",
+          },
+          {
+            title: "Delivered",
+            value: orders.filter((o) => o.status === "delivered").length,
+            icon: CheckCircle,
+            color: "green",
+          },
+          {
+            title: "In Transit",
+            value: orders.filter((o) => o.status === "shipped").length,
+            icon: TrendingUp,
+            color: "purple",
+          },
+          {
+            title: "Total Spent",
+            value: `$${orders.reduce((sum, o) => sum + o.total, 0).toFixed(2)}`,
+            icon: TrendingUp,
+            color: "cyan",
+          },
+        ].map((stat) => {
+          const Icon = stat.icon;
+          return (
+            <Card
+              key={stat.title}
+              className={`border-${stat.color}-200 bg-${stat.color}-50/50 py-10 shadow-sm hover:shadow-md transition-shadow`}
+            >
+              <CardContent className="p-4  flex items-start justify-between">
+                <div>
+                  <p
+                    className={`text-xl  font-medium mb-5 text-${stat.color}-700`}
+                  >
+                    {stat.title}
+                  </p>
+                  <p className={`text-4xl font-bold text-${stat.color}-900`}>
+                    {stat.value}
+                  </p>
+                </div>
+                <Icon className={`h-8 w-8 text-${stat.color}-600`} />
+              </CardContent>
+            </Card>
+          );
+        })}
       </div>
 
       {/* Recent Orders */}
-      <Card>
+      <Card className="shadow-md hover:shadow-lg transition-shadow">
         <CardHeader>
-          <CardTitle className="text-blue-900 flex items-center gap-2">
+          <CardTitle className="text-blue-900 flex items-center gap-2 text-lg">
             <Package className="h-5 w-5" />
             Recent Orders
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="space-y-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
             {orders.map((order) => {
               const StatusIcon = statusConfig[order.status].icon;
               return (
-                <div
+                <Card
                   key={order.id}
-                  className="flex items-center gap-4 p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+                  className="flex flex-col overflow-hidden border border-gray-200 rounded-xl hover:shadow-lg transition-all duration-300"
                 >
-                  <div className="relative h-16 w-16 rounded-lg overflow-hidden bg-gray-100">
+                  <div className="relative h-40 w-full bg-gray-100">
                     <Image
                       src={order.productImage || "/placeholder.svg"}
                       alt={order.productTitle}
@@ -114,47 +100,34 @@ export function OrdersDetails({ orders }) {
                       className="object-cover"
                     />
                   </div>
-
-                  <div className="flex-1 min-w-0">
-                    <h3 className="font-semibold text-foreground truncate">
-                      {order.productTitle}
-                    </h3>
-                    <p className="text-sm text-muted-foreground">
-                      Order #{order.id}
-                    </p>
-                    <div className="flex items-center gap-4 mt-1">
-                      <span className="text-sm text-muted-foreground">
-                        Qty: {order.quantity}
-                      </span>
-                      <span className="text-sm text-muted-foreground">•</span>
-                      <span className="text-sm text-muted-foreground">
-                        {order.date}
-                      </span>
+                  <CardContent className="flex-1 p-4 flex flex-col justify-between">
+                    <div>
+                      <h3 className="font-semibold text-foreground truncate text-md">
+                        {order.productTitle}
+                      </h3>
+                      <p className="text-sm text-muted-foreground mt-1">
+                        Order #{order.id}
+                      </p>
+                      <div className="flex items-center gap-2 text-xs text-muted-foreground mt-1">
+                        <span>Qty: {order.quantity}</span>
+                        <span>•</span>
+                        <span>{order.date}</span>
+                      </div>
                     </div>
-                  </div>
-
-                  <div className="text-right">
-                    <p className="font-semibold text-foreground">
-                      ${order.total}
-                    </p>
-                    <Badge
-                      className={`${statusConfig[order.status].color} border-0 mt-1`}
-                    >
-                      <StatusIcon className="h-3 w-3 mr-1" />
-                      {order.status.charAt(0).toUpperCase() +
-                        order.status.slice(1)}
-                    </Badge>
-                  </div>
-
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="border-blue-200 text-blue-700 hover:bg-blue-50 bg-transparent"
-                  >
-                    <Eye className="h-4 w-4 mr-1" />
-                    View
-                  </Button>
-                </div>
+                    <div className="mt-3 flex items-center justify-between">
+                      <p className="font-semibold text-foreground text-lg">
+                        ${order.total}
+                      </p>
+                      <Badge
+                        className={`${statusConfig[order.status].color} border-0 text-xs flex items-center gap-1 px-2 py-1 rounded-md`}
+                      >
+                        <StatusIcon className="h-3 w-3" />
+                        {order.status.charAt(0).toUpperCase() +
+                          order.status.slice(1)}
+                      </Badge>
+                    </div>
+                  </CardContent>
+                </Card>
               );
             })}
           </div>

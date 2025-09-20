@@ -21,23 +21,21 @@ export function ProfileContent({ user, orders }) {
         {/* Profile Card */}
         <Card className="bg-gradient-to-b from-blue-50 to-white border-none shadow-md">
           <CardHeader className="text-center flex flex-col items-center space-y-2">
-            <Avatar className="h-24 w-24 shadow-lg ring-2 ring-blue-300">
-              <AvatarImage
-                src={user.avatar || "/placeholder.svg"}
-                alt={user.name}
-              />
-              <AvatarFallback className="bg-blue-100 text-blue-800 text-lg">
-                {user.name
-                  .split(" ")
-                  .map((n) => n[0])
-                  .join("")
-                  .toUpperCase()}
-              </AvatarFallback>
+            <Avatar className="h-24 w-24 mb-4 shadow-md ring-2 ring-blue-200">
+              {user.avatar ? (
+                <AvatarImage src={user.avatar} alt={user.name} />
+              ) : (
+                <AvatarFallback className="bg-blue-100 text-blue-700 text-xl">
+                  {user.firstName ? user.firstName[0].toUpperCase() : "U"}
+                </AvatarFallback>
+              )}
             </Avatar>
             <CardTitle className="text-xl text-blue-900 font-semibold">
-              {user.name}
+              {user?.name || "Unknown User"}
             </CardTitle>
-            <p className="text-muted-foreground text-sm">{user.email}</p>
+            <p className="text-muted-foreground text-sm">
+              {user?.email || "-"}
+            </p>
           </CardHeader>
 
           <CardContent className="space-y-4 px-6 pb-6">
@@ -49,7 +47,7 @@ export function ProfileContent({ user, orders }) {
                   Member since
                 </span>
                 <span className="text-sm font-medium text-foreground">
-                  {user.joinDate || "January 2024"}
+                  {user?.joinDate || "January 2024"}
                 </span>
               </div>
               <div className="flex items-center justify-between">
@@ -58,7 +56,7 @@ export function ProfileContent({ user, orders }) {
                   Account Status
                 </span>
                 <span className="text-sm font-medium text-green-600">
-                  Active
+                  {user?.status || "Active"}
                 </span>
               </div>
             </div>
@@ -74,7 +72,7 @@ export function ProfileContent({ user, orders }) {
             <div className="grid grid-cols-2 gap-4">
               <div className="text-center p-4 bg-blue-50 rounded-lg shadow-sm">
                 <div className="text-3xl font-bold text-blue-900">
-                  {orders.length}
+                  {orders?.length || 0}
                 </div>
                 <div className="text-sm text-muted-foreground">
                   Total Orders
@@ -82,7 +80,7 @@ export function ProfileContent({ user, orders }) {
               </div>
               <div className="text-center p-4 bg-green-50 rounded-lg shadow-sm">
                 <div className="text-3xl font-bold text-green-700">
-                  {orders.filter((o) => o.status === "delivered").length}
+                  {orders?.filter((o) => o.status === "delivered")?.length || 0}
                 </div>
                 <div className="text-sm text-muted-foreground">Completed</div>
               </div>

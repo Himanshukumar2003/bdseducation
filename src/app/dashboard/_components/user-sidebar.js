@@ -20,11 +20,7 @@ export function UserSidebar({
               alt={user.name}
             />
             <AvatarFallback className="bg-sidebar-primary text-sidebar-primary-foreground">
-              {user.name
-                .split(" ")
-                .map((n) => n[0])
-                .join("")
-                .toUpperCase()}
+              {user.firstName ? user.firstName[0].toUpperCase() : "U"}
             </AvatarFallback>
           </Avatar>
           <div className="flex-1 min-w-0">

@@ -5,19 +5,9 @@ import { UserSidebar } from "./_components/user-sidebar";
 import { DashboardOverview } from "./_components/overViwe";
 import { ProfileDetails } from "./_components/profile";
 import { OrdersDetails } from "./_components/order-details";
+import { useSelector } from "react-redux";
 
-const mockUser = {
-  name: "John Doe",
-  email: "john.doe@example.com",
-  avatar: "/images/Problem-Solving-Skills-for-Students.png",
-  userId: "USR-12345",
-  phone: "+1 (555) 123-4567",
-  address: "123 Main Street, New York, NY 10001, United States",
-  joinDate: "January 15, 2023",
-  status: "Premium Member",
-};
-
-const mockOrders = [
+const orders = [
   {
     id: "ORD-001",
     status: "delivered",
@@ -60,33 +50,42 @@ const mockOrders = [
   },
 ];
 
-export default function HomePage() {
+export default function DashboardPage() {
   const [activeSection, setActiveSection] = useState("dashboard");
+
+  const { user, isAuthenticated } = useSelector((state) => state.auth);
+
+  console.log(user);
+  // const orders = useSelector((state) => state.orders.items); // agar orders Redux me hain
+
   const handleLogout = () => {
     console.log("User logged out");
     alert("Logged out successfully!");
   };
 
+  if (!isAuthenticated) {
+    return <p className="text-center mt-20 text-xl">Please login first!</p>;
+  }
+
   const renderContent = () => {
     switch (activeSection) {
       case "profile":
-        return <ProfileDetails user={mockUser} />;
+        return <ProfileDetails user={user} />;
       case "orders":
-        return <OrdersDetails orders={mockOrders} />;
+        return <OrdersDetails orders={orders} />;
       default:
-        return <DashboardOverview />;
+        return <DashboardOverview user={user} />;
     }
   };
 
   return (
     <div className="min-h-screen bg-background flex">
       <UserSidebar
-        user={mockUser}
+        user={user}
         activeSection={activeSection}
         onSectionChange={setActiveSection}
         onLogout={handleLogout}
       />
-
       <div className="flex-1 p-6">{renderContent()}</div>
     </div>
   );
