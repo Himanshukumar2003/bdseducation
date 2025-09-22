@@ -61,10 +61,10 @@ function Books() {
 
   return (
     <div className=" bg-gray-100 py-16">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {grades.map((item) => (
-            <div  key={item.grade}>
+            <div key={item.grade}>
               <div
                 className={`${item.bgColor} rounded-2xl p-4 shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 cursor-pointer`}
               >

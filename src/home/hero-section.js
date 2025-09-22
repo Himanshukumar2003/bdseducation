@@ -25,18 +25,22 @@ export default function HeroSection() {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link href="/contact" className=" btn">
-                <span>Contact Us</span>
-              </Link>
-              <Link
-                variant="outline"
-                size="lg"
-                href="/about"
-                className="text-base bg-transparent btn border-2 border-blue-500 text-blue-500 hover:text-white"
-              >
-                {/* <Play className="mr-2 h-5 w-5" /> */}
-                About us
-              </Link>
+              <div>
+                <Link href="/contact" className=" btn">
+                  <span>Contact Us</span>
+                </Link>
+              </div>
+              <div>
+                <Link
+                  variant="outline"
+                  size="lg"
+                  href="/about"
+                  className="text-base bg-transparent btn border-2 border-blue-500 text-blue-500 hover:text-white"
+                >
+                  {/* <Play className="mr-2 h-5 w-5" /> */}
+                  About us
+                </Link>
+              </div>
             </div>
           </div>
 

@@ -3,10 +3,7 @@ import React from "react";
 
 export default function GetInTouch() {
   return (
-    <section
-      className="relative section mx-auto max-w-6xl px-4"
-      data-aos="zoom-in"
-    >
+    <section className=" py-16 mx-auto max-w-6xl px-4" data-aos="zoom-in">
       <div
         className="relative rounded-3xl shadow-xl p-8 md:p-8 bg-no-repeat bg-center bg-cover overflow-hidden"
         style={{ backgroundImage: "url('/images/hero-2.png')" }}
