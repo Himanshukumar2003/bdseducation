@@ -2,6 +2,7 @@
 
 import {
   Sheet,
+  SheetClose,
   SheetContent,
   SheetHeader,
   SheetTitle,
@@ -53,15 +54,6 @@ export default function CartSidebar() {
           <SheetTitle className="text-xl font-bold text-gray-800">
             Your Cart
           </SheetTitle>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="absolute top-0 right-0 text-gray-500 hover:text-gray-700"
-            onClick={() => dispatch(closeCart())}
-          >
-            <X className="h-5 w-5" />
-            <span className="sr-only">Close cart</span>
-          </Button>
         </SheetHeader>
 
         <div className="flex-1 overflow-y-auto py-2 pr-1 space-y-4 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent">

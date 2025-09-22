@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Play, ArrowRight } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function HeroSection() {
   return (
@@ -24,17 +25,18 @@ export default function HeroSection() {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <button className=" btn">
+              <Link href="/contact" className=" btn">
                 <span>Contact Us</span>
-              </button>
-              <Button
+              </Link>
+              <Link
                 variant="outline"
                 size="lg"
+                href="/about"
                 className="text-base bg-transparent btn border-2 border-blue-500 text-blue-500 hover:text-white"
               >
-                <Play className="mr-2 h-5 w-5" />
-                Watch Demo
-              </Button>
+                {/* <Play className="mr-2 h-5 w-5" /> */}
+                About us
+              </Link>
             </div>
           </div>
 

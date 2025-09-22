@@ -101,27 +101,56 @@ export default function Footer() {
           </div>
 
           {/* Products / Solutions Section */}
+
           <div>
             <h3 className="text-lg font-semibold text-gray-400 mb-4">
-              Solutions
+              Our Products
             </h3>
             <ul className="space-y-3">
               <li>
-                <span className="text-white">Skill Development Labs</span>
+                <Link href="/product/makeblock-mbot" className="text-white ">
+                  Makeblock mBot
+                </Link>
               </li>
               <li>
-                <span className="text-white">Coding & Robotics (NEP 2020)</span>
+                <Link
+                  href="/product/makeblock-codey-rocky"
+                  className="text-white "
+                >
+                  Makeblock Codey Rocky
+                </Link>
               </li>
               <li>
-                <span className="text-white">Grade-wise Student Books</span>
+                <Link
+                  href="/product/codey-rocky-and-neuron-education-kit"
+                  className="text-white "
+                >
+                  Codey Rocky & Neuron Education Kit
+                </Link>
               </li>
               <li>
-                <span className="text-white">Teacher Training & Support</span>
+                <Link
+                  href="/products/cyberpi-pack"
+                  className="text-white hover:text-orange-400"
+                >
+                  Makeblock CyberPi Innovation Add-on Pack
+                </Link>
               </li>
               <li>
-                <span className="text-white">
-                  Project Library & Competitions
-                </span>
+                <Link
+                  href="/products/znatok-arduino-basic"
+                  className="text-white hover:text-orange-400"
+                >
+                  Discover the Best Znatok Arduino Basic
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/products"
+                  className="text-white hover:text-orange-400 font-medium"
+                >
+                  View All Products
+                </Link>
               </li>
             </ul>
           </div>

@@ -45,7 +45,6 @@ export function ContactForm() {
               want to share your thoughts on contemporary art, we welcome your
               message.
             </p>
-       
           </div>
 
           {/* Right side - Form */}
@@ -79,7 +78,7 @@ export function ContactForm() {
                     className="w-full"
                   />
                 </div>
-  <div>
+                <div>
                   <label
                     htmlFor="phone"
                     className="block text-sm font-medium text-gray-800 mb-2"
@@ -116,13 +115,6 @@ export function ContactForm() {
                   />
                 </div>
 
-              
-
-        
-
-
-         
-
                 <div>
                   <label
                     htmlFor="message"
@@ -140,11 +132,8 @@ export function ContactForm() {
                     className="w-full min-h-[120px] resize-none"
                   />
                 </div>
-                <button class="btn" type="submit">
-                  <span>
-                    submit
-                  
-                  </span>
+                <button className="btn" type="submit">
+                  <span>submit</span>
                 </button>
               </form>
             </CardContent>
