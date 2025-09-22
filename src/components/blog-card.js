@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { User, Tag } from "lucide-react";
+import Link from "next/link";
 
 export default function BlogCard({
   title,
@@ -39,9 +40,9 @@ export default function BlogCard({
 
         <p className="text-gray-600 leading-relaxed mb-6">{excerpt}</p>
 
-        <button className="btn">
+        <Link href="/blog-page" className="btn">
           <span>READ MORE</span>
-        </button>
+        </Link>
       </div>
     </article>
   );
