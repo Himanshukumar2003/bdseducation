@@ -15,7 +15,7 @@ export default function Footer() {
   return (
     <footer className=" text-white px-6 py-12 mt-0 bg-gradient-to-b from-[#30338B] to-[#505BDD]">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8 mb-8">
           {/* Brand Section */}
           <div className="lg:col-span-2">
             <div className="flex items-center gap-2 mb-4">
@@ -152,60 +152,111 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Contact Section */}
-          <div>
+          <div className="lg:col-span-2">
             <h3 className="text-lg font-semibold text-gray-400 mb-4">
               Contact
             </h3>
             <div className="space-y-4">
+              {/* Dayalbagh Address */}
               <div className="flex items-start gap-3">
                 <MapPin className="w-5 h-5 text-white mt-0.5 flex-shrink-0" />
                 <p className="text-sm text-white">
-                  BDS Education Pvt. Ltd.
-                  <br />
-                  India
+                  Dayalbagh: Near St Columbus School Gate No.2, SCO-12, 1st
+                  Floor, Dayalbagh, Surajkund, Faridabad - 121009
                 </p>
               </div>
-              <div className="flex items-center gap-3">
-                <Phone className="w-5 h-5 text-white flex-shrink-0" />
-                <p className="text-sm text-white">+91 9319714345</p>
-              </div>
-              <div className="flex items-center gap-3">
-                <Mail className="w-5 h-5 text-white flex-shrink-0" />
-                <p className="text-sm text-white">nc@bdseducation.in</p>
+
+              {/* Sec 14 Address */}
+              <div className="flex items-start gap-3">
+                <MapPin className="w-5 h-5 text-white mt-0.5 flex-shrink-0" />
+                <p className="text-sm text-white">
+                  Sec 14: 772, Sector -14, Faridabad, Haryana - 121007
+                </p>
               </div>
 
+              {/* Sydney Address */}
+              <div className="flex items-start gap-3">
+                <MapPin className="w-5 h-5 text-white mt-0.5 flex-shrink-0" />
+                <p className="text-sm text-white">
+                  Sydney: 1/25, Park Avenue, Tahmoor, NSW
+                </p>
+              </div>
+
+              {/* Phone Numbers */}
+              <div className="flex items-start gap-3">
+                <Phone className="w-5 h-5 text-white flex-shrink-0" />
+                <p className="text-sm text-white">
+                  Wasim:{" "}
+                  <a href="tel:+918826730055" className="underline">
+                    +91 88267 30055
+                  </a>
+                  <br />
+                  Landline:{" "}
+                  <a href="tel:+911294020574" className="underline">
+                    129-4020574
+                  </a>
+                  <br />
+                  Pankaj:{" "}
+                  <a href="tel:+917303909672" className="underline">
+                    73039 09672
+                  </a>
+                  <br />
+                  Sydney:{" "}
+                  <a href="tel:+61434115929" className="underline">
+                    0061434115929
+                  </a>
+                </p>
+              </div>
+
+              {/* Emails */}
+              <div className="flex items-center gap-3">
+                <Mail className="w-5 h-5 text-white flex-shrink-0" />
+                <p className="text-sm text-white">
+                  <a href="mailto:nc@bdseducation.in" className="underline">
+                    nc@bdseducation.in
+                  </a>
+                  <br />
+                  <a
+                    href="mailto:Wasim.khan@bdseducation.in"
+                    className="underline"
+                  >
+                    Wasim.khan@bdseducation.in
+                  </a>
+                </p>
+              </div>
+
+              {/* Social Links */}
               <div className="flex gap-3 mt-4">
                 <Link
-                  href="https://www.facebook.com"
+                  href="https://www.facebook.com/people/BDS-Education/100063881380680/"
                   target="_blank"
                   className="w-10 h-10 bg-slate-700 hover:bg-blue-600 rounded-lg flex items-center justify-center transition-colors"
                 >
                   <Facebook className="w-5 h-5" />
                 </Link>
                 <Link
-                  href="https://twitter.com"
+                  href="https://x.com/i/flow/login?redirect_after_login=%2Fbds_connect"
                   target="_blank"
                   className="w-10 h-10 bg-slate-700 hover:bg-blue-400 rounded-lg flex items-center justify-center transition-colors"
                 >
                   <Twitter className="w-5 h-5" />
                 </Link>
                 <Link
-                  href="https://www.youtube.com"
+                  href="https://www.youtube.com/@bdseducation6748"
                   target="_blank"
                   className="w-10 h-10 bg-slate-700 hover:bg-red-600 rounded-lg flex items-center justify-center transition-colors"
                 >
                   <YoutubeIcon className="w-5 h-5" />
                 </Link>
                 <Link
-                  href="https://www.instagram.com"
+                  href="https://www.instagram.com/_bds.education/"
                   target="_blank"
                   className="w-10 h-10 bg-slate-700 hover:bg-pink-600 rounded-lg flex items-center justify-center transition-colors"
                 >
                   <Instagram className="w-5 h-5" />
                 </Link>
                 <Link
-                  href="https://www.linkedin.com"
+                  href="https://www.linkedin.com/company/educationbds/"
                   target="_blank"
                   className="w-10 h-10 bg-slate-700 hover:bg-blue-700 rounded-lg flex items-center justify-center transition-colors"
                 >
@@ -224,7 +275,7 @@ export default function Footer() {
             <a
               href="https://brandingwaale.com/"
               target="_blank"
-              className="hover:underline"
+              className="hover:underline text-white"
             >
               Brandingwaale Webtech
             </a>

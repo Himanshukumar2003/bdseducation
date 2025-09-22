@@ -1,7 +1,8 @@
-        export default function TableVariation({ specifications }) {
+export default function TableVariation({ specifications }) {
   return (
-    <div className="section bg-gray-50">
-      <div className="container max-w-6xl mx-auto"><div className="text-center mb-16 max-w-[600px] mx-auto">
+    <div className="section ">
+      <div className="container max-w-6xl mx-auto">
+        <div className="text-center mb-16 max-w-[600px] mx-auto">
           <span className="text-[var(--primary-blue)] font-semibold text-sm tracking-widest uppercase mb-4 block">
             Journey
           </span>
