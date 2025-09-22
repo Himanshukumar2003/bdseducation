@@ -1,54 +1,43 @@
 "use client";
 
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination, Navigation } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
-
 export default function VideoSection({ videos = [] }) {
-  if (!videos || videos.length === 0) return null; // no videos → no render
+  const demoVideos = [
+    "https://www.youtube.com/embed/KxTK03zCe6o?si=0ZqMTrs2Qkajwxi7",
+  ];
 
   return (
     <section className="py-12 bg-gray-100">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16 max-w-[600px] mx-auto">
-          <span className="text-[var(--primary-blue)] font-semibold text-sm tracking-widest uppercase mb-4 block">
-            Journey
-          </span>
-          <h2 className="text-3xl lg:text-4xl font-bold text-gray-800 mb-6">
-            Start a Journey with a Buildable Robotics Kit
-          </h2>
-        </div>
-
-        <Swiper
-          modules={[Autoplay, Pagination, Navigation]}
-          spaceBetween={20}
-          slidesPerView={1}
-          pagination={{ clickable: true }}
-          navigation
-          autoplay={{ delay: 3000 }}
-          breakpoints={{
-            640: { slidesPerView: 1 },
-            768: { slidesPerView: 2 },
-            1024: { slidesPerView: 4 },
-          }}
-        >
-          {videos.map((src, i) => (
-            <SwiperSlide key={i}>
-              <div className="w-full overflow-hidden rounded-lg shadow-md">
+      <div className="container mx-auto px-4 max-w-5xl">
+        <div className="max-w-6xl">
+          <div className="text-center mb-12 max-w-[700px] mx-auto">
+            <h2 className="text-3xl lg:text-4xl font-bold text-gray-800 mb-4">
+              Explore Our Robotics Journey
+            </h2>
+            <p className="text-gray-600 text-lg">
+              Dive into our engaging video tutorials and see how you can start
+              building your own robotics projects with our easy-to-follow kits.
+              Perfect for beginners and enthusiasts alike!
+            </p>
+          </div>
+          {demoVideos.map((src, i) => (
+            <div
+              key={i}
+              className="w-full overflow-hidden rounded-xl shadow-md border border-gray-200"
+            >
+              <div className="relative w-full" style={{ paddingTop: "56.25%" }}>
                 <iframe
+                  className="absolute top-0 left-0 w-full h-full rounded-xl"
                   src={src}
                   title={`YouTube video ${i + 1}`}
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerPolicy="strict-origin-when-cross-origin"
                   allowFullScreen
-                  className="w-full min-h-[350px]"
                 ></iframe>
               </div>
-            </SwiperSlide>
+            </div>
           ))}
-        </Swiper>
+        </div>
       </div>
     </section>
   );

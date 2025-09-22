@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Puzzle, Heart, ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 export default function AboutSection() {
   return (
@@ -72,13 +73,13 @@ export default function AboutSection() {
               talents and abilities.
             </p>
 
-            <button className="btn">
+            <Link href="/about" className="btn">
               <span>
                 READ MORE{" "}
                 {/* Replaced FontAwesome arrow-right icon with Lucide ArrowRight icon */}
                 <ArrowRight className="w-4 h-4 ml-2 inline" />
               </span>
-            </button>
+            </Link>
           </div>
         </div>
       </div>

@@ -75,18 +75,18 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/teacher-guide"
-                  className="text-white hover:text-white transition-colors"
-                >
-                  Teacher Guide
-                </Link>
-              </li>
-              <li>
-                <Link
                   href="/gallery"
                   className="text-white hover:text-white transition-colors"
                 >
                   Gallery
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/blog"
+                  className="text-white hover:text-white transition-colors"
+                >
+                  Blogs
                 </Link>
               </li>
               <li>
@@ -130,25 +130,22 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/products/cyberpi-pack"
-                  className="text-white hover:text-orange-400"
+                  href="/product-two/makeblock-cyberpi-innovation-add-on-pack"
+                  className="text-white"
                 >
                   Makeblock CyberPi Innovation Add-on Pack
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/products/znatok-arduino-basic"
-                  className="text-white hover:text-orange-400"
+                  href="/product-two/discover-the-best-znatok-arduino-basic"
+                  className="text-white "
                 >
                   Discover the Best Znatok Arduino Basic
                 </Link>
               </li>
               <li>
-                <Link
-                  href="/products"
-                  className="text-white hover:text-orange-400 font-medium"
-                >
+                <Link href="/products" className="text-white ">
                   View All Products
                 </Link>
               </li>
