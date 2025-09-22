@@ -183,17 +183,14 @@ function Navbar() {
                 </div>
               ) : (
                 <div className="flex items-center gap-2 text-sm">
-                  <Link
-                    href="/login"
-                    className="auth-link nav-link flex items-center gap-1"
-                  >
+                  <Link href="/login" className=" btn flex items-center gap-2">
                     <LogIn className="w-4 h-4" />
                     Login
                   </Link>
-                  <span className="text-muted-foreground">|</span>
+
                   <Link
                     href="/signup"
-                    className="auth-link nav-link flex items-center gap-1"
+                    className="flex items-center gap-1 btn bg-transparent border-2 border-blue-500 text-blue-500 hover:text-white"
                   >
                     <User className="w-4 h-4" />
                     Sign Up
