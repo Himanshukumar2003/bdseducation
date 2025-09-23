@@ -9,6 +9,7 @@ import {
   Eye,
 } from "lucide-react";
 import { CardCarousel } from "@/components/ui/card-carousel";
+import { Breadcrumb } from "@/components/breadcrumb";
 
 export default function About() {
   const stats = [
@@ -80,6 +81,12 @@ export default function About() {
   return (
     <>
       {/* About Section */}
+      <Breadcrumb
+        title="About Us"
+        backgroundImage="/img/header1.webp"
+        items={[{ label: "About", href: "/about", isCurrent: true }]}
+      />
+
       <section className="section  relative overflow-hidden">
         <div className="container mx-auto px-6 lg:px-12">
           <div className="flex flex-col lg:flex-row items-center gap-12">

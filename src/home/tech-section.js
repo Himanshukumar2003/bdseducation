@@ -39,9 +39,9 @@ export default function AIEducationUI() {
       <div className="   container max-w-7xl mx-auto px-4">
         {/* Header Section */}
         <div className="text-center mb-12">
-          <h1 className=" text-3xl lg:text-4xl font-bold text-white mb-6">
+          <h2 className=" text-3xl lg:text-4xl font-bold text-white mb-6">
             Technologies in Focus for Inclusive AI Education
-          </h1>
+          </h2>
           <p className="text-white  text-lg leading-relaxed max-w-2xl mx-auto">
             Get your kids an opportunity to master world-class technological
             concepts like coding, training machine learning models, self-driving

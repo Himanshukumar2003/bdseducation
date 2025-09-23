@@ -299,7 +299,7 @@ export default function SignupPage() {
       </div>
 
       {/* Right Side - Educational Content */}
-      <div className="flex-1 bg-gradient-to-r from-blue-500 to-blue-700 education-pattern flex items-center justify-center p-8 text-white">
+      <div className="  hidden flex-1 bg-gradient-to-r from-blue-500 to-blue-700 education-pattern lg:flex items-center justify-center p-8 text-white">
         {/* Optional educational content */}
         <div className="max-w-lg space-y-8">
           <div className="text-center space-y-4">

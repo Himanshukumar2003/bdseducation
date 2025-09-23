@@ -17,9 +17,9 @@ export default function Hero({ product }) {
       <div className="container max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-10 items-center px-4">
         {/* Left Column: Product Info */}
         <div className="col-span-1 space-y-6">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900">
             {product.title}
-          </h2>
+          </h1>
           <p className="text-gray-600 text-base sm:text-lg md:text-xl">
             {product.description}
           </p>
