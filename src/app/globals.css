@@ -294,3 +294,10 @@ h2 p{
 a{
   text-decoration: none;
 }
+
+.prose-p{
+  font-weight: 400 !important;
+}
+strong p{
+font-weight: 400 !important;
+}

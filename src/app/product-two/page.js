@@ -231,7 +231,7 @@ ${img}`
     
      
        prose-p:m-0
-       prose-p:font-bolder
+       prose-p:font-font-normal
        prose-ul:list-disc
        prose-ol:list-decimal
        prose-li:ml-6
@@ -244,6 +244,8 @@ ${img}`
        prose-th:bg-gray-100 prose-th:font-semibold prose-th:px-4 prose-th:py-2
        prose-td:px-4 prose-td:py-2
        prose-code:bg-gray-100 prose-code:rounded px-1 prose-code:text-red-600
+
+      
        "
             dangerouslySetInnerHTML={{ __html: cleanContent }}
           />
