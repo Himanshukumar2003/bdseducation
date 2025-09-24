@@ -239,6 +239,129 @@ function Navbar() {
                 <Menu className="w-6 h-6" />
               )}
             </Button>
+
+               <div
+        className={`fixed inset-0 z-50 lg:hidden transition-all duration-500 ease-in-out ${
+          isOpen ? "visible" : "invisible"
+        }`}
+      >
+        {/* Backdrop */}
+        <div
+          className={`absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity duration-500 ${
+            isOpen ? "opacity-100" : "opacity-0"
+          }`}
+          onClick={() => setIsOpen(false)}
+        />
+
+        {/* Panel */}
+        <div
+          className={`absolute top-0 right-0 h-full w-full max-w-sm bg-white shadow-2xl transform transition-transform duration-500 ease-in-out ${
+            isOpen ? "translate-x-0" : "translate-x-full"
+          }`}
+        >
+          <div className="flex items-center justify-between p-6 border-b border-gray-100">
+            <div className="flex items-center gap-3">
+              <Image
+                src="/images/logo.png"
+                alt="Logo"
+                height={40}
+                width={80}
+                className="h-8 w-auto object-contain"
+              />
+              <span className="font-bold text-lg text-gray-800">Menu</span>
+            </div>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setIsOpen(false)}
+              className="rounded-full hover:bg-gray-100"
+            >
+              <X className="w-5 h-5" />
+            </Button>
+          </div>
+
+          {/* Mobile Navigation Links */}
+          <div className="flex-1 overflow-y-auto py-6 px-6">
+            {navigationItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={() => setIsOpen(false)}
+                className="block p-3 rounded-lg hover:bg-gray-100 text-gray-800 font-semibold"
+              >
+                {item.label}
+              </Link>
+            ))}
+
+            {user && (
+              <Link
+                href="/dashboard"
+                onClick={() => setIsOpen(false)}
+                className="block p-3 mt-2 rounded-lg hover:bg-gray-100 text-gray-800 font-semibold"
+              >
+                Dashboard
+              </Link>
+            )}
+
+            {/* Account Section */}
+            <div className="mt-8 bg-gray-50 rounded-xl p-4">
+              <h3 className="font-semibold text-gray-800 mb-3">Account</h3>
+                 {user ? (
+                <div className="flex items-center gap-3">
+                  <UserDropdown user={user} />
+                  <button
+                    onClick={handleLogout}
+                    className="btn font-medium text-sm"
+                  >
+                    Logout
+                  </button>
+                </div>
+              ) : (
+                <div className="flex items-center gap-2 text-sm">
+                  <Link href="/login" className=" btn flex items-center gap-2">
+                    <LogIn className="w-4 h-4" />
+                    Login
+                  </Link>
+
+                  <Link
+                    href="/signup"
+                    className="flex items-center gap-1 btn bg-transparent border-2 border-blue-500 text-blue-500 hover:text-white"
+                  >
+                    <User className="w-4 h-4" />
+                    Sign Up
+                  </Link>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Footer - Cart */}
+          <div className="border-t border-gray-100 p-6 bg-gray-50">
+            <div className="flex items-center justify-between">
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => {
+                  dispatch(toggleCart());
+                  setIsOpen(false);
+                }}
+                className="cart-btn relative"
+              >
+                <ShoppingCart className="w-5 h-5" />
+                {total > 0 && (
+                  <Badge className="absolute -top-2 -right-2 w-5 h-5 text-xs font-bold flex items-center justify-center p-0 bg-red-500 text-white">
+                    {total}
+                  </Badge>
+                )}
+              </Button>
+              <span className="text-sm text-gray-600">
+                Cart ({total} items)
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
           </div>
         </div>
       </nav>
