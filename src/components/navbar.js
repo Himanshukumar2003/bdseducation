@@ -155,7 +155,7 @@ function Navbar() {
                             <ListItem
                               key={index}
                               title={component.title}
-                              href={`books/${component.slug}`}
+                              href={`/books/${component.slug}`}
                               image={component.pictures}
                             >
                               {component.description}
