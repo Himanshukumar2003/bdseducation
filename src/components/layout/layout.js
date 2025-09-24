@@ -1,22 +1,24 @@
 "use client";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
-import Providers from "@/lib/povider";
 import CartSidebar from "@/components/ui/cart-sidebar";
-import SmoothScrollProvider from "@/providers/smooth-scroll-provider";
 import { usePathname } from "next/navigation";
+import RoleContext from "@/providers/role-context-provider";
+import AuthProvider from "@/providers/auth-provider";
 
 export default function Layout({ children }) {
   const path = usePathname();
-  const pathName = ["/dashboard", "/login", "/signup"];
+  const pathName = ["/login", "/signup"];
   if (pathName.includes(path)) return children;
 
   return (
-    <>
-      <Navbar></Navbar>
-      {children}
-      <Footer />
-      <CartSidebar></CartSidebar>
-    </>
+    <AuthProvider>
+      <RoleContext>
+        <Navbar></Navbar>
+        {children}
+        <Footer />
+        <CartSidebar></CartSidebar>
+      </RoleContext>
+    </AuthProvider>
   );
 }

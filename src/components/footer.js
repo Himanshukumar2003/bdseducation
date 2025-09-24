@@ -145,7 +145,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/products" className="text-white ">
+                <Link href="/product" className="text-white ">
                   View All Products
                 </Link>
               </li>

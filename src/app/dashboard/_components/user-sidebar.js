@@ -3,32 +3,24 @@
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { User, Package, LogOut, Home } from "lucide-react";
+import { handleLogout } from "@/providers/auth-provider";
 
-export function UserSidebar({
-  user,
-  activeSection,
-  onSectionChange,
-  onLogout,
-}) {
+export function UserSidebar({ user, activeSection, onSectionChange }) {
   return (
     <div className="w-64  bg-sidebar border-r border-sidebar-border sticky top-20 flex flex-col">
       <div className="p-6 border-b border-sidebar-border">
         <div className="flex items-center gap-3">
-          <Avatar className="h-10 w-10">
-            <AvatarImage
-              src={user.avatar || "/placeholder.svg"}
-              alt={user.name}
-            />
-            <AvatarFallback className="bg-sidebar-primary text-sidebar-primary-foreground">
-              {user.firstName ? user.firstName[0].toUpperCase() : "U"}
+          <Avatar className="h-10 w-10  shadow-md ring-2 ring-blue-200">
+            <AvatarFallback className="bg-blue-100 text-blue-700 text-xl">
+              {user?.firstName ? user?.fullname[0].toUpperCase() : "U"}
             </AvatarFallback>
           </Avatar>
           <div className="flex-1 min-w-0">
             <h2 className="font-semibold text-sidebar-foreground truncate">
-              {user.name}
+              {user?.fullname}
             </h2>
             <p className="text-sm text-muted-foreground truncate">
-              {user.email}
+              {user?.email}
             </p>
           </div>
         </div>
@@ -36,14 +28,14 @@ export function UserSidebar({
 
       <div className="flex-1 p-4">
         <nav className="space-y-2">
-          <Button
+          {/* <Button
             variant={activeSection === null ? "default" : "ghost"}
             className="w-full justify-start gap-3"
             onClick={() => onSectionChange(null)}
           >
             <Home className="h-4 w-4" />
             Dashboard
-          </Button>
+          </Button> */}
           <Button
             variant={activeSection === "profile" ? "default" : "ghost"}
             className="w-full justify-start gap-3"
@@ -68,7 +60,7 @@ export function UserSidebar({
         <Button
           variant="ghost"
           className="w-full justify-start gap-3 text-destructive hover:text-destructive hover:bg-destructive/10"
-          onClick={onLogout}
+          onClick={handleLogout}
         >
           <LogOut className="h-4 w-4" />
           Sign Out

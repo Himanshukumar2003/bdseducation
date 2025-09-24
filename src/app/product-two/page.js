@@ -34,7 +34,7 @@ export default function BookPage() {
   const book = books[3];
   const bookImages = products.pictures?.length
     ? book.pictures.map(
-        (img) => `  ${process.env.NEXT_PUBLIC_FILE_BASE_URL}
+        (img) => `  ${process.env.NEXT_PUBLIC_FILE_BASE}
 ${img}`
       )
     : ["/placeholder.svg"];
@@ -228,8 +228,6 @@ ${img}`
             className="prose lg:prose-lg max-w-7xl 
        prose-headings:text-gray-900
        prose-headings:mb-3
-    
-     
        prose-p:m-0
        prose-p:font-font-normal
        prose-ul:list-disc

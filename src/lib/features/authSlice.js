@@ -1,10 +1,7 @@
-"use client";
-
-// /lib/features/authSlice.js
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  user: null, // { firstName, lastName, email, avatar? }
+  user: null,
   isAuthenticated: false,
 };
 
@@ -13,7 +10,7 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     login: (state, action) => {
-      state.user = action.payload; // { firstName, lastName, email, avatar? }
+      state.user = action.payload; // { firstName, lastName, email, etc. }
       state.isAuthenticated = true;
     },
     logout: (state) => {

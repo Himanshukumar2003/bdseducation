@@ -178,7 +178,7 @@ export default function CheckoutPage() {
                   >
                     <div className="relative w-20 h-20 flex-shrink-0 border rounded-lg  bg-gray-100">
                       <Image
-                        src={`${process.env.NEXT_PUBLIC_FILE_BASE_URL}${item.pictures[0]}`}
+                        src={`${process.env.NEXT_PUBLIC_FILE_BASE}${item.pictures[0]}`}
                         alt={item.title}
                         fill
                         className="object-contain p-1"

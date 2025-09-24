@@ -9,40 +9,43 @@ export default async function BookPage({ params }) {
   );
   const data = await response.json();
 
-  console.log(data)
+  console.log(data);
 
   if (!data?.data) {
     return <div>Not Found</div>;
   }
 
   const product = data.data;
-  
+
   // Fixed variable name from 'book' to 'product'
   const bookImages = product.pictures?.length
-    ? product.pictures.map((img) => `${process.env.NEXT_PUBLIC_FILE_BASE_URL}${img}`):["/placeholder.svg"];
+    ? product.pictures.map(
+        (img) => `${process.env.NEXT_PUBLIC_FILE_BASE}${img}`
+      )
+    : ["/placeholder.svg"];
 
-  // Fixed variable name from 'book' to 'product'  
+  // Fixed variable name from 'book' to 'product'
   const cleanContent = product.content
-    ? product.content.replace(/<[^/>][^>]*><\/[^>]+>/g, "").replace(/\s{2,}/g, " ").trim()
+    ? product.content
+        .replace(/<[^/>][^>]*><\/[^>]+>/g, "")
+        .replace(/\s{2,}/g, " ")
+        .trim()
     : "";
-
-
-    
 
   return (
     <>
       <div className="max-w-7xl mx-auto px-6 py-12">
-         <BookImageGallery bookImages={bookImages} product={product} /> 
+        <BookImageGallery bookImages={bookImages} product={product} />
       </div>
-      
+
       <div className="section bg-gray-100">
         <div className="max-w-7xl mx-auto py-5 px-4 container">
           <h2 className="text-left text-5xl text-blue-500 mb-4 font-bold">
             Product information
           </h2>
-          
-<div
-  className="prose lg:prose-lg max-w-7xl 
+
+          <div
+            className="prose lg:prose-lg max-w-7xl 
     prose-headings:text-gray-900
     prose-headings:mb-3
     prose-p:text-gray-700
@@ -66,9 +69,8 @@ export default async function BookPage({ params }) {
     prose-tr:nth-child(odd):bg-white
     prose-code:bg-gray-100 prose-code:rounded px-1 prose-code:text-red-600 prose-td:pl-4
   "
-  dangerouslySetInnerHTML={{ __html: cleanContent }}
-/>
-
+            dangerouslySetInnerHTML={{ __html: cleanContent }}
+          />
         </div>
       </div>
     </>

@@ -1,16 +1,15 @@
 "use client";
 
-
 import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
 
- export default function Interactive({ features }) {
+export default function Interactive({ features }) {
   return (
     <section className="py-16 px-4">
       <div className="container px-6 mx-auto">
         <div className="text-center mb-16 max-w-[600px] mx-auto">
           <span className="text-[var(--primary-blue)] font-semibold text-sm tracking-widest uppercase mb-4 block">
-           Journey
+            Journey
           </span>
           <h2 className="text-3xl lg:text-4xl font-bold text-gray-800 mb-6">
             Start a Journey with a Buildable Robotics Kit
@@ -20,7 +19,7 @@ import Image from "next/image";
           {features.map((feature, index) => (
             <Card key={index} className="overflow-hidden rounded-0">
               <Image
-                src= {`${process.env.NEXT_PUBLIC_FILE_BASE_URL}${feature.image}`}
+                src={`${process.env.NEXT_PUBLIC_FILE_BASE}${feature.image}`}
                 alt={feature.title}
                 width={500}
                 height={500}
@@ -38,5 +37,6 @@ import Image from "next/image";
           ))}
         </div>
       </div>
-    </section>)
-           }
+    </section>
+  );
+}

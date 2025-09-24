@@ -13,55 +13,41 @@ import {
 } from "@/components/ui/card";
 import { Eye, EyeOff, BookOpen, Users, Award, Lightbulb } from "lucide-react";
 import Image from "next/image";
-import { useDispatch } from "react-redux";
-import { login } from "@/lib/features/authSlice";
 import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import axios from "axios";
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  const dispatch = useDispatch();
-  const router = useRouter(); // ✅ initialize router
+  const router = useRouter();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError("");
-    setIsLoading(true);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-    await new Promise((resolve) => setTimeout(resolve, 800));
-
-    let userData = null;
-
-    // ✅ Check if admin login
-    if (email === "admin@example.com" && password === "admin@123") {
-      userData = {
-        firstName: "Admin",
-        lastName: "User",
-        email: "admin@example.com",
-        avatar: "",
-        isAdmin: true,
-      };
-    } else if (email && password) {
-      // Normal user dummy login
-      userData = {
-        firstName: email.split("@")[0] || "User",
-        lastName: "",
-        email,
-        avatar: "",
-        isAdmin: false,
-      };
-    } else {
+  // API request to handle login
+  const loginReq = async (data) => {
+    try {
+      const resp = await axios.post("/api/auth/login", {
+        body: JSON.stringify({ ...data, role: "user" }),
+      });
+      console.log({ resp });
+      return resp.data;
+    } catch (err) {
       setError("Invalid credentials");
       setIsLoading(false);
-      return;
     }
+  };
 
-    // Save to redux
-    dispatch(login(userData));
+  const onSubmit = async (data) => {
+    setError("");
+    setIsLoading(true);
+    await loginReq(data);
     setIsLoading(false);
     router.push("/");
   };
@@ -90,18 +76,23 @@ export default function LoginPage() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="email">Email</Label>
+                  <Label htmlFor="username">Username</Label>
                   <Input
-                    id="email"
-                    type="email"
-                    placeholder="Enter your email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
+                    id="username"
+                    type="text"
+                    placeholder="Enter your username"
+                    {...register("username", {
+                      required: "username is required",
+                    })}
                     className="h-11"
                   />
+                  {errors.username && (
+                    <p className="text-sm text-red-600 font-medium">
+                      {errors.username.message}
+                    </p>
+                  )}
                 </div>
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
@@ -118,9 +109,9 @@ export default function LoginPage() {
                       id="password"
                       type={showPassword ? "text" : "password"}
                       placeholder="Enter your password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      required
+                      {...register("password", {
+                        required: "Password is required",
+                      })}
                       className="h-11 pr-10"
                     />
                     <Button
@@ -137,6 +128,11 @@ export default function LoginPage() {
                       )}
                     </Button>
                   </div>
+                  {errors.password && (
+                    <p className="text-sm text-red-600 font-medium">
+                      {errors.password.message}
+                    </p>
+                  )}
                 </div>
 
                 {error && (
@@ -165,18 +161,11 @@ export default function LoginPage() {
               </Link>
             </p>
           </div>
-
-          {/* Demo credentials */}
-          <div className="text-xs text-gray-500 text-center mt-4">
-            <p>
-              <strong>Admin Demo:</strong> admin@example.com / admin@123
-            </p>
-          </div>
         </div>
       </div>
 
       {/* Right Side - Educational Content */}
-      <div className="hidden  flex-1 bg-gradient-to-r from-blue-500 to-blue-700 education-pattern lg:flex items-center justify-center p-8 text-white">
+      <div className="hidden flex-1 bg-gradient-to-r from-blue-500 to-blue-700 education-pattern lg:flex items-center justify-center p-8 text-white">
         <div className="max-w-lg space-y-8">
           <div className="text-center space-y-4">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-white/20 rounded-full backdrop-blur-sm">

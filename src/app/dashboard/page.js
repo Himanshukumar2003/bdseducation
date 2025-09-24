@@ -6,6 +6,7 @@ import { DashboardOverview } from "./_components/overViwe";
 import { ProfileDetails } from "./_components/profile";
 import { OrdersDetails } from "./_components/order-details";
 import { useSelector } from "react-redux";
+import { useAuth } from "@/providers/auth-provider";
 
 const orders = [
   {
@@ -53,9 +54,10 @@ const orders = [
 export default function DashboardPage() {
   const [activeSection, setActiveSection] = useState("dashboard");
 
-  const { user, isAuthenticated } = useSelector((state) => state.auth);
+  const { user } = useAuth();
 
   console.log(user);
+
   // const orders = useSelector((state) => state.orders.items); // agar orders Redux me hain
 
   const handleLogout = () => {
@@ -63,23 +65,23 @@ export default function DashboardPage() {
     alert("Logged out successfully!");
   };
 
-  if (!isAuthenticated) {
-    return <p className="text-center mt-20 text-xl">Please login first!</p>;
-  }
+  // if (!isAuthenticated) {
+  //   return <p className="text-center mt-20 text-xl">Please login first!</p>;
+  // }
 
   const renderContent = () => {
     switch (activeSection) {
-      case "profile":
-        return <ProfileDetails user={user} />;
+      // case "profile":
+      //   return <ProfileDetails user={user} />;
       case "orders":
         return <OrdersDetails orders={orders} />;
       default:
-        return <DashboardOverview user={user} />;
+        return <ProfileDetails />;
     }
   };
 
   return (
-    <div className="min-h-screen bg-background flex">
+    <div className=" bg-background flex">
       <UserSidebar
         user={user}
         activeSection={activeSection}

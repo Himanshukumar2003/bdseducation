@@ -13,68 +13,6 @@ const statusConfig = {
 export function OrdersDetails({ orders }) {
   return (
     <div className="space-y-6">
-      {/* Dashboard Header */}
-      <div>
-        <h2 className="text-3xl font-bold text-foreground mb-1">
-          Dashboard Overview
-        </h2>
-        <p className="text-muted-foreground text-sm">
-          Track and manage all your orders in one place.
-        </p>
-      </div>
-
-      {/* Stats Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-        {[
-          {
-            title: "Total Orders",
-            value: orders.length,
-            icon: Package,
-            color: "blue",
-          },
-          {
-            title: "Delivered",
-            value: orders.filter((o) => o.status === "delivered").length,
-            icon: CheckCircle,
-            color: "green",
-          },
-          {
-            title: "In Transit",
-            value: orders.filter((o) => o.status === "shipped").length,
-            icon: TrendingUp,
-            color: "purple",
-          },
-          {
-            title: "Total Spent",
-            value: `$${orders.reduce((sum, o) => sum + o.total, 0).toFixed(2)}`,
-            icon: TrendingUp,
-            color: "cyan",
-          },
-        ].map((stat) => {
-          const Icon = stat.icon;
-          return (
-            <Card
-              key={stat.title}
-              className={`border-${stat.color}-200 bg-${stat.color}-50/50 py-10 shadow-sm hover:shadow-md transition-shadow`}
-            >
-              <CardContent className="p-4  flex items-start justify-between">
-                <div>
-                  <p
-                    className={`text-xl  font-medium mb-5 text-${stat.color}-700`}
-                  >
-                    {stat.title}
-                  </p>
-                  <p className={`text-4xl font-bold text-${stat.color}-900`}>
-                    {stat.value}
-                  </p>
-                </div>
-                <Icon className={`h-8 w-8 text-${stat.color}-600`} />
-              </CardContent>
-            </Card>
-          );
-        })}
-      </div>
-
       {/* Recent Orders */}
       <Card className="shadow-md hover:shadow-lg transition-shadow">
         <CardHeader>

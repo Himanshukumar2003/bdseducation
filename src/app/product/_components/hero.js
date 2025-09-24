@@ -47,7 +47,7 @@ export default function Hero({ product }) {
           {product.pictures?.length > 0 && (
             <Image
               // src={product.pictures[0].replace("public", "")}
-              src={`${process.env.NEXT_PUBLIC_FILE_BASE_URL}${product.pictures[0]}`}
+              src={`${process.env.NEXT_PUBLIC_FILE_BASE}${product.pictures[0]}`}
               alt={product.title}
               width={2000}
               height={2000}

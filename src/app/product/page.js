@@ -1,22 +1,23 @@
 "use client";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchBooks, fetchProducts } from "@/lib/features/productsSlice";
+import { fetchProducts, fetchProducts2 } from "@/lib/features/productsSlice";
 import ProductCard from "@/components/product-card";
 import { Breadcrumb } from "@/components/breadcrumb";
 
 export default function ProductsSection() {
   const dispatch = useDispatch();
-  const { books, products } = useSelector((state) => state.products);
-
+  const { products2, products, loading, error } = useSelector(
+    (state) => state.products
+  );
   const combinedItems = [
-    ...(books?.map((i) => ({ ...i, type: "type-2" })) || []),
+    ...(products2?.map((i) => ({ ...i, type: "type-2" })) || []),
     ...(products?.map((i) => ({ ...i, type: "type-1" })) || []),
   ];
-
   useEffect(() => {
+    // Fetch both APIs on mount
     dispatch(fetchProducts());
-    dispatch(fetchBooks());
+    dispatch(fetchProducts2());
   }, [dispatch]);
   return (
     <>
