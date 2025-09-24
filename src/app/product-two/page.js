@@ -73,7 +73,7 @@ ${img}`
                     alt={`Book view ${index + 1}`}
                     width={80}
                     height={80}
-                    className="w-full h-full object-cover"
+                       className="w-full h-full object-contain"
                   />
                 </div>
               ))}
