@@ -30,10 +30,10 @@ export default function AuthProvider({ children }) {
     setIsUserLoading(true);
     async function fetchData() {
       try {
-        const user = await http().get(endpoints.profile);
-        // const {
-        //   data: { user },
-        // } = await axios.get("/api/profile");
+        // const user = await http().get(endpoints.profile);
+        const {
+          data: { user },
+        } = await axios.get("/api/auth/profile");
         setUser(user);
         localStorage.setItem("user", JSON.stringify(user));
       } catch (error) {
