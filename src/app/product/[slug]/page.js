@@ -27,7 +27,6 @@ export default async function Page({ params }) {
       {/* <Tabs /> */}
 
       <Hero product={product}></Hero>
-
       <Interactive features={product.features} />
       <TestimonialsSection />
       <GetInTouch />
