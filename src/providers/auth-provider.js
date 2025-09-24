@@ -11,10 +11,8 @@ export async function handleLogout() {
   try {
     const resp = await axios.post("/api/auth/logout");
     // const user = JSON.parse(localStorage.getItem("user"));
-    console.log(resp.statusText);
-    if (resp.statusText === "OK") {
-      window.location.href = `/`;
-    }
+    console.log(resp);
+    window.location.href = `/`;
   } catch (error) {
     console.log(error?.response?.data?.message ?? error?.message ?? "Error");
   }
