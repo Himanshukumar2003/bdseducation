@@ -7,7 +7,6 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 // This route acts as a middleware between you and your backend server
 export async function POST(request) {
   const data = await request.json();
-  console.log({ data });
   const cookieStore = await cookies();
   try {
     // login request to the original backend
