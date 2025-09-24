@@ -8,52 +8,10 @@ import { OrdersDetails } from "./_components/order-details";
 import { useSelector } from "react-redux";
 import { useAuth } from "@/providers/auth-provider";
 
-const orders = [
-  {
-    id: "ORD-001",
-    status: "delivered",
-    total: 129.99,
-    date: "Dec 15, 2024",
-    items: 3,
-    quantity: 2,
-    productTitle: "Wireless Bluetooth Headphones",
-    productImage: "/images/Problem-Solving-Skills-for-Students.png",
-  },
-  {
-    id: "ORD-002",
-    status: "shipped",
-    total: 89.5,
-    date: "Dec 18, 2024",
-    items: 2,
-    quantity: 1,
-    productTitle: "Smart Fitness Watch",
-    productImage: "/images/Problem-Solving-Skills-for-Students.png",
-  },
-  {
-    id: "ORD-003",
-    status: "processing",
-    total: 199.99,
-    date: "Dec 20, 2024",
-    items: 1,
-    quantity: 1,
-    productTitle: "Gaming Mechanical Keyboard",
-    productImage: "/images/Problem-Solving-Skills-for-Students.png",
-  },
-  {
-    id: "ORD-004",
-    status: "pending",
-    total: 45.0,
-    date: "Dec 22, 2024",
-    items: 4,
-    quantity: 3,
-    productTitle: "USB-C Cable Set",
-    productImage: "/images/Problem-Solving-Skills-for-Students.png",
-  },
-];
-
 export default function DashboardPage() {
   const [activeSection, setActiveSection] = useState("dashboard");
-
+  const orders = useSelector((state) => state.orders.items);
+  console.log("order", orders);
   const { user } = useAuth();
 
   console.log(user);

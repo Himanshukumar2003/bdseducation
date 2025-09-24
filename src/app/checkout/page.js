@@ -1,24 +1,32 @@
 "use client";
 
-import Image from "next/image";
-import { useSelector } from "react-redux";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
+import { addOrder } from "@/lib/features/ordersSlice";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Checkbox } from "@/components/ui/checkbox";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import {
   Select,
-  SelectContent,
-  SelectItem,
   SelectTrigger,
   SelectValue,
+  SelectContent,
+  SelectItem,
 } from "@/components/ui/select";
+import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Button } from "@/components/ui/button";
 import { Edit, PhoneOffIcon as CreditCardOff } from "lucide-react";
+import Image from "next/image";
 
 export default function CheckoutPage() {
+  const { register, handleSubmit, watch, formState } = useForm({
+    mode: "onChange",
+  });
+  const { isValid } = formState;
   const cartItems = useSelector((state) => state.cart.items);
+  const dispatch = useDispatch();
+  const router = useRouter();
 
   const subtotal = cartItems.reduce(
     (sum, item) =>
@@ -28,25 +36,38 @@ export default function CheckoutPage() {
   const estimatedTaxes = subtotal * 0.1;
   const total = subtotal + estimatedTaxes;
 
+  const onSubmit = (data) => {
+    if (cartItems.length === 0) {
+      alert("Your cart is empty");
+      return;
+    }
+
+    const order = {
+      id: Date.now(),
+      items: cartItems,
+      subtotal,
+      estimatedTaxes,
+      total,
+      date: new Date().toISOString(),
+      shipping: data,
+    };
+
+    dispatch(addOrder(order));
+    router.push("/dashboard");
+  };
+
   const countries = [
     { code: "IN", name: "India", flag: "🇮🇳" },
     { code: "US", name: "United States", flag: "🇺🇸" },
     { code: "CA", name: "Canada", flag: "🇨🇦" },
-    { code: "GB", name: "United Kingdom", flag: "🇬🇧" },
-    { code: "DE", name: "Germany", flag: "🇩🇪" },
-    { code: "FR", name: "France", flag: "🇫🇷" },
-    { code: "JP", name: "Japan", flag: "🇯🇵" },
-    { code: "AU", name: "Australia", flag: "🇦🇺" },
-    { code: "VN", name: "Vietnam", flag: "🇻🇳" },
   ];
 
   return (
-    <div className="section bg-gray-50">
-      <div className="  py-12 px-4 sm:px-6 lg:px-8 ">
+    <form onSubmit={handleSubmit(onSubmit)} className="section bg-gray-50">
+      <div className="py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-10">
-          {/* Checkout Forms */}
+          {/* FORM FIELDS */}
           <div className="lg:col-span-2 space-y-8">
-            {/* Contact Information */}
             <Card className="shadow-lg rounded-xl border-none py-5">
               <CardHeader className="pb-4">
                 <CardTitle className="text-2xl font-bold text-gray-800">
@@ -55,9 +76,10 @@ export default function CheckoutPage() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <Input
-                  placeholder="Email or mobile phone number"
                   type="email"
+                  placeholder="Email or mobile phone number"
                   className="h-12 text-base"
+                  {...register("email", { required: true })}
                 />
               </CardContent>
             </Card>
@@ -70,55 +92,54 @@ export default function CheckoutPage() {
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">
-                <RadioGroup defaultValue="ship" className="grid gap-4">
-                  <Label
-                    htmlFor="ship"
-                    className="flex items-center justify-between rounded-lg border-2 p-4 cursor-pointer transition-all duration-200 peer-data-[state=checked]:border-yellow-500 peer-data-[state=checked]:bg-yellow-50 hover:bg-yellow-50"
-                  >
-                    <div className="flex items-center space-x-3">
-                      <RadioGroupItem id="ship" value="ship" />
-                      <span className="font-semibold text-lg text-gray-700">
-                        Ship to an address
-                      </span>
-                    </div>
-                    <Edit className="w-5 h-5 text-gray-500 hover:text-yellow-600 transition-colors" />
-                  </Label>
-                </RadioGroup>
-
                 <div className="space-y-4">
-                  <Select defaultValue="IN">
-                    <SelectTrigger className="h-12 text-base">
-                      <SelectValue placeholder="Country/Region" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {countries.map((country) => (
-                        <SelectItem key={country.code} value={country.code}>
-                          <span className="mr-2">{country.flag}</span>
-                          {country.name}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                  {/* Country Select */}
+                  <select
+                    {...register("country", { required: true })}
+                    className="h-12 text-base border rounded-lg px-4 w-full"
+                  >
+                    <option value="">Select country</option>
+                    {countries.map((c) => (
+                      <option key={c.code} value={c.code}>
+                        {c.flag} {c.name}
+                      </option>
+                    ))}
+                  </select>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <Input
                       placeholder="First name"
                       className="h-12 text-base"
+                      {...register("firstName", { required: true })}
                     />
-                    <Input placeholder="Last name" className="h-12 text-base" />
+                    <Input
+                      placeholder="Last name"
+                      className="h-12 text-base"
+                      {...register("lastName", { required: true })}
+                    />
                   </div>
 
-                  <Input placeholder="Address" className="h-12 text-base" />
+                  <Input
+                    placeholder="Address"
+                    className="h-12 text-base"
+                    {...register("address", { required: true })}
+                  />
                   <Input
                     placeholder="Apartment, suite, etc. (optional)"
                     className="h-12 text-base"
+                    {...register("apartment")}
                   />
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <Input placeholder="City" className="h-12 text-base" />
+                    <Input
+                      placeholder="City"
+                      className="h-12 text-base"
+                      {...register("city", { required: true })}
+                    />
                     <Input
                       placeholder="Postal code (optional)"
                       className="h-12 text-base"
+                      {...register("postalCode")}
                     />
                   </div>
 
@@ -135,7 +156,7 @@ export default function CheckoutPage() {
               </CardContent>
             </Card>
 
-            {/* Payment Section */}
+            {/* Payment Info */}
             <Card className="shadow-lg rounded-xl border-none py-5">
               <CardHeader className="pb-4">
                 <CardTitle className="text-2xl font-bold text-gray-800">
@@ -151,16 +172,19 @@ export default function CheckoutPage() {
                   <p className="text-center text-lg font-medium">
                     This store can&apos;t accept payments right now.
                   </p>
-                  <p className="text-center text-sm text-gray-500 mt-1">
-                    Please try again later or contact support.
-                  </p>
                 </div>
-                <button className="btn">Pay now</button>
+                <Button
+                  type="submit"
+                  disabled={!isValid || cartItems.length === 0}
+                  className="btn"
+                >
+                  Pay now
+                </Button>
               </CardContent>
             </Card>
           </div>
 
-          {/* Order Summary */}
+          {/* Order Summary - Same as Before */}
           <div className="lg:col-span-1 bg-white p-8 rounded-xl shadow-lg sticky top-12 h-fit">
             <h2 className="text-2xl font-bold mb-6 text-gray-800">
               Order Summary
@@ -223,6 +247,6 @@ export default function CheckoutPage() {
           </div>
         </div>
       </div>
-    </div>
+    </form>
   );
 }

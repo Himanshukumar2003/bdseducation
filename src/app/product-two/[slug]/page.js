@@ -4,7 +4,7 @@ export default async function BookPage({ params }) {
   const { slug } = await params;
 
   const response = await fetch(
-    `https://bdsapi.bwdemo.in/v1/books/get-by-slug/${slug}`,
+    `https://bdsapi.bwdemo.in/v1/products-2/get-by-slug/${slug}`,
     { cache: "no-store" }
   );
   const data = await response.json();

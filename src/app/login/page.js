@@ -32,24 +32,26 @@ export default function LoginPage() {
 
   // API request to handle login
   const loginReq = async (data) => {
+    setIsLoading(true);
+
     try {
       const resp = await axios.post("/api/auth/login", {
         body: JSON.stringify({ ...data, role: "user" }),
       });
-      console.log({ resp });
+      router.push("/");
+
       return resp.data;
     } catch (err) {
       setError("Invalid credentials");
+      setIsLoading(false);
+    } finally {
       setIsLoading(false);
     }
   };
 
   const onSubmit = async (data) => {
     setError("");
-    setIsLoading(true);
     await loginReq(data);
-    setIsLoading(false);
-    router.push("/");
   };
 
   return (

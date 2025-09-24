@@ -1,4 +1,5 @@
 import BookImageGallery from "@/app/product-two/_componets/hero";
+import Books from "../_componets/relativeProduct";
 
 export default async function BookPage({ params }) {
   const { slug } = await params;
@@ -36,6 +37,7 @@ export default async function BookPage({ params }) {
     <>
       <div className="max-w-7xl mx-auto px-6 py-12">
         <BookImageGallery bookImages={bookImages} product={product} />
+        {/* <Books></Books> */}
       </div>
     </>
   );

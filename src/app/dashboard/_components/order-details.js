@@ -1,76 +1,153 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Package, Eye, TrendingUp, Clock, CheckCircle } from "lucide-react";
-import Image from "next/image";
+"use client";
 
-const statusConfig = {
-  pending: { color: "bg-yellow-100 text-yellow-800", icon: Clock },
-  processing: { color: "bg-blue-100 text-blue-800", icon: Package },
-  shipped: { color: "bg-purple-100 text-purple-800", icon: TrendingUp },
-  delivered: { color: "bg-green-100 text-green-800", icon: CheckCircle },
+import Image from "next/image";
+import { useState } from "react";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils"; // Shadcn utility
+
+const statusMap = {
+  completed: "bg-green-100 text-green-700",
+  pending: "bg-yellow-100 text-yellow-700",
+  cancelled: "bg-red-100 text-red-700",
 };
 
+const ORDERS_PER_PAGE = 5;
+
 export function OrdersDetails({ orders }) {
+  const [page, setPage] = useState(1);
+
+  if (!orders || orders.length === 0) {
+    return (
+      <div className="text-center text-gray-500 text-lg mt-10">
+        No orders yet.
+      </div>
+    );
+  }
+
+  const allItems = orders.flatMap((order) =>
+    order.items.map((item) => ({
+      ...item,
+      orderId: order.id,
+      date: order.date,
+      shipping: order.shipping,
+    }))
+  );
+
+  const pageCount = Math.ceil(allItems.length / ORDERS_PER_PAGE);
+  const paginatedItems = allItems.slice(
+    (page - 1) * ORDERS_PER_PAGE,
+    page * ORDERS_PER_PAGE
+  );
+
   return (
-    <div className="space-y-6">
-      {/* Recent Orders */}
-      <Card className="shadow-md hover:shadow-lg transition-shadow">
-        <CardHeader>
-          <CardTitle className="text-blue-900 flex items-center gap-2 text-lg">
-            <Package className="h-5 w-5" />
-            Recent Orders
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
-            {orders.map((order) => {
-              const StatusIcon = statusConfig[order.status].icon;
-              return (
-                <Card
-                  key={order.id}
-                  className="flex flex-col overflow-hidden border border-gray-200 rounded-xl hover:shadow-lg transition-all duration-300"
+    <div className="p-6 bg-white shadow rounded-xl overflow-auto">
+      <h2 className="text-2xl font-bold mb-6 text-gray-800">All Orders</h2>
+
+      <table className="min-w-full text-sm text-left">
+        <thead className="bg-gray-100 text-gray-600 uppercase text-xs border-b">
+          <tr>
+            <th className="px-6 py-3">Order #</th>
+            <th className="px-6 py-3">Product</th>
+            <th className="px-6 py-3">Country</th>
+            <th className="px-6 py-3">City</th>
+            <th className="px-6 py-3">Address</th>
+            <th className="px-6 py-3">Date</th>
+            <th className="px-6 py-3">Price</th>
+            <th className="px-6 py-3">Status</th>
+          </tr>
+        </thead>
+
+        <tbody className="divide-y text-gray-700">
+          {paginatedItems.map((product, index) => (
+            <tr
+              key={`${product.orderId}-${index}`}
+              className="hover:bg-gray-50 transition"
+            >
+              <td className="px-6 py-4 font-medium text-gray-800">
+                #{product.orderId}
+              </td>
+
+              <td className="px-6 py-4 flex items-center gap-3">
+                <div className="relative w-10 h-10 rounded overflow-hidden border bg-gray-100">
+                  <Image
+                    src={
+                      product?.pictures?.[0]
+                        ? `${process.env.NEXT_PUBLIC_FILE_BASE}${product.pictures[0]}`
+                        : "/placeholder.svg"
+                    }
+                    alt={product?.title || "Product"}
+                    fill
+                    className="object-contain"
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <span>{product?.title}</span>
+                  <span className="text-xs text-gray-500">
+                    Qty: {product?.quantity}
+                  </span>
+                </div>
+              </td>
+
+              <td className="px-6 py-4">{product.shipping?.country}</td>
+              <td className="px-6 py-4">{product.shipping?.city}</td>
+              <td className="px-6 py-4">{product.shipping?.address}</td>
+              <td className="px-6 py-4">
+                {new Date(product.date).toLocaleDateString()}
+              </td>
+              <td className="px-6 py-4 font-semibold">
+                ₹{(product.price * product.quantity).toFixed(2)}
+              </td>
+
+              <td className="px-6 py-4">
+                <Badge
+                  className={cn(
+                    "text-xs font-medium px-2.5 py-1 rounded-full",
+                    statusMap[product?.status || "pending"]
+                  )}
                 >
-                  <div className="relative h-40 w-full bg-gray-100">
-                    <Image
-                      src={order.productImage || "/placeholder.svg"}
-                      alt={order.productTitle}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                  <CardContent className="flex-1 p-4 flex flex-col justify-between">
-                    <div>
-                      <h3 className="font-semibold text-foreground truncate text-md">
-                        {order.productTitle}
-                      </h3>
-                      <p className="text-sm text-muted-foreground mt-1">
-                        Order #{order.id}
-                      </p>
-                      <div className="flex items-center gap-2 text-xs text-muted-foreground mt-1">
-                        <span>Qty: {order.quantity}</span>
-                        <span>•</span>
-                        <span>{order.date}</span>
-                      </div>
-                    </div>
-                    <div className="mt-3 flex items-center justify-between">
-                      <p className="font-semibold text-foreground text-lg">
-                        ${order.total}
-                      </p>
-                      <Badge
-                        className={`${statusConfig[order.status].color} border-0 text-xs flex items-center gap-1 px-2 py-1 rounded-md`}
-                      >
-                        <StatusIcon className="h-3 w-3" />
-                        {order.status.charAt(0).toUpperCase() +
-                          order.status.slice(1)}
-                      </Badge>
-                    </div>
-                  </CardContent>
-                </Card>
-              );
-            })}
-          </div>
-        </CardContent>
-      </Card>
+                  {product?.status
+                    ? product.status.charAt(0).toUpperCase() +
+                      product.status.slice(1)
+                    : "Pending"}
+                </Badge>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      {/* Pagination */}
+      {pageCount > 1 && (
+        <div className="flex justify-center mt-6 gap-2">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setPage((p) => Math.max(p - 1, 1))}
+            disabled={page === 1}
+          >
+            Previous
+          </Button>
+          {[...Array(pageCount)].map((_, i) => (
+            <Button
+              key={i}
+              size="sm"
+              variant={page === i + 1 ? "default" : "outline"}
+              onClick={() => setPage(i + 1)}
+            >
+              {i + 1}
+            </Button>
+          ))}
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setPage((p) => Math.min(p + 1, pageCount))}
+            disabled={page === pageCount}
+          >
+            Next
+          </Button>
+        </div>
+      )}
     </div>
   );
 }

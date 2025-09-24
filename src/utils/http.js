@@ -30,13 +30,13 @@ const http = (headerType = "json", baseURL = API_ROOT) => {
           return client(originalRequest);
         } else {
           localStorage.clear();
-          window.location.href = "/login";
+          // window.location.href = "/login";
           return Promise.reject(error);
         }
       } catch (refreshError) {
         console.error("Error refreshing token:", refreshError);
         localStorage.clear();
-        window.location.href = "/login";
+        // window.location.href = "/login";
         return Promise.reject(error);
       }
     }
