@@ -72,8 +72,6 @@ function Navbar() {
     { href: "/", label: "Home" },
     { href: "/about", label: "About" },
     { href: "/blog", label: "Blog" },
-    { href: "/books", label: "Books" },
-    { href: "/product", label: "Products" },
 
     { href: "/gallery", label: "Gallery" },
     { href: "/contact", label: "Contact" },
