@@ -10,39 +10,21 @@ export default function RoleContext({ children }) {
   const router = useRouter();
   const { user, isUserLoading } = useContext(AuthContext);
 
-  const protectedRoutes = useMemo(() => {
-    const mainRoutes = allRoutes.map((data) => ({
-      url: data.link,
-      roles: data.roles,
-    }));
-
-    return [...mainRoutes];
-  }, []);
-
   useEffect(() => {
     if (isUserLoading) return;
-
-    if (!user) {
-      router.replace("/");
-      return;
-    }
-
-    const currRoute = pathname.replace(params.id || "", ":slug");
-    const protectedRoute = protectedRoutes.find((route) => {
-      const routePattern = route.url.split("?")[0];
-      return routePattern === currRoute;
-    });
-
-    console.log({ protectedRoutes, currRoute, protectedRoute });
-
+    let currRoute = pathname.replace(params.id, ":slug");
+    const protectedRoute = allRoutes.find((fr) => fr.link === currRoute);
     if (!protectedRoute) return;
-
-    const hasPermission = protectedRoute.roles.includes(user.role);
-
-    if (!hasPermission) {
-      router.replace("/unauthorized");
+    const roles = protectedRoute.roles;
+    if (roles.length && !roles.includes(user?.role)) {
+      toast({
+        varint: "destructive",
+        title: "Unauthorized!",
+        description: "Unauthorized Access!",
+      });
+      return router.replace("/login");
     }
-  }, [user, params.id, pathname, router, isUserLoading, protectedRoutes]);
+  }, [user, params.id, pathname, router, isUserLoading]);
 
   return children;
 }
