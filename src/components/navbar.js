@@ -72,7 +72,6 @@ function Navbar() {
     { href: "/", label: "Home" },
     { href: "/about", label: "About" },
     { href: "/blog", label: "Blog" },
-
     { href: "/gallery", label: "Gallery" },
     { href: "/contact", label: "Contact" },
   ];
@@ -104,13 +103,12 @@ function Navbar() {
 
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center space-x-2 xl:space-x-4">
-              {navigationItems.map((item) => (
-                <Link key={item.href} href={item.href} className="nav-link">
-                  {item.label}
-                </Link>
-              ))}
-
-              {/* Products Dropdown */}
+              <Link href="/" className="nav-link">
+                Home
+              </Link>
+              <Link href="/about" className="nav-link">
+                About
+              </Link>
               <NavigationMenu>
                 <NavigationMenuList>
                   <NavigationMenuItem>
@@ -170,6 +168,17 @@ function Navbar() {
                   </NavigationMenuItem>
                 </NavigationMenuList>
               </NavigationMenu>
+              <Link href="/blog" className="nav-link">
+                Blog
+              </Link>
+              <Link href="/gallery" className="nav-link">
+                Gallery
+              </Link>
+              <Link href="/contact" className="nav-link">
+                Contact
+              </Link>
+
+              {/* Products Dropdown */}
 
               {user && (
                 <Link
