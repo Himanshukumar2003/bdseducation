@@ -14,7 +14,7 @@ import {
   CardTitle,
   CardDescription,
 } from "@/components/ui/card";
-import { Eye, EyeOff } from "lucide-react";
+import { Award, BookOpen, Eye, EyeOff, Lightbulb, Users } from "lucide-react";
 import Image from "next/image";
 
 export default function SignupPage() {
@@ -86,7 +86,7 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="flex bg-gray-100 h-screen overflow-hidden justify-evenly">
+    <div className="flex bg-gray-100 min-h-screen overflow-hidden justify-evenly">
       {/* Left - Signup Form */}
       <div className="flex-1 flex items-center justify-center p-8">
         <div className="w-full max-w-2xl space-y-6">
@@ -266,13 +266,57 @@ export default function SignupPage() {
       <div className="hidden flex-1 bg-gradient-to-r from-blue-500 to-blue-700 education-pattern lg:flex items-center justify-center p-8 text-white">
         <div className="max-w-lg space-y-8">
           <div className="text-center space-y-4">
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-white/20 rounded-full backdrop-blur-sm">
+              <BookOpen className="w-8 h-8" />
+            </div>
             <h2 className="text-3xl font-bold text-balance">
-              Join the Future of Education
+              Transform Education with Technology
             </h2>
             <p className="text-blue-100 text-lg text-balance">
-              Access comprehensive learning resources and skill development
-              programs.
+              Helping schools & colleges establish skill development labs to
+              teach coding, AI, robotics & more
             </p>
+          </div>
+
+          <div className="space-y-6">
+            <div className="flex items-start gap-4">
+              <div className="flex-shrink-0 w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center backdrop-blur-sm">
+                <Users className="w-5 h-5" />
+              </div>
+              <div>
+                <h3 className="font-semibold text-lg">Faculty Training</h3>
+                <p className="text-blue-100">
+                  Online faculty training and dedicated access for seeking
+                  clarifications
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-4">
+              <div className="flex-shrink-0 w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center backdrop-blur-sm">
+                <Award className="w-5 h-5" />
+              </div>
+              <div>
+                <h3 className="font-semibold text-lg">Grade-wise Books</h3>
+                <p className="text-blue-100">
+                  Comprehensive books for students from Grade 1 to 12 following
+                  TIY approach
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-4">
+              <div className="flex-shrink-0 w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center backdrop-blur-sm">
+                <Lightbulb className="w-5 h-5" />
+              </div>
+              <div>
+                <h3 className="font-semibold text-lg">Skill Development</h3>
+                <p className="text-blue-100">
+                  Wide usability span products with multi-language software
+                  support
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
