@@ -1,4 +1,4 @@
-import { Phone, Mail, MapPin, Clock } from "lucide-react";
+import { Phone, Mail, MapPin } from "lucide-react";
 import Image from "next/image";
 
 export function ContactSection() {
@@ -6,7 +6,6 @@ export function ContactSection() {
     <section className="bg-white py-20 px-4 md:px-8">
       <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12">
         {/* LEFT SIDE */}
-        {/* Left Content */}
         <div>
           <p className="text-lg uppercase tracking-wide text-blue-500 mb-3">
             Connect With Us
@@ -16,83 +15,99 @@ export function ContactSection() {
             Get in Touch <br />
             With{" "}
             <span className="inline-flex items-center gap-2">
-              Gallery Artisan <span className="text-6xl">🏛️</span>
+              BDS Education <span className="text-6xl">🎓</span>
             </span>
           </h2>
 
           <p className="text-gray-600 leading-relaxed mb-10">
-            Gallery Artisan is here to connect! Whether you&apos;re an artist
-            seeking representation, an art enthusiast with questions, or simply
-            curious about our upcoming exhibitions, we&apos;d love to hear from
-            you.
+            We’d love to connect with you! Whether you’re looking for course
+            details, career guidance, or general inquiries, our team is here to
+            assist you.
           </p>
 
           <div className="grid sm:grid-cols-2 gap-8 border-t pt-8">
             {/* Phone */}
             <div>
-              <div className="flex items-center gap-2 text-black mb-1">
+              <div className="flex items-center gap-2 text-black mb-2">
                 <Phone className="w-5 h-5" />
-                <span className="font-semibold">Phone</span>
+                <span className="font-semibold">Call Us</span>
               </div>
-              <p className="text-lg text-gray-600">
-                Feel free to call us directly at
+              <p className="flex gap-2 mb-1">
+                <span className="font-semibold">Wasim:</span>
+                <span className="text-gray-700">+91 88267 30055</span>
               </p>
-              <p className="text-black font-medium hover:underline cursor-pointer">
-                +1 (555) 000-0000
+              <p className="flex gap-2 mb-1">
+                <span className="font-semibold">Landline:</span>
+                <span className="text-gray-700">0129-4020574</span>
+              </p>
+              <p className="flex gap-2 mb-1">
+                <span className="font-semibold">Pankaj:</span>
+                <span className="text-gray-700">73039 09672</span>
+              </p>
+              <p className="flex gap-2">
+                <span className="font-semibold">Sydney:</span>
+                <span className="text-gray-700">0061 434115929</span>
               </p>
             </div>
 
             {/* Email */}
             <div>
-              <div className="flex items-center gap-2 text-black mb-1">
+              <div className="flex items-center gap-2 text-black mb-2">
                 <Mail className="w-5 h-5" />
-                <span className="font-semibold">Email</span>
+                <span className="font-semibold">Email Address</span>
               </div>
-              <p className="text-lg text-gray-600">
-                Our friendly team is here to help
+              <p className="flex gap-2 mb-1">
+                <span className="font-semibold">Official:</span>
+                <span className="text-gray-700 hover:underline cursor-pointer">
+                  nc@bdseducation.in
+                </span>
               </p>
-              <p className="text-black font-medium hover:underline cursor-pointer">
-                hi@example.com
+              <p className="flex gap-2">
+                <span className="font-semibold">Wasim:</span>
+                <span className="text-gray-700 hover:underline cursor-pointer">
+                  Wasim.khan@bdseducation.in
+                </span>
               </p>
             </div>
 
             {/* Address */}
-            <div>
-              <div className="flex items-center gap-2 text-black mb-1">
+            <div className="sm:col-span-2">
+              <div className="flex items-center gap-2 text-black mb-2">
                 <MapPin className="w-5 h-5" />
-                <span className="font-semibold">Gallery Address</span>
+                <span className="font-semibold">Our Locations</span>
               </div>
-              <p className="text-lg text-gray-600">
-                Come say hello at our gallery
+              <p className="flex gap-2 mb-2">
+                <span className="font-semibold">Dayalbagh:</span>
+                <span className="text-gray-700">
+                  Near St Columbus School Gate No.2, SCO-12, 1st Floor,
+                  Dayalbagh, Surajkund, Faridabad – 121009
+                </span>
               </p>
-              <p className="text-black font-medium hover:underline cursor-pointer">
-                Hüttenstr. 32 — 50623 Köln, Germany
+              <p className="flex gap-2 mb-2">
+                <span className="font-semibold">Sec 14:</span>
+                <span className="text-gray-700">
+                  772, Sector-14, Faridabad, Haryana – 121007
+                </span>
               </p>
-            </div>
-
-            {/* Opening Hours */}
-            <div>
-              <div className="flex items-center gap-2 text-black mb-1">
-                <Clock className="w-5 h-5" />
-                <span className="font-semibold">Opening Hour</span>
-              </div>
-              <p className="text-lg text-gray-600">
-                Our doors are open for exploration
+              <p className="flex gap-2">
+                <span className="font-semibold">Sydney:</span>
+                <span className="text-gray-700">
+                  1/25, Park Avenue, Tahmoor, NSW
+                </span>
               </p>
-              <p className="text-black font-medium">8am to 5pm</p>
             </div>
           </div>
         </div>
 
-        {/* Right Images */}
-        <div className="h-full flex flex-col   justify-center    items-center">
+        {/* RIGHT IMAGE */}
+        <div className="h-full flex flex-col justify-center items-center">
           <Image
             src="/images/product-img.png"
-            alt=""
+            alt="BDS Education"
             width={500}
             height={500}
-            className="w-full   mix-blend-multiply"
-          ></Image>
+            className="w-full mix-blend-multiply"
+          />
         </div>
       </div>
     </section>

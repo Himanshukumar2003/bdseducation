@@ -6,7 +6,7 @@ export default function VideoSection({ videos = [] }) {
   ];
 
   return (
-    <section className="py-12 bg-gray-100">
+    <section className="py-12 bg-blue-50">
       <div className="container mx-auto px-4 max-w-5xl">
         <div className="max-w-6xl">
           <div className="text-center mb-12 max-w-[700px] mx-auto">

@@ -86,7 +86,7 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="flex bg-gray-100 min-h-screen overflow-hidden justify-evenly">
+    <div className="flex bg-blue-50 min-h-screen overflow-hidden justify-evenly">
       {/* Left - Signup Form */}
       <div className="flex-1 flex items-center justify-center p-8">
         <div className="w-full max-w-2xl space-y-6">

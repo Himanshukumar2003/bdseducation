@@ -9,28 +9,14 @@ import { useSelector } from "react-redux";
 import { useAuth } from "@/providers/auth-provider";
 
 export default function DashboardPage() {
-  const [activeSection, setActiveSection] = useState("dashboard");
+  const [activeSection, setActiveSection] = useState("ProfileDetails");
   const orders = useSelector((state) => state.orders.items);
-  console.log("order", orders);
   const { user } = useAuth();
-
-  console.log(user);
-
-  // const orders = useSelector((state) => state.orders.items); // agar orders Redux me hain
-
-  const handleLogout = () => {
-    console.log("User logged out");
-    alert("Logged out successfully!");
-  };
-
-  // if (!isAuthenticated) {
-  //   return <p className="text-center mt-20 text-xl">Please login first!</p>;
-  // }
 
   const renderContent = () => {
     switch (activeSection) {
-      // case "profile":
-      //   return <ProfileDetails user={user} />;
+      case "profile":
+        return <ProfileDetails user={user} />;
       case "orders":
         return <OrdersDetails orders={orders} />;
       default:
@@ -39,12 +25,11 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className=" bg-background flex">
+    <div className="  flex bg-blue-50">
       <UserSidebar
         user={user}
         activeSection={activeSection}
         onSectionChange={setActiveSection}
-        onLogout={handleLogout}
       />
       <div className="flex-1 p-6">{renderContent()}</div>
     </div>

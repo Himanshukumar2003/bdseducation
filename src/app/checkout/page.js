@@ -63,8 +63,8 @@ export default function CheckoutPage() {
   ];
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="section bg-gray-50">
-      <div className="py-12 px-4 sm:px-6 lg:px-8">
+    <form onSubmit={handleSubmit(onSubmit)} className="section bg-blue-50">
+      <div className="pp-16 pt-25 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-10">
           {/* FORM FIELDS */}
           <div className="lg:col-span-2 space-y-8">
@@ -167,7 +167,7 @@ export default function CheckoutPage() {
                 <p className="text-base text-gray-600">
                   All transactions are secure and encrypted.
                 </p>
-                <div className="flex flex-col items-center justify-center border border-gray-200 p-8 bg-gray-50 rounded-lg text-gray-500">
+                <div className="flex flex-col items-center justify-center border border-gray-200 p-8 bg-blue-50 rounded-lg text-gray-500">
                   <CreditCardOff className="w-10 h-10 mb-4 text-gray-400" />
                   <p className="text-center text-lg font-medium">
                     This store can&apos;t accept payments right now.

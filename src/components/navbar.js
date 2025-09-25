@@ -36,7 +36,6 @@ function Navbar() {
   const { books } = useSelector((state) => state.products);
 
   const { user, isUserLoading } = useAuth();
-  console.log({ isUserLoading });
   // Combine product types
   const combinedItems = [
     ...(products2?.map((i) => ({ ...i, type: "type-2" })) || []),
@@ -71,310 +70,302 @@ function Navbar() {
   const navigationItems = [
     { href: "/", label: "Home" },
     { href: "/about", label: "About" },
-    { href: "/blog", label: "Blog" },
+    { href: "/product", label: "Product" },
+    { href: "/books", label: "Books" },
     { href: "/gallery", label: "Gallery" },
     { href: "/contact", label: "Contact" },
   ];
 
   return (
     <>
-      {/* Desktop + Mobile Navbar */}
       <nav
-        className={`sticky top-0 z-40 w-full transition-all duration-500 ease-in-out ${
-          isScrolled
-            ? "bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-100"
-            : "bg-white shadow-sm"
-        } h-[100px] py-4 flex justify-center items-center`}
+        className={`fixed z-50 flex justify-between items-center transition-all duration-300 ease-in-out h-[80px]
+    ${
+      isScrolled
+        ? "top-0 left-0 right-0 bg-white backdrop-blur-sm shadow-lg h-20 rounded-none"
+        : "top-10 left-5  lg:left-25 right-5 lg:right-25 mx-auto bg-white  rounded-full"
+    }
+  `}
       >
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between">
-            {/* Logo */}
-            <Link href="/" className="flex items-center group">
-              <div className="transition-transform duration-300 group-hover:scale-105">
-                <Image
-                  src="/images/logo.png"
-                  alt="Logo"
-                  height={60}
-                  width={120}
-                  className="h-12 w-auto object-contain"
-                />
-              </div>
+        <div className="container mx-auto flex items-center justify-between px-6 lg:px-10">
+          {/* Logo */}
+          <Link href="/" className="flex items-center group">
+            <div className="transition-transform duration-300 group-hover:scale-105">
+              <Image
+                src="/images/logo.png"
+                alt="Logo"
+                height={60}
+                width={120}
+                className="h-12 w-auto object-contain"
+              />
+            </div>
+          </Link>
+
+          {/* Desktop Navigation */}
+          <div className="hidden lg:flex items-center space-x-2 xl:space-x-4">
+            <Link href="/" className="nav-link">
+              Home
+            </Link>
+            <Link href="/about" className="nav-link">
+              About
+            </Link>
+            <NavigationMenu>
+              <NavigationMenuList>
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger className="nav-link">
+                    Products
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent className="animate-in slide-in-from-top-2 duration-300">
+                    <ul className="grid w-[400px] gap-2 p-4 md:w-[500px] md:grid-cols-2 lg:w-[800px] xl:w-[1000px] lg:grid-cols-3 xl:grid-cols-4">
+                      {combinedItems.length > 0 ? (
+                        combinedItems.map((component, index) => (
+                          <ListItem
+                            key={index}
+                            title={component.title}
+                            href={`/${
+                              component.type === "type-1"
+                                ? "product"
+                                : "product-two"
+                            }/${component.slug}`}
+                            image={component.pictures}
+                          >
+                            {component.description}
+                          </ListItem>
+                        ))
+                      ) : (
+                        <div>No products available</div>
+                      )}
+                    </ul>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
+
+            <NavigationMenu>
+              <NavigationMenuList>
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger className="nav-link">
+                    Books
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent className="animate-in slide-in-from-top-2 duration-300">
+                    <ul className="grid w-[400px] gap-2 p-4 md:w-[500px] md:grid-cols-2 lg:w-[800px] xl:w-[1000px] lg:grid-cols-3 xl:grid-cols-4">
+                      {bookItems.length > 0 ? (
+                        bookItems.map((component, index) => (
+                          <ListItem
+                            key={index}
+                            title={component.title}
+                            href={`/books/${component.slug}`}
+                            image={component.pictures}
+                          >
+                            {component.description}
+                          </ListItem>
+                        ))
+                      ) : (
+                        <div>No products available</div>
+                      )}
+                    </ul>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
+            <Link href="/blog" className="nav-link">
+              Blog
+            </Link>
+            <Link href="/gallery" className="nav-link">
+              Gallery
+            </Link>
+            <Link href="/contact" className="nav-link">
+              Contact
             </Link>
 
-            {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center space-x-2 xl:space-x-4">
-              <Link href="/" className="nav-link">
-                Home
-              </Link>
-              <Link href="/about" className="nav-link">
-                About
-              </Link>
-              <NavigationMenu>
-                <NavigationMenuList>
-                  <NavigationMenuItem>
-                    <NavigationMenuTrigger className="nav-link">
-                      Products
-                    </NavigationMenuTrigger>
-                    <NavigationMenuContent className="animate-in slide-in-from-top-2 duration-300">
-                      <ul className="grid w-[400px] gap-2 p-4 md:w-[500px] md:grid-cols-2 lg:w-[800px] xl:w-[1000px] lg:grid-cols-3 xl:grid-cols-4">
-                        {combinedItems.length > 0 ? (
-                          combinedItems.map((component, index) => (
-                            <ListItem
-                              key={index}
-                              title={component.title}
-                              href={`/${
-                                component.type === "type-1"
-                                  ? "product"
-                                  : "product-two"
-                              }/${component.slug}`}
-                              image={component.pictures}
-                            >
-                              {component.description}
-                            </ListItem>
-                          ))
-                        ) : (
-                          <div>No products available</div>
-                        )}
-                      </ul>
-                    </NavigationMenuContent>
-                  </NavigationMenuItem>
-                </NavigationMenuList>
-              </NavigationMenu>
+            {/* Products Dropdown */}
 
-              <NavigationMenu>
-                <NavigationMenuList>
-                  <NavigationMenuItem>
-                    <NavigationMenuTrigger className="nav-link">
-                      Books
-                    </NavigationMenuTrigger>
-                    <NavigationMenuContent className="animate-in slide-in-from-top-2 duration-300">
-                      <ul className="grid w-[400px] gap-2 p-4 md:w-[500px] md:grid-cols-2 lg:w-[800px] xl:w-[1000px] lg:grid-cols-3 xl:grid-cols-4">
-                        {bookItems.length > 0 ? (
-                          bookItems.map((component, index) => (
-                            <ListItem
-                              key={index}
-                              title={component.title}
-                              href={`/books/${component.slug}`}
-                              image={component.pictures}
-                            >
-                              {component.description}
-                            </ListItem>
-                          ))
-                        ) : (
-                          <div>No products available</div>
-                        )}
-                      </ul>
-                    </NavigationMenuContent>
-                  </NavigationMenuItem>
-                </NavigationMenuList>
-              </NavigationMenu>
-              <Link href="/blog" className="nav-link">
-                Blog
+            {user && (
+              <Link
+                href="/dashboard"
+                className="nav-link font-semibold text-blue-600"
+              >
+                Dashboard
               </Link>
-              <Link href="/gallery" className="nav-link">
-                Gallery
-              </Link>
-              <Link href="/contact" className="nav-link">
-                Contact
-              </Link>
+            )}
+          </div>
 
-              {/* Products Dropdown */}
-
-              {user && (
-                <Link
-                  href="/dashboard"
-                  className="nav-link font-semibold text-blue-600"
-                >
-                  Dashboard
-                </Link>
-              )}
+          {/* Right Section Desktop */}
+          <div className="hidden lg:flex items-center gap-2 xl:gap-4">
+            <div className="relative">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="cart-btn relative"
+                onClick={() => dispatch(toggleCart())}
+              >
+                <ShoppingCart className="w-5 h-5" />
+                {total > 0 && (
+                  <Badge className="absolute -top-2 -right-2 w-5 h-5 text-xs font-bold rounded-full flex items-center justify-center p-0 bg-red-500 text-white">
+                    {total}
+                  </Badge>
+                )}
+              </Button>
             </div>
 
-            {/* Right Section Desktop */}
-            <div className="hidden lg:flex items-center gap-2 xl:gap-4">
-              <div className="relative">
+            {user ? (
+              <div className="flex items-center gap-3">
+                <UserDropdown user={user} />
+                <button
+                  onClick={handleLogout}
+                  className="btn font-medium text-sm"
+                >
+                  Logout
+                </button>
+              </div>
+            ) : (
+              <div className="flex items-center gap-2 text-sm">
+                <Link href="/login" className=" btn flex items-center gap-2">
+                  <LogIn className="w-4 h-4" />
+                  Login
+                </Link>
+
+                <Link
+                  href="/signup"
+                  className="flex items-center gap-1 btn bg-transparent border-2 border-blue-500 text-blue-500 hover:text-white"
+                >
+                  <User className="w-4 h-4" />
+                  Sign Up
+                </Link>
+              </div>
+            )}
+          </div>
+
+          {/* Mobile Menu Toggle */}
+          <Button
+            variant="ghost"
+            size="icon"
+            className="lg:hidden p-2 rounded-md hover:bg-blue-50 transition-all duration-200 relative z-50"
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </Button>
+
+          <div
+            className={`fixed inset-0 z-50 lg:hidden transition-all duration-500 ease-in-out bg-white ${
+              isOpen ? "visible" : "invisible"
+            }`}
+          >
+            {/* Backdrop */}
+            <div
+              className={`absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity duration-500 ${
+                isOpen ? "opacity-100" : "opacity-0"
+              }`}
+              onClick={() => setIsOpen(false)}
+            />
+
+            {/* Panel */}
+            <div
+              className={`absolute top-0 right-0 h-full w-full max-w-sm bg-white shadow-2xl transform transition-transform duration-500 ease-in-out ${
+                isOpen ? "translate-x-0" : "translate-x-full"
+              }`}
+            >
+              <div className="flex items-center justify-between p-6 border-b border-gray-100">
+                <div className="flex items-center gap-3">
+                  <Image
+                    src="/images/logo.png"
+                    alt="Logo"
+                    height={40}
+                    width={80}
+                    className="h-8 w-auto object-contain"
+                  />
+                  <span className="font-bold text-lg text-gray-800">Menu</span>
+                </div>
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="cart-btn relative"
-                  onClick={() => dispatch(toggleCart())}
+                  onClick={() => setIsOpen(false)}
+                  className="rounded-full hover:bg-blue-50"
                 >
-                  <ShoppingCart className="w-5 h-5" />
-                  {total > 0 && (
-                    <Badge className="absolute -top-2 -right-2 w-5 h-5 text-xs font-bold rounded-full flex items-center justify-center p-0 bg-red-500 text-white">
-                      {total}
-                    </Badge>
-                  )}
+                  <X className="w-5 h-5" />
                 </Button>
               </div>
 
-              {user ? (
-                <div className="flex items-center gap-3">
-                  <UserDropdown user={user} />
-                  <button
-                    onClick={handleLogout}
-                    className="btn font-medium text-sm"
-                  >
-                    Logout
-                  </button>
-                </div>
-              ) : (
-                <div className="flex items-center gap-2 text-sm">
-                  <Link href="/login" className=" btn flex items-center gap-2">
-                    <LogIn className="w-4 h-4" />
-                    Login
-                  </Link>
-
+              {/* Mobile Navigation Links */}
+              <div className="flex-1 overflow-y-auto py-6 px-6">
+                {navigationItems.map((item) => (
                   <Link
-                    href="/signup"
-                    className="flex items-center gap-1 btn bg-transparent border-2 border-blue-500 text-blue-500 hover:text-white"
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setIsOpen(false)}
+                    className="block p-3 rounded-lg hover:bg-blue-50 text-gray-800 font-semibold"
                   >
-                    <User className="w-4 h-4" />
-                    Sign Up
+                    {item.label}
                   </Link>
+                ))}
+
+                {user && (
+                  <Link
+                    href="/dashboard"
+                    onClick={() => setIsOpen(false)}
+                    className="block p-3 mt-2 rounded-lg hover:bg-blue-50 text-gray-800 font-semibold"
+                  >
+                    Dashboard
+                  </Link>
+                )}
+
+                {/* Account Section */}
+                <div className="mt-8 bg-blue-50 rounded-xl p-4">
+                  <h3 className="font-semibold text-gray-800 mb-3">Account</h3>
+                  {user ? (
+                    <div className="flex items-center gap-3">
+                      <UserDropdown user={user} />
+                      <button
+                        onClick={handleLogout}
+                        className="btn font-medium text-sm"
+                      >
+                        Logout
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="flex items-center gap-2 text-sm">
+                      <Link
+                        href="/login"
+                        className=" btn flex items-center gap-2"
+                      >
+                        <LogIn className="w-4 h-4" />
+                        Login
+                      </Link>
+
+                      <Link
+                        href="/signup"
+                        className="flex items-center gap-1 btn bg-transparent border-2 border-blue-500 text-blue-500 hover:text-white"
+                      >
+                        <User className="w-4 h-4" />
+                        Sign Up
+                      </Link>
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
+              </div>
 
-            {/* Mobile Menu Toggle */}
-            <Button
-              variant="ghost"
-              size="icon"
-              className="lg:hidden p-2 rounded-md hover:bg-gray-100 transition-all duration-200 relative z-50"
-              onClick={() => setIsOpen(!isOpen)}
-            >
-              {isOpen ? (
-                <X className="w-6 h-6" />
-              ) : (
-                <Menu className="w-6 h-6" />
-              )}
-            </Button>
-
-            <div
-              className={`fixed inset-0 z-50 lg:hidden transition-all duration-500 ease-in-out bg-white ${
-                isOpen ? "visible" : "invisible"
-              }`}
-            >
-              {/* Backdrop */}
-              <div
-                className={`absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity duration-500 ${
-                  isOpen ? "opacity-100" : "opacity-0"
-                }`}
-                onClick={() => setIsOpen(false)}
-              />
-
-              {/* Panel */}
-              <div
-                className={`absolute top-0 right-0 h-full w-full max-w-sm bg-white shadow-2xl transform transition-transform duration-500 ease-in-out ${
-                  isOpen ? "translate-x-0" : "translate-x-full"
-                }`}
-              >
-                <div className="flex items-center justify-between p-6 border-b border-gray-100">
-                  <div className="flex items-center gap-3">
-                    <Image
-                      src="/images/logo.png"
-                      alt="Logo"
-                      height={40}
-                      width={80}
-                      className="h-8 w-auto object-contain"
-                    />
-                    <span className="font-bold text-lg text-gray-800">
-                      Menu
-                    </span>
-                  </div>
+              {/* Footer - Cart */}
+              <div className="border-t border-gray-100 p-6 bg-blue-50">
+                <div className="flex items-center justify-between">
                   <Button
                     variant="ghost"
                     size="icon"
-                    onClick={() => setIsOpen(false)}
-                    className="rounded-full hover:bg-gray-100"
+                    onClick={() => {
+                      dispatch(toggleCart());
+                      setIsOpen(false);
+                    }}
+                    className="cart-btn relative"
                   >
-                    <X className="w-5 h-5" />
-                  </Button>
-                </div>
-
-                {/* Mobile Navigation Links */}
-                <div className="flex-1 overflow-y-auto py-6 px-6">
-                  {navigationItems.map((item) => (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      onClick={() => setIsOpen(false)}
-                      className="block p-3 rounded-lg hover:bg-gray-100 text-gray-800 font-semibold"
-                    >
-                      {item.label}
-                    </Link>
-                  ))}
-
-                  {user && (
-                    <Link
-                      href="/dashboard"
-                      onClick={() => setIsOpen(false)}
-                      className="block p-3 mt-2 rounded-lg hover:bg-gray-100 text-gray-800 font-semibold"
-                    >
-                      Dashboard
-                    </Link>
-                  )}
-
-                  {/* Account Section */}
-                  <div className="mt-8 bg-gray-50 rounded-xl p-4">
-                    <h3 className="font-semibold text-gray-800 mb-3">
-                      Account
-                    </h3>
-                    {user ? (
-                      <div className="flex items-center gap-3">
-                        <UserDropdown user={user} />
-                        <button
-                          onClick={handleLogout}
-                          className="btn font-medium text-sm"
-                        >
-                          Logout
-                        </button>
-                      </div>
-                    ) : (
-                      <div className="flex items-center gap-2 text-sm">
-                        <Link
-                          href="/login"
-                          className=" btn flex items-center gap-2"
-                        >
-                          <LogIn className="w-4 h-4" />
-                          Login
-                        </Link>
-
-                        <Link
-                          href="/signup"
-                          className="flex items-center gap-1 btn bg-transparent border-2 border-blue-500 text-blue-500 hover:text-white"
-                        >
-                          <User className="w-4 h-4" />
-                          Sign Up
-                        </Link>
-                      </div>
+                    <ShoppingCart className="w-5 h-5" />
+                    {total > 0 && (
+                      <Badge className="absolute -top-2 -right-2 w-5 h-5 text-xs font-bold flex items-center justify-center p-0 bg-red-500 text-white">
+                        {total}
+                      </Badge>
                     )}
-                  </div>
-                </div>
-
-                {/* Footer - Cart */}
-                <div className="border-t border-gray-100 p-6 bg-gray-50">
-                  <div className="flex items-center justify-between">
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={() => {
-                        dispatch(toggleCart());
-                        setIsOpen(false);
-                      }}
-                      className="cart-btn relative"
-                    >
-                      <ShoppingCart className="w-5 h-5" />
-                      {total > 0 && (
-                        <Badge className="absolute -top-2 -right-2 w-5 h-5 text-xs font-bold flex items-center justify-center p-0 bg-red-500 text-white">
-                          {total}
-                        </Badge>
-                      )}
-                    </Button>
-                    <span className="text-sm text-gray-600">
-                      Cart ({total} items)
-                    </span>
-                  </div>
+                  </Button>
+                  <span className="text-sm text-gray-600">
+                    Cart ({total} items)
+                  </span>
                 </div>
               </div>
             </div>

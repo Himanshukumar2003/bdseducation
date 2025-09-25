@@ -33,7 +33,7 @@ function Books() {
   ];
 
   return (
-    <div className="bg-gray-100 py-16">
+    <div className="bg-blue-50 py-16">
       <div className="container   mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {books.map((item, index) => {

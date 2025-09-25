@@ -7,6 +7,7 @@ import TestimonialsSection from "../_components/review";
 import Tabs from "../_components/nav";
 import Image from "next/image";
 import Hero from "../_components/hero";
+import { Breadcrumb } from "@/components/breadcrumb";
 
 export default async function Page({ params }) {
   const { slug } = await params;

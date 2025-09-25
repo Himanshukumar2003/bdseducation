@@ -35,9 +35,7 @@ export default async function BookPage({ params }) {
 
   return (
     <>
-      <div className="max-w-7xl mx-auto px-6 py-12">
-        <BookImageGallery bookImages={bookImages} product={product} />
-      </div>
+      <BookImageGallery bookImages={bookImages} product={product} />
       <Books></Books>
     </>
   );

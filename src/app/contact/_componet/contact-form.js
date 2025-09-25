@@ -89,7 +89,7 @@ export function ContactForm() {
                     id="phone"
                     name="phone"
                     type="text"
-                    placeholder="+62 81234567890"
+                    placeholder="+91 1234567890"
                     value={formData.phone}
                     onChange={handleChange}
                     required

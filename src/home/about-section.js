@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function AboutSection() {
   return (
-    <section className="py-16 bg-gray-50">
+    <section className="py-16 ">
       <div className="container  mx-auto px-4">
         <div className="flex flex-col lg:flex-row items-center gap-8">
           {/* Left side - Image */}

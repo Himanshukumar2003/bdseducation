@@ -10,6 +10,7 @@ import "swiper/css/navigation";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchBooks, FILE_BASE_URL } from "@/lib/features/productsSlice";
+import BuyNowButton from "@/components/ui/buynow-btn";
 
 export default function BookPage() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -73,7 +74,7 @@ ${img}`
                     alt={`Book view ${index + 1}`}
                     width={80}
                     height={80}
-                       className="w-full h-full object-contain"
+                    className="w-full h-full object-contain"
                   />
                 </div>
               ))}
@@ -171,29 +172,9 @@ ${img}`
 
             {/* CTA Buttons */}
             <div className="flex gap-4">
-              <button class="btn">
-                <span>
-                  BUY NOW{" "}
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="lucide lucide-arrow-right w-4 h-4 ml-2 inline"
-                    aria-hidden="true"
-                  >
-                    <path d="M5 12h14"></path>
-                    <path d="m12 5 7 7-7 7"></path>
-                  </svg>
-                </span>
-              </button>
+              <BuyNowButton product={book} />
 
-              <button class="btn     bg-transparent  border-2 border-blue-700 text-blue-500 hover:text-white">
+              {/* <button class="btn     bg-transparent  border-2 border-blue-700 text-blue-500 hover:text-white">
                 <span>
                   Add TO CART{" "}
                   <svg
@@ -213,7 +194,7 @@ ${img}`
                     <path d="m12 5 7 7-7 7"></path>
                   </svg>
                 </span>
-              </button>
+              </button> */}
             </div>
           </div>
         </div>
@@ -234,7 +215,7 @@ ${img}`
        prose-ol:list-decimal
        prose-li:ml-6
        prose-li:m-0
-       prose-ul:marker:text-blue-600  /* bullet/dot blue */
+       prose-ul:marker:text-blue-600  
        prose-img:rounded-lg prose-img:m-0 prose-img:mx-auto
        prose-blockquote:border-l-4 prose-blockquote:border-gray-300 prose-blockquote:pl-4 prose-blockquote:text-gray-600 
        prose-a:text-blue-600 hover:prose-a:underline transition-all
@@ -242,6 +223,7 @@ ${img}`
        prose-th:bg-gray-100 prose-th:font-semibold prose-th:px-4 prose-th:py-2
        prose-td:px-4 prose-td:py-2
        prose-code:bg-gray-100 prose-code:rounded px-1 prose-code:text-red-600
+       prose-table:bg-white
 
       
        "

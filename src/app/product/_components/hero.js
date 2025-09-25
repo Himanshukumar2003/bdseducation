@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useDispatch } from "react-redux";
 import { addItem, toggleCart } from "@/lib/features/slice";
+import BuyNowButton from "@/components/ui/buynow-btn";
 
 export default function Hero({ product }) {
   const dispatch = useDispatch();
@@ -13,7 +14,7 @@ export default function Hero({ product }) {
   };
 
   return (
-    <section className="bg-gray-50 py-16 overflow-hidden">
+    <section className="bg-blue-50 pb-16 pt-[150px] overflow-hidden">
       <div className="container max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-10 items-center px-4">
         {/* Left Column: Product Info */}
         <div className="col-span-1 space-y-6">
@@ -30,9 +31,7 @@ export default function Hero({ product }) {
             {product.price}/-
           </p>
           <div className="flex flex-wrap gap-4">
-            <Link href="" className="btn text-sm sm:text-base">
-              Shop Now
-            </Link>
+            <BuyNowButton product={product} />
             <button
               onClick={handleAddToCart}
               className="btn outline-btn text-sm sm:text-base"

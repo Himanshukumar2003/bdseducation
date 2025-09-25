@@ -68,7 +68,7 @@ export default function CartSidebar() {
                   key={item.id}
                   className="flex items-center gap-4 border-b pb-4 last:border-b-0 last:pb-0 transition-all"
                 >
-                  <div className="relative w-20 h-20 flex-shrink-0 bg-gray-100 rounded-md overflow-hidden">
+                  <div className="relative w-20 h-20 flex-shrink-0 bg-blue-50 rounded-md overflow-hidden">
                     <Image
                       src={`${process.env.NEXT_PUBLIC_FILE_BASE}${item.pictures[0]}`}
                       alt={item.title}
@@ -90,7 +90,7 @@ export default function CartSidebar() {
                       <Button
                         variant="outline"
                         size="icon"
-                        className="h-7 w-7 bg-white border hover:bg-gray-100"
+                        className="h-7 w-7 bg-white border hover:bg-blue-50"
                         onClick={() => dispatch(decrementQuantity(item.id))}
                       >
                         <Minus className="h-4 w-4" />
@@ -102,7 +102,7 @@ export default function CartSidebar() {
                       <Button
                         variant="outline"
                         size="icon"
-                        className="h-7 w-7 bg-white border hover:bg-gray-100"
+                        className="h-7 w-7 bg-white border hover:bg-blue-50"
                         onClick={() => dispatch(incrementQuantity(item.id))}
                       >
                         <Plus className="h-4 w-4" />
@@ -162,7 +162,7 @@ export default function CartSidebar() {
             </Button>
             <Button
               variant="outline"
-              className="flex-1 bg-white border text-gray-700 hover:bg-gray-100"
+              className="flex-1 bg-white border text-gray-700 hover:bg-blue-50"
               onClick={() => router.push("/checkout")}
             >
               VIEW CART

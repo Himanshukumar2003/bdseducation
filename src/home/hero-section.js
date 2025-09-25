@@ -5,90 +5,31 @@ import Link from "next/link";
 
 export default function HeroSection() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-primary/5 via-background to-accent/5">
-      <div className="container px-4 py-24 sm:px-6 lg:px-8 mx-auto">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div className="space-y-8">
-            <div className="space-y-4">
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-balance">
-                Future-Ready Learning with{" "}
-                <span className="text-blue-500">Code</span>,{" "}
-                <span className="text-blue-800">AI</span>, and{" "}
-                <span className="text-blue-500">Innovation</span>!
-              </h1>
-              <p className="text-lg text-muted-foreground max-w-2xl text-pretty">
-                CodeCraft empowers students to master 21st-century skills
-                through interactive coding lessons, AI-powered projects, and
-                hands-on learning experiences that prepare them for
-                tomorrow&#39;`s challenges.
-              </p>
-            </div>
+    <section className="relative w-full h-screen overflow-hidden">
+      {/* Background Video */}
+      <video
+        className="absolute top-0 left-0 w-full h-full object-cover"
+        src="/images/hero-video.mp4" // apna video path
+        autoPlay
+        loop
+        muted
+        playsInline
+      />
 
-            <div className="flex flex-col sm:flex-row gap-4">
-              <div>
-                <Link href="/contact" className=" btn">
-                  <span>Contact Us</span>
-                </Link>
-              </div>
-              <div>
-                <Link
-                  variant="outline"
-                  size="lg"
-                  href="/about"
-                  className="text-base bg-transparent btn border-2 border-blue-500 text-blue-500 hover:text-white"
-                >
-                  {/* <Play className="mr-2 h-5 w-5" /> */}
-                  About us
-                </Link>
-              </div>
-            </div>
-          </div>
+      {/* Overlay color (optional for readability) */}
+      <div className="absolute inset-0 bg-black/50"></div>
 
-          <div className="relative">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-4">
-                <div className="relative overflow-hidden rounded-2xl">
-                  <Image
-                    width={100}
-                    height={100}
-                    src="/student-coding-on-laptop-with-colorful-code-on-scr.jpg"
-                    alt="Student coding"
-                    className="w-full h-64 object-cover"
-                  />
-                </div>
-                <div className="relative overflow-hidden rounded-2xl">
-                  <Image
-                    width={100}
-                    height={100}
-                    src="/ai-robot-teaching-programming-concepts-to-children.jpg"
-                    alt="AI learning"
-                    className="w-full h-40 object-cover"
-                  />
-                </div>
-              </div>
-              <div className="space-y-4 pt-8">
-                <div className="relative overflow-hidden rounded-2xl">
-                  <Image
-                    width={100}
-                    height={100}
-                    src="/diverse-group-of-students-collaborating-on-robotic.jpg"
-                    alt="Collaborative learning"
-                    className="w-full h-40 object-cover"
-                  />
-                </div>
-                <div className="relative overflow-hidden rounded-2xl">
-                  <Image
-                    width={100}
-                    height={100}
-                    src="/modern-classroom-with-interactive-coding-displays-.jpg"
-                    alt="Modern classroom"
-                    className="w-full h-64 object-cover"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+      {/* Text Content */}
+      <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-4">
+        <h1 className="text-4xl md:text-6xl font-bold mb-4">
+          Welcome to Our Website
+        </h1>
+        <p className="text-lg md:text-2xl max-w-2xl mb-6">
+          Experience innovation, creativity, and excellence with us.
+        </p>
+        <button className="px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg font-medium">
+          Get Started
+        </button>
       </div>
     </section>
   );

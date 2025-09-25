@@ -45,7 +45,7 @@ export function OrdersDetails({ orders }) {
       <h2 className="text-2xl font-bold mb-6 text-gray-800">All Orders</h2>
 
       <table className="min-w-full text-sm text-left">
-        <thead className="bg-gray-100 text-gray-600 uppercase text-xs border-b">
+        <thead className="bg-blue-50 text-gray-600 uppercase text-xs border-b">
           <tr>
             <th className="px-6 py-3">Order #</th>
             <th className="px-6 py-3">Product</th>
@@ -62,14 +62,14 @@ export function OrdersDetails({ orders }) {
           {paginatedItems.map((product, index) => (
             <tr
               key={`${product.orderId}-${index}`}
-              className="hover:bg-gray-50 transition"
+              className="hover:bg-blue-50 transition"
             >
               <td className="px-6 py-4 font-medium text-gray-800">
                 #{product.orderId}
               </td>
 
               <td className="px-6 py-4 flex items-center gap-3">
-                <div className="relative w-10 h-10 rounded overflow-hidden border bg-gray-100">
+                <div className="relative w-10 h-10 rounded overflow-hidden border bg-blue-50">
                   <Image
                     src={
                       product?.pictures?.[0]

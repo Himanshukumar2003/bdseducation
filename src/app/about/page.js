@@ -208,7 +208,7 @@ export default function About() {
           />
         </div>
       </div>
-      <section className="section px-4 bg-gray-50">
+      <section className="section px-4 bg-blue-50">
         <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-3 gap-8">
             {cards.map((card, index) => (

@@ -14,7 +14,7 @@ export function Breadcrumb({
   return (
     <div className={`relative w-full ${className}`}>
       {/* Background Image */}
-      <div className="relative w-full h-[250px] md:h-[200px] overflow-hidden">
+      <div className="relative w-full h-[260px] md:h-[280px] overflow-hidden pt-[80px]">
         <Image
           src="/images/hero-2.png"
           alt={title}
@@ -27,8 +27,8 @@ export function Breadcrumb({
       </div>
 
       {/* Content */}
-      <div className="absolute inset-0 flex  flex-col items-center justify-center text-white">
-        <h1 className="text-3xl md:text-5xl text-center font-bold mb-4">
+      <div className="absolute inset-0 flex pt-[100px]  flex-col items-center justify-center text-white">
+        <h1 className="text-3xl md:text-4xl text-center max-w-7xl font-bold mb-4">
           {title}
         </h1>
 

@@ -82,7 +82,7 @@ export default function TestimonialsSection() {
   }
 
   return (
-    <div className="bg-gray-50/70 section py-16">
+    <div className="bg-blue-50/70 section py-16">
       <div className="container mx-auto px-4">
         <div className="text-center mb-14">
           <h2 className="text-4xl font-bold tracking-tight text-foreground mb-4">

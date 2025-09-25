@@ -35,7 +35,7 @@ const blogPosts = [
 
 export default function BlogSection() {
   return (
-    <section className="py-16 bg-gray-50">
+    <section className="py-16 bg-blue-50">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16 max-w-[600px] mx-auto">
           <span className="text-[var(--primary-blue)] font-semibold text-sm tracking-widest uppercase mb-4 block">
