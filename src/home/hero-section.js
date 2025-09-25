@@ -17,10 +17,10 @@ export default function HeroSection() {
       />
 
       {/* Overlay color (optional for readability) */}
-      <div className="absolute inset-0 bg-black/50"></div>
+      {/* <div className="absolute inset-0 bg-black/50"></div> */}
 
       {/* Text Content */}
-      <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-4">
+      {/* <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-4">
         <h1 className="text-4xl md:text-6xl font-bold mb-4">
           Welcome to Our Website
         </h1>
@@ -30,7 +30,7 @@ export default function HeroSection() {
         <button className="px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg font-medium">
           Get Started
         </button>
-      </div>
+      </div> */}
     </section>
   );
 }
