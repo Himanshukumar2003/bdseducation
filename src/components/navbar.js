@@ -287,7 +287,7 @@ function Navbar() {
               </div>
 
               {/* Mobile Navigation Links */}
-              <div className="flex-1 overflow-y-auto py-6 px-6">
+              <div className="flex-1 overflow-y-auto py-6 px-6 bg-white">
                 {navigationItems.map((item) => (
                   <Link
                     key={item.href}
