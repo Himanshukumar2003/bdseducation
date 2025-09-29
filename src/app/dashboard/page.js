@@ -25,7 +25,7 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className="  flex bg-blue-50">
+    <div className="  flex bg-blue-50 pt-[140px]">
       <UserSidebar
         user={user}
         activeSection={activeSection}

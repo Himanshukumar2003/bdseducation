@@ -6,27 +6,39 @@ import { useRouter } from "next/navigation";
 import { addOrder } from "@/lib/features/ordersSlice";
 import { Input } from "@/components/ui/input";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import {
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectItem,
-} from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
-import { Edit, PhoneOffIcon as CreditCardOff } from "lucide-react";
+import { CreditCard, Wallet } from "lucide-react";
 import Image from "next/image";
+import { useState } from "react";
+import { useAuth } from "@/providers/auth-provider";
 
 export default function CheckoutPage() {
-  const { register, handleSubmit, watch, formState } = useForm({
-    mode: "onChange",
-  });
-  const { isValid } = formState;
+  const { user, isUserLoading } = useAuth();
+
+  const savedShipping = useSelector((state) => state.orders.shippingInfo);
   const cartItems = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
   const router = useRouter();
+
+  const { register, handleSubmit, formState } = useForm({
+    mode: "onChange",
+    defaultValues: savedShipping || {
+      email: "",
+      country: "",
+      firstName: "",
+      lastName: "",
+      address: "",
+      apartment: "",
+      city: "",
+      postalCode: "",
+    },
+  });
+
+  const { isValid } = formState;
+  const [paymentMethod, setPaymentMethod] = useState("online");
+  const [codConfirmed, setCodConfirmed] = useState(false);
 
   const subtotal = cartItems.reduce(
     (sum, item) =>
@@ -37,8 +49,18 @@ export default function CheckoutPage() {
   const total = subtotal + estimatedTaxes;
 
   const onSubmit = (data) => {
+    if (!user) {
+      alert("Please login first!");
+      return;
+    }
+
     if (cartItems.length === 0) {
       alert("Your cart is empty");
+      return;
+    }
+
+    if (paymentMethod === "cod" && !codConfirmed) {
+      alert("Please confirm your COD order before placing.");
       return;
     }
 
@@ -50,6 +72,7 @@ export default function CheckoutPage() {
       total,
       date: new Date().toISOString(),
       shipping: data,
+      paymentMethod,
     };
 
     dispatch(addOrder(order));
@@ -68,6 +91,7 @@ export default function CheckoutPage() {
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-10">
           {/* FORM FIELDS */}
           <div className="lg:col-span-2 space-y-8">
+            {/* Contact Info */}
             <Card className="shadow-lg rounded-xl border-none py-5">
               <CardHeader className="pb-4">
                 <CardTitle className="text-2xl font-bold text-gray-800">
@@ -93,7 +117,6 @@ export default function CheckoutPage() {
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="space-y-4">
-                  {/* Country Select */}
                   <select
                     {...register("country", { required: true })}
                     className="h-12 text-base border rounded-lg px-4 w-full"
@@ -167,24 +190,76 @@ export default function CheckoutPage() {
                 <p className="text-base text-gray-600">
                   All transactions are secure and encrypted.
                 </p>
-                <div className="flex flex-col items-center justify-center border border-gray-200 p-8 bg-blue-50 rounded-lg text-gray-500">
-                  <CreditCardOff className="w-10 h-10 mb-4 text-gray-400" />
-                  <p className="text-center text-lg font-medium">
-                    This store can&apos;t accept payments right now.
-                  </p>
+
+                {/* Payment Options */}
+                <div className="space-y-4">
+                  <div
+                    onClick={() => setPaymentMethod("online")}
+                    className={`flex items-center gap-3 p-4 border rounded-lg cursor-pointer ${
+                      paymentMethod === "online"
+                        ? "border-blue-500 bg-blue-50"
+                        : "border-gray-200"
+                    }`}
+                  >
+                    <CreditCard className="w-6 h-6 text-gray-600" />
+                    <span className="font-medium">Pay Now (Online)</span>
+                  </div>
+
+                  <div
+                    onClick={() => setPaymentMethod("cod")}
+                    className={`flex items-center gap-3 p-4 border rounded-lg cursor-pointer ${
+                      paymentMethod === "cod"
+                        ? "border-green-500 bg-green-50"
+                        : "border-gray-200"
+                    }`}
+                  >
+                    <Wallet className="w-6 h-6 text-gray-600" />
+                    <span className="font-medium">Cash on Delivery</span>
+                  </div>
                 </div>
+
+                {/* COD Confirmation */}
+                {paymentMethod === "cod" && (
+                  <div className="flex items-center space-x-2 pt-4">
+                    <Checkbox
+                      id="cod-confirm"
+                      className="w-5 h-5"
+                      checked={codConfirmed}
+                      onCheckedChange={setCodConfirmed}
+                    />
+                    <Label
+                      htmlFor="cod-confirm"
+                      className="text-base text-gray-700 cursor-pointer"
+                    >
+                      I confirm that I will pay cash upon delivery.
+                    </Label>
+                  </div>
+                )}
+
+                {/* ❌ Login Error */}
+                {!user && (
+                  <div className="text-red-600 font-medium text-center border border-red-300 rounded-md p-2">
+                    Please login first to place an order
+                  </div>
+                )}
+
                 <Button
                   type="submit"
-                  disabled={!isValid || cartItems.length === 0}
-                  className="btn"
+                  disabled={
+                    !user ||
+                    !isValid ||
+                    cartItems.length === 0 ||
+                    (paymentMethod === "cod" && !codConfirmed)
+                  }
+                  className="btn w-full"
                 >
-                  Pay now
+                  {paymentMethod === "cod" ? "Place Order" : "Pay Now"}
                 </Button>
               </CardContent>
             </Card>
           </div>
 
-          {/* Order Summary - Same as Before */}
+          {/* Order Summary */}
           <div className="lg:col-span-1 bg-white p-8 rounded-xl shadow-lg sticky top-12 h-fit">
             <h2 className="text-2xl font-bold mb-6 text-gray-800">
               Order Summary
@@ -200,7 +275,7 @@ export default function CheckoutPage() {
                     key={item.id}
                     className="flex items-center gap-4 border-b pb-4 last:border-b-0 last:pb-0"
                   >
-                    <div className="relative w-20 h-20 flex-shrink-0 border rounded-lg  bg-gray-100">
+                    <div className="relative w-20 h-20 flex-shrink-0 border rounded-lg bg-gray-100">
                       <Image
                         src={`${process.env.NEXT_PUBLIC_FILE_BASE}${item.pictures[0]}`}
                         alt={item.title}

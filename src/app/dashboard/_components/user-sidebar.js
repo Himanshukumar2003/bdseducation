@@ -7,7 +7,7 @@ import { handleLogout } from "@/providers/auth-provider";
 
 export function UserSidebar({ user, activeSection, onSectionChange }) {
   return (
-    <div className="w-64  bg-sidebar border-r border-sidebar-border sticky top-20  flex flex-col">
+    <div className="w-64  bg-sidebar border-r border-sidebar-border sticky top-20  flex flex-col ">
       <div className="p-6 border-b border-sidebar-border">
         <div className="flex items-center gap-3">
           <Avatar className="h-10 w-10  shadow-md ring-2 ring-blue-200  ">

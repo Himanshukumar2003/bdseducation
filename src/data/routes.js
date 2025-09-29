@@ -54,10 +54,4 @@ export const allRoutes = [
     link: "/product-two/:slug",
     roles: [],
   },
-  {
-    label: "Profile",
-    link: "/dashboard",
-    roles: [ROLES.USER],
-    icon: User,
-  },
 ];
