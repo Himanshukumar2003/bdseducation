@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils"; // Shadcn utility
+import Link from "next/link";
 
 const statusMap = {
   completed: "bg-green-100 text-green-700",
@@ -15,6 +16,7 @@ const statusMap = {
 const ORDERS_PER_PAGE = 5;
 
 export function OrdersDetails({ orders }) {
+  console.log(orders);
   const [page, setPage] = useState(1);
 
   if (!orders || orders.length === 0) {
@@ -31,6 +33,7 @@ export function OrdersDetails({ orders }) {
       orderId: order.id,
       date: order.date,
       shipping: order.shipping,
+      paymentMethod: order.paymentMethod,
     }))
   );
 
@@ -41,7 +44,7 @@ export function OrdersDetails({ orders }) {
   );
 
   return (
-    <div className="p-6 bg-white shadow rounded-xl overflow-auto">
+    <div className=" bg-white shadow rounded-xl overflow-auto pt-[120px]">
       <h2 className="text-2xl font-bold mb-6 text-gray-800">All Orders</h2>
 
       <table className="min-w-full text-sm text-left">
@@ -55,6 +58,7 @@ export function OrdersDetails({ orders }) {
             <th className="px-6 py-3">Date</th>
             <th className="px-6 py-3">Price</th>
             <th className="px-6 py-3">Status</th>
+            <th className="px-4 py-2">Payment</th>
           </tr>
         </thead>
 
@@ -65,7 +69,17 @@ export function OrdersDetails({ orders }) {
               className="hover:bg-blue-50 transition"
             >
               <td className="px-6 py-4 font-medium text-gray-800">
-                #{product.orderId}
+                <Link
+                  href={{
+                    pathname: `/dashboard/orders/${product.orderId}`,
+                    query: { orderId: product.orderId },
+                  }}
+                  passHref
+                >
+                  <span className="hover:underline text-blue-600 cursor-pointer">
+                    #{product.orderId}
+                  </span>
+                </Link>
               </td>
 
               <td className="px-6 py-4 flex items-center gap-3">
@@ -112,12 +126,14 @@ export function OrdersDetails({ orders }) {
                     : "Pending"}
                 </Badge>
               </td>
+              <td className="px-4 py-2 font-medium text-gray-800">
+                <span className="text-black"> {product.paymentMethod}</span>
+              </td>
             </tr>
           ))}
         </tbody>
       </table>
 
-      {/* Pagination */}
       {pageCount > 1 && (
         <div className="flex justify-center mt-6 gap-2">
           <Button

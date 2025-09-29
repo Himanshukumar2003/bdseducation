@@ -39,6 +39,10 @@ export const allRoutes = [
     roles: [],
   },
   {
+    link: "/login",
+    roles: [],
+  },
+  {
     link: "/gallery",
     roles: [],
   },

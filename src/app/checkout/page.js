@@ -15,12 +15,15 @@ import { useState } from "react";
 import { useAuth } from "@/providers/auth-provider";
 
 export default function CheckoutPage() {
-  const { user, isUserLoading } = useAuth();
+  const { user } = useAuth();
 
   const savedShipping = useSelector((state) => state.orders.shippingInfo);
   const cartItems = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
   const router = useRouter();
+
+  const [paymentMethod, setPaymentMethod] = useState("online");
+  const [codConfirmed, setCodConfirmed] = useState(false);
 
   const { register, handleSubmit, formState } = useForm({
     mode: "onChange",
@@ -37,8 +40,6 @@ export default function CheckoutPage() {
   });
 
   const { isValid } = formState;
-  const [paymentMethod, setPaymentMethod] = useState("online");
-  const [codConfirmed, setCodConfirmed] = useState(false);
 
   const subtotal = cartItems.reduce(
     (sum, item) =>
@@ -72,7 +73,7 @@ export default function CheckoutPage() {
       total,
       date: new Date().toISOString(),
       shipping: data,
-      paymentMethod,
+      paymentMethod: paymentMethod === "cod" ? "COD" : "Paid",
     };
 
     dispatch(addOrder(order));
@@ -242,7 +243,6 @@ export default function CheckoutPage() {
                     Please login first to place an order
                   </div>
                 )}
-
                 <Button
                   type="submit"
                   disabled={
@@ -251,7 +251,7 @@ export default function CheckoutPage() {
                     cartItems.length === 0 ||
                     (paymentMethod === "cod" && !codConfirmed)
                   }
-                  className="btn w-full"
+                  className="btn "
                 >
                   {paymentMethod === "cod" ? "Place Order" : "Pay Now"}
                 </Button>
