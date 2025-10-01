@@ -26,7 +26,6 @@ import { useRouter } from "next/navigation";
 import { Badge } from "./ui/badge";
 
 export default function UserDropdown({ user }) {
-  console.log({ user });
   const router = useRouter();
   const fallbackName = user.fullname.split(" ")[0].charAt(0);
 

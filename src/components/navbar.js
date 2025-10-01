@@ -5,7 +5,7 @@ import { Menu, X, ShoppingCart, User, LogIn } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleCart } from "@/lib/features/slice";
+import { fetchCartItems, toggleCart } from "@/lib/features/slice";
 import {
   fetchBooks,
   fetchProducts,
@@ -48,6 +48,7 @@ function Navbar() {
     dispatch(fetchProducts());
     dispatch(fetchProducts2());
     dispatch(fetchBooks());
+    dispatch(fetchCartItems());
   }, [dispatch]);
 
   useEffect(() => {

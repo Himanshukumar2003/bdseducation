@@ -12,6 +12,7 @@ import { useDispatch } from "react-redux";
 import { addItem, toggleCart } from "@/lib/features/slice";
 import BuyNowButton from "@/components/ui/buynow-btn";
 import { Breadcrumb } from "@/components/breadcrumb";
+import { AddToCartButtonProduct } from "@/components/cart-button";
 
 export default function BookImageGallery({ bookImages, product }) {
   const dispatch = useDispatch();
@@ -162,32 +163,19 @@ export default function BookImageGallery({ bookImages, product }) {
 
             {/* CTA Buttons */}
             <div className="flex gap-4">
-              <BuyNowButton product={product} />
+              <BuyNowButton
+                product={{
+                  item_id: product.id,
+                  item_type: "product-2",
+                }}
+              />
 
-              <button
-                onClick={handleAddToCart}
-                className="btn bg-transparent border-2 border-blue-700 text-blue-500 hover:text-white"
-              >
-                <span>
-                  Add TO CART{" "}
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="lucide lucide-arrow-right w-4 h-4 ml-2 inline"
-                    aria-hidden="true"
-                  >
-                    <path d="M5 12h14"></path>
-                    <path d="m12 5 7 7-7 7"></path>
-                  </svg>
-                </span>
-              </button>
+              <AddToCartButtonProduct
+                product={{
+                  item_id: product.id,
+                  item_type: "product-2",
+                }}
+              />
             </div>
           </div>
         </div>

@@ -18,9 +18,12 @@ import {
   decrementQuantity,
   toggleCart,
   closeCart,
+  fetchCartItems,
 } from "@/lib/features/slice";
 import { useState } from "react";
 import { useRouter } from "next/navigation"; // Import useRouter
+import { useMutation } from "@tanstack/react-query";
+import { deleteCartItem, updateCartItem } from "@/services/cart-services";
 
 export default function CartSidebar() {
   const dispatch = useDispatch();
@@ -28,6 +31,44 @@ export default function CartSidebar() {
   const isCartOpen = useSelector((state) => state.cart.isCartOpen);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
   const router = useRouter(); // Initialize useRouter
+
+  const { mutate, isPending, isError, error } = useMutation({
+    mutationFn: ({ id, ...data }) => updateCartItem(id, { ...data }),
+    onSuccess: (data) => {
+      // Optionally: use returned data to update Redux
+      //   dispatch(addItem(data));
+      dispatch(fetchCartItems());
+      // dispatch(toggleCart());
+    },
+    onError: (err, variables) => {
+      console.error("Error adding to cart:", err);
+      // Optionally show a toast or notification
+      //   dispatch(removeItem(variables.id));
+      handleError(err);
+    },
+    // onMutate: (data) => {
+    //   dispatch(addItem({ data }));
+    // },
+  });
+
+  const deleteMutation = useMutation({
+    mutationFn: ({ id, ...data }) => deleteCartItem(id),
+    onSuccess: (data) => {
+      // Optionally: use returned data to update Redux
+      //   dispatch(addItem(data));
+      dispatch(fetchCartItems());
+      // dispatch(toggleCart());
+    },
+    onError: (err, variables) => {
+      console.error("Error adding to cart:", err);
+      // Optionally show a toast or notification
+      //   dispatch(removeItem(variables.id));
+      handleError(err);
+    },
+    // onMutate: (data) => {
+    //   dispatch(addItem({ data }));
+    // },
+  });
 
   const subtotal = cartItems.reduce(
     (sum, item) =>
@@ -91,7 +132,9 @@ export default function CartSidebar() {
                         variant="outline"
                         size="icon"
                         className="h-7 w-7 bg-white border hover:bg-blue-50"
-                        onClick={() => dispatch(decrementQuantity(item.id))}
+                        onClick={() =>
+                          mutate({ id: item.id, quantity: item.quantity - 1 })
+                        }
                       >
                         <Minus className="h-4 w-4" />
                         <span className="sr-only">Decrease quantity</span>
@@ -103,7 +146,9 @@ export default function CartSidebar() {
                         variant="outline"
                         size="icon"
                         className="h-7 w-7 bg-white border hover:bg-blue-50"
-                        onClick={() => dispatch(incrementQuantity(item.id))}
+                        onClick={() => {
+                          mutate({ id: item.id, quantity: item.quantity + 1 });
+                        }}
                       >
                         <Plus className="h-4 w-4" />
                         <span className="sr-only">Increase quantity</span>
@@ -112,7 +157,7 @@ export default function CartSidebar() {
                         variant="ghost"
                         size="icon"
                         className="ml-auto text-red-500 hover:text-red-600"
-                        onClick={() => dispatch(removeItem(item.id))}
+                        onClick={() => deleteMutation.mutate({ id: item.id })}
                       >
                         <Trash className="h-5 w-5" />
                         <span className="sr-only">Remove item</span>

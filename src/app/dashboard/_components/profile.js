@@ -5,7 +5,6 @@ import { useAuth } from "@/providers/auth-provider";
 
 export function ProfileDetails({}) {
   const { user, isUserLoading } = useAuth();
-  console.log({ isUserLoading });
   if (isUserLoading) return "Loading...";
 
   return (
@@ -43,7 +42,7 @@ export function ProfileDetails({}) {
         </Card>
 
         {/* Details */}
-        <div className="lg:col-span-2 border shadow-sm rounded-xl">
+        <div className="lg:col-span-2 border shadow-sm rounded-xl bg-white">
           <CardContent className="space-y-6 py-8 px-6 ">
             {/* Grid Info */}
             <CardTitle className="text-blue-900">
@@ -56,12 +55,7 @@ export function ProfileDetails({}) {
                   {user.fullname}
                 </p>
               </div>
-              <div className="space-y-1">
-                <span className="text-sm text-muted-foreground">User ID</span>
-                <p className="font-semibold text-lg text-blue-800">{user.id}</p>
-              </div>
-              <hr></hr>
-              <hr></hr>
+
               <div className="space-y-1">
                 <span className="text-sm text-muted-foreground flex items-center gap-1">
                   <Mail className="h-4 w-4" /> Email Address

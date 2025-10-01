@@ -3,6 +3,8 @@ import "./globals.css";
 import Providers from "@/lib/povider";
 import SmoothScrollProvider from "@/providers/smooth-scroll-provider";
 import Layout from "@/components/layout/layout";
+import QueryProvider from "@/providers/query-client-provider";
+import { Toaster } from "sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,11 +31,14 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Providers>
-          <SmoothScrollProvider>
-            <Layout>{children}</Layout>
-          </SmoothScrollProvider>
-        </Providers>
+        <QueryProvider>
+          <Providers>
+            <SmoothScrollProvider>
+              <Layout>{children}</Layout>
+            </SmoothScrollProvider>
+          </Providers>
+        </QueryProvider>
+        <Toaster richColors />
       </body>
     </html>
   );

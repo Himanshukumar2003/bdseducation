@@ -12,7 +12,9 @@ import { Breadcrumb } from "@/components/breadcrumb";
 export default async function Page({ params }) {
   const { slug } = await params;
 
-  const response = await fetch(`https://bdsapi.bwdemo.in/v1/products/${slug}`);
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/products/get-by-slug/${slug}`
+  );
   const data = await response.json();
 
   console.log(data);
@@ -25,7 +27,6 @@ export default async function Page({ params }) {
 
   return (
     <>
-      {/* <Tabs /> */}
 
       <Hero product={product}></Hero>
       <Interactive features={product.features} />

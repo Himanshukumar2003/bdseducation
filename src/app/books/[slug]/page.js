@@ -1,16 +1,14 @@
-import BookImageGallery from "@/app/product-two/_componets/hero";
+import BookHero from "../_componets/hero";
 import Books from "../_componets/relativeProduct";
 
 export default async function BookPage({ params }) {
   const { slug } = await params;
 
   const response = await fetch(
-    `https://bdsapi.bwdemo.in/v1/books/get-by-slug/${slug}`,
+    `${process.env.NEXT_PUBLIC_API_URL}/books/get-by-slug/${slug}`,
     { cache: "no-store" }
   );
   const data = await response.json();
-
-  console.log(data);
 
   if (!data?.data) {
     return <div>Not Found</div>;
@@ -35,7 +33,7 @@ export default async function BookPage({ params }) {
 
   return (
     <>
-      <BookImageGallery bookImages={bookImages} product={product} />
+      <BookHero bookImages={bookImages} product={product} />
       <Books></Books>
     </>
   );

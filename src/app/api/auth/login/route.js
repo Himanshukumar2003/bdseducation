@@ -16,7 +16,6 @@ export async function POST(request) {
       body: data.body,
     });
     const json = await res.json();
-    console.log({ json });
     if (res.ok) {
       cookieStore.set("token", json.token, {
         path: "/",
@@ -37,7 +36,6 @@ export async function POST(request) {
     // Return the same response as the external backend.
     return NextResponse.json(json, { status: res.status });
   } catch (err) {
-    console.log("Error logging in:", err);
     return NextResponse.json(
       { message: "Something went wrong" },
       { status: 500 }

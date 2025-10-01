@@ -6,7 +6,7 @@ import { addItem, toggleCart } from "@/lib/features/slice";
 import BuyNowButton from "@/components/ui/buynow-btn";
 import { AddToCartButtonProduct } from "@/components/cart-button";
 
-export default function Hero({ product }) {
+export default function BookHero({ product }) {
   return (
     <section className="bg-blue-50 pb-16 pt-[150px] overflow-hidden">
       <div className="container max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-10 items-center px-4">
@@ -25,15 +25,16 @@ export default function Hero({ product }) {
             {product.price}/-
           </p>
           <div className="flex flex-wrap gap-4">
-            product=
-            {{
-              item_id: product.id,
-              item_type: "product-1",
-            }}
+            <BuyNowButton
+              product={{
+                item_id: product.id,
+                item_type: "book",
+              }}
+            />
             <AddToCartButtonProduct
               product={{
                 item_id: product.id,
-                item_type: product.type,
+                item_type: "book",
               }}
             />
           </div>

@@ -1,10 +1,10 @@
 "use client";
 
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
-import { addOrder } from "@/lib/features/ordersSlice";
-import { Input } from "@/components/ui/input";
+
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -13,33 +13,93 @@ import { CreditCard, Wallet } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 import { useAuth } from "@/providers/auth-provider";
+import { z } from "zod";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { createOrder } from "@/services/order-services";
+import { toast } from "sonner";
+import { handleError } from "@/lib/handle-error-toast";
+import { DialogDescription } from "@radix-ui/react-dialog";
+import AddressForm from "@/components/address-form";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { getAddresses } from "@/services/address-services";
+import Loader from "@/components/loader";
 
+export const addressSchema = z.object({
+  fullname: z.string().min(1, "fullname is required"),
+  street: z.string().min(1, "Street is required"),
+  house: z.string().min(1, "House Nubher is required"),
+  city: z.string().min(1, "City is required"),
+  state: z.string().min(1, "State is required"),
+  postal_code: z.string().min(3, "Postal code is required"),
+  phone: z.string().min(6).optional(),
+});
+
+export const orderItemSchema = z.object({
+  item_type: z.enum(["book", "product", "product-2"]),
+  item_id: z.string().uuid({ message: "Invalid item_id" }),
+  quantity: z.number().int().positive({ message: "Quantity must be > 0" }),
+});
+
+export const createOrderSchema = z.object({
+  shipping_address: addressSchema,
+  order_items: z
+    .array(orderItemSchema)
+    .min(1, "order_items must contain at least one item"),
+  payment_method: z
+    .enum(["card", "upi", "cod", "paypal", "bank_transfer", "cod"])
+    .optional(),
+  coupon_code: z.string().trim().optional(),
+});
 export default function CheckoutPage() {
   const { user } = useAuth();
-
   const savedShipping = useSelector((state) => state.orders.shippingInfo);
   const cartItems = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const [paymentMethod, setPaymentMethod] = useState("online");
+  const [paymentMethod, setPaymentMethod] = useState("card");
   const [codConfirmed, setCodConfirmed] = useState(false);
+  const [selectedAddressId, setSelectedAddressId] = useState(null);
 
-  const { register, handleSubmit, formState } = useForm({
+  const { register, handleSubmit, formState, setValue, watch } = useForm({
     mode: "onChange",
+    resolver: zodResolver(createOrderSchema.pick({ shipping_address: true })),
     defaultValues: savedShipping || {
-      email: "",
-      country: "",
-      firstName: "",
-      lastName: "",
-      address: "",
-      apartment: "",
-      city: "",
-      postalCode: "",
+      shipping_address: {
+        fullname: "",
+        street: "",
+        city: "",
+        state: "",
+        postal_code: "",
+        phone: "",
+        house: "",
+      },
     },
   });
 
-  const { isValid } = formState;
+  const { isValid, errors, isDirty } = formState;
+
+  const createMutation = useMutation({
+    mutationFn: createOrder,
+    onSuccess: () => {
+      toast.success("Order created");
+      router.push("/dashboard");
+    },
+    onError: (error) => {
+      handleError(error);
+    },
+  });
+
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ["addresses"],
+    queryFn: getAddresses,
+  });
 
   const subtotal = cartItems.reduce(
     (sum, item) =>
@@ -65,26 +125,21 @@ export default function CheckoutPage() {
       return;
     }
 
+    const order_items = cartItems.map((item) => ({
+      item_type: item.item_type,
+      item_id: item.item_id,
+      quantity: item.quantity,
+    }));
+
     const order = {
-      id: Date.now(),
-      items: cartItems,
-      subtotal,
-      estimatedTaxes,
-      total,
-      date: new Date().toISOString(),
-      shipping: data,
-      paymentMethod: paymentMethod === "cod" ? "COD" : "Paid",
+      ...data,
+      order_items,
+      payment_method: paymentMethod,
+      // coupon_code: data.coupon_code || undefined,
     };
 
-    dispatch(addOrder(order));
-    router.push("/dashboard");
+    createMutation.mutate(order);
   };
-
-  const countries = [
-    { code: "IN", name: "India", flag: "🇮🇳" },
-    { code: "US", name: "United States", flag: "🇺🇸" },
-    { code: "CA", name: "Canada", flag: "🇨🇦" },
-  ];
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="section bg-blue-50">
@@ -92,93 +147,88 @@ export default function CheckoutPage() {
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-10">
           {/* FORM FIELDS */}
           <div className="lg:col-span-2 space-y-8">
-            {/* Contact Info */}
+            <div className=" bg-white rounded-xl shadow-2xl p-4">
+              <div>
+                <h3>Select Addresses:</h3>
+
+                {isLoading ? (
+                  <Loader />
+                ) : isError ? (
+                  <p className="text-red-500">
+                    {error?.message ?? "Something went wrong"}
+                  </p>
+                ) : (
+                  <div className="space-y-4">
+                    {data.addresses.map((addr) => (
+                      <label
+                        key={addr.id}
+                        className={`flex items-center p-4 border rounded-lg cursor-pointer transition-all ${
+                          selectedAddressId === addr.id
+                            ? "border-blue-500 bg-green-50 shadow-md"
+                            : "border-gray-200 hover:border-gray-400"
+                        }`}
+                      >
+                        <input
+                          type="radio"
+                          value={addr.id}
+                          {...register("addresses")}
+                          className="mt-1 mr-3 cursor-pointer accent-blue-500"
+                          onChange={() => {
+                            setSelectedAddressId(addr.id);
+                            setValue("shipping_address", addr.address);
+                          }}
+                        />
+                        <div className="text-gray-800">
+                          <p className="font-semibold">
+                            {addr.address.fullname}
+                          </p>
+                          <p className="text-sm">
+                            {addr.address.street}, {addr.address.city},{" "}
+                            {addr.address.state} — {addr.address.postal_code}
+                          </p>
+                        </div>
+                      </label>
+                    ))}
+                  </div>
+                )}
+              </div>
+              <div className=" mt-4 ">
+                <Dialog>
+                  <DialogTrigger className="btn">Add address</DialogTrigger>
+                  <DialogContent>
+                    <DialogHeader>
+                      <DialogTitle className={"sr-only"}>
+                        Are you absolutely sure?
+                      </DialogTitle>
+                      <DialogDescription className={"sr-only"}>
+                        This action cannot be undone. This will permanently
+                        delete your account and remove your data from our
+                        servers.
+                      </DialogDescription>
+                      <AddressForm />
+                    </DialogHeader>
+                  </DialogContent>
+                </Dialog>
+              </div>
+            </div>
+
+            {/* Coupon (commented for now) */}
+            {/*
             <Card className="shadow-lg rounded-xl border-none py-5">
               <CardHeader className="pb-4">
-                <CardTitle className="text-2xl font-bold text-gray-800">
-                  Contact Information
+                <CardTitle className="text-xl font-semibold text-gray-800">
+                  Apply Coupon
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
+              <CardContent>
                 <Input
-                  type="email"
-                  placeholder="Email or mobile phone number"
+                  placeholder="Coupon code (optional)"
                   className="h-12 text-base"
-                  {...register("email", { required: true })}
+                  {...register("coupon_code")}
                 />
               </CardContent>
             </Card>
-
-            {/* Delivery Details */}
-            <Card className="shadow-lg rounded-xl border-none py-5">
-              <CardHeader className="pb-4">
-                <CardTitle className="text-2xl font-bold text-gray-800">
-                  Delivery Details
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="space-y-4">
-                  <select
-                    {...register("country", { required: true })}
-                    className="h-12 text-base border rounded-lg px-4 w-full"
-                  >
-                    <option value="">Select country</option>
-                    {countries.map((c) => (
-                      <option key={c.code} value={c.code}>
-                        {c.flag} {c.name}
-                      </option>
-                    ))}
-                  </select>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <Input
-                      placeholder="First name"
-                      className="h-12 text-base"
-                      {...register("firstName", { required: true })}
-                    />
-                    <Input
-                      placeholder="Last name"
-                      className="h-12 text-base"
-                      {...register("lastName", { required: true })}
-                    />
-                  </div>
-
-                  <Input
-                    placeholder="Address"
-                    className="h-12 text-base"
-                    {...register("address", { required: true })}
-                  />
-                  <Input
-                    placeholder="Apartment, suite, etc. (optional)"
-                    className="h-12 text-base"
-                    {...register("apartment")}
-                  />
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <Input
-                      placeholder="City"
-                      className="h-12 text-base"
-                      {...register("city", { required: true })}
-                    />
-                    <Input
-                      placeholder="Postal code (optional)"
-                      className="h-12 text-base"
-                      {...register("postalCode")}
-                    />
-                  </div>
-
-                  <div className="flex items-center space-x-2 pt-2">
-                    <Checkbox id="save-info" className="w-5 h-5" />
-                    <Label
-                      htmlFor="save-info"
-                      className="text-base text-gray-700 cursor-pointer"
-                    >
-                      Save this information for next time
-                    </Label>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+            */}
 
             {/* Payment Info */}
             <Card className="shadow-lg rounded-xl border-none py-5">
@@ -195,15 +245,15 @@ export default function CheckoutPage() {
                 {/* Payment Options */}
                 <div className="space-y-4">
                   <div
-                    onClick={() => setPaymentMethod("online")}
+                    onClick={() => setPaymentMethod("card")}
                     className={`flex items-center gap-3 p-4 border rounded-lg cursor-pointer ${
-                      paymentMethod === "online"
+                      paymentMethod === "card"
                         ? "border-blue-500 bg-blue-50"
                         : "border-gray-200"
                     }`}
                   >
                     <CreditCard className="w-6 h-6 text-gray-600" />
-                    <span className="font-medium">Pay Now (Online)</span>
+                    <span className="font-medium">Card / UPI / PayPal</span>
                   </div>
 
                   <div
@@ -237,7 +287,6 @@ export default function CheckoutPage() {
                   </div>
                 )}
 
-                {/* ❌ Login Error */}
                 {!user && (
                   <div className="text-red-600 font-medium text-center border border-red-300 rounded-md p-2">
                     Please login first to place an order
@@ -245,12 +294,7 @@ export default function CheckoutPage() {
                 )}
                 <Button
                   type="submit"
-                  disabled={
-                    !user ||
-                    !isValid ||
-                    cartItems.length === 0 ||
-                    (paymentMethod === "cod" && !codConfirmed)
-                  }
+                  // disabled={createMutation.isPending || !isDirty}
                   className="btn "
                 >
                   {paymentMethod === "cod" ? "Place Order" : "Pay Now"}

@@ -52,6 +52,14 @@ export function UserSidebar({ user, activeSection, onSectionChange }) {
             <Package className="h-4 w-4" />
             Orders
           </Button>
+          <Button
+            variant={activeSection === "address" ? "default" : "ghost"}
+            className="w-full justify-start gap-3"
+            onClick={() => onSectionChange("address")}
+          >
+            <Package className="h-4 w-4" />
+            Save Address
+          </Button>
         </nav>
       </div>
 

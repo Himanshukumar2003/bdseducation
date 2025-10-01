@@ -5,6 +5,7 @@ import { ShoppingCart } from "lucide-react";
 import { useDispatch } from "react-redux";
 import { addItem, toggleCart } from "@/lib/features/slice";
 import Link from "next/link";
+import AddToCartButton from "./cart-button";
 
 export default function ProductCard({ product }) {
   const {
@@ -76,13 +77,20 @@ export default function ProductCard({ product }) {
             </Link>
           </div>
 
-          <button
+          <AddToCartButton
+            product={{
+              item_id: product.id,
+              item_type: product.type === "type-1" ? "product" : "product-2",
+            }}
+          />
+
+          {/* <button
             onClick={handleAddToCart}
             className="w-12 h-12 bg-[var(--primary-700)] text-white rounded-full flex items-center justify-center text-lg transition-all duration-300 hover:-translate-y-1 hover:scale-110 hover:shadow-lg relative overflow-hidden group"
           >
             <ShoppingCart className="w-5 h-5 relative z-10" />
             <div className="absolute inset-0 bg-white/30 rounded-full scale-0 group-hover:scale-100 transition-transform duration-300"></div>
-          </button>
+          </button> */}
         </div>
       </div>
     </div>

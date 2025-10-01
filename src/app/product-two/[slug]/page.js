@@ -4,12 +4,10 @@ export default async function BookPage({ params }) {
   const { slug } = await params;
 
   const response = await fetch(
-    `https://bdsapi.bwdemo.in/v1/products-2/get-by-slug/${slug}`,
+    `${process.env.NEXT_PUBLIC_API_URL}/products-2/get-by-slug/${slug}`,
     { cache: "no-store" }
   );
   const data = await response.json();
-
-  console.log(data);
 
   if (!data?.data) {
     return <div>Not Found</div>;

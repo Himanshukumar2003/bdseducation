@@ -12,4 +12,7 @@ export const endpoints = {
     preSignedUrl: "/upload/presigned-url",
     preSignedUrls: "/upload/presigned-urls",
   },
+  carts: { getAll: "/carts" },
+  orders: { getAll: "/orders" },
+  addresses: { getAll: "/addresses" },
 };
