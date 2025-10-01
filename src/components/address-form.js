@@ -46,7 +46,6 @@ export default function AddressForm() {
   const onSubmit = (data) => {
     console.log("Submitted Address:", data);
     createMutation.mutate(data);
-    alert("Address submitted successfully!");
   };
 
   return (
