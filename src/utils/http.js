@@ -33,11 +33,13 @@ const http = (headerType = "json", baseURL = API_ROOT) => {
           originalRequest.headers["Authorization"] = `Bearer ${token}`;
           return client(originalRequest);
         } else {
+          console.log("first");
           localStorage.clear();
           window.location.href = "/login";
           return Promise.reject(error);
         }
       } catch (refreshError) {
+        console.log("second");
         console.error("Error refreshing token:", refreshError);
         await axios.post(`${config.next_public_url}/api/auth/logout`);
         localStorage.clear();
