@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/card";
 import { Award, BookOpen, Eye, EyeOff, Lightbulb, Users } from "lucide-react";
 import Image from "next/image";
+import { toast } from "sonner";
 
 export default function SignupPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -76,6 +77,8 @@ export default function SignupPage() {
       if (!response.ok) {
         setError(data.message || "Something went wrong");
       } else {
+        toast.success("Signup successful! Redirecting to login...");
+
         router.push("/login");
       }
     } catch (err) {

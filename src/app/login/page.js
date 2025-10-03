@@ -16,6 +16,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import { toast } from "sonner";
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -39,6 +40,7 @@ export default function LoginPage() {
         body: JSON.stringify({ ...data, role: "user" }),
       });
       router.push("/");
+      toast.success("Login successful!");
 
       return resp.data;
     } catch (err) {

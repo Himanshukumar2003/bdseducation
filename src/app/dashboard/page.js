@@ -37,7 +37,7 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className="py-4">
+    <div className=" min-h-[80vh]">
       <div className="">
         <div className="flex flex-wrap bg-blue-50 pt-[140px] gap-4">
           <UserSidebar
