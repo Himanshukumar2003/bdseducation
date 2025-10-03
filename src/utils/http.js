@@ -25,7 +25,7 @@ const http = (headerType = "json", baseURL = API_ROOT) => {
       try {
         const response = await axios.post(`/api/auth/refresh-token`);
         console.log("Response: ", JSON.stringify(response));
-        if (response.statusText === "OK") {
+        if (response.status === 200) {
           const token = response.data.token;
           client.defaults.headers["Authorization"] = `Bearer ${token}`;
           originalRequest.headers["Authorization"] = `Bearer ${token}`;
