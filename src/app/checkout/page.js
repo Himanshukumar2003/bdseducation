@@ -14,7 +14,7 @@ import Image from "next/image";
 import { useMemo, useState } from "react";
 import { useAuth } from "@/providers/auth-provider";
 import { z } from "zod";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createOrder } from "@/services/order-services";
 import { toast } from "sonner";
 import { handleError } from "@/lib/handle-error-toast";
@@ -63,6 +63,7 @@ export default function CheckoutPage() {
   // const cartItems = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   const [paymentMethod, setPaymentMethod] = useState("card");
   const [codConfirmed, setCodConfirmed] = useState(false);
@@ -103,6 +104,8 @@ export default function CheckoutPage() {
     mutationFn: createOrder,
     onSuccess: () => {
       toast.success("Order created");
+      queryClient.invalidateQueries(["cart"]);
+      queryClient.invalidateQueries(["cart-items"]);
       router.push("/dashboard");
     },
     onError: (error) => {
