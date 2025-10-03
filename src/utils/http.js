@@ -24,20 +24,18 @@ const http = (headerType = "json", baseURL = API_ROOT) => {
       originalRequest._retry = true;
       try {
         const response = await axios.post(`/api/auth/refresh-token`);
-        console.log("Response: ", JSON.stringify(response));
+        // console.log("Response: ", JSON.stringify(response));
         if (response.status === 200) {
           const token = response.data.token;
           client.defaults.headers["Authorization"] = `Bearer ${token}`;
           originalRequest.headers["Authorization"] = `Bearer ${token}`;
           return client(originalRequest);
         } else {
-          console.log("first");
           localStorage.clear();
           window.location.href = "/login";
           return Promise.reject(error);
         }
       } catch (refreshError) {
-        console.log("second");
         console.error("Error refreshing token:", refreshError);
         await axios.post(`/api/auth/logout`);
         localStorage.clear();

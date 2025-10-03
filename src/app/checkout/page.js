@@ -11,7 +11,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { CreditCard, Wallet } from "lucide-react";
 import Image from "next/image";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useAuth } from "@/providers/auth-provider";
 import { z } from "zod";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -29,6 +29,7 @@ import {
 } from "@/components/ui/dialog";
 import { getAddresses } from "@/services/address-services";
 import Loader from "@/components/loader";
+import { getCartItems } from "@/services/cart-services";
 
 export const addressSchema = z.object({
   fullname: z.string().min(1, "fullname is required"),
@@ -59,7 +60,7 @@ export const createOrderSchema = z.object({
 export default function CheckoutPage() {
   const { user } = useAuth();
   const savedShipping = useSelector((state) => state.orders.shippingInfo);
-  const cartItems = useSelector((state) => state.cart.items);
+  // const cartItems = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -84,6 +85,19 @@ export default function CheckoutPage() {
   });
 
   const { isValid, errors, isDirty } = formState;
+  const {
+    data: cartItems,
+    isLoading: isCartLoading,
+    isError: isCartError,
+    error: cartError,
+  } = useQuery({
+    queryKey: ["cart-items"],
+    queryFn: async () => {
+      const { data } = await getCartItems();
+      return data;
+    },
+    enabled: !!user,
+  });
 
   const createMutation = useMutation({
     mutationFn: createOrder,
@@ -101,12 +115,17 @@ export default function CheckoutPage() {
     queryFn: getAddresses,
   });
 
-  const subtotal = cartItems.reduce(
-    (sum, item) =>
-      sum + Number(String(item.price).replace(/[^\d.-]/g, "")) * item.quantity,
-    0
-  );
-  const estimatedTaxes = subtotal * 0.1;
+  const subtotal = useMemo(() => {
+    return (
+      cartItems?.reduce(
+        (sum, item) =>
+          sum +
+          Number(String(item.price).replace(/[^\d.-]/g, "")) * item.quantity,
+        0
+      ) ?? 0
+    );
+  }, [cartItems]);
+  const estimatedTaxes = subtotal * 0;
   const total = subtotal + estimatedTaxes;
 
   const onSubmit = (data) => {
@@ -115,7 +134,7 @@ export default function CheckoutPage() {
       return;
     }
 
-    if (cartItems.length === 0) {
+    if (cartItems?.length === 0) {
       alert("Your cart is empty");
       return;
     }
@@ -125,7 +144,7 @@ export default function CheckoutPage() {
       return;
     }
 
-    const order_items = cartItems.map((item) => ({
+    const order_items = cartItems?.map((item) => ({
       item_type: item.item_type,
       item_id: item.item_id,
       quantity: item.quantity,
@@ -190,6 +209,12 @@ export default function CheckoutPage() {
                       </label>
                     ))}
                   </div>
+                )}
+
+                {errors?.shipping_address && (
+                  <span className="text-sm text-red-500">
+                    Address is required*
+                  </span>
                 )}
               </div>
               <div className=" mt-4 ">
@@ -309,12 +334,12 @@ export default function CheckoutPage() {
               Order Summary
             </h2>
             <div className="space-y-6 mb-8">
-              {cartItems.length === 0 ? (
+              {cartItems?.length === 0 ? (
                 <p className="text-center text-gray-500 text-lg py-4">
                   Your cart is empty.
                 </p>
               ) : (
-                cartItems.map((item) => (
+                cartItems?.map((item) => (
                   <div
                     key={item.id}
                     className="flex items-center gap-4 border-b pb-4 last:border-b-0 last:pb-0"
