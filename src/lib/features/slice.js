@@ -1,3 +1,4 @@
+import { useAuth } from "@/providers/auth-provider";
 import { getCartItems } from "@/services/cart-services";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
@@ -10,6 +11,7 @@ const initialState = {
 export const fetchCartItems = createAsyncThunk(
   "products/fetchCartItems",
   async () => {
+    const { user } = useAuth();
     const response = await getCartItems();
     return response.data;
   }
