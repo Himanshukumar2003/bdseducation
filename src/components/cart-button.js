@@ -1,6 +1,6 @@
 // components/CartButton.jsx or similar
 import { useDispatch } from "react-redux";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   addItem,
   fetchCartItems,
@@ -66,13 +66,17 @@ export const AddToCartButtonProduct = ({ product }) => {
   const dispatch = useDispatch();
   const { user } = useAuth();
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   const { mutate, isPending, isError, error } = useMutation({
     mutationFn: addToCart,
     onSuccess: (data) => {
+      queryClient.invalidateQueries(["cart"]);
+      queryClient.invalidateQueries(["cart-items"]);
+
       // Optionally: use returned data to update Redux
       //   dispatch(addItem(data));
-      dispatch(fetchCartItems());
+      // dispatch(fetchCartItems());
       dispatch(toggleCart());
     },
     onError: (err, variables) => {
@@ -89,7 +93,6 @@ export const AddToCartButtonProduct = ({ product }) => {
 
   const handleAddToCart = () => {
     if (!user) return router.push("/login");
-
     mutate(product); // product should include id, name, price, etc.
   };
 

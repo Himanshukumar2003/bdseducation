@@ -1,11 +1,11 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { Menu, X, ShoppingCart, User, LogIn } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCartItems, toggleCart } from "@/lib/features/slice";
+import { toggleCart } from "@/lib/features/slice";
 import {
   fetchBooks,
   fetchProducts,
@@ -24,11 +24,14 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/providers/auth-provider";
 import UserDropdown, { NavUser } from "./user-dropdown";
 import { handleLogout } from "@/providers/auth-provider";
+import { useQuery } from "@tanstack/react-query";
+import { getCartItems } from "@/services/cart-services";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const dispatch = useDispatch();
+  const isCartOpen = useSelector((state) => state.cart.isCartOpen);
 
   const { products, products2, loading, error } = useSelector(
     (state) => state.products
@@ -48,7 +51,7 @@ function Navbar() {
     dispatch(fetchProducts());
     dispatch(fetchProducts2());
     dispatch(fetchBooks());
-    dispatch(fetchCartItems());
+    // dispatch(fetchCartItems());
   }, [dispatch]);
 
   useEffect(() => {
@@ -64,8 +67,23 @@ function Navbar() {
     };
   }, [isOpen]);
 
-  const total = useSelector((state) =>
-    state.cart.items.reduce((sum, item) => sum + item.quantity, 0)
+  const {
+    data: cartData,
+    isLoading,
+    isError: isCartError,
+    error: cartError,
+  } = useQuery({
+    queryKey: ["cart", isCartOpen],
+    queryFn: async () => {
+      const { data } = await getCartItems();
+      return data;
+    },
+    enabled: !!user,
+  });
+
+  const total = useMemo(
+    () => cartData?.reduce((sum, item) => sum + item.quantity, 0) ?? 0,
+    [cartData]
   );
 
   const navigationItems = [

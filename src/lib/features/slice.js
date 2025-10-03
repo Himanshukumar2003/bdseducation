@@ -11,7 +11,6 @@ const initialState = {
 export const fetchCartItems = createAsyncThunk(
   "products/fetchCartItems",
   async () => {
-    const { user } = useAuth();
     const response = await getCartItems();
     return response.data;
   }

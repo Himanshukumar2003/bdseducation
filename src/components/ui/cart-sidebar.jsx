@@ -12,32 +12,32 @@ import { Checkbox } from "@/components/ui/checkbox";
 import Image from "next/image";
 import { Trash, Minus, Plus, X } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  removeItem,
-  incrementQuantity,
-  decrementQuantity,
-  toggleCart,
-  closeCart,
-  fetchCartItems,
-} from "@/lib/features/slice";
-import { useState } from "react";
+import { toggleCart, closeCart, fetchCartItems } from "@/lib/features/slice";
+import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation"; // Import useRouter
-import { useMutation } from "@tanstack/react-query";
-import { deleteCartItem, updateCartItem } from "@/services/cart-services";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  deleteCartItem,
+  getCartItems,
+  updateCartItem,
+} from "@/services/cart-services";
+import { useAuth } from "@/providers/auth-provider";
+import Loader from "../loader";
 
 export default function CartSidebar() {
   const dispatch = useDispatch();
-  const cartItems = useSelector((state) => state.cart.items);
   const isCartOpen = useSelector((state) => state.cart.isCartOpen);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
   const router = useRouter(); // Initialize useRouter
+  const queryClient = useQueryClient();
+  const { user } = useAuth();
 
   const { mutate, isPending, isError, error } = useMutation({
     mutationFn: ({ id, ...data }) => updateCartItem(id, { ...data }),
     onSuccess: (data) => {
+      queryClient.invalidateQueries(["cart"]);
       // Optionally: use returned data to update Redux
       //   dispatch(addItem(data));
-      dispatch(fetchCartItems());
       // dispatch(toggleCart());
     },
     onError: (err, variables) => {
@@ -56,8 +56,10 @@ export default function CartSidebar() {
     onSuccess: (data) => {
       // Optionally: use returned data to update Redux
       //   dispatch(addItem(data));
-      dispatch(fetchCartItems());
+      // dispatch(fetchCartItems());
       // dispatch(toggleCart());
+      queryClient.invalidateQueries(["cart"]);
+      queryClient.invalidateQueries(["cart-items"]);
     },
     onError: (err, variables) => {
       console.error("Error adding to cart:", err);
@@ -70,11 +72,30 @@ export default function CartSidebar() {
     // },
   });
 
-  const subtotal = cartItems.reduce(
-    (sum, item) =>
-      sum + Number(String(item.price).replace(/[^\d.-]/g, "")) * item.quantity,
-    0
-  );
+  const {
+    data: cartItems,
+    isLoading,
+    isError: isCartError,
+    error: cartError,
+  } = useQuery({
+    queryKey: ["cart-items", isCartOpen],
+    queryFn: async () => {
+      const { data } = await getCartItems();
+      return data;
+    },
+    enabled: !!user,
+  });
+
+  const subtotal = useMemo(() => {
+    return (
+      cartItems?.reduce(
+        (sum, item) =>
+          sum +
+          Number(String(item.price).replace(/[^\d.-]/g, "")) * item.quantity,
+        0
+      ) ?? 0
+    );
+  }, [cartItems]);
 
   const taxesAndShipping = 0; // For simplicity, assuming 0 for now or calculated at checkout
 
@@ -82,6 +103,9 @@ export default function CartSidebar() {
     dispatch(closeCart()); // Close the cart sidebar
     router.push("/checkout"); // Navigate to the checkout page
   };
+
+  if (isLoading) return <Loader />;
+  if (isCartError) return cartError?.message ?? "Error";
 
   return (
     <Sheet
@@ -98,13 +122,13 @@ export default function CartSidebar() {
         </SheetHeader>
 
         <div className="flex-1 overflow-y-auto py-2 pr-1 space-y-4 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent">
-          {cartItems.length === 0 ? (
+          {cartItems?.length === 0 ? (
             <p className="text-center text-sm text-muted-foreground mt-8">
               Your cart is empty.
             </p>
           ) : (
             <div className="space-y-4">
-              {cartItems.map((item) => (
+              {cartItems?.map((item) => (
                 <div
                   key={item.id}
                   className="flex items-center gap-4 border-b pb-4 last:border-b-0 last:pb-0 transition-all"
@@ -200,7 +224,7 @@ export default function CartSidebar() {
           <div className="flex gap-2">
             <Button
               className="flex-1 bg-primary text-white hover:bg-primary/90 transition"
-              disabled={!agreedToTerms || cartItems.length === 0}
+              disabled={!agreedToTerms || cartItems?.length === 0}
               onClick={handleCheckout}
             >
               CHECK OUT
