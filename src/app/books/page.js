@@ -11,6 +11,7 @@ export default function ProductsSection() {
         backgroundImage="/img/header1.webp"
         items={[{ label: "Books", href: "/books", isCurrent: true }]}
       />
+      
       <Books></Books>
     </>
   );
