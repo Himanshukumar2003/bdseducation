@@ -60,9 +60,9 @@ export default function BookHero({ product }) {
             <Image
               src={`${process.env.NEXT_PUBLIC_FILE_BASE}${product.pictures[0]}`}
               alt={product.title}
-              width={2000}
-              height={2000}
-              className="w-full object-contain max-w-md sm:max-w-lg md:max-w-xl"
+              width={500}
+              height={500}
+              className="w-full object-contain  max-h-[500px]"
             />
           )}
         </div>

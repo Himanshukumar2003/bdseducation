@@ -1,51 +1,12 @@
-"use client";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchProducts, fetchProducts2 } from "@/lib/features/productsSlice";
-import ProductCard from "@/components/product-card";
-import { Breadcrumb } from "@/components/breadcrumb";
+import { Suspense } from "react";
+import ProductFillter from "./_components/search-bar";
 
-export default function ProductsSection() {
-  const dispatch = useDispatch();
-  const { products, loading, error } = useSelector((state) => state.products);
-
-  useEffect(() => {
-    // Fetch both APIs on mount
-    dispatch(fetchProducts());
-  }, [dispatch]);
+export default function SearchPage(params) {
   return (
     <>
-      <Breadcrumb
-        title="Our Products"
-        backgroundImage="/img/header1.webp"
-        items={[{ label: "Our Product", href: "/product", isCurrent: true }]}
-      />
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16 max-w-[600px] mx-auto">
-            <span className="text-[var(--primary-blue)] font-semibold text-sm tracking-widest uppercase mb-4 block">
-              OUR PRODUCTS
-            </span>
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-800 mb-6">
-              Educational Toys & Materials
-            </h2>
-            <p className="text-gray-600 text-lg leading-relaxed max-w-2xl mx-auto">
-              Discover our carefully selected collection of educational toys and
-              learning materials designed to support your child&apos;s
-              development and make learning fun.
-            </p>
-          </div>
-
-          {/* {loading && <p className="text-center">Loading products...</p>}
-        {error && <p className="text-center text-red-500">{error}</p>} */}
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {products.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
-        </div>
-      </section>
+      <Suspense fallback="Loading...">
+        <ProductFillter></ProductFillter>
+      </Suspense>
     </>
   );
 }

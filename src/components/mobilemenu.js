@@ -139,7 +139,11 @@ export default function MobileMenu() {
                 ?.items?.map((subItem) => (
                   <div key={subItem.id} className="border-b">
                     <Link
-                      href={`${activePackage == books ? "/books" : `/search-bar/?pkgtypes=${activePackage.package_type}`}&packages=${activePackage.id}&categories=${cat.id}`}
+                      href={
+                        activeSection == "BOOKS"
+                          ? `/books/${cat.slug}`
+                          : `/product/?pkgtypes=${activePackage.package_type}&packages=${activePackage.id}&categories=${cat.id}`
+                      }
                     >
                       <button className="w-full py-4 px-5 text-left">
                         {subItem.title || subItem.category_name}

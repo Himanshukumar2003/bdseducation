@@ -281,7 +281,11 @@ export default function Navbar() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {activePackage.categories.map((cat) => (
                   <Link
-                    href={`${activePackage == books ? "/books" : `/search-bar/?pkgtypes=${activePackage.package_type}`}&packages=${activePackage.id}&categories=${cat.id}`}
+                    href={
+                      activeSection == "BOOKS"
+                        ? `/books/${cat.slug}`
+                        : `/product/?pkgtypes=${activePackage.package_type}&packages=${activePackage.id}&categories=${cat.id}`
+                    }
                     key={cat.id}
                     onClick={() => setIsSidebarOpen(false)}
                     className="relative h-[200px] rounded-[20px] overflow-hidden cursor-pointer transition-all duration-[600ms] shadow-[0_10px_30px_rgba(0,0,0,0.3),0_0_0_1px_rgba(255,193,7,0.1)] bg-gradient-to-br from-[#2a2a2a] to-[#1a1a1a]"

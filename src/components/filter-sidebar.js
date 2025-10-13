@@ -31,7 +31,7 @@ export function FilterSidebar({
 }) {
   console.log({ productTypesQ });
   return (
-    <div className="rounded-xl border bg-card p-4 md:p-5">
+    <div className="rounded-xl border bg-card p-4 md:p-5 sticky top-20">
       {/* Title */}
       <div>
         <h2 className="text-2xl font-semibold tracking-tight">{title}</h2>

@@ -47,8 +47,6 @@ export default function ProductFillter() {
     },
   });
 
-  console.log("pak:", packages);
-
   const { data: categories, isLoading: isCategoriesLoading } = useQuery({
     queryKey: ["categories", searchParamsStr],
     queryFn: async () => {
@@ -71,9 +69,9 @@ export default function ProductFillter() {
   }, [categoriesQ, packagesQ, productTypesQ]);
 
   return (
-    <main className="container mx-auto px-4 py-6 md:py-8">
+    <main className="container mx-auto  px-4 py-6 md:py-8">
       <div className="grid gap-6 lg:grid-cols-12">
-        <aside className="   hidden lg:block  md:col-span-4 lg:col-span-3">
+        <aside className="   hidden col-12 lg:block  md:col-span-4 lg:col-span-3   ">
           <FilterSidebar
             title="Filter Products"
             packagesQ={packagesQ}
@@ -127,14 +125,14 @@ export default function ProductFillter() {
           </SheetContent>
         </Sheet>
 
-        <section className="col-span-full md:col-span-8 lg:col-span-9">
+        <section className="col-span-full col-12 md:col-span-8 lg:col-span-9">
           <section className="">
             {isProductsLoading ? (
               <p className="text-center">Loading products...</p>
             ) : products.length === 0 ? (
               <p className="text-center text-gray-500">No products found.</p>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-6 lg:grid-cols-3 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-6 lg:grid-cols-3 gap-4">
                 {products.map((product) => (
                   <ProductCard key={product.id} product={product} />
                 ))}
