@@ -5,16 +5,11 @@ import { ChevronRight, Home } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 
-export function Breadcrumb({
-  items,
-  title,
-  // backgroundImage = "/placeholder.svg?height=400&width=1200",
-  className = "",
-}) {
+export function Breadcrumb({ items, title, className = "" }) {
   return (
     <div className={`relative w-full ${className}`}>
       {/* Background Image */}
-      <div className="relative w-full h-[260px] md:h-[280px] overflow-hidden pt-[80px]">
+      <div className="relative w-full h-[260px] md:h-[280px] overflow-hidden pt-[40px]">
         <Image
           src="/images/hero-2.png"
           alt={title}

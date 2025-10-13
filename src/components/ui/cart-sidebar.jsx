@@ -135,8 +135,8 @@ export default function CartSidebar() {
                 >
                   <div className="relative w-20 h-20 flex-shrink-0 bg-blue-50 rounded-md overflow-hidden">
                     <Image
-                      src={`${process.env.NEXT_PUBLIC_FILE_BASE}${item.pictures[0]}`}
-                      alt={item.title}
+                      src={`${process.env.NEXT_PUBLIC_FILE_BASE}${item?.pictures?.[0]}`}
+                      alt={item?.title ?? ""}
                       fill
                       className="object-contain"
                     />

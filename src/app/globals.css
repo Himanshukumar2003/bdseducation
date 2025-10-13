@@ -302,3 +302,147 @@ a{
 strong p{
 font-weight: 400 !important;
 }
+
+
+
+
+
+
+.bg-header {
+  background: linear-gradient(90deg, white 200px, #0053a3 200px);
+}
+
+.navlink {
+  position: relative;
+}
+
+
+
+.bg-two {
+  background: linear-gradient(to right, #091B3C 30%, white 21%);
+}
+
+@media (max-width: 991px) {
+  .bg-two {
+    background: transparent !important;
+  }
+
+  .bg-header {
+    background: white;
+  }
+}
+
+li {
+  margin-bottom: 4px;
+}
+
+li::marker {
+  color: blue;
+  font-weight: 16px;
+}
+
+
+.css-1f1pi2l-MuiButtonBase-root-MuiAccordionSummary-root.Mui-expanded {
+  margin: 0;
+}
+
+.css-yfrx4k-MuiAccordionSummary-content {
+  margin: 0;
+}
+
+.css-1f1pi2l-MuiButtonBase-root-MuiAccordionSummary-root.Mui-expanded {
+  border-bottom: 1px solid #B4B4B4 !important
+}
+
+
+.product-card {
+  min-height: 200px;
+}
+
+.product-card img {
+  height: 120px !important;
+  border-radius: 8px;
+
+}
+
+.product-card h4 {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.product-card:hover h4 {
+  color: #ffcc00 !important;
+
+}
+
+.product-card:hover p {
+  color: #0042d7 !important;
+}
+
+/* ul li{
+  position: relative;
+}
+.Two li::before{content: " ";
+display: block;
+width: 0.4375rem;
+height: 0.375rem;
+position: absolute;
+top: 0.5rem;
+left: -20px;
+background: url(/img/download.png);} */
+
+
+table {
+  overflow-x: scroll;
+}
+
+.white-bullets li::marker {
+  color: white !important;
+}
+
+link,
+a,
+button {
+  cursor: pointer;
+
+}
+
+
+
+/* global.css ya tailwind.css me */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px; /* scrollbar ki width */
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f1f1f1; /* background of track */
+  border-radius: 10px;
+}
+
+
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #2563eb; /* Tailwind blue-600 */
+}
+
+/* Firefox ke liye */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #3b82f6 #f1f1f1;
+}
+  .custom-clip {
+    clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%);
+  }
+
+@media (max-width: 990px) {
+  .custom-clip {
+    clip-path: none !important;
+  }
+
+  .clipPath-logo{
+        clip-path: none !important;
+
+  }
+}

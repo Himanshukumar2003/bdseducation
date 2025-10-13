@@ -1,78 +1,37 @@
 "use client";
-import { useEffect, useMemo, useState } from "react";
+
+import { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
-import { Menu, X, ShoppingCart, User, LogIn } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+import Image from "next/image";
+import { ChevronDown, X, ShoppingCart, User, LogIn } from "lucide-react";
+import { BsChevronRight } from "react-icons/bs";
+import { cn } from "@/lib/utils";
+import MobileMenu from "./mobilemenu";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleCart } from "@/lib/features/slice";
-import {
-  fetchBooks,
-  fetchProducts,
-  fetchProducts2,
-} from "@/lib/features/productsSlice";
-import Image from "next/image";
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu";
-import ListItem from "./product-dropdown";
-import { useRouter } from "next/navigation";
-import { useAuth } from "@/providers/auth-provider";
-import UserDropdown, { NavUser } from "./user-dropdown";
-import { handleLogout } from "@/providers/auth-provider";
+import { useAuth, handleLogout } from "@/providers/auth-provider";
 import { useQuery } from "@tanstack/react-query";
 import { getCartItems } from "@/services/cart-services";
+import config from "@/config";
+import { getNavMenu } from "@/services/nav-services";
+import Loader from "./loader";
+import { fetchBooks } from "@/lib/features/productsSlice";
 
-function Navbar() {
+export default function Navbar() {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [activePackage, setActivePackage] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
+
+  const [activeSection, setActiveSection] = useState(null);
+  const [mobileNav, setMobileNav] = useState(false);
+  const { books } = useSelector((state) => state.products);
+  const bookItems = [...(books.map((i) => ({ ...i, type: "books" })) || [])];
+  console.log("books:", bookItems);
   const dispatch = useDispatch();
+  const { user } = useAuth();
   const isCartOpen = useSelector((state) => state.cart.isCartOpen);
 
-  const { products, products2, loading, error } = useSelector(
-    (state) => state.products
-  );
-  const { books } = useSelector((state) => state.products);
-
-  const { user, isUserLoading } = useAuth();
-  // Combine product types
-  const combinedItems = [
-    ...(products2?.map((i) => ({ ...i, type: "type-2" })) || []),
-    ...(products?.map((i) => ({ ...i, type: "type-1" })) || []),
-  ];
-
-  const bookItems = [...(books.map((i) => ({ ...i, type: "books" })) || [])];
-
-  useEffect(() => {
-    dispatch(fetchProducts());
-    dispatch(fetchProducts2());
-    dispatch(fetchBooks());
-    // dispatch(fetchCartItems());
-  }, [dispatch]);
-
-  useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  useEffect(() => {
-    document.body.style.overflow = isOpen ? "hidden" : "unset";
-    return () => {
-      document.body.style.overflow = "unset";
-    };
-  }, [isOpen]);
-
-  const {
-    data: cartData,
-    isLoading,
-    isError: isCartError,
-    error: cartError,
-  } = useQuery({
+  const { data: cartData } = useQuery({
     queryKey: ["cart", isCartOpen],
     queryFn: async () => {
       const { data } = await getCartItems();
@@ -81,318 +40,280 @@ function Navbar() {
     enabled: !!user,
   });
 
-  const total = useMemo(
+  const {
+    data: packages,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["navMenu"],
+    queryFn: async () => {
+      const { data } = await getNavMenu();
+      return data.packages;
+    },
+  });
+
+  const totalCartItems = useMemo(
     () => cartData?.reduce((sum, item) => sum + item.quantity, 0) ?? 0,
     [cartData]
   );
 
-  const navigationItems = [
-    { href: "/", label: "Home" },
-    { href: "/about", label: "About" },
-    { href: "/product", label: "Product" },
-    { href: "/books", label: "Books" },
-    { href: "/gallery", label: "Gallery" },
-    { href: "/contact", label: "Contact" },
+  const atlPackages = useMemo(
+    () => packages?.filter((pkg) => pkg.package_type === "atl") ?? [],
+    [packages]
+  );
+  const nonPackages = useMemo(
+    () => packages?.filter((pkg) => pkg.package_type === "non-atl") ?? [],
+    [packages]
+  );
+
+  const mainNavItems = [
+    { title: "Home", href: "/" },
+    { title: "About", href: "/about" },
+    { title: "ATL Products", hasSubmenu: true },
+    { title: "Non ATL Products", hasSubmenu: true },
+    { title: "Books", hasSubmenu: true },
+    { title: "Gallery", href: "/gallery" },
+    { title: "Contact", href: "/contact" },
   ];
 
-  return (
-    <>
-      <nav
-        className={`fixed z-50 flex justify-between items-center transition-all duration-300 ease-in-out h-[80px]
-    ${
-      isScrolled
-        ? "top-0 left-0 right-0 bg-white backdrop-blur-sm shadow-lg h-20 rounded-none"
-        : "top-10 left-5  lg:left-25 right-5 lg:right-25 mx-auto bg-white  rounded-full"
+  const handleNavClick = (item) => {
+    if (item.title === "ATL Products") {
+      if (activeSection === "ATL") {
+        setIsSidebarOpen(false);
+        setActiveSection(null);
+        setActivePackage(null);
+      } else {
+        setIsSidebarOpen(true);
+        setActiveSection("ATL");
+        setActivePackage(atlPackages[0] || null);
+      }
+    } else if (item.title === "Non ATL Products") {
+      if (activeSection === "NON") {
+        setIsSidebarOpen(false);
+        setActiveSection(null);
+        setActivePackage(null);
+      } else {
+        setIsSidebarOpen(true);
+        setActiveSection("NON");
+        setActivePackage(nonPackages[0] || null);
+      }
+    } else if (item.title === "Books") {
+      if (activeSection === "BOOKS") {
+        setIsSidebarOpen(false);
+        setActiveSection(null);
+        setActivePackage(null);
+      } else {
+        setIsSidebarOpen(true);
+        setActiveSection("BOOKS");
+        setActivePackage(booksByCategory[0] || null);
+      }
     }
-  `}
-      >
-        <div className="container mx-auto flex items-center justify-between px-6 lg:px-10">
-          {/* Logo */}
-          <Link href="/" className="flex items-center group">
-            <div className="transition-transform duration-300 group-hover:scale-105">
-              <Image
-                src="/images/logo.png"
-                alt="Logo"
-                height={60}
-                width={120}
-                className="h-12 w-auto object-contain"
-              />
-            </div>
+  };
+
+  useEffect(() => {
+    dispatch(fetchBooks());
+    // dispatch(fetchCartItems());
+  }, [dispatch]);
+
+  // 🧠 Group books by category
+  const booksByCategory = useMemo(() => {
+    if (!books || books.length === 0) return [];
+    const map = {};
+
+    books.forEach((book) => {
+      const category = book.category_name || "Uncategorized";
+      if (!map[category]) {
+        map[category] = [];
+      }
+      map[category].push(book);
+    });
+
+    // Convert object to array like other packages
+    return Object.entries(map).map(([category, items]) => ({
+      id: category,
+      title: category,
+      categories: items,
+    }));
+  }, [books]);
+
+  // 🧠 Determine what to show on the sidebar
+  const currentPackages =
+    activeSection === "ATL"
+      ? atlPackages
+      : activeSection === "NON"
+        ? nonPackages
+        : activeSection === "BOOKS"
+          ? booksByCategory
+          : [];
+
+  return (
+    <div className="relative">
+      {/* ------------------- MAIN NAVBAR ------------------- */}
+      <div className="bg-header px-4 w-full mx-auto flex justify-between h-full lg:pr-8">
+        <div
+          className="flex shrink-0 items-center bg-white h-ful w-full justify-between lg:w-auto  lg:pr-[70px] clipPath-logo "
+          style={{ clipPath: "polygon(0 0, 100% 0%, 83% 100%, 0% 100%)" }}
+        >
+          <Link href="/" className="py-4 pl-2">
+            <Image
+              src="/images/logo.png"
+              width={200}
+              height={200}
+              alt="Logo"
+              className="ml-5 bg-white p-2 w-[150px] max-h-[120px] rounded-sm"
+            />
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-2 xl:space-x-4">
-            <Link href="/" className="nav-link">
-              Home
-            </Link>
-            <Link href="/about" className="nav-link">
-              About
-            </Link>
-            <NavigationMenu>
-              <NavigationMenuList>
-                <NavigationMenuItem>
-                  <NavigationMenuTrigger className="nav-link">
-                    Products
-                  </NavigationMenuTrigger>
-                  <NavigationMenuContent className="animate-in slide-in-from-top-2 duration-300">
-                    <ul className="grid w-[400px] gap-2 p-4 md:w-[500px] md:grid-cols-2 lg:w-[800px] xl:w-[1000px] lg:grid-cols-3 xl:grid-cols-4">
-                      {combinedItems.length > 0 ? (
-                        combinedItems.map((component, index) => (
-                          <ListItem
-                            key={index}
-                            title={component.title}
-                            href={`/${
-                              component.type === "type-1"
-                                ? "product"
-                                : "product-two"
-                            }/${component.slug}`}
-                            image={component.pictures}
-                          >
-                            {component.description}
-                          </ListItem>
-                        ))
-                      ) : (
-                        <div>No products available</div>
-                      )}
-                    </ul>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
-              </NavigationMenuList>
-            </NavigationMenu>
+          <button
+            onClick={() => setMobileNav(!mobileNav)}
+            className="block lg:hidden p-2 text-blue-500 border-1 border-blue-200/20 hover:bg-blue-900 ml-4"
+          >
+            {mobileNav ? <X size={24} /> : <ChevronDown size={24} />}
+          </button>
+        </div>
 
-            <NavigationMenu>
-              <NavigationMenuList>
-                <NavigationMenuItem>
-                  <NavigationMenuTrigger className="nav-link">
-                    Books
-                  </NavigationMenuTrigger>
-                  <NavigationMenuContent className="animate-in slide-in-from-top-2 duration-300">
-                    <ul className="grid w-[400px] gap-2 p-4 md:w-[500px] md:grid-cols-2 lg:w-[800px] xl:w-[1000px] lg:grid-cols-3 xl:grid-cols-4">
-                      {bookItems.length > 0 ? (
-                        bookItems.map((component, index) => (
-                          <ListItem
-                            key={index}
-                            title={component.title}
-                            href={`/books/${component.slug}`}
-                            image={component.pictures}
-                          >
-                            {component.description}
-                          </ListItem>
-                        ))
-                      ) : (
-                        <div>No products available</div>
-                      )}
-                    </ul>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
-              </NavigationMenuList>
-            </NavigationMenu>
-            <Link href="/blog" className="nav-link">
-              Blog
-            </Link>
-            <Link href="/gallery" className="nav-link">
-              Gallery
-            </Link>
-            <Link href="/contact" className="nav-link">
-              Contact
-            </Link>
+        {/* DESKTOP NAVIGATION */}
+        <div className="hidden lg:flex items-center bg-[#0053a3] relative">
+          {mainNavItems.map((item, index) => (
+            <div key={index} className="relative group">
+              {item.href ? (
+                <Link
+                  href={item.href}
+                  className="px-4 py-6 border-b-4 text-white font-semibold border-[#0053a3] flex items-center hover:border-white"
+                >
+                  {item.title}
+                </Link>
+              ) : (
+                <button
+                  onClick={() => handleNavClick(item)}
+                  className="px-4 py-6 border-b-4 border-[#0053a3] text-white font-semibold flex items-center hover:border-white"
+                >
+                  {item.title} <ChevronDown className="ml-1 h-4 w-4" />
+                </button>
+              )}
+            </div>
+          ))}
 
-            {/* Products Dropdown */}
-
+          {/* Cart & Auth Buttons */}
+          <div className="ml-4 flex items-center gap-2">
             {user && (
-              <Link
-                href="/dashboard"
-                className="nav-link font-semibold text-blue-600"
-              >
-                Dashboard
-              </Link>
-            )}
-          </div>
-
-          {/* Right Section Desktop */}
-          <div className="hidden lg:flex items-center gap-2 xl:gap-4">
-            <div className="relative">
-              <Button
-                variant="ghost"
-                size="icon"
-                className="cart-btn relative"
+              <button
+                className="relative p-3 text-white"
                 onClick={() => dispatch(toggleCart())}
               >
                 <ShoppingCart className="w-5 h-5" />
-                {total > 0 && (
-                  <Badge className="absolute -top-2 -right-2 w-5 h-5 text-xs font-bold rounded-full flex items-center justify-center p-0 bg-red-500 text-white">
-                    {total}
-                  </Badge>
+                {totalCartItems > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-red-500 w-4 h-4 text-xs flex items-center justify-center rounded-full text-white">
+                    {totalCartItems}
+                  </span>
                 )}
-              </Button>
-            </div>
+              </button>
+            )}
 
             {user ? (
-              <div className="flex items-center gap-3">
-                <UserDropdown user={user} />
+              <>
+                <Link href="/dashboard" className="btn">
+                  Dashboard
+                </Link>
                 <button
                   onClick={handleLogout}
-                  className="btn font-medium text-sm"
+                  className="flex items-center gap-1 btn bg-transparent border-2 border-blue-500 text-white hover:text-white"
                 >
                   Logout
                 </button>
-              </div>
+              </>
             ) : (
-              <div className="flex items-center gap-2 text-sm">
-                <Link href="/login" className=" btn flex items-center gap-2">
-                  <LogIn className="w-4 h-4" />
-                  Login
+              <>
+                <Link href="/login" className="btn flex gap-2 items-center">
+                  <LogIn className="w-4 h-4" /> Login
                 </Link>
-
                 <Link
                   href="/signup"
-                  className="flex items-center gap-1 btn bg-transparent border-2 border-blue-500 text-blue-500 hover:text-white"
+                  className="flex items-center gap-1 btn bg-transparent border-2 border-blue-500 text-white hover:text-white"
                 >
-                  <User className="w-4 h-4" />
-                  Sign Up
+                  <User className="w-4 h-4" /> Sign Up
                 </Link>
-              </div>
+              </>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* ------------------- SIDEBAR ------------------- */}
+      {isSidebarOpen && (
+        <div className="flex">
+          <div
+            className={cn(
+              "fixed md:static gap-0 w-[33vw] top-0 left-0 bg-[#003366] text-white z-50 custom-clip",
+              isSidebarOpen
+                ? "translate-x-0"
+                : "-translate-x-full md:translate-x-0"
+            )}
+          >
+            {isLoading ? (
+              <Loader />
+            ) : currentPackages.length === 0 ? (
+              <p className="p-6 text-center">No packages available</p>
+            ) : (
+              currentPackages.map((pkg) => (
+                <div key={pkg.id}>
+                  <button
+                    onClick={() => setActivePackage(pkg)}
+                    className={cn(
+                      "w-full border-t-1 border-blue-400 cursor-pointer text-left pl-[100px] pr-[80px] transition duration-300 font-bold text-lg py-6 flex hover:bg-[#0d477b] hover:pl-[130px] justify-between items-center",
+                      {
+                        "bg-blue-500": activePackage?.id === pkg.id,
+                      }
+                    )}
+                  >
+                    {pkg.title}
+                    <BsChevronRight className="h-4 w-4" />
+                  </button>
+                </div>
+              ))
             )}
           </div>
 
-          {/* Mobile Menu Toggle */}
-          <Button
-            variant="ghost"
-            size="icon"
-            className="lg:hidden p-2 rounded-md hover:bg-blue-50 transition-all duration-200 relative z-50"
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </Button>
-
-          <div
-            className={`fixed inset-0 z-50 lg:hidden transition-all duration-500 ease-in-out bg-white ${
-              isOpen ? "visible" : "invisible"
-            }`}
-          >
-            {/* Backdrop */}
-            <div
-              className={`absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity duration-500 ${
-                isOpen ? "opacity-100" : "opacity-0"
-              }`}
-              onClick={() => setIsOpen(false)}
-            />
-
-            {/* Panel */}
-            <div
-              className={`absolute top-0 right-0 h-full w-full max-w-sm bg-white shadow-2xl transform transition-transform duration-500 ease-in-out ${
-                isOpen ? "translate-x-0" : "translate-x-full"
-              }`}
-            >
-              <div className="flex items-center justify-between p-6 border-b border-gray-100">
-                <div className="flex items-center gap-3">
-                  <Image
-                    src="/images/logo.png"
-                    alt="Logo"
-                    height={40}
-                    width={80}
-                    className="h-8 w-auto object-contain"
-                  />
-                  <span className="font-bold text-lg text-gray-800">Menu</span>
-                </div>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => setIsOpen(false)}
-                  className="rounded-full hover:bg-blue-50"
-                >
-                  <X className="w-5 h-5" />
-                </Button>
-              </div>
-
-              {/* Mobile Navigation Links */}
-              <div className="flex-1 overflow-y-auto py-6 px-6 bg-white">
-                {navigationItems.map((item) => (
+          <div className="flex-1 p-8 border-t-1 border-gray-100">
+            {isLoading ? (
+              <Loader />
+            ) : activePackage ? (
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {activePackage.categories.map((cat) => (
                   <Link
-                    key={item.href}
-                    href={item.href}
-                    onClick={() => setIsOpen(false)}
-                    className="block p-3 rounded-lg hover:bg-blue-50 text-gray-800 font-semibold"
+                    href={`${activePackage == books ? "/books" : `/search-bar/?pkgtypes=${activePackage.package_type}`}&packages=${activePackage.id}&categories=${cat.id}`}
+                    key={cat.id}
+                    onClick={() => setIsSidebarOpen(false)}
+                    className="relative h-[200px] rounded-[20px] overflow-hidden cursor-pointer transition-all duration-[600ms] shadow-[0_10px_30px_rgba(0,0,0,0.3),0_0_0_1px_rgba(255,193,7,0.1)] bg-gradient-to-br from-[#2a2a2a] to-[#1a1a1a]"
                   >
-                    {item.label}
+                    <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,193,7,0.1)_0%,transparent_50%,rgba(255,193,7,0.1)_100%)] z-[1]"></div>
+
+                    <Image
+                      src={`${config.file_base}/${cat.pictures?.[0]}`}
+                      width={400}
+                      height={300}
+                      alt={cat.title || "Category Image"}
+                      className="absolute top-0 left-0 w-full h-full object-cover opacity-70 filter brightness-[0.8] contrast-[1.2] z-[0]"
+                    />
+
+                    <div className="absolute bottom-0 left-0 right-0 p-4 z-[2] bg-gradient-to-t from-black/80 to-transparent">
+                      <h4 className="text-lg font-semibold text-white text-center">
+                        {cat.title}
+                      </h4>
+                    </div>
                   </Link>
                 ))}
-
-                {user && (
-                  <Link
-                    href="/dashboard"
-                    onClick={() => setIsOpen(false)}
-                    className="block p-3 mt-2 rounded-lg hover:bg-blue-50 text-gray-800 font-semibold"
-                  >
-                    Dashboard
-                  </Link>
-                )}
-
-                {/* Account Section */}
-                <div className="mt-8 bg-blue-50 rounded-xl p-4">
-                  <h3 className="font-semibold text-gray-800 mb-3">Account</h3>
-                  {user ? (
-                    <div className="flex items-center gap-3">
-                      <UserDropdown user={user} />
-                      <button
-                        onClick={handleLogout}
-                        className="btn font-medium text-sm"
-                      >
-                        Logout
-                      </button>
-                    </div>
-                  ) : (
-                    <div className="flex items-center gap-2 text-sm">
-                      <Link
-                        href="/login"
-                        className=" btn flex items-center gap-2"
-                      >
-                        <LogIn className="w-4 h-4" />
-                        Login
-                      </Link>
-
-                      <Link
-                        href="/signup"
-                        className="flex items-center gap-1 btn bg-transparent border-2 border-blue-500 text-blue-500 hover:text-white"
-                      >
-                        <User className="w-4 h-4" />
-                        Sign Up
-                      </Link>
-                    </div>
-                  )}
-                </div>
               </div>
-
-              {/* Footer - Cart */}
-              <div className="border-t border-gray-100 p-6 bg-blue-50">
-                <div className="flex items-center justify-between">
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => {
-                      dispatch(toggleCart());
-                      setIsOpen(false);
-                    }}
-                    className="cart-btn relative"
-                  >
-                    <ShoppingCart className="w-5 h-5" />
-                    {total > 0 && (
-                      <Badge className="absolute -top-2 -right-2 w-5 h-5 text-xs font-bold flex items-center justify-center p-0 bg-red-500 text-white">
-                        {total}
-                      </Badge>
-                    )}
-                  </Button>
-                  <span className="text-sm text-gray-600">
-                    Cart ({total} items)
-                  </span>
-                </div>
-              </div>
-            </div>
+            ) : (
+              <p className="text-gray-600">
+                Select a package to view categories
+              </p>
+            )}
           </div>
         </div>
-      </nav>
-    </>
+      )}
+
+      {mobileNav && <MobileMenu />}
+    </div>
   );
 }
-
-export default Navbar;

@@ -14,5 +14,8 @@ export const endpoints = {
   },
   carts: { getAll: "/carts" },
   orders: { getAll: "/orders" },
+  packages: { getAll: "/packages" },
   addresses: { getAll: "/addresses" },
+  categories: { getAll: "/categories" },
+  products: { getAll: "/products" },
 };

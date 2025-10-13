@@ -5,6 +5,7 @@ import SmoothScrollProvider from "@/providers/smooth-scroll-provider";
 import Layout from "@/components/layout/layout";
 import QueryProvider from "@/providers/query-client-provider";
 import { Toaster } from "sonner";
+import { NuqsProvider } from "@/providers/nuqs-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,7 +35,9 @@ export default function RootLayout({ children }) {
         <QueryProvider>
           <Providers>
             <SmoothScrollProvider>
-              <Layout>{children}</Layout>
+              <NuqsProvider>
+                <Layout>{children}</Layout>
+              </NuqsProvider>
             </SmoothScrollProvider>
           </Providers>
         </QueryProvider>

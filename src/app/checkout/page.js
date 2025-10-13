@@ -42,7 +42,7 @@ export const addressSchema = z.object({
 });
 
 export const orderItemSchema = z.object({
-  item_type: z.enum(["book", "product", "product-2"]),
+  item_type: z.enum(["book", "product"]),
   item_id: z.string().uuid({ message: "Invalid item_id" }),
   quantity: z.number().int().positive({ message: "Quantity must be > 0" }),
 });
@@ -349,8 +349,8 @@ export default function CheckoutPage() {
                   >
                     <div className="relative w-20 h-20 flex-shrink-0 border rounded-lg bg-gray-100">
                       <Image
-                        src={`${process.env.NEXT_PUBLIC_FILE_BASE}${item.pictures[0]}`}
-                        alt={item.title}
+                        src={`${process.env.NEXT_PUBLIC_FILE_BASE}${item?.pictures?.[0]}`}
+                        alt="product"
                         fill
                         className="object-contain p-1"
                       />

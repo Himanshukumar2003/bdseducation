@@ -1,27 +1,16 @@
 "use client";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchBooks,
-  fetchProducts,
-  fetchProducts2,
-} from "@/lib/features/productsSlice";
+import { fetchProducts } from "@/lib/features/productsSlice";
 import ProductCard from "@/components/product-card";
 
 export default function ProductsSection() {
   const dispatch = useDispatch();
 
-  const { products2, products, loading, error } = useSelector(
-    (state) => state.products
-  );
-  const combinedItems = [
-    ...(products2?.map((i) => ({ ...i, type: "type-2" })) || []),
-    ...(products?.map((i) => ({ ...i, type: "type-1" })) || []),
-  ];
+  const { products, loading, error } = useSelector((state) => state.products);
   useEffect(() => {
     // Fetch both APIs on mount
     dispatch(fetchProducts());
-    dispatch(fetchProducts2());
   }, [dispatch]);
 
   return (
@@ -45,7 +34,7 @@ export default function ProductsSection() {
         {error && <p className="text-center text-red-500">{error}</p>} */}
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {combinedItems.map((product) => (
+          {products.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>

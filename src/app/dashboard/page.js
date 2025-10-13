@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { getOrders } from "@/services/order-services";
 import Addresses from "./_components/address-saved";
+import { Sheet } from "@/components/ui/sheet";
 
 export default function DashboardPage() {
   const [activeSection, setActiveSection] = useState("profile");
@@ -37,9 +38,9 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className=" min-h-[80vh]">
+    <div className="">
       <div className="">
-        <div className="flex flex-wrap bg-blue-50 pt-[140px] gap-4">
+        <div className="flex flex-wrap bg-blue-50  gap-4 pt-5">
           <UserSidebar
             user={user}
             activeSection={activeSection}

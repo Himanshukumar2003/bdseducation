@@ -166,14 +166,14 @@ export default function BookImageGallery({ bookImages, product }) {
               <BuyNowButton
                 product={{
                   item_id: product.id,
-                  item_type: "product-2",
+                  item_type: "product",
                 }}
               />
 
               <AddToCartButtonProduct
                 product={{
                   item_id: product.id,
-                  item_type: "product-2",
+                  item_type: "product",
                 }}
               />
             </div>

@@ -1,36 +1,56 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Play, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, EffectFade } from "swiper/modules";
+import { motion } from "framer-motion";
+import "swiper/css";
+import "swiper/css/effect-fade";
 
 export default function HeroSection() {
+  const slides = [
+    { id: 1, src: "/images/hero1.jpeg", alt: "Hero Image 1" },
+    { id: 2, src: "/images/hero2.jpeg", alt: "Hero Image 2" },
+    { id: 3, src: "/images/hero3.jpeg", alt: "Hero Image 3" },
+    { id: 4, src: "/images/hero4.jpeg", alt: "Hero Image 4" },
+    { id: 5, src: "/images/hero5.jpeg", alt: "Hero Image 5" },
+  ];
+
   return (
     <section className="relative w-full h-screen overflow-hidden">
-      {/* Background Video */}
-      <video
-        className="absolute top-0 left-0 w-full h-full object-cover"
-        src="/images/hero-video.mp4" // apna video path
-        autoPlay
+      {/* Swiper Slider */}
+      <Swiper
+        modules={[Autoplay, EffectFade]}
+        effect="fade"
         loop
-        muted
-        playsInline
-      />
-
-      {/* Overlay color (optional for readability) */}
-      {/* <div className="absolute inset-0 bg-black/50"></div> */}
-
-      {/* Text Content */}
-      {/* <div className="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-4">
-        <h1 className="text-4xl md:text-6xl font-bold mb-4">
-          Welcome to Our Website
-        </h1>
-        <p className="text-lg md:text-2xl max-w-2xl mb-6">
-          Experience innovation, creativity, and excellence with us.
-        </p>
-        <button className="px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg font-medium">
-          Get Started
-        </button>
-      </div> */}
+        autoplay={{
+          delay: 4000,
+          disableOnInteraction: false,
+        }}
+        className="w-full h-full"
+      >
+        {slides.map((slide, index) => (
+          <SwiperSlide key={slide.id}>
+            <motion.div
+              initial={{ scale: 1.1, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 1 }}
+              className="relative w-full h-full"
+            >
+              <Image
+                src={slide.src}
+                alt={slide.alt}
+                fill
+                className="object-cover"
+                priority={index === 0}
+              />
+            </motion.div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
     </section>
   );
 }
