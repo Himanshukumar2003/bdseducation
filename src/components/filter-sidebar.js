@@ -89,6 +89,8 @@ export function FilterSidebar({
                       ? [...current, value]
                       : current.filter((v) => v !== value);
                     setPkgTypesQ(updated.filter(Boolean).join("."));
+                    onPackagesChange("");
+                    onCategoriesChange("");
                   }}
                 />
                 {/* <item.icon className="opacity-60" size={16} aria-hidden="true" /> */}

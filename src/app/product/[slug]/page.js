@@ -1,3 +1,4 @@
+import ProductCard from "@/components/product-card";
 import BookImageGallery from "../_components/hero";
 
 export default async function BookPage({ params }) {
@@ -14,6 +15,8 @@ export default async function BookPage({ params }) {
   }
 
   const product = data.data;
+
+  console.log(product);
 
   // Fixed variable name from 'book' to 'product'
   const bookImages = product.pictures?.length
@@ -36,7 +39,7 @@ export default async function BookPage({ params }) {
 
       <div className="section bg-blue-50">
         <div className="max-w-7xl mx-auto py-5 px-4 container">
-          <h2 className="text-left text-5xl text-blue-500 mb-4 font-bold">
+          <h2 className=" text-5xl text-blue-500 mb-4 font-bold ">
             Product information
           </h2>
 
@@ -69,6 +72,25 @@ export default async function BookPage({ params }) {
           />
         </div>
       </div>
+
+      <section className="py-16">
+        <div className="container mx-auto px-4 max-w-7xl">
+          <div className=" mb-16 max-w-[600px] mx-auto">
+            <h2 className="text-3xl lg:text-4xl font-bold   text-start mb-6">
+              Relative Products
+            </h2>
+          </div>
+
+          {/* {loading && <p className="text-center">Loading products...</p>}
+              {error && <p className="text-center text-red-500">{error}</p>} */}
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {product.related_products.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        </div>
+      </section>
     </>
   );
 }

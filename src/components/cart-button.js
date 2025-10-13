@@ -80,8 +80,6 @@ export const AddToCartButtonProduct = ({ product }) => {
       dispatch(toggleCart());
     },
     onError: (err, variables) => {
-      console.log({ variables });
-      console.error("Error adding to cart:", err);
       // Optionally show a toast or notification
       //   dispatch(removeItem(variables.id));
       handleError(err);
