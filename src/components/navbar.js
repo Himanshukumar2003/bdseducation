@@ -260,7 +260,7 @@ export default function Navbar() {
                   <button
                     onClick={() => setActivePackage(pkg)}
                     className={cn(
-                      "w-full border-t-1 border-blue-400 cursor-pointer text-left pl-[100px] pr-[80px] transition duration-300 font-bold text-lg py-6 flex hover:bg-[#0d477b] hover:pl-[130px] justify-between items-center",
+                      "w-full border-t-1 border-blue-400      capitalize cursor-pointer text-left pl-[100px] pr-[80px] transition duration-300 font-bold text-lg py-6 flex hover:bg-[#0d477b] hover:pl-[130px] justify-between items-center",
                       {
                         "bg-blue-500": activePackage?.id === pkg.id,
                       }

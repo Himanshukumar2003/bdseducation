@@ -94,7 +94,7 @@ export default function MobileMenu() {
             {/* 🔹 Quick Links */}
             {quickLinks.map((link) => (
               <Link key={link.title} href={link.slug}>
-                <button className="w-full py-4 px-5 text-left font-medium border-b">
+                <button className="w-full py-4 px-5 text-left font-medium border-b capitalize">
                   {link.title}
                 </button>
               </Link>
@@ -125,7 +125,7 @@ export default function MobileMenu() {
             <div className="border-b sticky top-0 bg-white z-10">
               <button
                 onClick={() => setActiveCategory(null)}
-                className="w-full py-4 px-5 flex items-center text-left font-medium"
+                className="w-full py-4 px-5 flex items-center text-left font-medium  "
               >
                 <ChevronLeft className="h-5 w-5 text-blue-500 mr-2" />
                 {dynamicMenuItems.find((i) => i.id === activeCategory)?.title}
