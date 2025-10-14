@@ -36,7 +36,7 @@ export default function AIEducationUI() {
 
   return (
     <div className="section bg-gradient-to-br from-blue-400 via-blue-500 to-blue-700 ">
-      <div className="   container max-w-7xl mx-auto px-4">
+      <div className="container max-w-7xl mx-auto px-4">
         {/* Header Section */}
         <div className="text-center mb-12">
           <h2 className=" text-3xl lg:text-4xl font-bold text-white mb-6">

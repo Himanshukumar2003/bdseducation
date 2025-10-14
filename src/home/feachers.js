@@ -43,7 +43,7 @@ const features = [
 export function FeaturesSection() {
   return (
     <section className="py-16">
-      <div className="container px-4 sm:px-6 lg:px-8 mx-auto">
+      <div className="container max-w-7xl px-4 mx-auto">
         <div className="text-center space-y-4 mb-16">
           <h2 className="text-3xl sm:text-4xl font-bold text-balance">
             Empowering Tomorrow&#39;s Innovators
