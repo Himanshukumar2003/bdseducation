@@ -39,7 +39,7 @@ export default async function BookPage({ params }) {
       {product?.related_products && (
         <div className="section bg-blue-50">
           <div className="max-w-7xl mx-auto py-5 px-4 container">
-            <h2 className=" text-5xl text-blue-500 mb-4 font-bold ">
+            <h2 className=" text-start text-4xl mb-4 font-bold ">
               Product information
             </h2>
 
@@ -76,8 +76,8 @@ export default async function BookPage({ params }) {
       {product?.related_products && (
         <section className="py-16">
           <div className="container mx-auto px-4 max-w-7xl">
-            <div className=" mb-16 max-w-[600px] mx-auto">
-              <h2 className="text-3xl lg:text-4xl font-bold   text-start mb-6">
+            <div className=" mb-16  mx-auto">
+              <h2 className="text-3xl   lg:text-4xl font-bold   text-start mb-6">
                 Related Products
               </h2>
             </div>

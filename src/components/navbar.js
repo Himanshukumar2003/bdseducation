@@ -248,11 +248,11 @@ export default function Navbar() {
           </div>
         </div>
 
-        {mobileNav && <MobileMenu setMobileNav={setMobileNav} />}
+        {mobileNav && <MobileMenu setMobileNav={setMobileNav} user={user} />}
       </div>
 
       {isSidebarOpen && (
-        <div className="flex">
+        <div className=" hidden lg:flex">
           <div
             className={cn(
               "fixed md:static gap-0 w-[33vw] top-0 left-0 bg-[#003366] text-white z-50 custom-clip",

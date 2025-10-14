@@ -130,7 +130,7 @@ export default function ProductFillter() {
             </SheetContent>
           </Sheet>
         </div>
-        <section className="col-span-full col-12 md:col-span-8 lg:col-span-9">
+        <section className="col-span-full  md:col-span-8 lg:col-span-9">
           <section className="">
             {isProductsLoading ? (
               <p className="text-center">Loading products...</p>

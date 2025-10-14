@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useMemo } from "react";
-import { ChevronLeft, ChevronRight, Menu, X } from "lucide-react";
+import { ChevronLeft, ChevronRight, LogIn, Menu, User, X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
@@ -12,7 +12,7 @@ import Loader from "./loader";
 import config from "@/config";
 import Image from "next/image";
 
-export default function MobileMenu({ setMobileNav }) {
+export default function MobileMenu({ setMobileNav, user }) {
   const dispatch = useDispatch();
   const { books } = useSelector((state) => state.products);
   const {
@@ -212,6 +212,32 @@ export default function MobileMenu({ setMobileNav }) {
                   ))}
             </div>
           </motion.div>
+        )}
+
+        {user ? (
+          <div className="px-4">
+            <Link href="/dashboard" className="btn mb-4">
+              Dashboard
+            </Link>
+            <button
+              onClick={handleLogout}
+              className="flex mb-4 items-center gap-1 btn bg-transparent border-2 border-blue-500 text-blue-500 hover:text-white"
+            >
+              Logout
+            </button>
+          </div>
+        ) : (
+          <div className="px-4 w-auto">
+            <Link href="/login" className="btn flex mb-4 gap-2 items-center">
+              <LogIn className="w-4 h-4" /> Login
+            </Link>
+            <Link
+              href="/signup"
+              className="flex mb-4 items-center gap-1 btn bg-transparent border-2 border-blue-500 text-blue-500 hover:text-white"
+            >
+              <User className="w-4 h-4" /> Sign Up
+            </Link>
+          </div>
         )}
       </AnimatePresence>
     </div>
