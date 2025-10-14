@@ -28,7 +28,6 @@ import { fetchBooks } from "@/lib/features/productsSlice";
 export default function Navbar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [activePackage, setActivePackage] = useState(null);
-  const [isOpen, setIsOpen] = useState(false);
 
   const [activeSection, setActiveSection] = useState(null);
   const [mobileNav, setMobileNav] = useState(false);
@@ -173,7 +172,7 @@ export default function Navbar() {
           </Link>
 
           <button
-            onClick={() => setMobileNav(!mobileNav)}
+            onClick={() => setMobileNav(true)}
             className="block lg:hidden p-2 text-blue-500 border border-blue-200/20 hover:bg-blue-900 ml-4 rounded"
           >
             {mobileNav ? <X size={24} /> : <Menu size={24} />}
@@ -246,7 +245,7 @@ export default function Navbar() {
           </div>
         </div>
 
-        {mobileNav && <MobileMenu />}
+        {mobileNav && <MobileMenu setMobileNav={setMobileNav} />}
       </div>
 
       {isSidebarOpen && (

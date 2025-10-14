@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useMemo } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Menu, X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
@@ -10,8 +10,9 @@ import { getNavMenu } from "@/services/nav-services";
 import { fetchBooks } from "@/lib/features/productsSlice";
 import Loader from "./loader";
 import config from "@/config";
+import Image from "next/image";
 
-export default function MobileMenu() {
+export default function MobileMenu({ setMobileNav }) {
   const dispatch = useDispatch();
   const { books } = useSelector((state) => state.products);
   const {
@@ -88,7 +89,28 @@ export default function MobileMenu() {
   const currentSub = activeSubCategory;
 
   return (
-    <div className="fixed -bottom-20 left-0 w-full h-screen bg-white z-[9999] overflow-y-auto shadow-lg">
+    <div className="fixed top-0 left-0 w-full h-screen bg-white z-[9999] overflow-y-auto shadow-lg">
+      <div
+        className="flex shrink-0 items-center bg-white h-ful w-full justify-between lg:w-auto  lg:pr-[70px] clipPath-logo "
+        style={{ clipPath: "polygon(0 0, 100% 0%, 83% 100%, 0% 100%)" }}
+      >
+        <Link href="/" className="py-4 pl-0 lg:pl-2">
+          <Image
+            src="/images/logo.png"
+            width={200}
+            height={200}
+            alt="Logo"
+            className="ml-5 bg-white p-2 w-[150px] max-h-[120px] rounded-sm"
+          />
+        </Link>
+
+        <button
+          onClick={() => setMobileNav(false)}
+          className="block lg:hidden p-2 text-blue-500 border border-blue-200/20 hover:bg-blue-900 ml-4 rounded"
+        >
+          <X size={24} />
+        </button>
+      </div>
       <AnimatePresence mode="wait">
         {activeCategory === null ? (
           <motion.div
