@@ -65,7 +65,7 @@ export default function BookImageGallery({ bookImages, product }) {
                     alt={`Book view ${index + 1}`}
                     width={80}
                     height={80}
-                    className="w-full  object-contain"
+                    className="w-full aspect-square  object-contain"
                   />
                 </div>
               ))}
@@ -95,13 +95,13 @@ export default function BookImageGallery({ bookImages, product }) {
                 >
                   {bookImages.map((src, index) => (
                     <SwiperSlide key={index}>
-                      <div className="flex justify-center items-center h-full max-h-[350px]">
+                      <div className="flex justify-center items-center h-full ">
                         <Image
                           width={550}
                           height={550}
                           src={src}
                           alt={`Book image ${index + 1}`}
-                          className="aspect-square   object-contain rounded-xl"
+                          className="aspect-square  max-h-[350px]  object-contain rounded-xl"
                         />
                       </div>
                     </SwiperSlide>

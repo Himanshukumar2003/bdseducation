@@ -23,30 +23,33 @@ export default function ProductCard({ product }) {
 
   return (
     <div className="bg-white rounded-3xl overflow-hidden shadow-lg transition-all duration-300 hover:-translate-y-3 hover:shadow-2xl h-full flex flex-col group">
-      <div className="relative overflow-hidden h-45">
-        {product.pictures?.length > 0 && (
-          <Image
-            src={`${process.env.NEXT_PUBLIC_FILE_BASE}${product.pictures[0]}`}
-            alt={title}
-            fill
-          />
-        )}
+      <Link href={`/product/${slug}`}>
+        <div className="relative overflow-hidden h-45">
+          {product.pictures?.length > 0 && (
+            <Image
+              src={`${process.env.NEXT_PUBLIC_FILE_BASE}${product.pictures[0]}`}
+              alt={title}
+              fill
+            />
+          )}
 
-        {/* <div className="absolute top-5 left-5 bg-[var(--primary-700)] text-white px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest shadow-lg">
+          {/* <div className="absolute top-5 left-5 bg-[var(--primary-700)] text-white px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest shadow-lg">
           Robot
         </div> */}
-        {discount && (
-          <div className="absolute top-5 right-5 text-[var(--primary-blue)] text-sm font-bold uppercase tracking-widest">
-            {discount}
-          </div>
-        )}
-      </div>
-
+          {discount && (
+            <div className="absolute top-5 right-5 text-[var(--primary-blue)] text-sm font-bold uppercase tracking-widest">
+              {discount}
+            </div>
+          )}
+        </div>
+      </Link>
       {/* Content Section */}
       <div className="p-8 flex-1 flex flex-col">
-        <h4 className="text-xl font-normal text-gray-800 mb-4 leading-tight    line-clamp-2">
-          {title}
-        </h4>
+        <Link href={`/product/${slug}`}>
+          <h4 className="text-xl font-normal text-gray-800 mb-4 leading-tight    hover:text-blue-500    line-clamp-2">
+            {title}
+          </h4>
+        </Link>
         <p className="text-gray-600 text-sm leading-relaxed mb-4 flex-1 line-clamp-2">
           {description}
         </p>
