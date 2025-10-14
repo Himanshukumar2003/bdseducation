@@ -14,7 +14,6 @@ import config from "@/config";
 export default function MobileMenu() {
   const dispatch = useDispatch();
   const { books } = useSelector((state) => state.products);
-
   const {
     data: packages,
     isLoading,
@@ -89,9 +88,8 @@ export default function MobileMenu() {
   const currentSub = activeSubCategory;
 
   return (
-    <div className="fixed top-0 left-0 w-full h-screen bg-white z-[9999] overflow-y-auto shadow-lg">
+    <div className="fixed -bottom-20 left-0 w-full h-screen bg-white z-[9999] overflow-y-auto shadow-lg">
       <AnimatePresence mode="wait">
-        {/* 🔹 MAIN MENU */}
         {activeCategory === null ? (
           <motion.div
             key="main-menu"
@@ -122,7 +120,6 @@ export default function MobileMenu() {
             ))}
           </motion.div>
         ) : activeSubCategory === null ? (
-          /* 🔹 SUBMENU (Packages List) */
           <motion.div
             key="sub-menu"
             initial="hidden"
@@ -154,7 +151,6 @@ export default function MobileMenu() {
             </div>
           </motion.div>
         ) : (
-          /* 🔹 SUB-CATEGORY LIST (Category Items) */
           <motion.div
             key="category-menu"
             initial="hidden"

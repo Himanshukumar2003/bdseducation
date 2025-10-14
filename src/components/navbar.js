@@ -155,14 +155,14 @@ export default function Navbar() {
           : [];
 
   return (
-    <div className="relative">
+    <div className="">
       {/* ------------------- MAIN NAVBAR ------------------- */}
-      <div className="bg-header px-4 w-full mx-auto flex justify-between h-full lg:pr-8">
+      <div className="bg-header px-4 w-full mx-auto flex justify-between h-full lg:pr-8 relative">
         <div
           className="flex shrink-0 items-center bg-white h-ful w-full justify-between lg:w-auto  lg:pr-[70px] clipPath-logo "
           style={{ clipPath: "polygon(0 0, 100% 0%, 83% 100%, 0% 100%)" }}
         >
-          <Link href="/" className="py-4 pl-2">
+          <Link href="/" className="py-4 pl-0 lg:pl-2">
             <Image
               src="/images/logo.png"
               width={200}
@@ -245,9 +245,10 @@ export default function Navbar() {
             )}
           </div>
         </div>
+
+        {mobileNav && <MobileMenu />}
       </div>
 
-      {/* ------------------- SIDEBAR ------------------- */}
       {isSidebarOpen && (
         <div className="flex">
           <div
@@ -324,8 +325,6 @@ export default function Navbar() {
           </div>
         </div>
       )}
-
-      {mobileNav && <MobileMenu />}
     </div>
   );
 }
