@@ -3,7 +3,15 @@
 import { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ChevronDown, X, ShoppingCart, User, LogIn } from "lucide-react";
+import {
+  ChevronDown,
+  X,
+  ShoppingCart,
+  User,
+  LogIn,
+  Menu,
+  ChevronDownIcon,
+} from "lucide-react";
 import { BsChevronRight } from "react-icons/bs";
 import { cn } from "@/lib/utils";
 import MobileMenu from "./mobilemenu";
@@ -166,9 +174,9 @@ export default function Navbar() {
 
           <button
             onClick={() => setMobileNav(!mobileNav)}
-            className="block lg:hidden p-2 text-blue-500 border-1 border-blue-200/20 hover:bg-blue-900 ml-4"
+            className="block lg:hidden p-2 text-blue-500 border border-blue-200/20 hover:bg-blue-900 ml-4 rounded"
           >
-            {mobileNav ? <X size={24} /> : <ChevronDown size={24} />}
+            {mobileNav ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
 
