@@ -20,7 +20,7 @@ export default function HeroSection() {
   ];
 
   return (
-    <section className="relative w-full h-screen overflow-hidden">
+    <section className="relative w-full  overflow-hidden">
       {/* Swiper Slider */}
       <Swiper
         modules={[Autoplay, EffectFade]}
@@ -43,8 +43,9 @@ export default function HeroSection() {
               <Image
                 src={slide.src}
                 alt={slide.alt}
-                fill
-                className="object-cover"
+                width={500}
+                height={500}
+                className=" w-full"
                 priority={index === 0}
               />
             </motion.div>
