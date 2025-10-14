@@ -17,6 +17,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 export default function ProductFillter() {
   const searchParams = useSearchParams();
@@ -89,42 +90,46 @@ export default function ProductFillter() {
             setProductTypesQ={setProductTypesQ}
           />
         </aside>
+        <div className="lg:hidden">
+          <Sheet>
+            <SheetTrigger className="flex justify-between w-full">
+              <h4 className="text-xl  font-semibold pb-2 mb-4 border-b-2 border-b-gray-100 ">
+                Filter Products
+              </h4>
+              <Menu></Menu>
+            </SheetTrigger>
 
-        <Sheet>
-          <SheetTrigger className="lg:hidden">
-            <Menu></Menu>
-          </SheetTrigger>
-          <SheetContent side="left">
-            <SheetHeader>
-              <SheetTitle className={"sr-only"}>
-                Are you absolutely sure?
-              </SheetTitle>
-              <SheetDescription className={"sr-only"}>
-                This action cannot be undone. This will permanently delete your
-                account and remove your data from our servers.
-              </SheetDescription>
-              <div>
-                <FilterSidebar
-                  title="Filter Products"
-                  packagesQ={packagesQ}
-                  categoriesQ={categoriesQ}
-                  packages={packages ?? []}
-                  categories={categories ?? []}
-                  onPackagesChange={setPackagesQ}
-                  onCategoriesChange={setCategoriesQ}
-                  onClear={clearFilters}
-                  isAnyFiltterActive={isAnyFiltterActive}
-                  // isProductActive={isProductActive}
-                  pkgTypesQ={pkgTypesQ}
-                  setPkgTypesQ={setPkgTypesQ}
-                  productTypesQ={productTypesQ}
-                  setProductTypesQ={setProductTypesQ}
-                />
-              </div>
-            </SheetHeader>
-          </SheetContent>
-        </Sheet>
-
+            <SheetContent side="left" className="w-[90%] ">
+              <SheetHeader className="  overflow-y-scroll">
+                <SheetTitle className={"sr-only"}>
+                  Are you absolutely sure?
+                </SheetTitle>
+                <SheetDescription className={"sr-only"}>
+                  This action cannot be undone. This will permanently delete
+                  your account and remove your data from our servers.
+                </SheetDescription>
+                <div>
+                  <FilterSidebar
+                    title="Filter Products"
+                    packagesQ={packagesQ}
+                    categoriesQ={categoriesQ}
+                    packages={packages ?? []}
+                    categories={categories ?? []}
+                    onPackagesChange={setPackagesQ}
+                    onCategoriesChange={setCategoriesQ}
+                    onClear={clearFilters}
+                    isAnyFiltterActive={isAnyFiltterActive}
+                    // isProductActive={isProductActive}
+                    pkgTypesQ={pkgTypesQ}
+                    setPkgTypesQ={setPkgTypesQ}
+                    productTypesQ={productTypesQ}
+                    setProductTypesQ={setProductTypesQ}
+                  />
+                </div>
+              </SheetHeader>
+            </SheetContent>
+          </Sheet>
+        </div>
         <section className="col-span-full col-12 md:col-span-8 lg:col-span-9">
           <section className="">
             {isProductsLoading ? (

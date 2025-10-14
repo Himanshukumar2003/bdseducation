@@ -36,15 +36,15 @@ export default async function BookPage({ params }) {
   return (
     <>
       <BookImageGallery bookImages={bookImages} product={product} />
+      {product?.related_products && (
+        <div className="section bg-blue-50">
+          <div className="max-w-7xl mx-auto py-5 px-4 container">
+            <h2 className=" text-5xl text-blue-500 mb-4 font-bold ">
+              Product information
+            </h2>
 
-      <div className="section bg-blue-50">
-        <div className="max-w-7xl mx-auto py-5 px-4 container">
-          <h2 className=" text-5xl text-blue-500 mb-4 font-bold ">
-            Product information
-          </h2>
-
-          <div
-            className="prose lg:prose-lg max-w-7xl 
+            <div
+              className="prose lg:prose-lg max-w-7xl 
     prose-headings:text-gray-900
     prose-headings:mb-3
     prose-p:text-gray-700
@@ -68,29 +68,31 @@ export default async function BookPage({ params }) {
     prose-tr:nth-child(odd):bg-white
     prose-code:bg-blue-50 prose-code:rounded px-1 prose-code:text-red-600 prose-td:pl-4
   "
-            dangerouslySetInnerHTML={{ __html: cleanContent }}
-          />
-        </div>
-      </div>
-
-      <section className="py-16">
-        <div className="container mx-auto px-4 max-w-7xl">
-          <div className=" mb-16 max-w-[600px] mx-auto">
-            <h2 className="text-3xl lg:text-4xl font-bold   text-start mb-6">
-              Relative Products
-            </h2>
+              dangerouslySetInnerHTML={{ __html: cleanContent }}
+            />
           </div>
+        </div>
+      )}
+      {product?.related_products && (
+        <section className="py-16">
+          <div className="container mx-auto px-4 max-w-7xl">
+            <div className=" mb-16 max-w-[600px] mx-auto">
+              <h2 className="text-3xl lg:text-4xl font-bold   text-start mb-6">
+                Related Products
+              </h2>
+            </div>
 
-          {/* {loading && <p className="text-center">Loading products...</p>}
+            {/* {loading && <p className="text-center">Loading products...</p>}
               {error && <p className="text-center text-red-500">{error}</p>} */}
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {product.related_products.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {product?.related_products?.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
     </>
   );
 }

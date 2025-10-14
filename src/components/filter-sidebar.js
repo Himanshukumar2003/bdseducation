@@ -67,16 +67,16 @@ export function FilterSidebar({
         defaultValue={["packages", "categories"]}
         className="space-y-2"
       >
-        <div className="flex items-center gap-6 mb-6">
+        <div className="flex w-full items-center gap-6 mb-6">
           {[
             { label: "ATL", value: "atl" },
             { label: "NON-ATL", value: "non-atl" },
           ].map(({ label, value }) => (
             <div
               key={value}
-              className="relative flex cursor-pointer flex-col gap-4 rounded-md border border-input p-4 shadow-xs outline-none has-data-[state=checked]:border-primary/50"
+              className="relative w-full flex cursor-pointer flex-col gap-4 rounded-md border border-input p-4 shadow-xs outline-none has-data-[state=checked]:border-primary/50"
             >
-              <div className="flex justify-between gap-2">
+              <div className="flex  justify-between gap-2">
                 <Checkbox
                   id={value}
                   value={value}

@@ -34,11 +34,9 @@ export default function RootLayout({ children }) {
       >
         <QueryProvider>
           <Providers>
-            <SmoothScrollProvider>
-              <NuqsProvider>
-                <Layout>{children}</Layout>
-              </NuqsProvider>
-            </SmoothScrollProvider>
+            <NuqsProvider>
+              <Layout>{children}</Layout>
+            </NuqsProvider>
           </Providers>
         </QueryProvider>
         <Toaster richColors />
