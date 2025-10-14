@@ -81,7 +81,7 @@ export default function Navbar() {
     { title: "Books", hasSubmenu: true },
     { title: "Gallery", href: "/gallery" },
 
-    { title: "Blog", href: "blog-page" },
+    { title: "Blog", href: "/blog" },
 
     { title: "Contact", href: "/contact" },
   ];
