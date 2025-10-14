@@ -23,7 +23,7 @@ export default function ProductCard({ product }) {
 
   return (
     <div className="bg-white rounded-3xl overflow-hidden shadow-lg transition-all duration-300 hover:-translate-y-3 hover:shadow-2xl h-full flex flex-col group">
-      <div className="relative overflow-hidden h-72">
+      <div className="relative overflow-hidden h-45">
         {product.pictures?.length > 0 && (
           <Image
             src={`${process.env.NEXT_PUBLIC_FILE_BASE}${product.pictures[0]}`}
@@ -47,11 +47,11 @@ export default function ProductCard({ product }) {
         <h4 className="text-xl font-normal text-gray-800 mb-4 leading-tight    line-clamp-2">
           {title}
         </h4>
-        <p className="text-gray-600 text-sm leading-relaxed mb-6 flex-1 line-clamp-2">
+        <p className="text-gray-600 text-sm leading-relaxed mb-4 flex-1 line-clamp-2">
           {description}
         </p>
 
-        <div className="flex items-center gap-3 mb-6">
+        <div className="flex items-center gap-3 mb-4">
           <span className="text-[var(--primary-700)] font-normal text-xl italic">
             ₹{price}
           </span>
