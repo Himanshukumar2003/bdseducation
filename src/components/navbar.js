@@ -78,11 +78,11 @@ export default function Navbar() {
     { title: "About", href: "/about" },
     { title: "ATL Products", hasSubmenu: true },
     { title: "Non ATL Products", hasSubmenu: true },
-    { title: "Smart Books & Kits", href: "#" },
     { title: "Books", hasSubmenu: true },
     { title: "Gallery", href: "/gallery" },
-    { title: " Web Recourse ", href: "#" },
-    { title: "Software", href: "#" },
+
+    { title: "Blog", href: "blog-page" },
+
     { title: "Contact", href: "/contact" },
   ];
 
@@ -158,8 +158,6 @@ export default function Navbar() {
 
   return (
     <div className="">
-      <div className="top-bar bg-blue-900"></div>
-
       {/* ------------------- MAIN NAVBAR ------------------- */}
       <div className="bg-header px-4 w-full mx-auto flex justify-between h-full lg:pr-8 relative">
         <div
