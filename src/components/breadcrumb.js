@@ -22,7 +22,7 @@ export function Breadcrumb({ items, title, className = "" }) {
       </div>
 
       {/* Content */}
-      <div className="absolute inset-0 flex pt-[100px]  flex-col items-center justify-center text-white">
+      <div className="absolute inset-0 flex   flex-col items-center justify-center text-white">
         <h1 className="text-3xl md:text-4xl text-center max-w-7xl font-bold mb-4">
           {title}
         </h1>

@@ -13,6 +13,7 @@ import { Sheet } from "@/components/ui/sheet";
 
 export default function DashboardPage() {
   const [activeSection, setActiveSection] = useState("profile");
+
   const { user } = useAuth();
   const router = useRouter();
 

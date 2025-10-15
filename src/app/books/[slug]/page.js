@@ -9,7 +9,6 @@ export default async function BookPage({ params }) {
     { cache: "no-store" }
   );
   const data = await response.json();
-  console.log(data);
   if (!data?.data) {
     return <div>Not Found</div>;
   }

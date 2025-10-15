@@ -24,10 +24,13 @@ import config from "@/config";
 import { getNavMenu } from "@/services/nav-services";
 import Loader from "./loader";
 import { fetchBooks } from "@/lib/features/productsSlice";
+import { Sheet, SheetContent, SheetHeader, SheetTrigger } from "./ui/sheet";
+import { Button } from "./ui/button";
 
 export default function Navbar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [activePackage, setActivePackage] = useState(null);
+  const [menu, setMenu] = useState(false);
 
   const [activeSection, setActiveSection] = useState(null);
   const [mobileNav, setMobileNav] = useState(false);
@@ -75,15 +78,13 @@ export default function Navbar() {
 
   const mainNavItems = [
     { title: "Home", href: "/" },
-    { title: "About", href: "/about" },
+
     { title: "ATL Products", hasSubmenu: true },
     { title: "Non ATL Products", hasSubmenu: true },
+    { title: "Smart Kits Combo", href: "smart-Kits-combo" },
     { title: "Books", hasSubmenu: true },
-    { title: "Gallery", href: "/gallery" },
-
-    { title: "Blog", href: "/blog" },
-
-    { title: "Contact", href: "/contact" },
+    { title: "Web Recourse", href: "/web-recourse" },
+    { title: "Become a Distributor", href: "/become-a-distributor" },
   ];
 
   const handleNavClick = (item) => {
@@ -94,18 +95,23 @@ export default function Navbar() {
         setActivePackage(null);
       } else {
         setIsSidebarOpen(true);
+        setMenu(false);
         setActiveSection("ATL");
+
         setActivePackage(atlPackages[0] || null);
+        setMenu(false);
       }
     } else if (item.title === "Non ATL Products") {
       if (activeSection === "NON") {
         setIsSidebarOpen(false);
+
         setActiveSection(null);
         setActivePackage(null);
       } else {
         setIsSidebarOpen(true);
         setActiveSection("NON");
         setActivePackage(nonPackages[0] || null);
+        setMenu(false);
       }
     } else if (item.title === "Books") {
       if (activeSection === "BOOKS") {
@@ -116,6 +122,7 @@ export default function Navbar() {
         setIsSidebarOpen(true);
         setActiveSection("BOOKS");
         setActivePackage(booksByCategory[0] || null);
+        setMenu(false);
       }
     }
   };
@@ -164,6 +171,30 @@ export default function Navbar() {
           className="flex shrink-0 items-center bg-white h-ful w-full justify-between lg:w-auto  lg:pr-[70px] clipPath-logo "
           style={{ clipPath: "polygon(0 0, 100% 0%, 83% 100%, 0% 100%)" }}
         >
+          <Sheet>
+            <SheetTrigger asChild>
+              <Menu size={24} className="text-blue-900" />
+            </SheetTrigger>
+            <SheetContent side="left">
+              {[
+                { name: "About Us", link: "/about" },
+                { name: "Software", link: "/software" },
+                { name: "Blog", link: "/blog" },
+                { name: "Gallery", link: "/gallery" },
+                { name: "Contact Us", link: "/contact" },
+              ].map((item, index) => (
+                <Link
+                  href={item.link}
+                  key={index}
+                  className=" py-4  px-5 text-left font-medium border-b capitalize hover:bg-gray-100 hover:text-blue-900"
+                  onClick={() => setIsSidebarOpen(false)}
+                >
+                  {item.name}
+                </Link>
+              ))}
+            </SheetContent>
+          </Sheet>
+
           <Link href="/" className="py-4 pl-0 lg:pl-2">
             <Image
               src="/images/logo.png"
@@ -189,14 +220,14 @@ export default function Navbar() {
               {item.href ? (
                 <Link
                   href={item.href}
-                  className="px-4 py-6 border-b-4 text-white font-semibold border-[#0053a3] flex items-center hover:border-white"
+                  className="px-4 text-sm py-6 border-b-4 text-white font-semibold border-[#0053a3] flex items-center hover:border-white"
                 >
                   {item.title}
                 </Link>
               ) : (
                 <button
                   onClick={() => handleNavClick(item)}
-                  className="px-4 py-6 border-b-4 border-[#0053a3] text-white font-semibold flex items-center hover:border-white"
+                  className="px-4 text-sm py-6 border-b-4 border-[#0053a3] text-white font-semibold flex items-center hover:border-white"
                 >
                   {item.title} <ChevronDown className="ml-1 h-4 w-4" />
                 </button>

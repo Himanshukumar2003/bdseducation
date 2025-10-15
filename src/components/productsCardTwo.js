@@ -5,7 +5,7 @@ export default function Card({ slug, id, title, img }) {
   return (
     <>
       <Link
-        href={img}
+        href={""}
         key={id}
         className="relative  rounded-[20px] overflow-hidden cursor-pointer transition-all duration-[600ms] shadow-[0_10px_30px_rgba(0,0,0,0.3),0_0_0_1px_rgba(255,193,7,0.1)] bg-gradient-to-br from-[#2a2a2a] to-[#1a1a1a]"
       >

@@ -17,7 +17,7 @@ export default function QueryProvider({ children }) {
     },
     queryCache: new QueryCache({
       onError: (error, query) => {
-        console.error("Query failed:", query.queryKey, error);
+        // console.error("Query failed:", query.queryKey, error);
         handleError(error, "Failed to fetch data.");
       },
     }),
