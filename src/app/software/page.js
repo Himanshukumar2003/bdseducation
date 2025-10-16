@@ -93,7 +93,7 @@ export default function Software() {
                   <div className="mt-2 flex items-center justify-between">
                     {/* <span className="text-sm font-medium">₹94,999</span> */}
                     <Button className="border border-blue-500 text-blue-500  bg-transparent   hover:text-white">
-                      Read More
+                      Download
                     </Button>
                   </div>
                 </div>

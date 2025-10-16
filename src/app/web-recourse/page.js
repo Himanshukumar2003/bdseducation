@@ -9,7 +9,7 @@ export default function Products() {
       description:
         "An interactive platform designed for educators and learners, offering courses, assessments, and real-time progress tracking.",
       imagePath: "/images/hero-2.png",
-      href: "/images/hero3.jpeg",
+      href: "/coming-soon",
       id: "1",
     },
     {
@@ -17,7 +17,7 @@ export default function Products() {
       description:
         "A comprehensive collection of reusable code snippets, modules, and frameworks to accelerate software development.",
       imagePath: "/images/hero-3.png",
-      href: "/images/hero-3.png",
+      href: "/coming-soon",
       id: "2",
     },
   ];
@@ -47,7 +47,6 @@ export default function Products() {
                   >
                     <div className="absolute inset-0 transition-all duration-300 bg-[rgba(0,61,116,0.7)] z-10 group-hover:bg-blue-900"></div>
 
-                    {/* Image */}
                     <div className="absolute inset-0">
                       <Image
                         src={product.imagePath || "/placeholder.svg"}
@@ -58,7 +57,6 @@ export default function Products() {
                       />
                     </div>
 
-                    {/* Content */}
                     <div className="relative h-full flex flex-col justify-between p-6 text-white z-10">
                       <div>
                         <h2 className="text-4xl font-bold mb-2">

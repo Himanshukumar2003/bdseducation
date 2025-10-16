@@ -265,7 +265,6 @@ export default function Navbar() {
                     alt="profile"
                     width={50}
                     height={50}
-                    className="  shadow-md"
                   ></Image>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="w-40" align="end">
