@@ -11,6 +11,7 @@ import {
   LogIn,
   Menu,
   ChevronDownIcon,
+  MoreHorizontalIcon,
 } from "lucide-react";
 import { BsChevronRight } from "react-icons/bs";
 import { cn } from "@/lib/utils";
@@ -26,6 +27,13 @@ import Loader from "./loader";
 import { fetchBooks } from "@/lib/features/productsSlice";
 import { Sheet, SheetContent, SheetHeader, SheetTrigger } from "./ui/sheet";
 import { Button } from "./ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+} from "./ui/dropdown-menu";
+import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 
 export default function Navbar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -165,7 +173,6 @@ export default function Navbar() {
 
   return (
     <div className="">
-      {/* ------------------- MAIN NAVBAR ------------------- */}
       <div className="bg-header px-4 w-full mx-auto flex justify-between h-full lg:pr-8 relative">
         <div
           className="flex shrink-0 items-center bg-white h-ful w-full justify-between lg:w-auto  lg:pr-[70px] clipPath-logo "
@@ -250,29 +257,36 @@ export default function Navbar() {
                 )}
               </button>
             )}
+            {user && (
+              <DropdownMenu modal={false}>
+                <DropdownMenuTrigger asChild>
+                  <Image
+                    src="/user-profile.png"
+                    alt="profile"
+                    width={50}
+                    height={50}
+                    className="  shadow-md"
+                  ></Image>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-40" align="end">
+                  <div className="py-2 pl-2">
+                    <Link href="/dashboard">Dashboard</Link>
+                  </div>
+                  <DropdownMenuSeparator />
 
-            {user ? (
-              <>
-                <Link href="/dashboard" className="btn">
-                  Dashboard
-                </Link>
-                <button
-                  onClick={handleLogout}
-                  className="flex items-center gap-1 btn bg-transparent border-2 border-blue-500 text-white hover:text-white"
-                >
-                  Logout
-                </button>
-              </>
-            ) : (
+                  <button
+                    onClick={handleLogout}
+                    className="flex items-center gap-1  bg-transparent  text-red-500 border-0 py-2 pl-2 "
+                  >
+                    Logout
+                  </button>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            )}
+            {!user && (
               <>
                 <Link href="/login" className="btn flex gap-2 items-center">
                   <LogIn className="w-4 h-4" /> Login
-                </Link>
-                <Link
-                  href="/signup"
-                  className="flex items-center gap-1 btn bg-transparent border-2 border-blue-500 text-white hover:text-white"
-                >
-                  <User className="w-4 h-4" /> Sign Up
                 </Link>
               </>
             )}

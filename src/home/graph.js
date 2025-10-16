@@ -49,12 +49,7 @@ export default function UserGraphCards() {
           </p>
         </div>
 
-        <CardCarousel
-          images={images}
-          autoplayDelay={2000}
-          // showPagination={true}
-          // showNavigation={true}
-        />
+        <CardCarousel images={images} autoplayDelay={2000} />
       </div>
     </div>
   );

@@ -38,6 +38,11 @@ export default function DashboardPage() {
     }
   };
 
+  if (!user) {
+    router.push("/login");
+    return null;
+  }
+
   return (
     <div className="">
       <div className="">
