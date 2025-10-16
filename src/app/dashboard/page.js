@@ -10,6 +10,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getOrders } from "@/services/order-services";
 import Addresses from "./_components/address-saved";
 import { Sheet } from "@/components/ui/sheet";
+import Loader from "@/components/loader";
 
 export default function DashboardPage() {
   const [activeSection, setActiveSection] = useState("profile");
@@ -22,7 +23,6 @@ export default function DashboardPage() {
     queryFn: getOrders,
   });
 
-  // Extract orders safely
   const orders = data?.data?.orders || [];
 
   const renderContent = () => {
@@ -37,6 +37,9 @@ export default function DashboardPage() {
         return <ProfileDetails user={user} />;
     }
   };
+  if (isLoading) {
+    return <Loader />;
+  }
 
   if (!user) {
     router.push("/login");

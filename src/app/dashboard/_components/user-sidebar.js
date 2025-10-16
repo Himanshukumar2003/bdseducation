@@ -13,8 +13,8 @@ export function UserSidebar({ user, activeSection, onSectionChange }) {
     <>
       {/* Mobile Toggle Button */}
 
-      <div className="  relative">
-        <div className="lg:hidden fixed top-25 right-0 z-50">
+      <div className="relative">
+        <div className="lg:hidden    relative  top-0 left-100   z-99">
           {!isOpen && (
             <Button
               variant="outline"

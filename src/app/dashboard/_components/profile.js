@@ -8,7 +8,7 @@ export function ProfileDetails({}) {
   if (isUserLoading) return "Loading...";
 
   return (
-    <div className="space-y-6 section">
+    <div className="space-y-0  lg:space-y-6 section">
       {/* Header */}
       <div>
         <h2 className="text-3xl font-bold mb-2 text-blue-900">
@@ -22,7 +22,7 @@ export function ProfileDetails({}) {
       {/* Layout Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Profile Overview */}
-        <Card className="border flex pt-10 justify-items-center items-center shadow-sm rounded-xl bg-gradient-to-b from-blue-50 to-white ">
+        <Card className="p-4  border flex pt-10 justify-items-center items-center shadow-sm rounded-xl bg-gradient-to-b from-blue-50 to-white ">
           <div className="flex flex-col items-center justify-center w-100  text-center">
             <Avatar className="h-24 w-24 mb-4 shadow-md ring-2 ring-blue-200">
               {user.avatar ? (
