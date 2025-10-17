@@ -446,3 +446,76 @@ button {
 
   }
 }
+
+
+/* Table base inside prose */
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5em 0;
+box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+/* Table header */
+.prose th {
+  background-color: #f0f0f0; /* light gray */
+  font-weight: 600;
+  color: #1a1a1a;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 2px solid #ccc;
+}
+
+/* Table body cells */
+.prose td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #e0e0e0 !important;
+margin: auto;
+  color: #333;
+}
+
+.prose tr{
+  height: auto !important;
+}
+
+/* Zebra striping */
+.prose tr:nth-child(even) td {
+  background-color: #f9f9f9;
+}
+
+.prose tr:nth-child(odd) td {
+  background-color: #ffffff;
+}
+
+/* Hover effect */
+.prose tr:hover td {
+  background: var(--primary-800)/40;
+  transition: background-color 0.3s ease;
+}
+
+/* Rounded corners for first and last cells of the table */
+.prose tr:first-child th:first-child {
+  border-top-left-radius: 0.5rem;
+}
+
+.prose tr:first-child th:last-child {
+  border-top-right-radius: 0.5rem;
+}
+
+.prose tr:last-child td:first-child {
+  border-bottom-left-radius: 0.5rem;
+}
+
+.prose tr:last-child td:last-child {
+  border-bottom-right-radius: 0.5rem;
+}
+
+/* Optional: Table code styling */
+.prose td code, .prose th code {
+  background-color: #fff2e6;
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-size: 0.875em;
+  color: #c53030; /* matches your red theme */
+}

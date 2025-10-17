@@ -12,11 +12,11 @@ import "swiper/css/effect-fade";
 
 export default function HeroSection() {
   const slides = [
-    { id: 1, src: "/images/hero1.jpeg", alt: "Hero Image 1" },
-    { id: 2, src: "/images/hero2.jpeg", alt: "Hero Image 2" },
-    { id: 3, src: "/images/hero3.jpeg", alt: "Hero Image 3" },
-    { id: 4, src: "/images/hero4.jpeg", alt: "Hero Image 4" },
-    { id: 5, src: "/images/hero5.jpeg", alt: "Hero Image 5" },
+    { id: 1, src: "/images/hero-1.jpeg", alt: "Hero Image 1" },
+    { id: 2, src: "/images/hero-2.jpeg", alt: "Hero Image 2" },
+    { id: 3, src: "/images/hero-3.jpeg", alt: "Hero Image 3" },
+    { id: 4, src: "/images/hero-4.jpeg", alt: "Hero Image 4" },
+    { id: 5, src: "/images/hero-5.jpeg", alt: "Hero Image 5" },
   ];
 
   return (

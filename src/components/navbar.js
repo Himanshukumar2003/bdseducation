@@ -87,9 +87,9 @@ export default function Navbar() {
   const mainNavItems = [
     { title: "Home", href: "/" },
 
-    { title: "ATL Products", hasSubmenu: true },
+    { title: "ATL Products", href: "/atl-packages" },
     { title: "Non ATL Products", hasSubmenu: true },
-    { title: "Smart Kits Combo", href: "smart-Kits-combo" },
+    { title: "Smart Kits Combo", href: "/smart-Kits-combo" },
     { title: "Books", hasSubmenu: true },
     { title: "Web Recourse", href: "/web-recourse" },
     { title: "Become a Distributor", href: "/become-a-distributor" },
@@ -140,7 +140,6 @@ export default function Navbar() {
     // dispatch(fetchCartItems());
   }, [dispatch]);
 
-  // 🧠 Group books by category
   const booksByCategory = useMemo(() => {
     if (!books || books.length === 0) return [];
     const map = {};
@@ -227,7 +226,7 @@ export default function Navbar() {
               {item.href ? (
                 <Link
                   href={item.href}
-                  className="px-4 text-sm py-6 border-b-4 text-white font-semibold border-[#0053a3] flex items-center hover:border-white"
+                  className="px-4   py-6 border-b-4 text-white font-semibold border-[#0053a3] flex items-center hover:border-white"
                 >
                   {item.title}
                 </Link>

@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import { Breadcrumb } from "@/components/breadcrumb";
+import Link from "next/link";
 
 export default function Software() {
   const softwareItems = [
@@ -11,6 +12,7 @@ export default function Software() {
         "Scratch Junior is a programming language that enables young children to create their own interactive stories and games. It helps build foundational skills in problem-solving, sequencing, and logic. Kids can design characters, animate them, and add sounds easily. The visual block-based interface makes coding fun and intuitive. It encourages creativity and learning through play, enhancing cognitive skills early on.",
       price: 94999,
       img: "/images/img1.png",
+      slug: "https://github.com/jfo8000/ScratchJr-Desktop/releases/download/v1.3.2/ScratchJr-1.3.2.Setup.exe",
     },
     {
       title: "M-Block 5",
@@ -18,13 +20,15 @@ export default function Software() {
         "M-Block 5 is an advanced block-based coding platform suitable for slightly older kids. It introduces more complex programming concepts such as loops, conditions, and events. Children can build interactive stories, games, and simple apps. The platform promotes logical thinking, problem-solving, and creativity. It’s ideal for transitioning from visual programming to text-based languages like Python.",
       price: 94999,
       img: "/images/img2.png",
+      slug: "https://dls.makeblock.com/mblock5/win32/V5.6.0.exe", // Corrected link
     },
     {
       title: "Tinkercad",
       description:
         "Tinkercad is a 3D designing and electronics simulation platform that allows students to build circuits and 3D models virtually. It helps develop creativity, spatial skills, and problem-solving abilities. Tinkercad is beginner-friendly and widely used in STEM education.",
       price: 94999,
-      img: "/images/img3.png",
+      img: "/images/img5.png",
+      slug: "/", // Corrected to web-based link
     },
     {
       title: "App Inventor",
@@ -32,6 +36,7 @@ export default function Software() {
         "App Inventor allows students to create Android apps using a visual block-based interface. It teaches logical thinking, sequencing, and event-driven programming. Perfect for beginners to start mobile app development easily.",
       price: 94999,
       img: "/images/img4.png",
+      slug: "http://dl.google.com/dl/appinventor/installers/windows/appinventor_setup_installer_v_1_2.exe", // Added link
     },
     {
       title: "Arduino IDE",
@@ -39,6 +44,7 @@ export default function Software() {
         "Arduino IDE provides an easy-to-use platform to program Arduino boards. Students learn microcontroller programming, electronics concepts, and problem-solving. It supports hands-on projects and interactive learning.",
       price: 94999,
       img: "/images/img5.png",
+      slug: "https://downloads.arduino.cc/arduino-ide/arduino-ide_2.3.6_Windows_64bit.exe",
     },
     {
       title: "Python IDLE",
@@ -46,6 +52,7 @@ export default function Software() {
         "Python IDLE is the official Python development environment. It is beginner-friendly, helps students learn coding logic, syntax, and run scripts efficiently. Ideal for practicing Python programming fundamentals.",
       price: 94999,
       img: "/images/img1.png",
+      slug: "https://www.python.org/ftp/python/3.14.0/python-3.14.0-amd64.exe",
     },
     {
       title: "PyCharm IDE",
@@ -53,6 +60,7 @@ export default function Software() {
         "PyCharm IDE is a professional Python development environment. It offers advanced features for coding, debugging, and project management. Suitable for students transitioning to more serious Python programming projects.",
       price: 94999,
       img: "/images/img2.png",
+      slug: "https://www.jetbrains.com/pycharm/download/download-thanks.html?platform=windows",
     },
   ];
 
@@ -91,10 +99,12 @@ export default function Software() {
                     {item.description}
                   </p>
                   <div className="mt-2 flex items-center justify-between">
-                    {/* <span className="text-sm font-medium">₹94,999</span> */}
-                    <Button className="border border-blue-500 text-blue-500  bg-transparent   hover:text-white">
+                    <Link
+                      href={item.slug}
+                      className="border px-4 py-2 rounded-lg border-blue-500 text-blue-500  bg-transparent hover:bg-blue-900   hover:text-white"
+                    >
                       Download
-                    </Button>
+                    </Link>
                   </div>
                 </div>
               </div>
