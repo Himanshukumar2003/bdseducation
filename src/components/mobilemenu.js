@@ -62,13 +62,13 @@ export default function MobileMenu({ setMobileNav, user }) {
   const quickLinks = [
     { title: "Home", slug: "/" },
     { title: "About", slug: "/about" },
+    { title: "ATL ", slug: "/atl-packages" },
     { title: "Gallery", slug: "/gallery" },
     { title: "Contact", slug: "/contact" },
   ];
 
   // 🧩 Dynamic dropdowns same as desktop
   const dynamicMenuItems = [
-    { id: "ATL", title: "ATL Products", items: atlPackages },
     { id: "NON", title: "Non ATL Products", items: nonPackages },
     { id: "BOOKS", title: "Books", items: booksByCategory },
   ];
