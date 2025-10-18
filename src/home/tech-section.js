@@ -35,14 +35,14 @@ export default function AIEducationUI() {
   ];
 
   return (
-    <div className="section bg-gradient-to-br from-blue-400 via-blue-500 to-blue-700 ">
+    <div className="section bg-gradient-to-b from-[#30338B] to-[#505BDD] ">
       <div className="container max-w-7xl mx-auto px-4">
         {/* Header Section */}
         <div className="text-center mb-12">
           <h2 className=" text-3xl lg:text-4xl font-bold text-white mb-6">
             Technologies in Focus for Inclusive AI Education
           </h2>
-          <p className="text-white  text-lg leading-relaxed max-w-2xl mx-auto">
+          <p className="text-gray-200  text-lg leading-relaxed max-w-6xl mx-auto">
             Get your kids an opportunity to master world-class technological
             concepts like coding, training machine learning models, self-driving
             car, natural language processing, and what not with real-life

@@ -9,6 +9,7 @@ export default function BlogCard({
   author,
   category,
   image,
+  slug,
 }) {
   return (
     <article className="bg-white rounded-2xl overflow-hidden shadow-lg transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
@@ -38,9 +39,11 @@ export default function BlogCard({
           {title}
         </h5>
 
-        <p className="text-gray-600 leading-relaxed mb-6">{excerpt}</p>
+        <p className="text-gray-600 leading-relaxed mb-6 line-clamp-4">
+          {excerpt}
+        </p>
 
-        <Link href="/blog-page" className="btn">
+        <Link href={slug} className="btn">
           <span>READ MORE</span>
         </Link>
       </div>

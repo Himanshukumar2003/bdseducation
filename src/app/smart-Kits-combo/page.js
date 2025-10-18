@@ -17,37 +17,49 @@ export default function Home() {
       title: "Smart Agree Kits Combo",
       category: "Product",
       description: "All-in-one kit for agricultural and farming needs.",
-      image: "/images/img5.png", // replace with your image path
+      img: "/images/img5.png",
+      slug: "/image/smart-agree-kits-combo",
+      type: "Product",
     },
     {
       title: "Smart Home Kits Combo",
       category: "Product",
       description: "A complete smart home automation combo kit.",
-      image: "/images/img5.png",
+      img: "/images/Smart-Home.jpg",
+      slug: "/image/smart-home-kits-combo",
+      type: "Product",
     },
     {
       title: "Smart dada dadi care Kits Combo",
       category: "Product",
       description: "Care combo specially designed for elderly (grandparents).",
-      image: "/images/dada-dadi.jpg",
+      img: "/images/Smart-Dada-Dadi.jpg",
+      slug: "/image/smart-dada-dadi-care-kits-combo",
+      type: "Product",
     },
     {
-      title: "Smart invoirement Kits Combo",
+      title: "Smart Environment Kits Combo",
       category: "Product",
       description: "Environment-friendly kits for sustainable living.",
-      image: "/images/environment.jpg",
+      img: "/images/smart-environment.jpg",
+      slug: "/image/smart-invoirement-kits-combo",
+      type: "Product",
     },
     {
       title: "Smart Helth Kits Combo",
       category: "Product",
       description: "Health and wellness kit combo for smart living.",
-      image: "/images/health.jpg",
+      img: "/images/img5.png",
+      slug: "/image/smart-helth-kits-combo",
+      type: "Product",
     },
     {
       title: "Smart Working Kits Combo",
       category: "Product",
       description: "Smart kits combo designed for working professionals.",
-      image: "/images/working.jpg",
+      img: "/images/img5.png",
+      slug: "/image/smart-working-kits-combo",
+      type: "Product",
     },
   ];
 
@@ -73,11 +85,11 @@ export default function Home() {
                 className="group   hover:-translate-y-5 hover:shadow-xl transition-all duration-500 ease-in-out overflow-hidden bg-gray-50 p-6 pt-0 hover:bg-blue-900  gap-0"
               >
                 <Image
-                  src="/images/img5.png"
+                  src={kit.img}
                   alt={kit.title}
                   width={400}
                   height={250}
-                  className="w-full h-[200px] object-cover rounded-b-xl mb-6"
+                  className="w-full   h-auto aspect-square rounded-b-xl mb-6"
                 />
 
                 <CardHeader className="p-0 mb-0">

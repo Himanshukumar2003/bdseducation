@@ -1,247 +1,265 @@
-import Image from "next/image";
-import {
-  Puzzle,
-  Heart,
-  ArrowRight,
-  CheckCircle,
-  Flag,
-  Settings,
-  Eye,
-} from "lucide-react";
-import { CardCarousel } from "@/components/ui/card-carousel";
 import { Breadcrumb } from "@/components/breadcrumb";
+import {
+  Lightbulb,
+  FileText,
+  Cpu,
+  GraduationCap,
+  Quote,
+  ChartNoAxesCombined,
+} from "lucide-react";
+import Image from "next/image";
 
-export default function About() {
-  const stats = [
-    { value: "260+", label: "Projects Completed" },
-    { value: "95%", label: "Satisfaction Rate" },
-    { value: "200+", label: "Satisfied Clients" },
-    { value: "100+", label: "Qualified Engineers" },
+export default function Home() {
+  const journeyStages = [
+    {
+      icon: Lightbulb,
+      title: "From Curiosity to Creation",
+      description:
+        "Every child is born curious. We help them transform that curiosity into real creations — one project, one discovery at a time.",
+    },
+    {
+      icon: ChartNoAxesCombined,
+      title: "Learn by Doing, Grow by Making",
+      description:
+        "Learning becomes meaningful when children build, test, and bring their ideas to life. That’s where true understanding begins.",
+    },
+    {
+      icon: FileText,
+      title: "Learn & Teach the TIY Way",
+      description:
+        "Our Teach It Yourself (TIY) approach empowers educators to guide hands-on learning that inspires curiosity and creativity in every classroom.",
+    },
+    {
+      icon: Cpu,
+      title: "Technology with a Purpose",
+      description:
+        "From Smart Agri to Smart Dada-Dadi Care, our projects show how technology can solve real-world problems with compassion and purpose.",
+    },
+    {
+      icon: GraduationCap,
+      title: "Right to Education & Opportunity",
+      description:
+        "We provide a digital playground for all — enabling learners to explore, customize, and choose learning paths that suit them best.",
+    },
   ];
 
-  const features = [
-    "Always building quality industrial",
-    "Best manufacturing service provider",
-    "Using the newest manufacturing tech",
-    "Experienced trusted contractor",
-  ];
-
-  const images = [
-    {
-      img: "/images/img1.png",
-      title: "Robot Camps in the United States",
-      desc: "Students in 7th grade use the P2 to create blades for wind-powered turbines to understand physics and engineering.",
-    },
-    {
-      img: "/images/img5.png",
-      title: "Hands-on Museum in the United States",
-      desc: "Kids use mBot Ultimate to take on their basic challenge and try to deliver LEGO pieces to the goal.",
-    },
-    {
-      img: "/images/img4.png",
-      title: "Embracing Homeschooling",
-      desc: "Let children explore, learn, and thrive in a supportive environment with mBot Ranger.",
-    },
-    {
-      img: "/images/img3.png",
-      title: "Teacher Training in South Korea",
-      desc: "Teacher training conducted by Makeblock's Partners in South Korea, empowering teachers with mTiny.",
-    },
-    {
-      img: "/images/img2.png",
-      title: "Engaging Outdoor Learning",
-      desc: "They had fun with mBot Ranger outdoors and explored natural beauty.",
-    },
-  ];
-
-  const cards = [
-    {
-      title: "Our Mission",
-      description:
-        "At Jangid Stone & Interior, our mission is to transform spaces with superior stone solutions. We are dedicated to delivering exceptional installation and restoration services that enhance the beauty, durability, and value of residential and commercial properties.",
-      color: "blue",
-      icon: <Flag />,
-    },
-    {
-      title: "Our Approach",
-      description:
-        "We believe in a client-first approach, combining traditional artistry with modern techniques to create timeless designs. Every project is executed with meticulous attention to detail, ensuring a seamless experience from concept to completion.",
-      color: "green",
-      icon: <Settings />,
-    },
-    {
-      title: "Our Vision",
-      description:
-        "To be the most trusted name in the stone industry, recognized for our commitment to precision, innovation, and customer satisfaction. We strive to set new benchmarks in quality, craftsmanship, and service excellence across the country.",
-      color: "purple",
-      icon: <Eye />,
-    },
+  const partners = [
+    { id: 1, logo: "/images/logos/logo-1.png" },
+    { id: 2, logo: "/images/logos/logo-2.png" },
+    { id: 3, logo: "/images/logos/logo-3.png" },
+    { id: 4, logo: "/images/logos/logo-4.png" },
   ];
 
   return (
-    <>
-      {/* About Section */}
+    <main className="w-full">
       <Breadcrumb
         title="About Us"
         backgroundImage="/img/header1.webp"
         items={[{ label: "About", href: "/about", isCurrent: true }]}
       />
-
-      <section className="section  relative overflow-hidden">
-        <div className="container mx-auto px-6 lg:px-12">
-          <div className="flex flex-col lg:flex-row items-center gap-12">
+      <section className="section bg-slate-50 ">
+        <div className="container  mx-auto px-4">
+          <div className="flex flex-col lg:flex-row items-center gap-8">
             {/* Left side - Image */}
-            <div className="lg:w-5/12 relative">
-              <div className="overflow-hidden">
+            <div className="lg:w-5/12 mb-8 lg:mb-0">
+              <div className="text-center relative">
                 <Image
                   src="/images/about.png"
                   alt="Kindergarten Teacher"
                   width={500}
                   height={400}
-                  className="w-full h-auto hover:scale-105 transition-transform duration-500"
+                  className="max-w-full h-auto"
                 />
               </div>
-              <div className="absolute -top-6 -left-6 w-24 h-24 bg-[var(--primary-blue)] opacity-10 rounded-full blur-2xl"></div>
             </div>
 
             {/* Right side - Content */}
-            <div className="lg:w-7/12">
+            <div className="lg:w-7/12 lg:pl-8">
               <span className="text-[var(--primary-blue)] font-semibold text-sm tracking-widest uppercase mb-4 block">
-                ABOUT US
+                About
               </span>
-              <h2 className="text-3xl lg:text-4xl font-extrabold text-gray-800 mb-6 leading-snug">
-                WHAT IS EARLY CHILDHOOD EDUCATION AND WHY IS IT IMPORTANT?
+              <h2 className="text-3xl lg:text-4xl font-bold text-gray-800 mb-6 leading-tight">
+                About BDS Education
               </h2>
-              <p className="text-gray-600 text-lg leading-relaxed mb-6">
-                Early childhood education is the foundation of lifelong
-                learning. Our kindergarten program focuses on developing
-                essential skills through play-based learning, fostering
-                creativity, and building strong social connections in a
-                nurturing environment.
+              <p className="text-gray-600 text-lg leading-relaxed mb-4">
+                Our mission is to make Coding, Robotics, and Future Technologies
+                accessible to every learner — from city classrooms to rural
+                schools — through our Teach It Yourself (TIY) model and
+                Knowledge-Through-Projects approach.
               </p>
-              <p className="text-gray-600 text-lg leading-relaxed">
-                Our experienced teachers create a safe and stimulating
-                environment where children can explore, discover, and develop
-                their unique talents and abilities.
+              <p className="text-gray-600 text-lg leading-relaxed mb-8">
+                Founded by Armed Forces veterans, academicians, and innovators,
+                BDS Education is driven by one purpose — Nation Building Through
+                Its Youth.<br></br> From Smart Agri to Smart Home and Smart
+                Dada-Dadi Care, our hands-on learning kits help students apply
+                technology with empathy and purpose.<br></br>We partner with
+                schools, colleges, and institutions across India to empower
+                educators, inspire students, and build a generation ready for
+                the challenges of tomorrow.
               </p>
             </div>
           </div>
         </div>
       </section>
+      <section className="py-20 px-4">
+        <h2 className="text-4xl font-bold text-center text-slate-900 mb-16">
+          THE CHILD&apos;S JOURNEY
+        </h2>
 
-      {/* Stats Section */}
-      <section className=" bg-blue-50 py-16 px-4">
-        <div className="max-w-6xl mx-auto text-center">
-          {/* Header */}
-          <h2 className="text-4xl font-bold text-gray-800 mb-6">
-            Our Legacy of Excellence
-          </h2>
-
-          {/* Description */}
-          <p className="text-gray-600 text-lg leading-relaxed mb-12 max-w-5xl mx-auto">
-            With our expertise as well as innovative excellence, we, Sai Rubber,
-            have crafted a benchmark in the rubber components sector. We are a
-            trustworthy manufacturer of EPDM Rubber Beading, EPDM Rubber Sheet,
-            Natural Rubber Sheers, Natural Rubber Beading, Glass Beading, Bus,
-            Truck body fitting Rubber, Wheel chowmk, Rubber Gasket, Door Rubber
-            Profile, EPDM Rubber Profile, Rubber Seal For Expansion joints, Co
-            Extrusion Rubber Profile. Our Product have wide application in the
-            automotive and other major industrial sectors. The designs are
-            crafted in accordance with the clients&apos; specific requirements.
-          </p>
-
-          {/* Statistics Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
-            {stats.map((stat, index) => (
-              <div key={index} className="text-center">
-                <div className="text-5xl font-bold text-gray-800   italic mb-2">
-                  {stat.value}
+        <div className="max-w-8xl mx-auto px-4">
+          <div className=" grid grid-cols-5 gap-6 justify-center   ">
+            {journeyStages.map((stage, index) => {
+              const Icon = stage.icon;
+              return (
+                <div
+                  key={index}
+                  className="flex flex-col items-center  text-center flex-1"
+                >
+                  <div className="bg-slate-100 rounded-full p-6 mb-6 w-20 h-20 flex items-center justify-center">
+                    <Icon className="w-12 h-12 text-blue-500" />
+                  </div>
+                  <h3 className="font-medium text-slate-900 mb-3">
+                    {stage.title}
+                  </h3>
+                  <p className="text-sm text-slate-600">{stage.description}</p>
                 </div>
-                <div className="text-gray-600 text-sm font-medium">
-                  {stat.label}
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Feature Badges */}
-          <div className="flex flex-wrap justify-center gap-4">
-            {features.map((feature, index) => (
-              <div
-                key={index}
-                className="flex items-center gap-2 bg-white border border-blue-700 rounded-full px-6 py-3 "
-              >
-                <div className="h-8 w-8 rounded-full bg-blue-700 flex justify-center items-center">
-                  <CheckCircle className="w-5 h-5 text-white" />
-                </div>
-                <span className="text-gray-700 font-medium text-sm">
-                  {feature}
-                </span>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
 
-      <div className="section">
-        <div className="container mx-auto px-4">
-          {/* Heading */}
-          <div className="text-center mb-16 max-w-4xl mx-auto">
-            <span className="text-[var(--primary-blue)] font-semibold text-sm tracking-widest uppercase mb-4 block">
-              Testimonials
-            </span>
-            <h2 className="text-4xl lg:text-4xl font-bold text-gray-800 mb-6">
-              Testimonials Endorsements from Global Users
-            </h2>
-            <p className="text-gray-600 text-lg leading-relaxed max-w-2xl mx-auto">
-              We value customers&apos; voices because they help us grow. We
-              value customers&apos; voices because they help us grow. We value
-              customers`&apos; voices because they help us grow.
-            </p>
-          </div>
-
-          <CardCarousel
-            images={images}
-            autoplayDelay={2000}
-            // showPagination={true}
-            // showNavigation={true}
-          />
+      {/* Indian Owned & Operated Section */}
+      <section className="bg-slate-50 section">
+        <div class="text-center space-y-4 mb-16">
+          <h2 class="text-3xl sm:text-4xl font-bold text-balance">
+            🇮🇳 Proudly Indian Owned & Operated
+          </h2>
+          <p class="text-lg text-muted-foreground max-w-6xl mx-auto text-pretty">
+            BDS Education is founded and run by a team of Armed Forces veterans,
+            academicians, and doctorates, united by one purpose —
+          </p>
         </div>
-      </div>
-      <section className="section px-4 bg-blue-50">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-3 gap-8">
-            {cards.map((card, index) => (
-              <div
-                key={index}
-                className="group  bg-white p-8 transition-all duration-300 cursor-pointer relative 
-             before:content-[''] before:absolute before:top-0 before:left-0 
-             before:h-0.5 before:w-full before:bg-blue-600 
-             before:scale-x-0 before:origin-left 
-             before:transition-transform before:duration-500 
-             group-hover:before:scale-x-100 before:z-10"
-              >
-                <div className="mb-6">
-                  <div
-                    className="w-16 h-16 bg-gray-100 rounded-full text-blue-500 text-2xl flex items-center justify-center 
-                 group-hover:scale-110 transition-transform duration-300"
-                  >
-                    {card.icon}
-                  </div>
-                </div>
 
-                <h3 className="text-2xl font-bold text-gray-900 mb-4 ">
-                  {card.title}
-                </h3>
-                <div className="border-b-2 border-blue-600 w-[100px] my-4"></div>
-                <p className="text-gray-600 leading-relaxed">
-                  {card.description}
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="grid md:grid-cols-2 gap-12 ">
+            {/* India Map Placeholder */}
+            <div className="">
+              <div>
+                <Image
+                  src="/images/india-map.png"
+                  alt="India Map"
+                  width={500}
+                  height={500}
+                  className="object-cover w-full "
+                />
+
+                <p className="text-lg text-center font-semibold text-foreground">
+                  <span className="text-blue-500"> Founded By</span>: Veterans,
+                  Academicians & Innovators
                 </p>
               </div>
+            </div>
+
+            <div className="">
+              <h3 className=" md:text-2xl   font-medium   italic text-foreground mb-4">
+                Nation Building Through Its Yoth
+              </h3>
+              <p className="text-gray-600 text-lg leading-relaxed mb-6">
+                Our legacy traces back to Project Akshaya in Kerala — a
+                decades-old mission that aimed to make one member of every
+                family computer literate. Today, we carry that spirit forward as
+                Akshaya 2.0, expanding digital and technical literacy to every
+                corner of India.
+              </p>
+              <Image
+                src="/images/hero-2.png"
+                alt="Team Photo"
+                width={500}
+                height={500}
+                className="object-cover w-full rounded-xl shadow-lg"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Vision & Mission Section */}
+      <section className="py-20 px-4">
+        <div className="max-w-5xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-12">
+            {/* Vision Card */}
+            <div className="">
+              <h3 className="text-2xl text-center font-bold text-slate-900 mb-8">
+                OUR VISION
+              </h3>
+              <div className="bg-slate-50 rounded-lg px-12 py-6">
+                <div className="text-5xl text-slate-300 mb-6"></div>
+                <div className="space-y-3">
+                  <div>
+                    <Quote size={35} className="text-blue-500" />
+                  </div>
+                  <p className="capitalize text-lg font-medium h-[56px]">
+                    Future needs it – NEP has it – CBSE wants it.
+                  </p>
+                  <p className="text-gray-600 italic  leading-relaxed mb-6">
+                    To create and make available self-learning tools that break
+                    through implementation barriers and reach the remotest
+                    stakeholders in skill development,
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Mission Card */}
+            <div>
+              {" "}
+              <h3 className="text-2xl text-center font-bold text-slate-900 mb-8">
+                OUR MISSION
+              </h3>
+              <div className="bg-slate-50 rounded-lg px-12 py-6 ">
+                <div className="text-5xl text-slate-300 mb-6"></div>
+                <div className="space-y-3">
+                  <Quote size={35} className="text-blue-500" />
+
+                  <p className=" text-lg capitalize font-medium ">
+                    directly or by complementing government initiatives.
+                  </p>
+
+                  <p className="text-gray-600  leading-relaxed mb-6 italic">
+                    We envision a technocrat in every family — empowering
+                    individuals, uplifting communities, and advancing the
+                    socio-economic strength of our nation.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Partners & Collaborations Section */}
+      <section className="bg-slate-50 py-20 px-4">
+        <h2 className="text-4xl font-bold text-center text-slate-900 mb-16">
+          PARTNERS & COLLABORATIONS
+        </h2>
+
+        <div className="max-w-4xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4">
+            {partners.map((partner) => (
+              <div key={partner.id}>
+                <Image
+                  src={partner.logo}
+                  alt="dhshd"
+                  width={200}
+                  height={200}
+                  className="w-full  object-contain mix-blend-darken h-32  aspect-video"
+                ></Image>
+              </div>
             ))}
           </div>
         </div>
       </section>
-    </>
+    </main>
   );
 }

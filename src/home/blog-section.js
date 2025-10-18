@@ -2,34 +2,34 @@ import BlogCard from "@/components/blog-card";
 
 const blogPosts = [
   {
-    title:
-      "WITH EARLY LEARNING PROGRAMS, YOU ARE ONE STEP CLOSER TO YOUR CHILD'S SUCCESS.",
+    title: "Knowledge Through Projects – Learning That Stays for Life",
     excerpt:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry by the readable content of a page when looking at its layout.",
-    date: "APRIL 17, 2024",
+      "Across classrooms and colleges, we often hear students say, “I studied this, but I can’t apply it.” That’s not a failure of intelligence — it’s a failure of method. Traditional education emphasizes memory over mastery, notes over know-how. Students remember concepts just long enough to write an exam — and then forget them.",
+    date: "Oct 18, 2025",
     author: "ADMIN",
     category: "EDUCATION",
-    image: "/images/hero-1.png",
+    image: "/images/blog/Picture1.png",
+    slug: "/blog/knowledge-through-projects",
   },
   {
-    title:
-      "WITH EARLY LEARNING PROGRAMS, YOU ARE ONE STEP CLOSER TO YOUR CHILD'S SUCCESS.",
+    title: "Teach It Yourself – A New Wave in Technical Education",
     excerpt:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry by the readable content of a page when looking at its layout.",
-    date: "APRIL 17, 2024",
+      "Every year, millions of students graduate — yet many struggle to find employment. The reason isn’t lack of intelligence — it’s the lack of real-world skills. India doesn’t just need more degrees; it needs more doers. At BDS Education, we believe the transformation begins in classrooms — when students stop being learners only and start becoming makers too. That’s where Teach It Yourself (TIY) and Knowledge Through Projects come together to build the India of Tomorrow.",
+    date: "Oct 17, 2025",
     author: "ADMIN",
     category: "EDUCATION",
-    image: "/images/hero-1.png",
+    image: "/images/blog/Picture2.png",
+    slug: "/blog/from-learners-to-makers",
   },
   {
-    title:
-      "WITH EARLY LEARNING PROGRAMS, YOU ARE ONE STEP CLOSER TO YOUR CHILD'S SUCCESS.",
+    title: "From Learners to Makers – Building India’s Future with TIY",
     excerpt:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry by the readable content of a page when looking at its layout.",
-    date: "APRIL 17, 2024",
+      "Every year, millions of students graduate — yet many struggle to find employment. The reason isn’t lack of intelligence — it’s the lack of real-world skills. India doesn’t just need more degrees; it needs more doers. At BDS Education, we believe the transformation begins in classrooms — when students stop being learners only and start becoming makers too. That’s where Teach It Yourself (TIY) and Knowledge Through Projects come together to build the India of Tomorrow.",
+    date: "Oct 17, 2025",
     author: "ADMIN",
     category: "EDUCATION",
-    image: "/images/hero-1.png",
+    image: "/images/blog/Picture3.png",
+    slug: "/blog/from-learners-to-makers",
   },
 ];
 
