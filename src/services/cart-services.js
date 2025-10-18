@@ -6,7 +6,6 @@ export const addToCart = async (item) => {
 };
 
 export const updateCartItem = async (id, item) => {
-  console.log({ id, item });
   return await http().put(`${endpoints.carts.getAll}/${id}`, item);
 };
 

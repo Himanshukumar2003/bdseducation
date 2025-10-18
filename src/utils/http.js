@@ -36,7 +36,6 @@ const http = (headerType = "json", baseURL = API_ROOT) => {
           return Promise.reject(error);
         }
       } catch (refreshError) {
-        console.error("Error refreshing token:", refreshError);
         await axios.post(`/api/auth/logout`);
         localStorage.clear();
         window.location.href = "/login";

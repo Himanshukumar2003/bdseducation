@@ -44,7 +44,6 @@ export default function Navbar() {
   const [mobileNav, setMobileNav] = useState(false);
   const { books } = useSelector((state) => state.products);
   const bookItems = [...(books.map((i) => ({ ...i, type: "books" })) || [])];
-  console.log("books:", bookItems);
   const dispatch = useDispatch();
   const { user } = useAuth();
   const isCartOpen = useSelector((state) => state.cart.isCartOpen);
@@ -66,7 +65,6 @@ export default function Navbar() {
     "text-red-500",
   ];
 
-  console.log(bookItems);
   const { data: cartData } = useQuery({
     queryKey: ["cart", isCartOpen],
     queryFn: async () => {
@@ -167,7 +165,6 @@ export default function Navbar() {
         map[category] = [];
       }
       map[category].push(book);
-      console.log(book);
     });
 
     // Convert object to array like other packages

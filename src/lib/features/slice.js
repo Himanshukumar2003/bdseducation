@@ -40,7 +40,6 @@ export const cartSlice = createSlice({
       state.total = state.items.reduce((sum, item) => sum + item.quantity, 0);
     },
     removeItem: (state, action) => {
-      console.log(state.items, action);
       state.items = state.items.filter((item) => item.id !== action.payload);
       state.total = state.items.reduce((sum, item) => sum + item.quantity, 0);
     },

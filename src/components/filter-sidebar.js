@@ -29,7 +29,6 @@ export function FilterSidebar({
   productTypesQ,
   setProductTypesQ,
 }) {
-  console.log({ productTypesQ });
   return (
     <div className="rounded-xl border bg-card p-4 md:p-5 sticky top-20">
       {/* Title */}

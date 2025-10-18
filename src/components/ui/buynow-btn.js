@@ -26,8 +26,6 @@ function BuyNowButton({ product }) {
       router.push("/checkout");
     },
     onError: (err, variables) => {
-      console.error("Error adding to cart:", err);
-
       handleError(err);
     },
     // onMutate: (data) => {

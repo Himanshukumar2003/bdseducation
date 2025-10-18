@@ -15,7 +15,7 @@ export default function Packages({ type }) {
 
   if (isLoading) return <Loader />;
   if (isError) return error?.message ?? "error";
-  console.log(data);
+
   return (
     <>
       <div className="section">

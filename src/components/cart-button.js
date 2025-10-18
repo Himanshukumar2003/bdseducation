@@ -27,8 +27,6 @@ const AddToCartButton = ({ product }) => {
       dispatch(toggleCart());
     },
     onError: (err, variables) => {
-      console.error("Error adding to cart:", err);
-
       handleError(err);
     },
     // onMutate: (data) => {
