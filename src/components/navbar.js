@@ -48,7 +48,25 @@ export default function Navbar() {
   const dispatch = useDispatch();
   const { user } = useAuth();
   const isCartOpen = useSelector((state) => state.cart.isCartOpen);
+  const bgColors = [
+    "bg-cyan-100",
+    "bg-purple-100",
+    "bg-yellow-100",
+    "bg-orange-100",
+    "bg-green-100",
+    "bg-red-100",
+  ];
 
+  const titleColors = [
+    "text-cyan-600",
+    "text-purple-700",
+    "text-gray-700",
+    "text-orange-500",
+    "text-green-500",
+    "text-red-500",
+  ];
+
+  console.log(bookItems);
   const { data: cartData } = useQuery({
     queryKey: ["cart", isCartOpen],
     queryFn: async () => {
@@ -86,7 +104,6 @@ export default function Navbar() {
 
   const mainNavItems = [
     { title: "Home", href: "/" },
-
     { title: "ATL Products", href: "/atl-packages" },
     { title: "Non ATL Products", hasSubmenu: true },
     { title: "Smart Kits Combo", href: "/smart-Kits-combo" },
@@ -150,6 +167,7 @@ export default function Navbar() {
         map[category] = [];
       }
       map[category].push(book);
+      console.log(book);
     });
 
     // Convert object to array like other packages
@@ -226,6 +244,7 @@ export default function Navbar() {
               {item.href ? (
                 <Link
                   href={item.href}
+                  onClick={() => setIsSidebarOpen(false)}
                   className="px-4   py-6 border-b-4 text-white font-semibold border-[#0053a3] flex items-center hover:border-white"
                 >
                   {item.title}
@@ -295,7 +314,7 @@ export default function Navbar() {
       </div>
 
       {isSidebarOpen && (
-        <div className=" hidden lg:flex">
+        <div className=" hidden lg:flex h-[600px]   overflow-hidden ">
           <div
             className={cn(
               "fixed md:static gap-0 w-[33vw] top-0 left-0 bg-[#003366] text-white z-50 custom-clip",
@@ -327,40 +346,97 @@ export default function Navbar() {
               ))
             )}
           </div>
-
-          <div className="flex-1 p-8 border-t-1 border-gray-100">
+          <div className="flex-1 p-8 border-t-1 border-gray-100 overflow-y-auto">
             {isLoading ? (
               <Loader />
             ) : activePackage ? (
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {activePackage.categories.map((cat) => (
-                  <Link
-                    href={
-                      activeSection == "BOOKS"
-                        ? `/books/${cat.slug}`
-                        : `/product/?pkgtypes=${activePackage.package_type}&packages=${activePackage.id}&categories=${cat.id}`
-                    }
-                    key={cat.id}
-                    onClick={() => setIsSidebarOpen(false)}
-                    className="relative h-[200px] rounded-[20px] overflow-hidden cursor-pointer transition-all duration-[600ms] shadow-[0_10px_30px_rgba(0,0,0,0.3),0_0_0_1px_rgba(255,193,7,0.1)] bg-gradient-to-br from-[#2a2a2a] to-[#1a1a1a]"
-                  >
-                    <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,193,7,0.1)_0%,transparent_50%,rgba(255,193,7,0.1)_100%)] z-[1]"></div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {activePackage.categories.map((cat, index) => {
+                  const bgColors = [
+                    "bg-gradient-to-r from-yellow-100 to-yellow-50",
+                    "bg-gradient-to-r from-pink-100 to-pink-50",
+                    "bg-gradient-to-r from-blue-100 to-blue-50",
+                    "bg-gradient-to-r from-green-100 to-green-50",
+                    "bg-gradient-to-r from-purple-100 to-purple-50",
+                  ];
+                  const titleColors = [
+                    "text-yellow-600",
+                    "text-pink-600",
+                    "text-blue-600",
+                    "text-green-600",
+                    "text-purple-600",
+                  ];
 
-                    <Image
-                      src={`${config.file_base}/${cat.pictures?.[0]}`}
-                      width={400}
-                      height={300}
-                      alt={cat.title || "Category Image"}
-                      className="absolute top-0 left-0 w-full h-full object-cover opacity-70 filter brightness-[0.8] contrast-[1.2] z-[0]"
-                    />
+                  const bgColor = bgColors[index % bgColors.length];
+                  const titleColor = titleColors[index % titleColors.length];
+                  const grade = index + 1;
 
-                    <div className="absolute bottom-0 left-0 right-0 p-4 z-[2] bg-gradient-to-t from-black/80 to-transparent">
-                      <h4 className="text-lg font-semibold text-white text-center">
-                        {cat.title}
-                      </h4>
-                    </div>
-                  </Link>
-                ))}
+                  return (
+                    <Link
+                      href={
+                        activeSection === "BOOKS"
+                          ? `/books/${cat.slug}`
+                          : `/product/?pkgtypes=${activePackage.package_type}&packages=${activePackage.id}&categories=${cat.id}`
+                      }
+                      key={cat.id}
+                      onClick={() => setIsSidebarOpen(false)}
+                    >
+                      {/* BOOKS Cards */}
+                      {activeSection === "BOOKS" ? (
+                        <div
+                          className={`${bgColor} rounded-2xl p-4 shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 cursor-pointer`}
+                        >
+                          <div className="flex items-center justify-between gap-4">
+                            {/* Left Side Text */}
+                            <div className="flex-1">
+                              <h2
+                                className={`text-lg font-bold ${titleColor} mb-2 leading-snug flex items-center gap-2`}
+                              >
+                                {cat.title}
+                                {/* <span
+                                  className={`inline-block ${titleColor} bg-white rounded-full w-8 h-8 text-center leading-8 text-lg shadow-sm`}
+                                >
+                                  {grade}
+                                </span> */}
+                              </h2>
+                              <p className="text-sm text-gray-700 line-clamp-3">
+                                {cat.description}
+                              </p>
+                            </div>
+
+                            {/* Right Side Image */}
+                            <div className="flex-shrink-0">
+                              <Image
+                                width={180}
+                                height={220}
+                                src={`${process.env.NEXT_PUBLIC_FILE_BASE}${cat.pictures[0]}`}
+                                alt="books"
+                                className="w-24 h-36 md:w-28 md:h-40 lg:w-32 lg:h-44 object-contain rounded-lg hover:scale-105 transition-transform duration-300"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      ) : (
+                        // Other Packages Cards
+                        <div className="relative h-[200px] rounded-[20px] overflow-hidden cursor-pointer transition-all duration-[600ms] shadow-[0_10px_30px_rgba(0,0,0,0.3),0_0_0_1px_rgba(255,193,7,0.1)] bg-gradient-to-br from-[#2a2a2a] to-[#1a1a1a] hover:scale-[1.03]">
+                          <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,193,7,0.1)_0%,transparent_50%,rgba(255,193,7,0.1)_100%)] z-[1]"></div>
+                          <Image
+                            src={`${config.file_base}/${cat.pictures?.[0]}`}
+                            width={400}
+                            height={300}
+                            alt={cat.title || "Category Image"}
+                            className="absolute top-0 left-0 w-full h-full object-cover opacity-70 filter brightness-[0.8] contrast-[1.2] z-[0]"
+                          />
+                          <div className="absolute bottom-0 left-0 right-0 p-4 z-[2] bg-gradient-to-t from-black/80 to-transparent">
+                            <h4 className="text-lg font-semibold text-white text-center">
+                              {cat.title}
+                            </h4>
+                          </div>
+                        </div>
+                      )}
+                    </Link>
+                  );
+                })}
               </div>
             ) : (
               <p className="text-gray-600">

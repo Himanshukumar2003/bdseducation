@@ -18,4 +18,5 @@ export const endpoints = {
   addresses: { getAll: "/addresses" },
   categories: { getAll: "/categories" },
   products: { getAll: "/products" },
+  books: { getAll: "/books" },
 };
