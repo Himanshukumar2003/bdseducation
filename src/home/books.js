@@ -54,11 +54,11 @@ function Books() {
                       >
                         Easy Computers & <br />
                         Coding Grade{" "}
-                        <span
+                        {/* <span
                           className={`inline-block ${titleColor} bg-white rounded-full w-8 h-8 text-center leading-8 text-lg shadow-sm`}
                         >
                           {grade}
-                        </span>
+                        </span> */}
                       </h2>
                       <p className="text-sm text-gray-700 line-clamp-3">
                         {item.description}
