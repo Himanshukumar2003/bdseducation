@@ -59,7 +59,8 @@ export default async function BookPage({ params }) {
     prose-a:text-blue-600 hover:prose-a:underline transition-all
 
     /* --- Table Styling --- */
-    prose-table:w-full prose-table:border  prose-table:border-gray-300 prose-table:rounded-xl prose-table:shadow-md
+    
+    prose-table:w-full prose-table:max-w-auto prose-table:border  prose-table:border-gray-300 prose-table:rounded-xl prose-table:shadow-md
     prose-th:bg-blue-100 prose-th:font-semibold prose-th:px-6 prose-th:py-4 prose-th:text-gray-800 prose-th:border prose-th:border-gray-300
     prose-td:px-6 prose-td:py-4 prose-td:border prose-td:border-gray-200
     prose-tr:hover:bg-blue-50
