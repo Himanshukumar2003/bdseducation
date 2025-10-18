@@ -65,7 +65,6 @@ function Books() {
             for students across different grades.
           </p>
         </div>
-        {/* Swiper carousel with 3 slides per view */}
         <Swiper
           modules={[Navigation, Pagination]}
           spaceBetween={20}

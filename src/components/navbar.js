@@ -347,7 +347,9 @@ export default function Navbar() {
             {isLoading ? (
               <Loader />
             ) : activePackage ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div
+                className={`grid grid-cols-1 gap-6 ${activeSection === "BOOKS" ? "md:grid-cols-2" : "md:grid-cols-3"}`}
+              >
                 {activePackage.categories.map((cat, index) => {
                   const bgColors = [
                     "bg-gradient-to-r from-yellow-100 to-yellow-50",
