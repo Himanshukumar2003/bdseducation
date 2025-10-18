@@ -85,7 +85,7 @@ export default function Home() {
                 className="group   hover:-translate-y-5 hover:shadow-xl transition-all duration-500 ease-in-out overflow-hidden bg-gray-50 p-6 pt-0 hover:bg-blue-900  gap-0"
               >
                 <Image
-                  src={kit.img}
+                  src="/images/img3.png"
                   alt={kit.title}
                   width={400}
                   height={250}
