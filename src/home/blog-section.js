@@ -19,7 +19,7 @@ const blogPosts = [
     author: "ADMIN",
     category: "EDUCATION",
     image: "/images/blog/Picture2.png",
-    slug: "/blog/from-learners-to-makers",
+    slug: "/blog/teach-it-yourself",
   },
   {
     title: "From Learners to Makers – Building India’s Future with TIY",

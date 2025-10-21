@@ -28,7 +28,7 @@ export default function Software() {
         "Tinkercad is a 3D designing and electronics simulation platform that allows students to build circuits and 3D models virtually. It helps develop creativity, spatial skills, and problem-solving abilities. Tinkercad is beginner-friendly and widely used in STEM education.",
       price: 94999,
       img: "/images/img5.png",
-      slug: "/", // Corrected to web-based link
+      slug: "https://www.tinkercad.com/login", // Corrected to web-based link
     },
     {
       title: "App Inventor",
@@ -36,7 +36,7 @@ export default function Software() {
         "App Inventor allows students to create Android apps using a visual block-based interface. It teaches logical thinking, sequencing, and event-driven programming. Perfect for beginners to start mobile app development easily.",
       price: 94999,
       img: "/images/img4.png",
-      slug: "http://dl.google.com/dl/appinventor/installers/windows/appinventor_setup_installer_v_1_2.exe", // Added link
+      slug: "https://ai2.appinventor.mit.edu/", // Added link
     },
     {
       title: "Arduino IDE",
@@ -101,6 +101,7 @@ export default function Software() {
                   <div className="mt-2 flex items-center justify-between">
                     <Link
                       href={item.slug}
+                      target="_blank"
                       className="border px-4 py-2 rounded-lg border-blue-500 text-blue-500  bg-transparent hover:bg-blue-900   hover:text-white"
                     >
                       Download

@@ -204,14 +204,15 @@ export default function Navbar() {
                 { name: "Gallery", link: "/gallery" },
                 { name: "Contact Us", link: "/contact" },
               ].map((item, index) => (
-                <Link
-                  href={item.link}
-                  key={index}
-                  className=" py-4  px-5 text-left font-medium border-b capitalize hover:bg-gray-100 hover:text-blue-900"
-                  onClick={() => setIsSidebarOpen(false)}
-                >
-                  {item.name}
-                </Link>
+                <SheetTrigger asChild key={index}>
+                  <Link
+                    href={item.link}
+                    className=" py-4  px-5 text-left font-medium border-b capitalize hover:bg-gray-100 hover:text-blue-900"
+                    onClick={() => setIsSidebarOpen(false)}
+                  >
+                    {item.name}
+                  </Link>
+                </SheetTrigger>
               ))}
             </SheetContent>
           </Sheet>

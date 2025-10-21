@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/card";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   const kitCombos = [
@@ -80,7 +81,8 @@ export default function Home() {
         <div className=" contanier max-w-7xl mx-auto px-4">
           <main className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
             {kitCombos.map((kit, index) => (
-              <Card
+              <Link
+                href="/coming-soon"
                 key={index}
                 className="group   hover:-translate-y-5 hover:shadow-xl transition-all duration-500 ease-in-out overflow-hidden bg-gray-50 p-6 pt-0 hover:bg-blue-900  gap-0"
               >
@@ -109,7 +111,7 @@ export default function Home() {
                     </div>
                   </div>
                 </CardContent>
-              </Card>
+              </Link>
             ))}
           </main>
         </div>

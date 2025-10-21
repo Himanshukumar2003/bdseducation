@@ -203,9 +203,9 @@ export default function Home() {
                     Future needs it – NEP has it – CBSE wants it.
                   </p>
                   <p className="text-gray-600 italic  leading-relaxed mb-6">
-                    To create and make available self-learning tools that break
-                    through implementation barriers and reach the remotest
-                    stakeholders in skill development,
+                    We envision a technocrat in every family — empowering
+                    individuals, uplifting communities, and advancing the
+                    socio-economic strength of our nation.
                   </p>
                 </div>
               </div>
@@ -227,9 +227,9 @@ export default function Home() {
                   </p>
 
                   <p className="text-gray-600  leading-relaxed mb-6 italic">
-                    We envision a technocrat in every family — empowering
-                    individuals, uplifting communities, and advancing the
-                    socio-economic strength of our nation.
+                    To create and make available self-learning tools that break
+                    through implementation barriers and reach the remotest
+                    stakeholders in skill development,
                   </p>
                 </div>
               </div>

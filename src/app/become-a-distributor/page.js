@@ -67,7 +67,7 @@ export default function PartnerSection() {
             <li>
               <p className="  group  flex gap-2 px-6 py-3 border-2 border-blue-900 rounded-full font-medium w-auto mb-2 hover:text-white bg-transparent transition-all duration-300 ease-in-out hover:bg-blue-900  shadow-[0px_5px_0px_white] transform -translate-y-1 cursor-pointer">
                 <Check className="  group-hover:text-white  text-blue-900"></Check>{" "}
-                Extensive code libraries and project resourcesManuals
+                Extensive code libraries and project resource Manuals
               </p>
             </li>
             <li>

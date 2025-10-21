@@ -1,7 +1,7 @@
 "use client";
 
 import { Breadcrumb } from "@/components/breadcrumb";
-import Books from "@/home/books";
+import Books from "./_componets/filtter-books";
 
 export default function ProductsSection() {
   return (
@@ -11,7 +11,7 @@ export default function ProductsSection() {
         backgroundImage="/img/header1.webp"
         items={[{ label: "Books", href: "/books", isCurrent: true }]}
       />
-      
+
       <Books></Books>
     </>
   );

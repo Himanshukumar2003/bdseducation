@@ -66,6 +66,11 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/atl-packages" className="text-white ">
+                  ATL packages
+                </Link>
+              </li>
+              <li>
                 <Link
                   href="/books"
                   className="text-white hover:text-white transition-colors"
@@ -104,46 +109,42 @@ export default function Footer() {
 
           <div>
             <h3 className="text-lg font-semibold text-gray-400 mb-4">
-              Our Products
+              Non ATL Products
             </h3>
             <ul className="space-y-3">
               <li>
-                <Link href="/product/makeblock-mbot" className="text-white ">
-                  Makeblock mBot
+                <Link href="/product/mbot-family" className="text-white ">
+                  mBot family
+                </Link>
+              </li>
+              <li>
+                <Link href="/product/humanoid" className="text-white ">
+                  Humanoid
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/product/makeblock-codey-rocky"
-                  className="text-white "
-                >
-                  Makeblock Codey Rocky
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/product/codey-rocky-and-neuron-education-kit"
-                  className="text-white "
-                >
-                  Codey Rocky & Neuron Education Kit
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/product-two/makeblock-cyberpi-innovation-add-on-pack"
+                  href="/product/arduino-breadboard-kit"
                   className="text-white"
                 >
-                  Makeblock CyberPi Innovation Add-on Pack
+                  Arduino breadboard kit
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/product-two/discover-the-best-znatok-arduino-basic"
+                  href="/product/arduino-basic-snap-on-circuit-kit"
                   className="text-white "
                 >
-                  Discover the Best Znatok Arduino Basic
+                  Arduino Basic Snap-On Circuit Kit
                 </Link>
               </li>
+
+              <li>
+                <Link href="/product/halocode" className="text-white ">
+                  HaloCode
+                </Link>
+              </li>
+
               <li>
                 <Link href="/product" className="text-white ">
                   View All Products
