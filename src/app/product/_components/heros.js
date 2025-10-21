@@ -8,7 +8,7 @@ import { AddToCartButtonProduct } from "@/components/cart-button";
 
 export default function Hero({ product }) {
   return (
-    <section className="bg-blue-50 pb-16 pt-[150px] overflow-hidden">
+    <section className="bg-blue-50 section overflow-hidden">
       <div className="container max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-10 items-center px-4">
         {/* Left Column: Product Info */}
         <div className="col-span-1 space-y-6">

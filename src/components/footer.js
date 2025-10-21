@@ -13,7 +13,7 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className=" text-white px-6 py-12 mt-0 bg-gradient-to-b from-[#30338B] to-[#505BDD]">
+    <footer className=" text-white px-6 py-12 mt-0 bg-gradient-to-b from-[#0053a3] to-[#3366cc]">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8 mb-8">
           {/* Brand Section */}
@@ -66,8 +66,8 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/atl-packages" className="text-white ">
-                  ATL packages
+                <Link href="/software" className="text-white ">
+                  Software
                 </Link>
               </li>
               <li>

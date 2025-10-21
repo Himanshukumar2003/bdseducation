@@ -35,7 +35,7 @@ export default function AIEducationUI() {
   ];
 
   return (
-    <div className="section bg-gradient-to-b from-[#30338B] to-[#505BDD] ">
+    <div className="section bg-gradient-to-b from-[#0053a3] to-[#3366cc] ">
       <div className="container max-w-7xl mx-auto px-4">
         {/* Header Section */}
         <div className="text-center mb-12">

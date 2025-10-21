@@ -8,11 +8,12 @@ import BuyNowButton from "@/components/ui/buynow-btn";
 import { AddToCartButtonProduct } from "@/components/cart-button";
 
 export default function BookHero({ product }) {
+  console.log(product);
   return (
-    <section className="bg-blue-50 pb-16 pt-[150px] overflow-hidden">
+    <section className="bg-blue-50 section overflow-hidden">
       <div className="container max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-10 items-center px-4">
         {/* Left Column: Product Info */}
-        <div className="col-span-1 space-y-6">
+        <div className="col-span-1 space-y-6 order-2">
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900">
             {product.title}
           </h1>
@@ -31,7 +32,7 @@ export default function BookHero({ product }) {
 
           {/* Conditional Button */}
           <div className="flex flex-wrap gap-4">
-            {product.price >= 0 && product.book_link ? (
+            {product.price <= 0 && product.book_link ? (
               <Link href={product.book_link} className="btn">
                 View demo
               </Link>
@@ -55,7 +56,7 @@ export default function BookHero({ product }) {
         </div>
 
         {/* Right Column: Image */}
-        <div className="col-span-1 flex justify-center">
+        <div className="col-span-1 flex justify-center order-1 ">
           {product.pictures?.length > 0 && (
             <Image
               src={`${process.env.NEXT_PUBLIC_FILE_BASE}${product.pictures[0]}`}

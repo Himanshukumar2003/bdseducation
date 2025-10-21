@@ -63,7 +63,7 @@ export default function OrderDetailsPage({}) {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8 px-4 pt-[150px]">
+    <div className="min-h-screen bg-gray-50 py-8 px-4 section">
       <div className="max-w-5xl mx-auto space-y-8">
         {/* Header Section */}
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 lg:p-8">

@@ -163,7 +163,7 @@ export default function Home() {
 
             <div className="">
               <h3 className=" md:text-2xl   font-medium   italic text-foreground mb-4">
-                Nation Building Through Its Yoth
+                Nation Building Through Its Youth
               </h3>
               <p className="text-gray-600 text-lg leading-relaxed mb-6">
                 Our legacy traces back to Project Akshaya in Kerala — a

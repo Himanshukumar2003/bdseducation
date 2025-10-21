@@ -14,7 +14,7 @@ const blogPosts = [
   {
     title: "Teach It Yourself – A New Wave in Technical Education",
     excerpt:
-      "Every year, millions of students graduate — yet many struggle to find employment. The reason isn’t lack of intelligence — it’s the lack of real-world skills. India doesn’t just need more degrees; it needs more doers. At BDS Education, we believe the transformation begins in classrooms — when students stop being learners only and start becoming makers too. That’s where Teach It Yourself (TIY) and Knowledge Through Projects come together to build the India of Tomorrow.",
+      "TIY stands for Teach It Yourself, inspired by the DIY (Do It Yourself) movement. Just as DIY empowers individuals to build and innovate independently, TIY empowers both teachers and learners to construct knowledge through hands-on exploration.",
     date: "Oct 17, 2025",
     author: "ADMIN",
     category: "EDUCATION",

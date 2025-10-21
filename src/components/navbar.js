@@ -250,7 +250,7 @@ export default function Navbar() {
               ) : (
                 <button
                   onClick={() => handleNavClick(item)}
-                  className="px-4 text-sm py-6 border-b-4 border-[#0053a3] text-white font-semibold flex items-center hover:border-white"
+                  className="px-4  py-6 border-b-4 border-[#0053a3] text-white font-semibold flex items-center hover:border-white"
                 >
                   {item.title} <ChevronDown className="ml-1 h-4 w-4" />
                 </button>
