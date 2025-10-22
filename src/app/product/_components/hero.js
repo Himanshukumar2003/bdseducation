@@ -46,9 +46,9 @@ export default function BookImageGallery({ bookImages, product }) {
         ]}
       />
       <div className="max-w-7xl mx-auto px-6 py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-10">
           {/* Left Sidebar - Thumbnails */}
-          <div className="lg:col-span-1">
+          <div className="md:col-span-1 order-2 md:order-1">
             <div className="flex lg:flex-col gap-3 overflow-x-auto lg:overflow-visible">
               {bookImages.map((src, index) => (
                 <div
@@ -73,7 +73,7 @@ export default function BookImageGallery({ bookImages, product }) {
           </div>
 
           {/* Main Book Image with Swiper */}
-          <div className="lg:col-span-6">
+          <div className="md:col-span-6 order-1 md:order-2">
             <div className="relative">
               <Badge className="absolute top-4 right-4 bg-black/70 backdrop-blur-sm text-white text-xs px-2 py-1 rounded-md z-10 shadow-md">
                 {activeIndex + 1}/{bookImages.length}
@@ -127,7 +127,7 @@ export default function BookImageGallery({ bookImages, product }) {
           </div>
 
           {/* Right Side - Book Details */}
-          <div className="lg:col-span-5 space-y-6">
+          <div className="md:col-span-5 space-y-6 order-3 ">
             <h1 className="text-3xl font-semibold leading-snug">
               {product.title || "Untitled Book"}
             </h1>

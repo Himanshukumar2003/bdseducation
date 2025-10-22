@@ -54,8 +54,8 @@ function Books() {
     <div className="bg-blue-50 py-16">
       <div className="container max-w-7xl mx-auto px-4">
         {/* Category Filter Dropdown */}
-        <div className="mb-8 flex gap-6 items-center  ">
-          <h4 className="text-lg font-bold mb-2 leading-snug">Filter</h4>
+        <div className="mb-8 flex justify-between font-medium gap-6 items-center  ">
+          <h4 className="text-lg  mb-2 leading-snug">Filter by Categories</h4>
           <select
             className="p-2 border border-blue-500 rounded-lg capitalize"
             value={selectedCategory}

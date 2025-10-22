@@ -16,7 +16,7 @@ export default function Home() {
       <StatsSection></StatsSection>
       <FeaturesSection />
 
-      <Books></Books>
+      <Books sliceCount={9}></Books>
       <ProductsSection />
       <AIEducationUI></AIEducationUI>
       <UserGraphCards></UserGraphCards>

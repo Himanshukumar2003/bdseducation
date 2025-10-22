@@ -19,7 +19,6 @@ export default function Distributor() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
     alert("Form submitted! Check console for details.");
   };
 
@@ -37,7 +36,7 @@ export default function Distributor() {
                 name="fullName"
                 value={formData.fullName}
                 onChange={handleChange}
-                placeholder="John"
+                placeholder="Enter your Fist Name"
                 className="w-full px-3 py-2 border border-slate-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                 required
               />

@@ -58,13 +58,12 @@ export default function MobileMenu({ setMobileNav, user }) {
     }));
   }, [books]);
 
-  // 🧩 Quick navigation items
   const quickLinks = [
     { title: "Home", slug: "/" },
-    { title: "About", slug: "/about" },
     { title: "ATL ", slug: "/atl-packages" },
-    { title: "Gallery", slug: "/gallery" },
-    { title: "Contact", slug: "/contact" },
+    { title: "Smart Kits Combo", slug: "/smart-Kits-combo" },
+    { title: "Web Recourse", slug: "/web-recourse" },
+    { title: "Become a Distributor", slug: "/become-a-distributor" },
   ];
 
   // 🧩 Dynamic dropdowns same as desktop

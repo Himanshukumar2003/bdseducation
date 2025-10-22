@@ -76,23 +76,21 @@ export function ContactSection() {
                 <MapPin className="w-5 h-5" />
                 <span className="font-semibold">Our Locations</span>
               </div>
-              <p className="flex gap-2 mb-2">
-                <span className="font-semibold">Dayalbagh:</span>
-                <span className="text-gray-700">
+              <div className=" mb-2">
+                <p>
+                  <span className="text-gray-700 font-semibold"> INDIA : </span>{" "}
                   Near St Columbus School Gate No.2, SCO-12, 1st Floor,
                   Dayalbagh, Surajkund, Faridabad – 121009
-                </span>
-              </p>
-              <p className="flex gap-2 mb-2">
-                <span className="font-semibold">Sec 14:</span>
-                <span className="text-gray-700">
-                  772, Sector-14, Faridabad, Haryana – 121007
-                </span>
-              </p>
+                </p>
+                <p className="mt-2">
+                  772, Sector-14, Faridabad, Haryana – 121007{" "}
+                </p>
+              </div>
+
               <p className="flex gap-2">
-                <span className="font-semibold">Sydney:</span>
-                <span className="text-gray-700">
-                  1/25, Park Avenue, Tahmoor, NSW
+                <span className="font-semibold text-gray-700">Australia:</span>
+                <span className="">
+                  1/25, Park Avenue, Tahmoor, NSW, Sydney Australia
                 </span>
               </p>
             </div>

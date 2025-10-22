@@ -141,42 +141,61 @@ export default function CartSidebar() {
                       className="object-contain"
                     />
                   </div>
+
                   <div className="flex-1 grid gap-1">
                     <h3 className="font-semibold text-sm text-gray-800">
                       {item.title}
                     </h3>
+
                     <p className="text-sm text-muted-foreground">
                       ₹{item.price}{" "}
                       {item.preorder && (
                         <span className="text-green-600">(Pre-order)</span>
                       )}
                     </p>
+
                     <div className="flex items-center gap-2 mt-1">
-                      <Button
-                        variant="outline"
-                        size="icon"
-                        className="h-7 w-7 bg-white border hover:bg-blue-50"
-                        onClick={() =>
-                          mutate({ id: item.id, quantity: item.quantity - 1 })
-                        }
-                      >
-                        <Minus className="h-4 w-4" />
-                        <span className="sr-only">Decrease quantity</span>
-                      </Button>
-                      <span className="text-sm font-medium">
-                        {item.quantity}
-                      </span>
-                      <Button
-                        variant="outline"
-                        size="icon"
-                        className="h-7 w-7 bg-white border hover:bg-blue-50"
-                        onClick={() => {
-                          mutate({ id: item.id, quantity: item.quantity + 1 });
-                        }}
-                      >
-                        <Plus className="h-4 w-4" />
-                        <span className="sr-only">Increase quantity</span>
-                      </Button>
+                      {item.stock > 0 ? (
+                        <>
+                          <Button
+                            variant="outline"
+                            size="icon"
+                            className="h-7 w-7 bg-white border hover:bg-blue-50"
+                            onClick={() =>
+                              mutate({
+                                id: item.id,
+                                quantity: item.quantity - 1,
+                              })
+                            }
+                          >
+                            <Minus className="h-4 w-4" />
+                            <span className="sr-only">Decrease quantity</span>
+                          </Button>
+
+                          <span className="text-sm font-medium">
+                            {item.quantity}
+                          </span>
+
+                          <Button
+                            variant="outline"
+                            size="icon"
+                            className="h-7 w-7 bg-white border hover:bg-blue-50"
+                            onClick={() =>
+                              mutate({
+                                id: item.id,
+                                quantity: item.quantity + 1,
+                              })
+                            }
+                          >
+                            <Plus className="h-4 w-4" />
+                            <span className="sr-only">Increase quantity</span>
+                          </Button>
+                        </>
+                      ) : (
+                        <span className="text-red-600 rounded-lg text-xs font-bold uppercase tracking-wide">
+                          Out of stock
+                        </span>
+                      )}
                       <Button
                         variant="ghost"
                         size="icon"
@@ -224,7 +243,11 @@ export default function CartSidebar() {
           <div className="flex gap-2">
             <Button
               className="flex-1 bg-primary text-white hover:bg-primary/90 transition"
-              disabled={!agreedToTerms || cartItems?.length === 0}
+              disabled={
+                !agreedToTerms ||
+                cartItems?.length === 0 ||
+                cartItems.every((item) => item.stock === 0)
+              }
               onClick={handleCheckout}
             >
               CHECK OUT

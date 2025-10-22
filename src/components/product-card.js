@@ -15,15 +15,18 @@ export default function ProductCard({ product, type }) {
     category,
     discount,
     image,
+    stock,
     slug,
   } = product;
+
+  console.log(stock);
 
   const dispatch = useDispatch();
 
   const types = type == "package" ? "package" : "product";
 
   return (
-    <div className="bg-white rounded-3xl overflow-hidden shadow-lg transition-all duration-300 hover:-translate-y-3 hover:shadow-2xl h-full flex flex-col group">
+    <div className="bg-white relative rounded-3xl overflow-hidden shadow-lg transition-all duration-300 hover:-translate-y-3 hover:shadow-2xl h-full flex flex-col group">
       <Link
         href={
           type === "package"
@@ -39,10 +42,9 @@ export default function ProductCard({ product, type }) {
               fill
             />
           )}
-
-          {discount && (
-            <div className="absolute top-5 right-5 text-[var(--primary-blue)] text-sm font-bold uppercase tracking-widest">
-              {discount}
+          {stock == 0 && (
+            <div class="absolute top-5 left-5 bg-red-600 rounded-lg text-white px-5 py-2 text-xs font-bold uppercase tracking-wide">
+              Out of stock
             </div>
           )}
         </div>
@@ -83,13 +85,14 @@ export default function ProductCard({ product, type }) {
               READ MORE
             </Link>
           </div>
-
-          <AddToCartButton
-            product={{
-              item_id: product.id,
-              item_type: types,
-            }}
-          />
+          {!stock == 0 && (
+            <AddToCartButton
+              product={{
+                item_id: product.id,
+                item_type: types,
+              }}
+            />
+          )}
         </div>
       </div>
     </div>

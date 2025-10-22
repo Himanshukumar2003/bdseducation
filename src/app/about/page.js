@@ -107,7 +107,7 @@ export default function Home() {
         </h2>
 
         <div className="max-w-8xl mx-auto px-4">
-          <div className=" grid grid-cols-5 gap-6 justify-center   ">
+          <div className=" grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 justify-center   ">
             {journeyStages.map((stage, index) => {
               const Icon = stage.icon;
               return (

@@ -41,6 +41,44 @@ export default function Footer() {
               grade span (class 1 to college) and include 3-in-1 software
               solutions for Scratch, Python, and Arduino C.
             </p>
+
+            <div className="flex gap-3 mt-4">
+              <Link
+                href="https://www.facebook.com/people/BDS-Education/100063881380680/"
+                target="_blank"
+                className="w-10 h-10 bg-slate-700 hover:bg-blue-600 rounded-lg flex items-center justify-center transition-colors"
+              >
+                <Facebook className="w-5 h-5" />
+              </Link>
+              <Link
+                href="https://x.com/i/flow/login?redirect_after_login=%2Fbds_connect"
+                target="_blank"
+                className="w-10 h-10 bg-slate-700 hover:bg-blue-400 rounded-lg flex items-center justify-center transition-colors"
+              >
+                <Twitter className="w-5 h-5" />
+              </Link>
+              <Link
+                href="https://www.youtube.com/@bdseducation6748"
+                target="_blank"
+                className="w-10 h-10 bg-slate-700 hover:bg-red-600 rounded-lg flex items-center justify-center transition-colors"
+              >
+                <YoutubeIcon className="w-5 h-5" />
+              </Link>
+              <Link
+                href="https://www.instagram.com/_bds.education/"
+                target="_blank"
+                className="w-10 h-10 bg-slate-700 hover:bg-pink-600 rounded-lg flex items-center justify-center transition-colors"
+              >
+                <Instagram className="w-5 h-5" />
+              </Link>
+              <Link
+                href="https://www.linkedin.com/company/educationbds/"
+                target="_blank"
+                className="w-10 h-10 bg-slate-700 hover:bg-blue-700 rounded-lg flex items-center justify-center transition-colors"
+              >
+                <Linkedin className="w-5 h-5" />
+              </Link>
+            </div>
           </div>
 
           {/* Company Section */}
@@ -149,27 +187,29 @@ export default function Footer() {
             <h3 className="text-lg font-semibold text-white mb-4">Contact</h3>
             <div className="space-y-4">
               {/* Dayalbagh Address */}
-              <div className="flex items-start gap-3">
-                <MapPin className="w-5 h-5 text-white mt-0.5 flex-shrink-0" />
-                <p className="text-sm text-white">
-                  Dayalbagh: Near St Columbus School Gate No.2, SCO-12, 1st
-                  Floor, Dayalbagh, Surajkund, Faridabad - 121009
+              <div>
+                <div className="flex  items-start gap-3 mb-4">
+                  <MapPin className="w-5 h-5 text-white mt-0.5 flex-shrink-0" />
+                  <h5>INDIA</h5>
+                </div>
+                <p className="text-sm text-white mb-2">
+                  Near St Columbus School Gate No.2, SCO-12, 1st Floor,
+                  Dayalbagh, Surajkund, Faridabad - 121009
                 </p>
+
+                <p> 772, Sector -14, Faridabad, Haryana - 121007</p>
               </div>
 
               {/* Sec 14 Address */}
-              <div className="flex items-start gap-3">
-                <MapPin className="w-5 h-5 text-white mt-0.5 flex-shrink-0" />
-                <p className="text-sm text-white">
-                  Sec 14: 772, Sector -14, Faridabad, Haryana - 121007
-                </p>
-              </div>
 
               {/* Sydney Address */}
-              <div className="flex items-start gap-3">
-                <MapPin className="w-5 h-5 text-white mt-0.5 flex-shrink-0" />
+              <div>
+                <div className="flex  items-start gap-3 mb-4">
+                  <MapPin className="w-5 h-5 text-white mt-0.5 flex-shrink-0" />
+                  <h5>Australia</h5>
+                </div>
                 <p className="text-sm text-white">
-                  Sydney: 1/25, Park Avenue, Tahmoor, NSW
+                  1/25, Park Avenue, Tahmoor, NSW, Sydney Australia
                 </p>
               </div>
 
@@ -217,43 +257,6 @@ export default function Footer() {
               </div>
 
               {/* Social Links */}
-              <div className="flex gap-3 mt-4">
-                <Link
-                  href="https://www.facebook.com/people/BDS-Education/100063881380680/"
-                  target="_blank"
-                  className="w-10 h-10 bg-slate-700 hover:bg-blue-600 rounded-lg flex items-center justify-center transition-colors"
-                >
-                  <Facebook className="w-5 h-5" />
-                </Link>
-                <Link
-                  href="https://x.com/i/flow/login?redirect_after_login=%2Fbds_connect"
-                  target="_blank"
-                  className="w-10 h-10 bg-slate-700 hover:bg-blue-400 rounded-lg flex items-center justify-center transition-colors"
-                >
-                  <Twitter className="w-5 h-5" />
-                </Link>
-                <Link
-                  href="https://www.youtube.com/@bdseducation6748"
-                  target="_blank"
-                  className="w-10 h-10 bg-slate-700 hover:bg-red-600 rounded-lg flex items-center justify-center transition-colors"
-                >
-                  <YoutubeIcon className="w-5 h-5" />
-                </Link>
-                <Link
-                  href="https://www.instagram.com/_bds.education/"
-                  target="_blank"
-                  className="w-10 h-10 bg-slate-700 hover:bg-pink-600 rounded-lg flex items-center justify-center transition-colors"
-                >
-                  <Instagram className="w-5 h-5" />
-                </Link>
-                <Link
-                  href="https://www.linkedin.com/company/educationbds/"
-                  target="_blank"
-                  className="w-10 h-10 bg-slate-700 hover:bg-blue-700 rounded-lg flex items-center justify-center transition-colors"
-                >
-                  <Linkedin className="w-5 h-5" />
-                </Link>
-              </div>
             </div>
           </div>
         </div>
