@@ -22,6 +22,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 export default function ProductFillter() {
   const searchParams = useSearchParams();
   const searchParamsStr = searchParams.toString();
+  console.log({ searchParamsStr });
 
   const [pkgTypesQ, setPkgTypesQ] = useQueryState("pkgtypes");
   const [categoriesQ, setCategoriesQ] = useQueryState("categories");

@@ -109,45 +109,39 @@ export default function Footer() {
 
           <div>
             <h3 className="text-lg font-semibold text-gray-400 mb-4">
-              Non ATL Products
+              Useful Links
             </h3>
             <ul className="space-y-3">
               <li>
-                <Link href="/product/mbot-family" className="text-white ">
-                  mBot family
+                <Link href="/atl-packages" className="text-white ">
+                  ATL Packages
                 </Link>
               </li>
-              <li>
-                <Link href="/product/humanoid" className="text-white ">
-                  Humanoid
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/product/arduino-breadboard-kit"
-                  className="text-white"
-                >
-                  Arduino breadboard kit
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/product/arduino-basic-snap-on-circuit-kit"
-                  className="text-white "
-                >
-                  Arduino Basic Snap-On Circuit Kit
-                </Link>
-              </li>
-
-              <li>
-                <Link href="/product/halocode" className="text-white ">
-                  HaloCode
-                </Link>
-              </li>
-
               <li>
                 <Link href="/product" className="text-white ">
-                  View All Products
+                  Non ATL Products
+                </Link>
+              </li>
+              <li>
+                <Link href="/product/smart-Kits-combo" className="text-white">
+                  Smart Kits Combo
+                </Link>
+              </li>
+              <li>
+                <Link href="/books" className="text-white ">
+                  Books
+                </Link>
+              </li>
+
+              <li>
+                <Link href="/web-recourse" className="text-white ">
+                  Web Recourse
+                </Link>
+              </li>
+
+              <li>
+                <Link href="/become-a-distributor" className="text-white ">
+                  Become a Distributor
                 </Link>
               </li>
             </ul>
