@@ -131,11 +131,11 @@ export default function Home() {
 
       {/* Indian Owned & Operated Section */}
       <section className="bg-slate-50 section">
-        <div class="text-center space-y-4 mb-16">
-          <h2 class="text-3xl sm:text-4xl font-bold text-balance">
+        <div className="text-center space-y-4 mb-16">
+          <h2 className="text-3xl sm:text-4xl font-bold text-balance">
             🇮🇳 Proudly Indian Owned & Operated
           </h2>
-          <p class="text-lg text-muted-foreground max-w-6xl mx-auto text-pretty">
+          <p className="text-lg text-muted-foreground max-w-6xl mx-auto text-pretty">
             BDS Education is founded and run by a team of Armed Forces veterans,
             academicians, and doctorates, united by one purpose —
           </p>

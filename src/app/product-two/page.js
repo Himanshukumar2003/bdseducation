@@ -174,7 +174,7 @@ ${img}`
             <div className="flex gap-4">
               <BuyNowButton product={book} />
 
-              {/* <button class="btn     bg-transparent  border-2 border-blue-700 text-blue-500 hover:text-white">
+              {/* <button className="btn     bg-transparent  border-2 border-blue-700 text-blue-500 hover:text-white">
                 <span>
                   Add TO CART{" "}
                   <svg
@@ -187,7 +187,7 @@ ${img}`
                     stroke-width="2"
                     stroke-linecap="round"
                     stroke-linejoin="round"
-                    class="lucide lucide-arrow-right w-4 h-4 ml-2 inline"
+                    className="lucide lucide-arrow-right w-4 h-4 ml-2 inline"
                     aria-hidden="true"
                   >
                     <path d="M5 12h14"></path>

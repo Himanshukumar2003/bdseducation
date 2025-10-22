@@ -28,8 +28,8 @@ import Distributor from "./_components/form";
 export default function PartnerSection() {
   return (
     <section className="max-w-7xl mx-auto px-6 section">
-      <div class="text-center mb-16 max-w-[900px] mx-auto">
-        <h2 class="text-3xl lg:text-4xl font-bold text-gray-800 mb-6">
+      <div className="text-center mb-16 max-w-[900px] mx-auto">
+        <h2 className="text-3xl lg:text-4xl font-bold text-gray-800 mb-6">
           Partner with BDS Education – Bring Future-Ready Learning to Your
           Region
         </h2>

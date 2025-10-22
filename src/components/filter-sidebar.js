@@ -30,7 +30,7 @@ export function FilterSidebar({
   setProductTypesQ,
 }) {
   return (
-    <div className="rounded-xl border bg-card p-4 md:p-5 sticky top-20">
+    <div className="rounded-xl border bg-card p-4 md:p-5 ">
       {/* Title */}
       <div>
         <h2 className="text-2xl font-semibold tracking-tight">{title}</h2>
@@ -157,6 +157,7 @@ export function FilterSidebar({
                     <RowToggle
                       key={cat.id}
                       label={cat.title}
+                      className="capitalize"
                       checked={isChecked}
                       onCheckedChange={(v) => {
                         let updated;
@@ -221,7 +222,7 @@ export function FilterSidebar({
 function RowToggle({ label, checked, onCheckedChange }) {
   return (
     <div className="flex items-center justify-between rounded-lg px-2 py-1">
-      <span className="text-base text-foreground">{label}</span>
+      <span className="text-base text-foreground capitalize">{label}</span>
       <Switch
         checked={checked}
         onCheckedChange={onCheckedChange}

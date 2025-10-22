@@ -56,7 +56,7 @@ function Books() {
         {/* Category Filter Dropdown */}
         <div className="mb-8 ">
           <select
-            className="p-2 border border-blue-500 rounded-lg"
+            className="p-2 border border-blue-500 rounded-lg capitalize"
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
           >
