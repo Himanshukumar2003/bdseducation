@@ -45,9 +45,7 @@ export default function Footer() {
 
           {/* Company Section */}
           <div>
-            <h3 className="text-lg font-semibold text-gray-400 mb-4">
-              Company
-            </h3>
+            <h3 className="text-lg font-semibold text-white mb-4">Company</h3>
             <ul className="space-y-3">
               <li>
                 <Link
@@ -108,7 +106,7 @@ export default function Footer() {
           {/* Products / Solutions Section */}
 
           <div>
-            <h3 className="text-lg font-semibold text-gray-400 mb-4">
+            <h3 className="text-lg font-semibold text-white mb-4">
               Useful Links
             </h3>
             <ul className="space-y-3">
@@ -148,9 +146,7 @@ export default function Footer() {
           </div>
 
           <div className="lg:col-span-2">
-            <h3 className="text-lg font-semibold text-gray-400 mb-4">
-              Contact
-            </h3>
+            <h3 className="text-lg font-semibold text-white mb-4">Contact</h3>
             <div className="space-y-4">
               {/* Dayalbagh Address */}
               <div className="flex items-start gap-3">
