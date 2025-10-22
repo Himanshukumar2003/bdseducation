@@ -68,7 +68,7 @@ export function FilterSidebar({
       >
         <div className="flex w-full items-center gap-6 mb-6">
           {[
-            { label: "ATL", value: "atl" },
+            /*{ { label: "ATL", value: "atl" }, }*/
             { label: "NON-ATL", value: "non-atl" },
           ].map(({ label, value }) => (
             <div

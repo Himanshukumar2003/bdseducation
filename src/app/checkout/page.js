@@ -168,7 +168,7 @@ export default function CheckoutPage() {
       <div className=" px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-10">
           {/* FORM FIELDS */}
-          <div className="lg:col-span-2 space-y-8">
+          <div className="lg:col-span-2 space-y-8 order-2 lg:order-1">
             <div className=" bg-white rounded-xl shadow-2xl p-4">
               <div>
                 <h3>Select Addresses:</h3>
@@ -332,7 +332,7 @@ export default function CheckoutPage() {
           </div>
 
           {/* Order Summary */}
-          <div className="lg:col-span-1 bg-white p-8 rounded-xl shadow-lg sticky top-12 h-fit">
+          <div className="lg:col-span-1 bg-white p-8 rounded-xl shadow-lg lg:sticky top-12 h-fit order-1 lg:order-2">
             <h2 className="text-2xl font-bold mb-6 text-gray-800">
               Order Summary
             </h2>
