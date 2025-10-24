@@ -126,7 +126,7 @@ export default function SignupPage() {
                   <Label htmlFor="username">Username</Label>
                   <Input
                     id="username"
-                    placeholder="john123"
+                    placeholder="User123"
                     value={formData.username}
                     onChange={(e) =>
                       handleInputChange("username", e.target.value)
@@ -142,7 +142,7 @@ export default function SignupPage() {
                   <Input
                     id="email"
                     type="email"
-                    placeholder="john@example.com"
+                    placeholder="amit@example.com"
                     value={formData.email}
                     onChange={(e) => handleInputChange("email", e.target.value)}
                     required

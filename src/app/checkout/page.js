@@ -133,17 +133,17 @@ export default function CheckoutPage() {
 
   const onSubmit = (data) => {
     if (!user) {
-      alert("Please login first!");
+      toast.error("Please login first!");
       return;
     }
 
     if (cartItems?.length === 0) {
-      alert("Your cart is empty");
+      toast.error("Your cart is empty");
       return;
     }
 
     if (paymentMethod === "cod" && !codConfirmed) {
-      alert("Please confirm your COD order before placing.");
+      toast.error("Please confirm your COD order before placing.");
       return;
     }
 
@@ -157,10 +157,21 @@ export default function CheckoutPage() {
       ...data,
       order_items,
       payment_method: paymentMethod,
-      // coupon_code: data.coupon_code || undefined,
     };
 
-    createMutation.mutate(order);
+    // Show a loading toast while creating order
+    const toastId = toast.loading("Placing your order...");
+
+    createMutation.mutate(order, {
+      onSuccess: () => {
+        toast.success("Order placed successfully!");
+        toast.dismiss(toastId);
+      },
+      onError: (error) => {
+        toast.error(error?.message || "Failed to place order");
+        toast.dismiss(toastId);
+      },
+    });
   };
 
   return (
@@ -378,14 +389,14 @@ export default function CheckoutPage() {
                 <span>Subtotal:</span>
                 <span>₹{subtotal.toFixed(2)}</span>
               </div>
-              <div className="flex justify-between text-gray-700">
+              {/* <div className="flex justify-between text-gray-700">
                 <span>Shipping:</span>
                 <span className="text-green-600 font-semibold">FREE</span>
               </div>
               <div className="flex justify-between text-gray-700">
                 <span>Estimated taxes:</span>
                 <span>₹{estimatedTaxes.toFixed(2)}</span>
-              </div>
+              </div> */}
               <div className="flex justify-between font-bold border-t border-gray-200 pt-4 mt-4 text-xl text-gray-900">
                 <span>Total:</span>
                 <span>₹{total.toFixed(2)}</span>
