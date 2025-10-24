@@ -7,7 +7,6 @@ const PUBLIC_ROUTES = ["/", "/about", "/contact"];
 
 export default async function middleware(req) {
   const token = req.cookies.get("refresh_token")?.value;
-  console.log({ token });
   const url = req.nextUrl.clone();
   const pathname = url.pathname;
   if (token && AUTH_ROUTES.some((path) => pathname.startsWith(path))) {

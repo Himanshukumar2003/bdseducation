@@ -5,6 +5,7 @@ import {
   Cpu,
   GraduationCap,
   Quote,
+  Rocket,
   ChartNoAxesCombined,
 } from "lucide-react";
 import Image from "next/image";
@@ -35,6 +36,14 @@ export default function Home() {
       description:
         "From Smart Agri to Smart Dada-Dadi Care, our projects show how technology can solve real-world problems with compassion and purpose.",
     },
+
+    {
+      icon: Rocket,
+      title: "Migrate to our engineering series ",
+      description:
+        "Series starts with robotic arms, moves on to humanoid robots and more—",
+    },
+
     {
       icon: GraduationCap,
       title: "Right to Education & Opportunity",
@@ -101,27 +110,36 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="py-20 px-4">
-        <h2 className="text-4xl font-bold text-center text-slate-900 mb-16">
+      <section className="section px-4">
+        <h2 className="text-4xl font-bold text-center text-slate-900 mb-10">
           THE CHILD&apos;S JOURNEY
         </h2>
 
-        <div className="max-w-8xl mx-auto px-4">
-          <div className=" grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 justify-center   ">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="grid sm:grid-cols-2 md:grid-cols-3  gap-10  justify-center justify-items-center">
             {journeyStages.map((stage, index) => {
               const Icon = stage.icon;
+              const stepNumber = String(index + 1).padStart(2, "0");
               return (
                 <div
                   key={index}
-                  className="flex flex-col items-center  text-center flex-1"
+                  className="flex flex-col items-center text-center flex-1  rounded-2xl  transition duration-300"
                 >
-                  <div className="bg-slate-100 rounded-full p-6 mb-6 w-20 h-20 flex items-center justify-center">
-                    <Icon className="w-12 h-12 text-blue-500" />
+                  <div className="bg-blue-50 rounded-full p-6 mb-6 w-20 h-20 flex items-center justify-center shadow-sm">
+                    <Icon className="w-10 h-10 text-blue-600" />
                   </div>
-                  <h3 className="font-medium text-slate-900 mb-3">
+                  <div className="text-4xl font-bold opacity-15 mb-4 group-hover:opacity-25 transition-opacity duration-300 ">
+                    {stepNumber}
+                  </div>
+                  {/* Title */}
+                  <h3 className="font-semibold text-slate-900 text-lg mb-3 leading-snug">
                     {stage.title}
                   </h3>
-                  <p className="text-sm text-slate-600">{stage.description}</p>
+
+                  {/* Description */}
+                  <p className="text-sm text-slate-600 leading-relaxed opacity-90">
+                    {stage.description}
+                  </p>
                 </div>
               );
             })}
@@ -133,7 +151,7 @@ export default function Home() {
       <section className="bg-slate-50 section">
         <div className="text-center space-y-4 mb-16">
           <h2 className="text-3xl sm:text-4xl font-bold text-balance">
-            🇮🇳 Proudly Indian Owned & Operated
+            Proudly Indian Owned & Operated
           </h2>
           <p className="text-lg text-muted-foreground max-w-6xl mx-auto text-pretty">
             BDS Education is founded and run by a team of Armed Forces veterans,

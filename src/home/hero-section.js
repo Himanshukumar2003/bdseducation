@@ -31,6 +31,7 @@ export default function HeroSection() {
           disableOnInteraction: false,
         }}
         className="w-full h-full"
+        style={{ padding: "0px" }}
       >
         {slides.map((slide, index) => (
           <SwiperSlide key={slide.id}>

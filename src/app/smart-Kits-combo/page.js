@@ -8,6 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import SmartKits from "@/home/smart-kits-combo";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -47,7 +48,7 @@ export default function Home() {
       type: "Product",
     },
     {
-      title: "Smart Helth Kits Combo",
+      title: "Smart Health Kits Combo",
       category: "Product",
       description: "Health and wellness kit combo for smart living.",
       img: "/images/img5.png",
@@ -77,6 +78,12 @@ export default function Home() {
           },
         ]}
       />
+
+      <section className="section">
+        <div className=" contanier max-w-7xl mx-auto px-4">
+          <SmartKits></SmartKits>
+        </div>
+      </section>
       <section className="section">
         <div className=" contanier max-w-7xl mx-auto px-4">
           <main className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6">

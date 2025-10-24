@@ -89,7 +89,7 @@ export default function Software() {
                     alt={item.title}
                     width={500}
                     height={500}
-                    className=" max-w-[200px] min-h-[205px] rounded-l-2xl object-cover"
+                    className=" w-full lg:max-w-[200px] min-h-[205px] rounded-l-2xl object-cover"
                   />
                 </div>
 

@@ -19,8 +19,6 @@ export default function ProductCard({ product, type }) {
     slug,
   } = product;
 
-  console.log(stock);
-
   const dispatch = useDispatch();
 
   const types = type == "package" ? "package" : "product";

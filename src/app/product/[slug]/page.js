@@ -41,33 +41,35 @@ export default async function BookPage({ params }) {
               Product information
             </h2>
 
-            <div
-              className="prose lg:prose-lg max-w-7xl 
-    prose-headings:text-gray-900
-    prose-headings:mb-3
-    prose-p:text-gray-700
-    prose-p:text-lg
-    prose-p:m-0
-    prose-ul:list-disc
-    prose-ol:list-decimal
-    prose-li:ml-6
-    prose-li:m-0
-    prose-ul:marker:text-blue-600
-    prose-img:rounded-lg prose-img:m-0 prose-img:mx-auto
-    prose-blockquote:border-l-4 prose-blockquote:border-gray-300 prose-blockquote:pl-4 prose-blockquote:text-gray-600 
-    prose-a:text-blue-600 hover:prose-a:underline transition-all
+            <div className="overflow-x-auto w-full">
+              <div
+                className="prose lg:prose-lg max-w-7xl
+      prose-headings:text-gray-900
+      prose-headings:mb-3
+      prose-p:text-gray-700
+      prose-p:text-lg
+      prose-p:m-0
+      prose-ul:list-disc
+      prose-ol:list-decimal
+      prose-li:ml-6
+      prose-li:m-0
+      prose-ul:marker:text-blue-600
+      prose-img:rounded-lg prose-img:m-0 prose-img:mx-auto
+      prose-blockquote:border-l-4 prose-blockquote:border-gray-300 prose-blockquote:pl-4 prose-blockquote:text-gray-600 
+      prose-a:text-blue-600 hover:prose-a:underline transition-all
 
-    /* --- Table Styling --- */
-    prose-table:w-full prose-table:border  prose-table:border-gray-300 prose-table:rounded-xl prose-table:shadow-md
-    prose-th:bg-blue-100 prose-th:font-semibold prose-th:px-6 prose-th:py-4 prose-th:text-gray-800 prose-th:border prose-th:border-gray-300
-    prose-td:px-6 prose-td:py-4 prose-td:border prose-td:border-gray-200
-    prose-tr:hover:bg-blue-50
-    prose-tr:nth-child(even):bg-blue-50
-    prose-tr:nth-child(odd):bg-white
-    prose-code:bg-blue-50 prose-code:rounded px-1 prose-code:text-red-600 prose-td:pl-4
-  "
-              dangerouslySetInnerHTML={{ __html: cleanContent }}
-            />
+      /* --- Table Styling --- */
+      prose-table:w-full prose-table:border prose-table:border-gray-300 prose-table:rounded-xl prose-table:shadow-md
+      prose-th:bg-blue-100 prose-th:font-semibold prose-th:px-6 prose-th:py-4 prose-th:text-gray-800 prose-th:border prose-th:border-gray-300
+      prose-td:px-6 prose-td:py-4 prose-td:border prose-td:border-gray-200
+      prose-tr:hover:bg-blue-50
+      prose-tr:nth-child(even):bg-blue-50
+      prose-tr:nth-child(odd):bg-white
+      prose-code:bg-blue-50 prose-code:rounded px-1 prose-code:text-red-600 prose-td:pl-4
+    "
+                dangerouslySetInnerHTML={{ __html: cleanContent }}
+              />
+            </div>
           </div>
         </div>
       )}

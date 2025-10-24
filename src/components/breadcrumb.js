@@ -9,7 +9,7 @@ export function Breadcrumb({ items, title, className = "" }) {
   return (
     <div className={`relative w-full ${className}`}>
       {/* Background Image */}
-      <div className="relative w-full h-[260px] md:h-[280px] overflow-hidden pt-[40px]">
+      <div className="relative w-full h-[260px]  overflow-hidden pt-[40px]">
         <Image
           src="/images/hero-2.png"
           alt={title}

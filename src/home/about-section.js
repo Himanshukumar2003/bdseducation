@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function AboutSection() {
   return (
-    <section className="py-16 ">
+    <section className="section bg-blue-50 ">
       <div className="container  mx-auto px-4">
         <div className="flex flex-col lg:flex-row items-center gap-8">
           {/* Left side - Image */}
@@ -26,51 +26,19 @@ export default function AboutSection() {
               ABOUT US
             </span>
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-800 mb-6 leading-tight">
-              WHAT IS EARLY CHILDHOOD EDUCATION AND WHY IS IT IMPORTANT?
+              At BDS Education, we believe that true learning happens when
+              curiosity meets creation.
             </h2>
             <p className="text-gray-600 text-lg leading-relaxed mb-8">
-              Early childhood education is the foundation of lifelong learning.
-              Our kindergarten program focuses on developing essential skills
-              through play-based learning, fostering creativity, and building
-              strong social connections in a nurturing environment.
-            </p>
-
-            <div className="grid md:grid-cols-2 gap-6 mb-8">
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-[var(--primary-700)] text-white rounded-full flex items-center justify-center text-xl flex-shrink-0">
-                  <Puzzle className="w-5 h-5" />
-                </div>
-                <div>
-                  <h5 className="font-semibold text-gray-800 text-sm uppercase tracking-wide mb-2">
-                    LEARNING THROUGH PLAY
-                  </h5>
-                  <p className="text-gray-600 text-sm leading-relaxed">
-                    Interactive activities that make learning fun and engaging
-                    for young minds.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-[var(--primary-700)] text-white rounded-full flex items-center justify-center text-xl flex-shrink-0">
-                  <Heart className="w-5 h-5" />
-                </div>
-                <div>
-                  <h5 className="font-semibold text-gray-800 text-sm uppercase tracking-wide mb-2">
-                    INDIVIDUAL ATTENTION
-                  </h5>
-                  <p className="text-gray-600 text-sm leading-relaxed">
-                    Small class sizes ensure every child receives personalized
-                    care and attention.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <p className="text-gray-600 text-lg leading-relaxed mb-6">
-              Our experienced teachers create a safe and stimulating environment
-              where children can explore, discover, and develop their unique
-              talents and abilities.
+              Teach It Yourself (TIY) model and Knowledge-Through-Projects
+              approach. <br></br>Founded by Armed Forces veterans, academicians,
+              and innovators, BDS Education is driven by one purpose — Nation
+              Building Through Its Youth. From Smart Agri to Smart Home and
+              Smart Dada-Dadi Care, our hands-on learning kits help students
+              apply technology with empathy and purpose. We partner with
+              schools, colleges, and institutions across India to empower
+              educators, inspire students, and build a generation ready for the
+              challenges of tomorrow.
             </p>
 
             <Link href="/about" className="btn">

@@ -1,42 +1,57 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { Code2, Brain, Rocket, Users, Trophy, Zap } from "lucide-react";
-
+import {
+  Code2,
+  Brain,
+  Rocket,
+  Users,
+  Trophy,
+  Zap,
+  Cpu,
+  Globe,
+  Lightbulb,
+  Layers,
+  Shield,
+  BookOpen,
+  Sparkles,
+  Hammer,
+  Settings,
+} from "lucide-react";
 const features = [
   {
-    icon: Code2,
-    title: "Interactive Coding",
+    icon: Sparkles,
+    title: " From Curiosity to Creation",
     description:
-      "Learn programming through hands-on projects and real-time feedback.",
+      "Every child is born curious. We help them transform that curiosity into real creations — one project, one discovery at a time.",
   },
   {
-    icon: Brain,
-    title: "AI-Powered Learning",
+    icon: Hammer,
+    title: " Learn by Doing, Grow by Making",
     description:
-      "Personalized learning paths adapted to each student's pace and style.",
+      "Learning becomes meaningful when children build, test, and bring their ideas to life. That’s where true understanding begins.",
   },
   {
-    icon: Rocket,
-    title: "Project-Based Learning",
+    icon: BookOpen,
+    title: " Learn & Teach the TIY Way",
     description:
-      "Build real applications and showcase your skills through portfolio projects.",
+      "Our Teach It Yourself (TIY) approach empowers educators to guide hands-on learning that inspires curiosity and creativity in every classroom.",
   },
   {
-    icon: Users,
-    title: "Collaborative Community",
+    icon: Cpu,
+    title: " Technology with a Purpose",
     description:
-      "Connect with peers, mentors, and industry professionals worldwide.",
+      "From Smart Agri to Smart Dada-Dadi Care, our projects show how technology can solve real-world problems with compassion and purpose.",
   },
   {
-    icon: Trophy,
-    title: "Achievement System",
+    icon: Settings,
+    title: " Migrate to Our Engineering Series",
     description:
-      "Earn badges, certificates, and recognition for your learning milestones.",
+      "Series starts with robotic arms, moves on to humanoid robots and more—showcasing the next evolution in creative technology learning.",
   },
   {
-    icon: Zap,
-    title: "Cutting-Edge Tech",
+    icon: Globe,
+    title: " Right to Education & Opportunity",
     description:
-      "Stay ahead with the latest technologies and industry best practices.",
+      "We provide a digital playground for all — enabling learners to explore, customize, and choose learning paths that suit them best.",
   },
 ];
 
@@ -59,7 +74,7 @@ export function FeaturesSection() {
           {features.map((feature, index) => (
             <Card
               key={index}
-              className="bg-blue-50 shadow-sm hover:shadow-md transition-shadow  text-card-foreground flex flex-col gap-6 rounded-xl border-0 py-6 "
+              className="bg-blue-100 shadow-sm hover:shadow-md transition-shadow  text-card-foreground flex flex-col gap-6 rounded-xl border-0 py-6 "
             >
               <CardContent className="p-6 space-y-4">
                 <div className="w-12 h-12 bg-blue-200 rounded-lg flex items-center justify-center">

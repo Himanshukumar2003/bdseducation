@@ -159,7 +159,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/product/smart-Kits-combo" className="text-white">
+                <Link href="/smart-Kits-combo" className="text-white">
                   Smart Kits Combo
                 </Link>
               </li>

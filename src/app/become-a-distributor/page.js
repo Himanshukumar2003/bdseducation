@@ -40,14 +40,14 @@ export default function PartnerSection() {
           },
         ]}
       />
-      <section className="max-w-7xl mx-auto px-6 section">
-        <div className="text-center mb-16 max-w-[900px] mx-auto">
+      <section className="max-w-7xl mx-auto section    container section">
+        <div className="text-center mb-16 max-w-[900px] px-4 lg:px-0 mx-auto">
           <h2 className="text-3xl lg:text-4xl font-bold text-gray-800 mb-6">
             Partner with BDS Education – Bring Future-Ready Learning to Your
             Region
           </h2>
         </div>
-        <div className="grid lg:grid-cols-12 gap-12 items-center">
+        <div className="grid lg:grid-cols-12 gap-12 items-center px-4 ">
           <div className="col-span-6">
             <p className="text-gray-600 mb-5 leading-relaxed">
               We offer a complete A-to-Z solution for teaching Coding, Robotics,
@@ -106,7 +106,7 @@ export default function PartnerSection() {
               <DialogTrigger asChild>
                 <Button className="btn">Become a Distributor</Button>
               </DialogTrigger>
-              <DialogContent className="max-h-5xl">
+              <DialogContent className="max-h-5xl z-9999">
                 <Distributor></Distributor>
               </DialogContent>
             </Dialog>
@@ -140,7 +140,7 @@ export default function PartnerSection() {
               width={500}
               height={500}
               alt=""
-              className="w-full h-full rounded-2xl"
+              className="w-full h-full  rounded-2xl"
             />
           </div>
         </div>

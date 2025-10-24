@@ -152,31 +152,35 @@ export default function BookImageGallery({ bookImages, product }) {
             {/* Price */}
             <div className="flex items-center gap-3">
               <span className="text-4xl text-blue-500 drop-shadow-sm italic">
-                ${product.price || "0.00"}
+                ₹{product.price || "0.00"}
               </span>
               {product.oldPrice && (
                 <span className="text-lg text-gray-500 line-through">
-                  ${product.oldPrice}
+                  ₹{product.oldPrice}
                 </span>
               )}
             </div>
 
             {/* CTA Buttons */}
-            <div className="flex gap-4">
-              <BuyNowButton
-                product={{
-                  item_id: product.id,
-                  item_type: "product",
-                }}
-              />
 
-              <AddToCartButtonProduct
-                product={{
-                  item_id: product.id,
-                  item_type: "product",
-                }}
-              />
-            </div>
+            {product.stock <= 0 ? (
+              <div className="text-red-600 font-semibold">Out of Stock</div>
+            ) : (
+              <div className="flex gap-4">
+                <BuyNowButton
+                  product={{
+                    item_id: product.id,
+                    item_type: "product",
+                  }}
+                />
+                <AddToCartButtonProduct
+                  product={{
+                    item_id: product.id,
+                    item_type: "product",
+                  }}
+                />
+              </div>
+            )}
           </div>
         </div>
       </div>

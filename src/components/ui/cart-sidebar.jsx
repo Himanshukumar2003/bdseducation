@@ -109,6 +109,7 @@ export default function CartSidebar() {
 
   return (
     <Sheet
+      className="relative  z-[9999]"
       open={isCartOpen}
       onOpenChange={(open) =>
         open ? dispatch(toggleCart()) : dispatch(closeCart())
@@ -121,7 +122,7 @@ export default function CartSidebar() {
           </SheetTitle>
         </SheetHeader>
 
-        <div className="flex-1 overflow-y-auto py-2 pr-1 space-y-4 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent">
+        <div className="flex-1 overflow-y-auto py-2 pr-1 space-y-4 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent  ">
           {cartItems?.length === 0 ? (
             <p className="text-center text-sm text-muted-foreground mt-8">
               Your cart is empty.

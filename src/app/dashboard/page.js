@@ -41,7 +41,7 @@ export default function DashboardPage() {
     return <Loader />;
   }
 
-  if (!user) {
+  if (!user) {                  
     router.push("/login");
     return null;
   }

@@ -70,7 +70,6 @@ function Books() {
           spaceBetween={20}
           slidesPerView={3}
           navigation
-          pagination={{ clickable: true }}
           breakpoints={{
             // Responsive behavior
             320: { slidesPerView: 1 },

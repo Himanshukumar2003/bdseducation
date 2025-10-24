@@ -2,6 +2,7 @@
 import React from "react";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
+import Link from "next/link";
 
 import "swiper/css";
 import "swiper/css/effect-coverflow";
@@ -91,31 +92,34 @@ export const CardCarousel = ({
                     className="relative rounded-2xl overflow-hidden shadow-lg group transition-transform duration-500 hover:scale-105 "
                     style={{ transform: "translateZ(20px)" }}
                   >
-                    {/* Card Image */}
-                    <Image
-                      src={card.img}
-                      alt={card.title}
-                      width={400}
-                      height={400}
-                      className="w-full min-h-[400px] object-cover transition-transform duration-500 group-hover:scale-110"
-                    />
+                    {" "}
+                    <Link href={card.slug}>
+                      {/* Card Image */}
+                      <Image
+                        src={card.img}
+                        alt={card.title}
+                        width={400}
+                        height={400}
+                        className="w-full min-h-[400px] object-cover transition-transform duration-500 group-hover:scale-110"
+                      />
 
-                    {/* Gradient Overlay (black → blue on hover) */}
-                    <div
-                      className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent 
+                      {/* Gradient Overlay (black → blue on hover) */}
+                      <div
+                        className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent 
                               group-hover:from-blue-600/70 group-hover:via-blue-400/30 group-hover:to-transparent 
                               transition-colors duration-500"
-                    ></div>
+                      ></div>
 
-                    {/* Text Content */}
-                    <div className="absolute inset-0 flex flex-col justify-end p-4 z-10">
-                      <h3 className="text-white font-bold text-lg mb-2 drop-shadow-md">
-                        {card.title}
-                      </h3>
-                      <p className="text-gray-200 text-sm line-clamp-4 drop-shadow-sm">
-                        {card.desc}
-                      </p>
-                    </div>
+                      {/* Text Content */}
+                      <div className="absolute inset-0 flex flex-col justify-end p-4 z-10">
+                        <h3 className="text-white font-bold text-lg mb-2 drop-shadow-md">
+                          {card.title}
+                        </h3>
+                        <p className="text-gray-200 text-sm line-clamp-4 drop-shadow-sm">
+                          {card.desc}
+                        </p>
+                      </div>
+                    </Link>
                   </div>
                 </SwiperSlide>
               ))}
@@ -126,31 +130,33 @@ export const CardCarousel = ({
                     className="relative rounded-2xl overflow-hidden shadow-lg group transition-transform duration-500 hover:scale-105"
                     style={{ transform: "translateZ(20px)" }}
                   >
-                    {/* Card Image */}
-                    <Image
-                      src={card.img}
-                      alt={card.title}
-                      width={400}
-                      height={400}
-                      className="w-full min-h-[400px] object-cover transition-transform duration-500 group-hover:scale-110"
-                    />
+                    <Link href={card.slug}>
+                      {/* Card Image */}
+                      <Image
+                        src={card.img}
+                        alt={card.title}
+                        width={400}
+                        height={400}
+                        className="w-full min-h-[400px] object-cover transition-transform duration-500 group-hover:scale-110"
+                      />
 
-                    {/* Gradient Overlay (black → blue on hover) */}
-                    <div
-                      className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent 
+                      {/* Gradient Overlay (black → blue on hover) */}
+                      <div
+                        className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent 
                               group-hover:from-blue-600/70 group-hover:via-blue-400/30 group-hover:to-transparent 
                               transition-colors duration-500"
-                    ></div>
+                      ></div>
 
-                    {/* Text Content */}
-                    <div className="absolute inset-0 flex flex-col justify-end p-4 z-10">
-                      <h3 className="text-white font-bold text-lg mb-2 drop-shadow-md">
-                        {card.title}
-                      </h3>
-                      <p className="text-gray-200 text-sm line-clamp-4 drop-shadow-sm">
-                        {card.desc}
-                      </p>
-                    </div>
+                      {/* Text Content */}
+                      <div className="absolute inset-0 flex flex-col justify-end p-4 z-10">
+                        <h3 className="text-white font-bold text-lg mb-2 drop-shadow-md">
+                          {card.title}
+                        </h3>
+                        <p className="text-gray-200 text-sm line-clamp-4 drop-shadow-sm">
+                          {card.desc}
+                        </p>
+                      </div>
+                    </Link>{" "}
                   </div>
                 </SwiperSlide>
               ))}

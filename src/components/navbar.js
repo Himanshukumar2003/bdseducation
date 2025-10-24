@@ -186,8 +186,8 @@ export default function Navbar() {
           : [];
 
   return (
-    <div className="">
-      <div className="bg-header px-4 w-full mx-auto flex justify-between h-full lg:pr-8 relative">
+    <div className="sticky top-0 nav   bg-white z-99">
+      <div className="bg-header px-4 w-full mx-auto flex justify-between h-full lg:pr-8   ">
         <div
           className="flex shrink-0 items-center bg-white h-ful w-full justify-between lg:w-auto  lg:pr-[70px] clipPath-logo "
           style={{ clipPath: "polygon(0 0, 100% 0%, 83% 100%, 0% 100%)" }}
@@ -243,14 +243,14 @@ export default function Navbar() {
                 <Link
                   href={item.href}
                   onClick={() => setIsSidebarOpen(false)}
-                  className="px-4   py-6 border-b-4 text-white font-semibold border-[#0053a3] flex items-center hover:border-white"
+                  className="px-4 nav-links  py-6 border-b-4 text-white font-semibold border-[#0053a3] flex items-center hover:border-white"
                 >
                   {item.title}
                 </Link>
               ) : (
                 <button
                   onClick={() => handleNavClick(item)}
-                  className="px-4  py-6 border-b-4 border-[#0053a3] text-white font-semibold flex items-center hover:border-white"
+                  className="px-4 nav-links py-6 border-b-4 border-[#0053a3] text-white font-semibold flex items-center hover:border-white"
                 >
                   {item.title} <ChevronDown className="ml-1 h-4 w-4" />
                 </button>

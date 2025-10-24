@@ -35,6 +35,14 @@ function Books({ sliceCount = null }) {
   return (
     <div className="bg-blue-50 py-16">
       <div className="container max-w-7xl   mx-auto px-4">
+        <div className="text-center space-y-4 mb-16">
+          <h2 className="text-3xl sm:text-4xl font-bold text-balance">Books</h2>
+          <p class="text-lg text-muted-foreground max-w-2xl mx-auto text-pretty">
+            Our complete range of books is based on the TIY (Teach-It-Yourself)
+            concept, making both teaching and learning fun and engaging.
+          </p>
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {(sliceCount ? books.slice(0, sliceCount) : books).map(
             (item, index) => {

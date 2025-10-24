@@ -519,3 +519,44 @@ margin: auto;
   font-size: 0.875em;
   color: #c53030; /* matches your red theme */
 }
+
+
+
+
+.swiper-button-next , .swiper-button-prev{
+  height: 45px !important;
+  width: 45px !important;
+  background-color: var(--primary-800);
+  border-radius: 50%;
+  color: white;
+  z-index: 99;
+ 
+}
+
+.swiper-button-prev:after, .swiper-button-next:after{
+  color: white;
+}
+
+
+
+
+@media (min-width: 1339px) and (max-width: 1422px) {
+.nav-links{
+  padding: 10px 10px;
+}
+
+}
+
+@media (min-width: 991px) and (max-width: 1338px) {
+  .nav-links{
+  padding: 6px !important ;
+  font-size: 10px;
+}
+
+.nav .btn{
+min-width: auto;
+  padding: 5px 10px;
+
+}
+
+}

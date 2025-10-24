@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useMemo } from "react";
-import { ChevronLeft, ChevronRight, LogIn, Menu, User, X } from "lucide-react";
+import { ChevronLeft, ChevronRight, LogIn, Menu, X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
@@ -11,6 +11,7 @@ import { fetchBooks } from "@/lib/features/productsSlice";
 import Loader from "./loader";
 import config from "@/config";
 import Image from "next/image";
+import { handleLogout } from "@/providers/auth-provider";
 
 export default function MobileMenu({ setMobileNav, user }) {
   const dispatch = useDispatch();
@@ -31,7 +32,6 @@ export default function MobileMenu({ setMobileNav, user }) {
     dispatch(fetchBooks());
   }, [dispatch]);
 
-  // 🧩 Separate ATL / Non-ATL
   const atlPackages = useMemo(
     () => packages?.filter((pkg) => pkg.package_type === "atl") ?? [],
     [packages]
@@ -121,7 +121,10 @@ export default function MobileMenu({ setMobileNav, user }) {
             {/* Quick Links */}
             {quickLinks.map((link) => (
               <Link key={link.title} href={link.slug}>
-                <button className="w-full py-4 px-5 text-left font-medium border-b capitalize hover:bg-gray-100">
+                <button
+                  onClick={() => setMobileNav(false)}
+                  className="w-full py-4 px-5 text-left font-medium border-b capitalize hover:bg-gray-100"
+                >
                   {link.title}
                 </button>
               </Link>
@@ -193,7 +196,11 @@ export default function MobileMenu({ setMobileNav, user }) {
             <div>
               {activeCategory === "BOOKS"
                 ? activeSubCategory.categories.map((book, index) => (
-                    <Link href={`/books/${book.slug}`} key={index}>
+                    <Link
+                      onClick={() => setMobileNav(false)}
+                      href={`/books/${book.slug}`}
+                      key={index}
+                    >
                       <button className="w-full py-4 px-5 text-left border-b hover:bg-gray-100 capitalize">
                         {book.title || book.category_name}
                       </button>
@@ -202,6 +209,7 @@ export default function MobileMenu({ setMobileNav, user }) {
                 : activeSubCategory.categories.map((cat) => (
                     <Link
                       key={cat.id}
+                      onClick={() => setMobileNav(false)}
                       href={`/product/?pkgtypes=${activeSubCategory.package_type}&packages=${activeSubCategory.id}&categories=${cat.id}`}
                     >
                       <button className="w-full py-4 px-5 text-left border-b hover:bg-gray-100 capitalize">
@@ -214,7 +222,7 @@ export default function MobileMenu({ setMobileNav, user }) {
         )}
 
         {user ? (
-          <div className="px-4">
+          <div className="px-4 mt-4">
             <Link href="/dashboard" className="btn mb-4">
               Dashboard
             </Link>
@@ -226,15 +234,20 @@ export default function MobileMenu({ setMobileNav, user }) {
             </button>
           </div>
         ) : (
-          <div className="px-4 w-auto">
-            <Link href="/login" className="btn flex mb-4 gap-2 items-center">
+          <div className="px-4 w-auto mt-4">
+            <Link
+              href="/login"
+              onClick={() => setMobileNav(false)}
+              className="btn flex mb-4 gap-2 items-center"
+            >
               <LogIn className="w-4 h-4" /> Login
             </Link>
             <Link
               href="/signup"
+              onClick={() => setMobileNav(false)}
               className="flex mb-4 items-center gap-1 btn bg-transparent border-2 border-blue-500 text-blue-500 hover:text-white"
             >
-              <User className="w-4 h-4" /> Sign Up
+              Sign Up
             </Link>
           </div>
         )}

@@ -42,9 +42,9 @@ export default async function BookPage({ params }) {
             <h2 className=" text-start text-4xl mb-4 font-bold ">
               Product information
             </h2>
-
-            <div
-              className="prose lg:prose-lg max-w-7xl 
+            <div className="overflow-x-auto w-full">
+              <div
+                className="prose lg:prose-lg max-w-7xl 
     prose-headings:text-gray-900
     prose-headings:mb-3
     prose-p:text-gray-700
@@ -69,8 +69,9 @@ export default async function BookPage({ params }) {
     prose-tr:nth-child(odd):bg-white
     prose-code:bg-blue-50 prose-code:rounded px-1 prose-code:text-red-600 prose-td:pl-4
   "
-              dangerouslySetInnerHTML={{ __html: cleanContent }}
-            />
+                dangerouslySetInnerHTML={{ __html: cleanContent }}
+              />
+            </div>
           </div>
         </div>
       )}

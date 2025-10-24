@@ -10,7 +10,6 @@ export async function POST(request) {
 
     return NextResponse.json({ message: "Logged out." }, { status: 200 });
   } catch (err) {
-    console.log("Error logging out in:", err);
     return NextResponse.json(
       { message: "Something went wrong" },
       { status: 500 }
