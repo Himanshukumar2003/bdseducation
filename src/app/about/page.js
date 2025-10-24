@@ -112,7 +112,7 @@ export default function Home() {
       </section>
       <section className="section px-4">
         <h2 className="text-4xl font-bold text-center text-slate-900 mb-10">
-          THE CHILD&apos;S JOURNEY
+          Every Child’s six step Journey with BDS
         </h2>
 
         <div className="max-w-7xl mx-auto px-4">
