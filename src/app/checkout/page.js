@@ -133,17 +133,14 @@ export default function CheckoutPage() {
 
   const onSubmit = (data) => {
     if (!user) {
-      toast.error("Please login first!");
       return;
     }
 
     if (cartItems?.length === 0) {
-      toast.error("Your cart is empty");
       return;
     }
 
     if (paymentMethod === "cod" && !codConfirmed) {
-      toast.error("Please confirm your COD order before placing.");
       return;
     }
 
