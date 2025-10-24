@@ -60,6 +60,7 @@ export default function OrderDetailsPage({}) {
   const currentStatusIndex = STATUS_STEPS.findIndex(
     (step) => step.label.toLowerCase() === currentStatus?.toLowerCase()
   );
+  console.log(currentStatus);
 
   const handleDownloadInvoice = () => {
     alert("Invoice download demo! Implement actual PDF download here.");
@@ -92,22 +93,25 @@ export default function OrderDetailsPage({}) {
                   })}
                 </div>
               </div>
-
-              <div className="flex flex-col sm:flex-row gap-3">
-                <button
-                  onClick={handleDownloadInvoice}
-                  className="btn flex gap-2 w-full text-nowrap"
-                >
-                  <Download className="w-4 h-4 mr-2" />
-                  Download Invoice
-                </button>
-              </div>
+              {currentStatus == "Canceled" ? (
+                <></>
+              ) : (
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <button
+                    onClick={handleDownloadInvoice}
+                    className="btn flex gap-2 w-full text-nowrap"
+                  >
+                    <Download className="w-4 h-4 mr-2" />
+                    Download Invoice
+                  </button>
+                </div>
+              )}
             </div>
           )}
 
           {/* Status Stepper UI */}
 
-          {currentStatus == "cnceled" ? (
+          {currentStatus == "Canceled" ? (
             <div className="rounded-4xl gap-6 p-10 mx-auto  flex justify-center  items-center  flex-col">
               <CircleX size={60} className="text-red-500" />
               <p className="text-4xl"> Order Canceled</p>
