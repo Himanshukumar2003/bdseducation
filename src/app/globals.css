@@ -550,7 +550,7 @@ margin: auto;
 @media (min-width: 991px) and (max-width: 1338px) {
   .nav-links{
   padding: 6px !important ;
-  font-size: 10px;
+  font-size: 14px;
 }
 
 .nav .btn{
