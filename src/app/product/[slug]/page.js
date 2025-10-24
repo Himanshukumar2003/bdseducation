@@ -31,6 +31,8 @@ export default async function BookPage({ params }) {
         .trim()
     : "";
 
+  console.log("relative :", product);
+
   return (
     <>
       <BookImageGallery bookImages={bookImages} product={product} />

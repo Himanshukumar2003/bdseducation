@@ -22,7 +22,6 @@ export default function ProductCard({ product, type }) {
   const dispatch = useDispatch();
 
   const types = type == "package" ? "package" : "product";
-
   return (
     <div className="bg-white relative rounded-3xl overflow-hidden shadow-lg transition-all duration-300 hover:-translate-y-3 hover:shadow-2xl h-full flex flex-col group">
       <Link
@@ -41,7 +40,7 @@ export default function ProductCard({ product, type }) {
             />
           )}
           {stock == 0 && (
-            <div class="absolute top-5 left-5 bg-red-600 rounded-lg text-white px-5 py-2 text-xs font-bold uppercase tracking-wide">
+            <div className="absolute top-5 left-5 bg-red-600 rounded-lg text-white px-5 py-2 text-xs font-bold uppercase tracking-wide">
               Out of stock
             </div>
           )}

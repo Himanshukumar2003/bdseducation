@@ -13,10 +13,13 @@ import {
   Receipt,
   ClipboardCheck,
   PackageSearch,
+  BookX,
+  CircleX,
 } from "lucide-react";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import Loader from "@/components/loader";
+import Card from "@/components/productsCardTwo";
 
 const STATUS_STEPS = [
   { label: "Order Accepted", icon: ClipboardCheck },
@@ -53,9 +56,9 @@ export default function OrderDetailsPage({}) {
     return <p className="p-6 text-red-500">No items found for this order</p>;
   }
 
-  const currentStatus = order?.data?.order_status || "Processing";
+  const currentStatus = order?.data?.order_status;
   const currentStatusIndex = STATUS_STEPS.findIndex(
-    (step) => step.label.toLowerCase() === currentStatus.toLowerCase()
+    (step) => step.label.toLowerCase() === currentStatus?.toLowerCase()
   );
 
   const handleDownloadInvoice = () => {
@@ -89,6 +92,7 @@ export default function OrderDetailsPage({}) {
                   })}
                 </div>
               </div>
+
               <div className="flex flex-col sm:flex-row gap-3">
                 <button
                   onClick={handleDownloadInvoice}
@@ -102,19 +106,26 @@ export default function OrderDetailsPage({}) {
           )}
 
           {/* Status Stepper UI */}
-          <div className="flex flex-col lg:flex-row items-center justify-center mt-6 lg:px-4">
-            {STATUS_STEPS.map((step, index) => {
-              const isCompleted = index <= currentStatusIndex;
-              const isUpcoming = index > currentStatusIndex;
 
-              return (
-                <div
-                  key={index}
-                  className="flex flex-col items-center relative z-10 w-full lg:w-1/4 mt-10 lg:mt-0"
-                >
-                  {/* Circle */}
+          {currentStatus == "cnceled" ? (
+            <div className="rounded-4xl gap-6 p-10 mx-auto  flex justify-center  items-center  flex-col">
+              <CircleX size={60} className="text-red-500" />
+              <p className="text-4xl"> Order Canceled</p>
+            </div>
+          ) : (
+            <div className="flex flex-col lg:flex-row items-center justify-center mt-6 lg:px-4">
+              {STATUS_STEPS.map((step, index) => {
+                const isCompleted = index <= currentStatusIndex;
+                const isUpcoming = index > currentStatusIndex;
+
+                return (
                   <div
-                    className={`
+                    key={index}
+                    className="flex flex-col items-center relative z-10 w-full lg:w-1/4 mt-10 lg:mt-0"
+                  >
+                    {/* Circle */}
+                    <div
+                      className={`
                       w-10 h-10 md:w-16 md:h-16 rounded-full flex items-center justify-center
                       transition-all duration-500 shadow-lg
                       ${
@@ -123,60 +134,61 @@ export default function OrderDetailsPage({}) {
                           : "bg-gray-300 text-white scale-90"
                       }
                     `}
-                  >
-                    <step.icon size={22} />
-                  </div>
+                    >
+                      <step.icon size={22} />
+                    </div>
 
-                  {/* Label */}
-                  <p
-                    className={`
+                    {/* Label */}
+                    <p
+                      className={`
                       mt-3 text-xs md:text-sm font-semibold text-center
                       ${isCompleted ? "text-blue-500" : "text-gray-400"}
                     `}
-                  >
-                    {step.label}
-                  </p>
+                    >
+                      {step.label}
+                    </p>
 
-                  {/* Connector Line */}
-                  {index < STATUS_STEPS.length - 1 && (
-                    <div
-                      className="
+                    {/* Connector Line */}
+                    {index < STATUS_STEPS.length - 1 && (
+                      <div
+                        className="
                         absolute
                         lg:top-8 lg:left-1/2 lg:w-full lg:h-0.5
                         top-full left-1/2 h-12 w-0.5
                         -z-10
                       "
-                    >
-                      <div className="relative w-full h-full">
-                        {/* Base Line */}
-                        <div className="absolute inset-0 bg-gray-300 rounded-full" />
+                      >
+                        <div className="relative w-full h-full">
+                          {/* Base Line */}
+                          <div className="absolute inset-0 bg-gray-300 rounded-full" />
 
-                        {/* Progress */}
-                        <div
-                          className={`
+                          {/* Progress */}
+                          <div
+                            className={`
                             absolute inset-0 bg-blue-500 rounded-full transition-all duration-500
                             ${isCompleted ? "w-full h-full" : "w-0 lg:h-0"}
                           `}
-                        />
+                          />
 
-                        {/* Dotted for Upcoming */}
-                        {isUpcoming && (
-                          <div className="absolute inset-0 flex items-center justify-center gap-1 flex-col lg:flex-row">
-                            {[...Array(6)].map((_, i) => (
-                              <div
-                                key={i}
-                                className="w-1.5 h-1.5 rounded-full bg-gray-400"
-                              />
-                            ))}
-                          </div>
-                        )}
+                          {/* Dotted for Upcoming */}
+                          {isUpcoming && (
+                            <div className="absolute inset-0 flex items-center justify-center gap-1 flex-col lg:flex-row">
+                              {[...Array(6)].map((_, i) => (
+                                <div
+                                  key={i}
+                                  className="w-1.5 h-1.5 rounded-full bg-gray-400"
+                                />
+                              ))}
+                            </div>
+                          )}
+                        </div>
                       </div>
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </div>
 
         {/* Order Items */}
