@@ -36,8 +36,8 @@ export default function Products() {
         ]}
       />
       <div className="section bg-gray-100" id="products">
-        <div className="   container max-w-7xl mx-auto">
-          <div className="grid grid-cols-2 gap-6">
+        <div className="   container max-w-7xl mx-auto px-4">
+          <div className="grid  lg:grid-cols-2 gap-6">
             {products.map((product, index) => {
               return (
                 <div key={index}>
