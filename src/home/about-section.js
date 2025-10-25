@@ -8,7 +8,7 @@ export default function AboutSection() {
       <div className="container  mx-auto px-4">
         <div className="flex flex-col lg:flex-row items-center gap-8">
           {/* Left side - Image */}
-          <div className="lg:w-5/12 mb-8 lg:mb-0">
+          <div className="lg:w-5/12 mb-8 lg:mb-0  order-2 lg:order-1">
             <div className="text-center relative">
               <Image
                 src="/images/about.png"
@@ -21,7 +21,7 @@ export default function AboutSection() {
           </div>
 
           {/* Right side - Content */}
-          <div className="lg:w-7/12 lg:pl-8">
+          <div className="lg:w-7/12 lg:pl-8 order-1 lg:order-2">
             <span className="text-[var(--primary-blue)] font-semibold text-sm tracking-widest uppercase mb-4 block">
               ABOUT US
             </span>
