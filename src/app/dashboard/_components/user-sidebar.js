@@ -14,7 +14,7 @@ export function UserSidebar({ user, activeSection, onSectionChange }) {
       {/* Mobile Toggle Button */}
 
       <div className="relative">
-        <div className="lg:hidden    relative  top-0 left-100   z-99">
+        <div className="lg:hidden    absolute  top-0 left-80   z-99">
           {!isOpen && (
             <Button
               variant="outline"
@@ -31,7 +31,6 @@ export function UserSidebar({ user, activeSection, onSectionChange }) {
           )}
         </div>
 
-        {/* Sidebar */}
         <div
           className={`fixed lg:static top-0 left-0 z-40 h-full   bg-sidebar border-r border-sidebar-border flex flex-col w-full lg:64 transform transition-transform duration-300 ease-in-out
           ${isOpen ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0`}

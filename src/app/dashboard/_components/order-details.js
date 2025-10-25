@@ -35,55 +35,68 @@ export function OrdersDetails({ orders }) {
     <div className="bg-white shadow rounded-xl overflow-auto p-4">
       <h2 className="text-2xl font-bold mb-6 text-gray-800">All Orders</h2>
 
-      <table className="min-w-full text-sm text-left">
-        <thead className="bg-blue-50 text-gray-600 uppercase text-xs border-b">
-          <tr>
-            <th className="px-6 py-3">Order #</th>
-            <th className="px-6 py-3">Customer</th>
-            <th className="px-6 py-3">City</th>
-            <th className="px-6 py-3">Address</th>
-            <th className="px-6 py-3">Date</th>
-            <th className="px-6 py-3">Total</th>
-            <th className="px-6 py-3">Status</th>
-          </tr>
-        </thead>
-
-        <tbody className="divide-y text-gray-700">
-          {paginatedOrders.map((order) => (
-            <tr key={order.id} className="hover:bg-blue-50 transition">
-              <td className="px-6 py-4 font-medium text-gray-800">
-                <Link href={`/dashboard/orders/${order.id}`}>
-                  <span className="hover:underline text-blue-600 cursor-pointer">
-                    {order.order_number}
-                  </span>
-                </Link>
-              </td>
-
-              <td className="px-6 py-4">{order.shipping_address?.fullname}</td>
-              <td className="px-6 py-4">{order.shipping_address?.city}</td>
-              <td className="px-6 py-4">
-                {order.shipping_address?.street},{" "}
-                {order.shipping_address?.state} -{" "}
-                {order.shipping_address?.postal_code}
-              </td>
-              <td className="px-6 py-4">
-                {new Date(order.created_at).toLocaleDateString()}
-              </td>
-              <td className="px-6 py-4 font-semibold">₹{order.total}</td>
-              <td className="px-6 py-4">
-                <Badge
-                  className={cn(
-                    "text-xs font-medium px-2.5 py-1 rounded-full",
-                    statusMap[order.order_status] || statusMap.pending
-                  )}
-                >
-                  {order.order_status}
-                </Badge>
-              </td>
+      <div className="overflow-x-auto w-full">
+        <table className="min-w-full text-sm text-left bg-white border border-gray-200 rounded-lg shadow-md">
+          <thead className="bg-gradient-to-r from-blue-100 to-blue-50 text-gray-700 uppercase text-xs border-b border-gray-200">
+            <tr>
+              <th className="px-6 py-3 font-semibold tracking-wide">Order #</th>
+              <th className="px-6 py-3 font-semibold tracking-wide">
+                Customer
+              </th>
+              <th className="px-6 py-3 font-semibold tracking-wide">City</th>
+              <th className="px-6 py-3 font-semibold tracking-wide">Address</th>
+              <th className="px-6 py-3 font-semibold tracking-wide">Date</th>
+              <th className="px-6 py-3 font-semibold tracking-wide">Total</th>
+              <th className="px-6 py-3 font-semibold tracking-wide">Status</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+
+          <tbody className="divide-y divide-gray-200 text-gray-700">
+            {paginatedOrders.map((order) => (
+              <tr
+                key={order.id}
+                className="hover:bg-blue-50 hover:shadow-sm transition-all duration-200 ease-in-out"
+              >
+                <td className="px-6 py-4 font-medium text-gray-800 whitespace-nowrap">
+                  <Link href={`/dashboard/orders/${order.id}`}>
+                    <span className="hover:underline text-blue-600 cursor-pointer">
+                      {order.order_number}
+                    </span>
+                  </Link>
+                </td>
+
+                <td className="px-6 py-4 whitespace-nowrap">
+                  {order.shipping_address?.fullname}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  {order.shipping_address?.city}
+                </td>
+                <td className="px-6 py-4 min-w-[200px]">
+                  {order.shipping_address?.street},{" "}
+                  {order.shipping_address?.state} -{" "}
+                  {order.shipping_address?.postal_code}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  {new Date(order.created_at).toLocaleDateString()}
+                </td>
+                <td className="px-6 py-4 font-semibold text-gray-900 whitespace-nowrap">
+                  ₹{order.total}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <Badge
+                    className={cn(
+                      "text-xs font-medium px-3 py-1 rounded-full shadow-sm capitalize",
+                      statusMap[order.order_status] || statusMap.pending
+                    )}
+                  >
+                    {order.order_status}
+                  </Badge>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
       {pageCount > 1 && (
         <div className="flex justify-center mt-6 gap-2">

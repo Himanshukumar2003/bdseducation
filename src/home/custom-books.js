@@ -116,7 +116,7 @@ function Books() {
         )}
 
         <div className="mt-5 text-center">
-          <Link href="/" className="btn">
+          <Link href="/books" className="btn">
             See More Books
           </Link>
         </div>

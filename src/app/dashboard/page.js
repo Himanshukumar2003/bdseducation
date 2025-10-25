@@ -41,22 +41,20 @@ export default function DashboardPage() {
     return <Loader />;
   }
 
-  if (!user) {                  
+  if (!user) {
     router.push("/login");
     return null;
   }
 
   return (
     <div className="">
-      <div className="">
-        <div className="flex flex-wrap bg-blue-50  gap-4 pt-5">
-          <UserSidebar
-            user={user}
-            activeSection={activeSection}
-            onSectionChange={setActiveSection}
-          />
-          <div className="flex-1 ">{renderContent()}</div>
-        </div>
+      <div className="lg:flex flex-wrap bg-blue-50  gap-4 pt-5 px-4 lg:px-0">
+        <UserSidebar
+          user={user}
+          activeSection={activeSection}
+          onSectionChange={setActiveSection}
+        />
+        <div className="flex-1 pl-4 overflow-hidden">{renderContent()}</div>
       </div>
     </div>
   );
