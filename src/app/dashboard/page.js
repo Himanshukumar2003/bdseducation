@@ -54,7 +54,7 @@ export default function DashboardPage() {
           activeSection={activeSection}
           onSectionChange={setActiveSection}
         />
-        <div className="flex-1 pl-4 overflow-hidden">{renderContent()}</div>
+        <div className="flex-1  overflow-hidden">{renderContent()}</div>
       </div>
     </div>
   );
