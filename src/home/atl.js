@@ -104,9 +104,9 @@ export default function AtlProductLine() {
               </p>
 
               <div className="">
-                <button className="btn" href="/product">
+                <Link className="btn" href="/product">
                   View all Products
-                </button>
+                </Link>
               </div>
             </div>
             <div className="flex justify-center order-1 md:order-2">
@@ -160,9 +160,9 @@ export default function AtlProductLine() {
               </p>
 
               <div className="">
-                <button href="/smart-Kits-combo" className="btn">
+                <Link href="/smart-Kits-combo" className="btn">
                   View all Products
-                </button>
+                </Link>
               </div>
             </div>
           </div>
