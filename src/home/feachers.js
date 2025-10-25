@@ -18,37 +18,37 @@ import {
 } from "lucide-react";
 const features = [
   {
-    icon: Sparkles,
+    icon: "1",
     title: " From Curiosity to Creation",
     description:
       "Every child is born curious. We help them transform that curiosity into real creations — one project, one discovery at a time.",
   },
   {
-    icon: Hammer,
+    icon: "2",
     title: " Learn by Doing, Grow by Making",
     description:
       "Learning becomes meaningful when children build, test, and bring their ideas to life. That’s where true understanding begins.",
   },
   {
-    icon: BookOpen,
+    icon: "3",
     title: " Learn & Teach the TIY Way",
     description:
       "Our Teach It Yourself (TIY) approach empowers educators to guide hands-on learning that inspires curiosity and creativity in every classroom.",
   },
   {
-    icon: Cpu,
+    icon: "4",
     title: " Technology with a Purpose",
     description:
       "From Smart Agri to Smart Dada-Dadi Care, our projects show how technology can solve real-world problems with compassion and purpose.",
   },
   {
-    icon: Settings,
+    icon: "5",
     title: " Migrate to Our Engineering Series",
     description:
       "Series starts with robotic arms, moves on to humanoid robots and more—showcasing the next evolution in creative technology learning.",
   },
   {
-    icon: Globe,
+    icon: "6",
     title: " Right to Education & Opportunity",
     description:
       "We provide a digital playground for all — enabling learners to explore, customize, and choose learning paths that suit them best.",
@@ -64,9 +64,7 @@ export function FeaturesSection() {
             Empowering Tomorrow&#39;s Innovators
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto text-pretty">
-            Our comprehensive platform combines cutting-edge technology with
-            proven educational methods to create an unparalleled learning
-            experience.
+            Every Child’s six step Journey with BDS
           </p>
         </div>
 
@@ -78,7 +76,7 @@ export function FeaturesSection() {
             >
               <CardContent className="p-6 space-y-4">
                 <div className="w-12 h-12 bg-blue-200 rounded-lg flex items-center justify-center">
-                  <feature.icon className="h-6 w-6 text-blue-500" />
+                  <p className="text-4xl opacity-70"> {feature.icon}</p>
                 </div>
                 <div className="space-y-2">
                   <h3 className="text-xl font-semibold">{feature.title}</h3>
