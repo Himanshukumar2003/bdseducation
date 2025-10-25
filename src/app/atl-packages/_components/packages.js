@@ -31,7 +31,7 @@ export default function Packages({ type }) {
         ]}
       />
       <div className="section">
-        <div className="  container max-w-7xl mx-auto">
+        <div className="  container max-w-7xl mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-6 lg:grid-cols-4 gap-4">
             {data.packages.map((product) => (
               <ProductCard key={product.id} product={product} type="package" />
