@@ -1,6 +1,7 @@
 import ProductCard from "@/components/product-card";
 import BookImageGallery from "@/app/product/_components/hero";
 import RelatedProducts from "../_components/relativeProduct";
+import { Breadcrumb } from "@/components/breadcrumb";
 export default async function BookPage({ params }) {
   const { slug } = await params;
 

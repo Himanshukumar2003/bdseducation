@@ -112,7 +112,7 @@ export default function AtlProductLine() {
             <div className="flex justify-center order-1 md:order-2">
               <div className="relative w-full max-w-md">
                 <Image
-                  src="/images/atl.jpg"
+                  src="/images/non-atl.webp"
                   alt="ATL Full Lab Setup"
                   width={500}
                   height={400}
