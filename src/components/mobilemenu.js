@@ -223,7 +223,11 @@ export default function MobileMenu({ setMobileNav, user }) {
 
         {user ? (
           <div className="px-4 mt-4">
-            <Link href="/dashboard" className="btn mb-4">
+            <Link
+              href="/dashboard"
+              className="btn mb-4"
+              onClick={() => setMobileNav(false)}
+            >
               Dashboard
             </Link>
             <button

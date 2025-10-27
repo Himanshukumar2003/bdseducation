@@ -283,7 +283,7 @@ export default function Navbar() {
                     height={50}
                   ></Image>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-40" align="end">
+                <DropdownMenuContent className="w-40 z-[999]" align="end">
                   <div className="py-2 pl-2">
                     <Link href="/dashboard">Dashboard</Link>
                   </div>
