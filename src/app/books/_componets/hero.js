@@ -32,18 +32,18 @@ export default function BookHero({ product }) {
 
           {/* Conditional Button */}
           <div className="flex flex-wrap gap-4">
+            <BuyNowButton
+              product={{
+                item_id: product.id,
+                item_type: "book",
+              }}
+            />
             {product.price <= 0 && product.book_link ? (
               <Link href={product.book_link} className="btn">
                 View demo
               </Link>
             ) : (
               <>
-                <BuyNowButton
-                  product={{
-                    item_id: product.id,
-                    item_type: "book",
-                  }}
-                />
                 <AddToCartButtonProduct
                   product={{
                     item_id: product.id,
