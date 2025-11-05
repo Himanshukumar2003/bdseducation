@@ -8,7 +8,6 @@ import BuyNowButton from "@/components/ui/buynow-btn";
 import { AddToCartButtonProduct } from "@/components/cart-button";
 
 export default function BookHero({ product }) {
-  console.log(product);
   return (
     <section className="bg-blue-50 section overflow-hidden">
       <div className="container max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-10 items-center px-4">
@@ -24,9 +23,13 @@ export default function BookHero({ product }) {
           {product.price > 0 && (
             <p className="text-xl sm:text-2xl font-semibold text-gray-900 italic">
               <span className="text-[var(--primary-blue)] text-3xl sm:text-4xl">
-                ₹
+                ₹{product.price}/-
               </span>
-              {product.price}/-
+              {!!parseFloat(product.display_price) && (
+                <span className="text-lg text-gray-500 line-through ml-2">
+                  ₹{product.display_price}
+                </span>
+              )}
             </p>
           )}
 

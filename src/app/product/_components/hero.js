@@ -154,9 +154,9 @@ export default function BookImageGallery({ bookImages, product }) {
               <span className="text-4xl text-blue-500 drop-shadow-sm italic">
                 ₹{product.price || "0.00"}
               </span>
-              {product.oldPrice && (
+              {product.display_price && (
                 <span className="text-lg text-gray-500 line-through">
-                  ₹{product.oldPrice}
+                  ₹{product.display_price}
                 </span>
               )}
             </div>

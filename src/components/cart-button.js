@@ -42,7 +42,11 @@ const AddToCartButton = ({ product }) => {
 
   return (
     <button
-      onClick={handleAddToCart}
+      onClick={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        handleAddToCart();
+      }}
       disabled={isPending}
       className="w-12 h-12 bg-[var(--primary-700)] text-white rounded-full flex items-center justify-center text-lg transition-all duration-300 hover:-translate-y-1 hover:scale-110 hover:shadow-lg relative overflow-hidden group"
     >

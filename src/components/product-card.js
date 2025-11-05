@@ -67,6 +67,9 @@ export default function ProductCard({ product, type }) {
           <span className="text-[var(--primary-700)] font-normal text-xl italic">
             ₹{price}
           </span>
+          <span className="text-lg text-gray-500 line-through">
+            ₹{product.display_price}
+          </span>
         </div>
 
         <div className="flex justify-between items-center gap-4">
