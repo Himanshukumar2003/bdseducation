@@ -14,6 +14,7 @@ export default async function BookPage({ params }) {
   }
 
   const product = data.data;
+  console.log(product);
 
   // Fixed variable name from 'book' to 'product'
   const bookImages = product.pictures?.length
