@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useMemo } from "react";
-import { ChevronLeft, ChevronRight, LogIn, Menu, X } from "lucide-react";
+import { ChevronLeft, ChevronRight, LogIn, X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
@@ -9,13 +9,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { getNavMenu } from "@/services/nav-services";
 import { fetchBooks } from "@/lib/features/productsSlice";
 import Loader from "./loader";
-import config from "@/config";
 import Image from "next/image";
 import { handleLogout } from "@/providers/auth-provider";
 
 export default function MobileMenu({ setMobileNav, user }) {
   const dispatch = useDispatch();
   const { books } = useSelector((state) => state.products);
+
+  // ✅ Fetch Navigation Menu
   const {
     data: packages,
     isLoading,
@@ -32,17 +33,28 @@ export default function MobileMenu({ setMobileNav, user }) {
     dispatch(fetchBooks());
   }, [dispatch]);
 
+  // ✅ Prepare Data
   const atlPackages = useMemo(
     () => packages?.filter((pkg) => pkg.package_type === "atl") ?? [],
     [packages]
   );
 
-  const nonPackages = useMemo(
-    () => packages?.filter((pkg) => pkg.package_type === "non-atl") ?? [],
-    [packages]
-  );
+  // ✅ Flatten Non-ATL products directly
+  const nonAtlProducts = useMemo(() => {
+    if (!packages) return [];
+    return packages
+      .filter((pkg) => pkg.package_type === "non-atl")
+      .flatMap(
+        (pkg) =>
+          pkg.products?.map((cat) => ({
+            ...cat,
+            package_type: pkg.package_type,
+            pkgId: pkg.id,
+          })) || []
+      );
+  }, [packages]);
 
-  // 🧩 Group Books by category
+  // ✅ Books grouped by category
   const booksByCategory = useMemo(() => {
     if (!books || books.length === 0) return [];
     const map = {};
@@ -58,18 +70,29 @@ export default function MobileMenu({ setMobileNav, user }) {
     }));
   }, [books]);
 
+  // ✅ Static Quick Links
   const quickLinks = [
     { title: "Home", slug: "/" },
-    { title: "ATL ", slug: "/atl-packages" },
+    { title: "ATL Products", slug: "/atl-packages" },
     { title: "Smart Kits Combo", slug: "/smart-Kits-combo" },
     { title: "Web Recourse", slug: "/web-recourse" },
     { title: "Become a Distributor", slug: "/become-a-distributor" },
   ];
 
-  // 🧩 Dynamic dropdowns same as desktop
+  // ✅ Dynamic menu sections
   const dynamicMenuItems = [
-    { id: "NON", title: "Non ATL Products", items: nonPackages },
-    { id: "BOOKS", title: "Books", items: booksByCategory },
+    {
+      id: "NON",
+      title: "Non ATL Products",
+      items: nonAtlProducts, // directly categories
+      direct: true, // 🔹 mark as direct (no sub menu)
+    },
+    {
+      id: "BOOKS",
+      title: "Books",
+      items: booksByCategory,
+      direct: false,
+    },
   ];
 
   const [activeCategory, setActiveCategory] = useState(null);
@@ -85,15 +108,15 @@ export default function MobileMenu({ setMobileNav, user }) {
   if (isError) return <p className="text-center py-6">Failed to load menu.</p>;
 
   const currentMain = dynamicMenuItems.find((i) => i.id === activeCategory);
-  const currentSub = activeSubCategory;
 
   return (
     <div className="fixed top-0 left-0 w-full h-screen bg-white z-[9999] overflow-y-auto shadow-lg">
+      {/* Header */}
       <div
-        className="flex shrink-0 items-center bg-white h-ful w-full justify-between lg:w-auto  lg:pr-[70px] clipPath-logo "
+        className="flex shrink-0 items-center bg-white w-full justify-between clipPath-logo"
         style={{ clipPath: "polygon(0 0, 100% 0%, 83% 100%, 0% 100%)" }}
       >
-        <Link href="/" className="py-4 pl-0 lg:pl-2">
+        <Link href="/" className="py-4 pl-0">
           <Image
             src="/images/logo.png"
             width={200}
@@ -102,23 +125,25 @@ export default function MobileMenu({ setMobileNav, user }) {
             className="ml-5 bg-white p-2 w-[150px] max-h-[120px] rounded-sm"
           />
         </Link>
-
         <button
           onClick={() => setMobileNav(false)}
-          className="block lg:hidden p-2 text-blue-500 border border-blue-200/20 hover:bg-blue-900 ml-4 rounded"
+          className="block p-2 text-blue-500 border border-blue-200/20 hover:bg-blue-900 ml-4 rounded"
         >
           <X size={24} />
         </button>
       </div>
+
+      {/* MENU BODY */}
       <AnimatePresence mode="wait">
         {activeCategory === null ? (
+          // 🔹 MAIN MENU
           <motion.div
             key="main-menu"
             initial={{ x: 0 }}
             animate={{ x: 0 }}
             exit={{ x: "-100%" }}
           >
-            {/* Quick Links */}
+            {/* Static Quick Links */}
             {quickLinks.map((link) => (
               <Link key={link.title} href={link.slug}>
                 <button
@@ -134,7 +159,11 @@ export default function MobileMenu({ setMobileNav, user }) {
             {dynamicMenuItems.map((item) => (
               <div key={item.id} className="border-b">
                 <button
-                  onClick={() => setActiveCategory(item.id)}
+                  onClick={() =>
+                    item.direct
+                      ? setActiveCategory(item.id)
+                      : setActiveCategory(item.id)
+                  }
                   className="w-full py-4 px-5 flex justify-between items-center text-left font-medium hover:bg-gray-100"
                 >
                   {item.title}
@@ -143,7 +172,8 @@ export default function MobileMenu({ setMobileNav, user }) {
               </div>
             ))}
           </motion.div>
-        ) : activeSubCategory === null ? (
+        ) : (
+          // 🔹 SUB MENUS
           <motion.div
             key="sub-menu"
             initial="hidden"
@@ -151,6 +181,7 @@ export default function MobileMenu({ setMobileNav, user }) {
             exit="exit"
             variants={slideVariants}
           >
+            {/* Back Button */}
             <div className="border-b sticky top-0 bg-white z-10">
               <button
                 className="w-full py-4 px-5 flex items-center text-left font-medium hover:bg-gray-100"
@@ -162,19 +193,36 @@ export default function MobileMenu({ setMobileNav, user }) {
             </div>
 
             <div>
-              {currentMain.items?.map((pkg) => (
-                <div key={pkg.id} className="border-b">
-                  <button
-                    onClick={() => setActiveSubCategory(pkg)}
-                    className="w-full py-4 px-5 text-left font-medium hover:bg-gray-100"
-                  >
-                    {pkg.title}
-                  </button>
-                </div>
-              ))}
+              {/* 🔸 Non ATL – show direct products */}
+              {currentMain.id === "NON"
+                ? currentMain.items.map((cat) => (
+                    <Link
+                      key={cat.id}
+                      onClick={() => setMobileNav(false)}
+                      href={`/product/${cat.slug}`}
+                    >
+                      <button className="w-full py-4 px-5 text-left border-b hover:bg-gray-100 capitalize">
+                        {cat.title}
+                      </button>
+                    </Link>
+                  ))
+                : // 🔸 Books – grouped by category
+                  currentMain.items.map((pkg) => (
+                    <div key={pkg.id} className="border-b">
+                      <button
+                        onClick={() => setActiveSubCategory(pkg)}
+                        className="w-full py-4 px-5 text-left font-medium hover:bg-gray-100"
+                      >
+                        {pkg.title}
+                      </button>
+                    </div>
+                  ))}
             </div>
           </motion.div>
-        ) : (
+        )}
+
+        {/* 🔹 Book Category Submenu */}
+        {activeSubCategory && (
           <motion.div
             key="category-menu"
             initial="hidden"
@@ -192,70 +240,56 @@ export default function MobileMenu({ setMobileNav, user }) {
               </button>
             </div>
 
-            {/* Categories (Text Only, No Images) */}
-            <div>
-              {activeCategory === "BOOKS"
-                ? activeSubCategory.categories.map((book, index) => (
-                    <Link
-                      onClick={() => setMobileNav(false)}
-                      href={`/books/${book.slug}`}
-                      key={index}
-                    >
-                      <button className="w-full py-4 px-5 text-left border-b hover:bg-gray-100 capitalize">
-                        {book.title || book.category_name}
-                      </button>
-                    </Link>
-                  ))
-                : activeSubCategory.categories.map((cat) => (
-                    <Link
-                      key={cat.id}
-                      onClick={() => setMobileNav(false)}
-                      href={`/product/?pkgtypes=${activeSubCategory.package_type}&packages=${activeSubCategory.id}&categories=${cat.id}`}
-                    >
-                      <button className="w-full py-4 px-5 text-left border-b hover:bg-gray-100 capitalize">
-                        {cat.title}
-                      </button>
-                    </Link>
-                  ))}
-            </div>
+            {activeSubCategory.categories.map((book, index) => (
+              <Link
+                onClick={() => setMobileNav(false)}
+                href={`/books/${book.slug}`}
+                key={index}
+              >
+                <button className="w-full py-4 px-5 text-left border-b hover:bg-gray-100 capitalize">
+                  {book.title || book.category_name}
+                </button>
+              </Link>
+            ))}
           </motion.div>
         )}
-
-        {user ? (
-          <div className="px-4 mt-4">
-            <Link
-              href="/dashboard"
-              className="btn mb-4"
-              onClick={() => setMobileNav(false)}
-            >
-              Dashboard
-            </Link>
-            <button
-              onClick={handleLogout}
-              className="flex mb-4 items-center gap-1 btn bg-transparent border-2 border-blue-500 text-blue-500 hover:text-white"
-            >
-              Logout
-            </button>
-          </div>
-        ) : (
-          <div className="px-4 w-auto mt-4">
-            <Link
-              href="/login"
-              onClick={() => setMobileNav(false)}
-              className="btn flex mb-4 gap-2 items-center"
-            >
-              <LogIn className="w-4 h-4" /> Login
-            </Link>
-            <Link
-              href="/signup"
-              onClick={() => setMobileNav(false)}
-              className="flex mb-4 items-center gap-1 btn bg-transparent border-2 border-blue-500 text-blue-500 hover:text-white"
-            >
-              Sign Up
-            </Link>
-          </div>
-        )}
       </AnimatePresence>
+
+      {/* AUTH BUTTONS */}
+      {user ? (
+        <div className="px-4 mt-4">
+          <Link
+            href="/dashboard"
+            className="btn mb-4"
+            onClick={() => setMobileNav(false)}
+          >
+            Dashboard
+          </Link>
+          <button
+            onClick={handleLogout}
+            className="flex mb-4 items-center gap-1 btn bg-transparent border-2 border-blue-500 text-blue-500 hover:text-white"
+          >
+            Logout
+          </button>
+        </div>
+      ) : (
+        <div className="px-4 w-auto mt-4">
+          <Link
+            href="/login"
+            onClick={() => setMobileNav(false)}
+            className="btn flex mb-4 gap-2 items-center"
+          >
+            <LogIn className="w-4 h-4" /> Login
+          </Link>
+          <Link
+            href="/signup"
+            onClick={() => setMobileNav(false)}
+            className="flex mb-4 items-center gap-1 btn bg-transparent border-2 border-blue-500 text-blue-500 hover:text-white"
+          >
+            Sign Up
+          </Link>
+        </div>
+      )}
     </div>
   );
 }
