@@ -8,6 +8,13 @@ const nextConfig = {
         hostname: "n84j51mp-3001.inc1.devtunnels.ms",
         port: "",
       },
+
+      {
+        protocol: "https",
+        hostname: "www.facebook.com",
+        port: "",
+        pathname: "",
+      },
     ],
   },
 };

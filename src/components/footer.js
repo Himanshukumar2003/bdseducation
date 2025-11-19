@@ -180,6 +180,24 @@ export default function Footer() {
                   Become a Distributor
                 </Link>
               </li>
+
+              <li>
+                <Link href="/privacy-policy" className="text-white ">
+                  Privacy Policy
+                </Link>
+              </li>
+
+              <li>
+                <Link href="/terms-and-conditions" className="text-white ">
+                  Terms & Conditions
+                </Link>
+              </li>
+
+              <li>
+                <Link href="/return-and-refund-policy" className="text-white ">
+                  Return & Refund Policy
+                </Link>
+              </li>
             </ul>
           </div>
 

@@ -36,8 +36,8 @@ export default function ProductsSection({ sliceCount = null }) {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {(sliceCount ? products.slice(0, sliceCount) : products).map(
-            (product) => (
-              <ProductCard key={product.id} product={product} />
+            (product, index) => (
+              <ProductCard key={index} product={product} />
             )
           )}
         </div>
