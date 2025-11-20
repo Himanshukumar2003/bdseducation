@@ -42,18 +42,12 @@ export default function BookHero({ product }) {
               }}
             />
 
-            {product.book_pdf ? (
-              <Link href={`/books/${product.slug}/read`} className="btn">
-                View demo
-              </Link>
-            ) : (
-              <AddToCartButtonProduct
-                product={{
-                  item_id: product.id,
-                  item_type: "book",
-                }}
-              />
-            )}
+            <AddToCartButtonProduct
+              product={{
+                item_id: product.id,
+                item_type: "book",
+              }}
+            />
           </div>
         </div>
 

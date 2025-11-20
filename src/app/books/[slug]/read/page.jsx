@@ -21,5 +21,5 @@ export default function BookPage({}) {
   //   return <div>Not Found</div>;
   // }
 
-  return <h1>sdhjh</h1>;
+  return <h1>bds education</h1>;
 }
