@@ -1,35 +1,25 @@
-// "use client";
+"use client";
 
-// import { useParams } from "next/navigation";
+import { useParams } from "next/navigation";
 // import PDFFlipbook from "./_component/pdf-flipbook";
 // import { useQuery } from "@tanstack/react-query";
 // import axios from "axios";
 
-// export default function BookPage({}) {
-//   const { slug } = useParams();
+export default function BookPage({}) {
+  const { slug } = useParams();
 
-//   const { data } = useQuery({
-//     queryKey: ["pdf-book", slug],
-//     queryFn: async () => {
-//       const { data } = await axios(
-//         `${process.env.NEXT_PUBLIC_API_URL}/books/get-by-slug/${slug}`
-//       );
-//       return data?.data;
-//     },
-//   });
-//   if (!data) {
-//     return <div>Not Found</div>;
-//   }
+  // const { data } = useQuery({
+  //   queryKey: ["pdf-book", slug],
+  //   queryFn: async () => {
+  //     const { data } = await axios(
+  //       `${process.env.NEXT_PUBLIC_API_URL}/books/get-by-slug/${slug}`
+  //     );
+  //     return data?.data;
+  //   },
+  // });
+  // if (!data) {
+  //   return <div>Not Found</div>;
+  // }
 
-//   return (
-//     data?.book_pdf?.length && (
-//       <PDFFlipbook
-//         pdfUrl={process.env.NEXT_PUBLIC_FILE_BASE + data.book_pdf[0]}
-//       />
-//     )
-//   );
-// }
-
-export default function home(params) {
-  return <></>;
+  return <h1>sdhjh</h1>;
 }
