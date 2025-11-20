@@ -50,7 +50,10 @@ export default function PrivacyPolicy() {
                   content={
                     <ul className="space-y-3 text-gray-700 leading-relaxed">
                       <li className="flex gap-3">
-                        <CheckCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                        <div>
+                            <CheckCircle className="text-sm text-blue-600 mt-0.5" />
+                          </div>
+                        
                         <span>
                           <strong>Personal Information you provide:</strong>{" "}
                           When you contact us via forms, become a distributor,
@@ -61,7 +64,9 @@ export default function PrivacyPolicy() {
                         </span>
                       </li>
                       <li className="flex gap-3">
-                        <CheckCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                        <div>
+                            <CheckCircle className="text-sm text-blue-600 mt-0.5" />
+                          </div>
                         <span>
                           <strong>Payment & Order Information:</strong> If you
                           make purchases via the Site, we collect billing &
@@ -70,7 +75,9 @@ export default function PrivacyPolicy() {
                         </span>
                       </li>
                       <li className="flex gap-3">
-                        <CheckCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                        <div>
+                            <CheckCircle className="text-sm text-blue-600 mt-0.5" />
+                          </div>
                         <span>
                           <strong>Automatically Collected Information:</strong>{" "}
                           We may automatically collect device and usage
@@ -81,7 +88,9 @@ export default function PrivacyPolicy() {
                         </span>
                       </li>
                       <li className="flex gap-3">
-                        <CheckCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                        <div>
+                            <CheckCircle className="text-sm text-blue-600 mt-0.5" />
+                          </div>
                         <span>
                           <strong>Cookies & Tracking Technologies:</strong> We
                           use cookies, web beacons, pixels or similar tracking
@@ -105,42 +114,54 @@ export default function PrivacyPolicy() {
                       </p>
                       <ul className="space-y-3 text-gray-700 leading-relaxed">
                         <li className="flex gap-3">
-                          <CheckCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                          <div>
+                            <CheckCircle className="text-sm text-blue-600 mt-0.5" />
+                          </div>
                           <span>
                             Processing and fulfilling your orders, sending
                             confirmations, invoices, shipments.
                           </span>
                         </li>
                         <li className="flex gap-3">
-                          <CheckCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                          <div>
+                            <CheckCircle className="text-sm text-blue-600 mt-0.5" />
+                          </div>
                           <span>
                             Providing customer service and responding to your
                             inquiries.
                           </span>
                         </li>
                         <li className="flex gap-3">
-                          <CheckCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                          <div>
+                            <CheckCircle className="text-sm text-blue-600 mt-0.5" />
+                          </div>
                           <span>
                             Administering and improving the Site, content,
                             products, and Services.
                           </span>
                         </li>
                         <li className="flex gap-3">
-                          <CheckCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                          <div>
+                            <CheckCircle className="text-sm text-blue-600 mt-0.5" />
+                          </div>
                           <span>
                             Sending you marketing or promotional communications
                             (only if you’ve opted in).
                           </span>
                         </li>
                         <li className="flex gap-3">
-                          <CheckCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                          <div>
+                            <CheckCircle className="text-sm text-blue-600 mt-0.5" />
+                          </div>
                           <span>
                             Detecting, investigating, and preventing fraudulent
                             transactions or misuse.
                           </span>
                         </li>
                         <li className="flex gap-3">
-                          <CheckCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                          <div>
+                            <CheckCircle className="text-sm text-blue-600 mt-0.5" />
+                          </div>
                           <span>Complying with legal obligations.</span>
                         </li>
                       </ul>
@@ -160,7 +181,9 @@ export default function PrivacyPolicy() {
                       </p>
                       <ul className="space-y-3 text-gray-700 leading-relaxed">
                         <li className="flex gap-3">
-                          <CheckCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                          <div>
+                            <CheckCircle className="text-sm text-blue-600 mt-0.5" />
+                          </div>
                           <span>
                             <strong>Service Providers:</strong> Companies that
                             help us operate our business, process payments,
@@ -169,7 +192,9 @@ export default function PrivacyPolicy() {
                           </span>
                         </li>
                         <li className="flex gap-3">
-                          <CheckCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                          <div>
+                            <CheckCircle className="text-sm text-blue-600 mt-0.5" />
+                          </div>
                           <span>
                             <strong>Legal & Regulatory Requirements:</strong> If
                             required by law or to respond to legal process,
@@ -177,7 +202,9 @@ export default function PrivacyPolicy() {
                           </span>
                         </li>
                         <li className="flex gap-3">
-                          <CheckCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                          <div>
+                            <CheckCircle className="text-sm text-blue-600 mt-0.5" />
+                          </div>
                           <span>
                             <strong>Business Transfers:</strong> In connection
                             with a merger, sale, asset transfer, acquisition, or
@@ -196,7 +223,9 @@ export default function PrivacyPolicy() {
                   content={
                     <ul className="space-y-3 text-gray-700 leading-relaxed">
                       <li className="flex gap-3">
-                        <CheckCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                        <div>
+                            <CheckCircle className="text-sm text-blue-600 mt-0.5" />
+                          </div>
                         <span>
                           You may opt-out of receiving marketing emails from us
                           at any time by following the unsubscribe link in those
@@ -204,7 +233,9 @@ export default function PrivacyPolicy() {
                         </span>
                       </li>
                       <li className="flex gap-3">
-                        <CheckCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                        <div>
+                            <CheckCircle className="text-sm text-blue-600 mt-0.5" />
+                          </div>
                         <span>
                           You may access, correct, update or request deletion of
                           your personal information by contacting us. We will
@@ -212,7 +243,9 @@ export default function PrivacyPolicy() {
                         </span>
                       </li>
                       <li className="flex gap-3">
-                        <CheckCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                        <div>
+                            <CheckCircle className="text-sm text-blue-600 mt-0.5" />
+                          </div>
                         <span>
                           <strong>Cookies:</strong> Most web browsers are set to
                           accept cookies by default; you can modify your browser
