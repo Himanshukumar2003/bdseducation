@@ -1,4 +1,11 @@
-import { FileText, Phone, Mail, MapPin, CheckCircle } from "lucide-react";
+import {
+  FileText,
+  Phone,
+  Mail,
+  MapPin,
+  CheckCircle,
+  CheckCheck,
+} from "lucide-react";
 import Section from "./_componet/section";
 import { Breadcrumb } from "@/components/breadcrumb";
 
@@ -85,8 +92,11 @@ export default function App() {
                         "Payment must be made in full before shipment unless otherwise agreed. We accept the payment methods listed on the Site.",
                         "You must provide accurate billing, shipping, and contact information. We are not liable for delays caused by incorrect information.",
                       ].map((item, i) => (
-                        <li key={i} className="flex gap-3">
-                          <CheckCircle className="w-5 h-5 text-blue-600 mt-0.5" />
+                        <li key={i} className="flex gap-2">
+                          <div>
+                            <CheckCircle className="text-sm text-blue-600 mt-0.5" />
+                          </div>
+
                           <span>{item}</span>
                         </li>
                       ))}
@@ -100,11 +110,13 @@ export default function App() {
                   content={
                     <ul className="space-y-3 text-gray-700 leading-relaxed">
                       {[
-                        "We will make commercially reasonable efforts to deliver products within the estimated timeframe; however, delays may occur.",
-                        "Risk of loss and title pass to you upon delivery to the carrier or upon installation/hand-over when applicable.",
+                        "	We will make commercially reasonable efforts to deliver the products within the estimated timeframe. However, delivery dates are estimates only and subject to delays (especially for custom/large-lab orders).",
+                        "Risk of loss and title pass to you upon our delivery to the carrier (for shipped products) or upon installation/hand-over if applicable.",
                       ].map((item, i) => (
                         <li key={i} className="flex gap-3">
-                          <CheckCircle className="w-5 h-5 text-blue-600 mt-0.5" />
+                          <div>
+                            <CheckCircle className="text-sm text-blue-600 mt-0.5" />
+                          </div>
                           <span>{item}</span>
                         </li>
                       ))}
@@ -118,11 +130,13 @@ export default function App() {
                   content={
                     <ul className="space-y-3 text-gray-700 leading-relaxed">
                       {[
-                        "Products are sold for educational/institutional use only. You agree to follow all manuals, safety instructions and guidelines.",
-                        "Training services, teacher training, software licences or online resources are subject to the specific licence agreement provided to you.",
+                        "	Products (kits, books, software) are sold for educational/institutional use only pursuant to the licence and instructions provided. You agree to follow all manuals, safety instructions and usage guidelines.",
+                        "	Any training services, teacher training, software licences, or online resources are subject to the terms of the specific licence agreement provided to you.",
                       ].map((item, i) => (
                         <li key={i} className="flex gap-3">
-                          <CheckCircle className="w-5 h-5 text-blue-600 mt-0.5" />
+                          <div>
+                            <CheckCircle className="text-sm text-blue-600 mt-0.5" />
+                          </div>
                           <span>{item}</span>
                         </li>
                       ))}
@@ -136,11 +150,13 @@ export default function App() {
                   content={
                     <ul className="space-y-3 text-gray-700 leading-relaxed">
                       {[
-                        "All copyrights, trademarks, designs, patents and content remain the property of BDS Education or its licensors.",
-                        "You may not copy, reproduce, upload, post, transmit or distribute any material without prior written consent.",
+                        "	All intellectual property rights, including copyrights, trademarks, designs, patents, in the Site, the content, products, and materials provided by BDS Education remain the property of BDS Education or its licensors.",
+                        "	You shall not copy, reproduce, republish, upload, post, transmit or distribute any part of the Site or products (including manuals, software, kits instructions) without prior written consent.",
                       ].map((item, i) => (
                         <li key={i} className="flex gap-3">
-                          <CheckCircle className="w-5 h-5 text-blue-600 mt-0.5" />
+                          <div>
+                            <CheckCircle className="text-sm text-blue-600 mt-0.5" />
+                          </div>
                           <span>{item}</span>
                         </li>
                       ))}
@@ -154,12 +170,14 @@ export default function App() {
                   content={
                     <ul className="space-y-3 text-gray-700 leading-relaxed">
                       {[
-                        'Products and services are provided "AS IS" without warranties of any kind.',
-                        "We are not liable for indirect, incidental, special or consequential damages. Maximum liability is limited to the amount paid.",
-                        "Limitations may not apply in jurisdictions that do not allow exclusion of certain warranties.",
+                        "	OUR PRODUCTS AND SERVICES ARE PROVIDED “AS IS” AND “AS AVAILABLE” WITHOUT ANY WARRANTIES OF ANY KIND, WHETHER EXPRESS OR IMPLIED. TO THE FULLEST EXTENT PERMITTED BY LAW, BDS EDUCATION DISCLAIMS ALL WARRANTIES, INCLUDING MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.",
+                        "	IN NO EVENT SHALL BDS EDUCATION OR ITS DIRECTORS, EMPLOYEES OR SUPPLIERS BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL OR PUNITIVE DAMAGES ARISING OUT OF OR IN CONNECTION WITH YOUR USE OF THE SITE OR PRODUCTS, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. OUR MAXIMUM AGGREGATE LIABILITY FOR ANY CLAIM ARISING SHALL NOT EXCEED THE AMOUNT YOU PAID FOR THE PRODUCT OR SERVICE.",
+                        "•	Some jurisdictions do not allow exclusion of certain warranties or limitation of liability; in such cases, our liability will be limited to the greatest extent permitted by law.",
                       ].map((item, i) => (
                         <li key={i} className="flex gap-3">
-                          <CheckCircle className="w-5 h-5 text-blue-600 mt-0.5" />
+                          <div>
+                            <CheckCircle className="text-sm text-blue-600 mt-0.5" />
+                          </div>
                           <span>{item}</span>
                         </li>
                       ))}
@@ -173,11 +191,13 @@ export default function App() {
                   content={
                     <ul className="space-y-3 text-gray-700 leading-relaxed">
                       {[
-                        "These Terms are governed by the laws of India. Courts in Faridabad, Haryana have exclusive jurisdiction.",
-                        "Parties must attempt to resolve disputes through negotiation. If unresolved within 30 days, disputes may be taken to court.",
+                        "	These Terms, and any purchase or use of the products, shall be governed by and construed in accordance with the laws of India and the courts at Faridabad, Haryana shall have exclusive jurisdiction.",
+                        "	Any dispute arising out of or relating to these Terms shall first be attempted to be resolved by negotiation in good faith. If the dispute is not resolved within 30 days, either party may refer the dispute to the courts.",
                       ].map((item, i) => (
                         <li key={i} className="flex gap-3">
-                          <CheckCircle className="w-5 h-5 text-blue-600 mt-0.5" />
+                          <div>
+                            <CheckCircle className="text-sm text-blue-600 mt-0.5" />
+                          </div>
                           <span>{item}</span>
                         </li>
                       ))}
@@ -190,10 +210,11 @@ export default function App() {
                   title="Modifications to Terms"
                   content={
                     <p className="text-gray-700 leading-relaxed">
-                      We may modify these Terms at any time. Updated Terms will
-                      be posted with a revised “Last updated” date. Continued
-                      use of the Site after changes constitutes acceptance of
-                      the revised Terms.
+                      We reserve the right to change or modify these Terms at
+                      any time. The updated Terms will be posted on the Site
+                      with a “Last updated” date. Your continued use of the Site
+                      or purchase of products following the posting of changes
+                      constitutes your acceptance of those changes.
                     </p>
                   }
                 />
@@ -203,9 +224,12 @@ export default function App() {
                   title="Severability & Waiver"
                   content={
                     <p className="text-gray-700 leading-relaxed">
-                      If any provision is found invalid, the remaining
-                      provisions remain in effect. Failure to enforce any right
-                      does not constitute a waiver.
+                      If any provision of these Terms is held to be invalid or
+                      unenforceable, that provision shall be struck and the
+                      remaining provisions shall remain in full force and
+                      effect. The failure of BDS Education to enforce any right
+                      or provision under these Terms shall not constitute a
+                      waiver of such right or provision.
                     </p>
                   }
                 />
@@ -215,9 +239,11 @@ export default function App() {
                   title="Entire Agreement"
                   content={
                     <p className="text-gray-700 leading-relaxed">
-                      These Terms, along with the Privacy Policy and Return &
-                      Refund Policy, constitute the entire agreement between you
-                      and BDS Education.
+                      These Terms (together with the Privacy Policy and Return &
+                      Refund Policy) constitute the entire agreement between you
+                      and BDS Education relating to the Site and your purchase
+                      of products and supersede all prior or contemporaneous
+                      written or oral agreements.
                     </p>
                   }
                 />

@@ -61,7 +61,11 @@ export default function ReturnRefundPolicy() {
                   content={
                     <ul className="space-y-3 text-gray-700 leading-relaxed">
                       <li className="flex gap-3">
-                        <CheckCircle className="w-5 h-5 text-blue-600 mt-0.5" />
+                        <div>
+                          <div>
+                            <CheckCircle className="text-sm text-blue-600 mt-0.5" />
+                          </div>
+                        </div>
                         <span>
                           Returns are accepted only if the product is unused,
                           unopened, in its original packaging and condition,
@@ -71,7 +75,11 @@ export default function ReturnRefundPolicy() {
                       </li>
 
                       <li className="flex gap-3">
-                        <CheckCircle className="w-5 h-5 text-blue-600 mt-0.5" />
+                        <div>
+                          <div>
+                            <CheckCircle className="text-sm text-blue-600 mt-0.5" />
+                          </div>
+                        </div>
                         <span>
                           Returns must be requested within 7 calendar days from
                           the date of delivery (unless otherwise agreed).
@@ -79,7 +87,9 @@ export default function ReturnRefundPolicy() {
                       </li>
 
                       <li className="flex gap-3">
-                        <CheckCircle className="w-5 h-5 text-blue-600 mt-0.5" />
+                        <div>
+                          <CheckCircle className="text-sm text-blue-600 mt-0.5" />
+                        </div>
                         <span>
                           To initiate a return, you must contact us at +91 88267
                           30055 or email nc@bdseducation.in with your order
@@ -89,7 +99,9 @@ export default function ReturnRefundPolicy() {
                       </li>
 
                       <li className="flex gap-3">
-                        <CheckCircle className="w-5 h-5 text-blue-600 mt-0.5" />
+                        <div>
+                          <CheckCircle className="text-sm text-blue-600 mt-0.5" />
+                        </div>
                         <span>
                           You must obtain a Return Merchandise Authorization
                           (RMA) number from us before sending the product back.
@@ -111,7 +123,7 @@ export default function ReturnRefundPolicy() {
 
                       <ul className="space-y-3 text-gray-700 leading-relaxed">
                         <li className="flex gap-3">
-                          <AlertCircle className="w-5 h-5 text-amber-600 mt-0.5" />
+                          <AlertCircle className="text-lg text-amber-600 mt-0.5" />
                           <span>
                             Products that have been opened, used, assembled, or
                             show signs of damage or misuse.
@@ -119,7 +131,7 @@ export default function ReturnRefundPolicy() {
                         </li>
 
                         <li className="flex gap-3">
-                          <AlertCircle className="w-5 h-5 text-amber-600 mt-0.5" />
+                          <AlertCircle className="text-lg text-amber-600 mt-0.5" />
                           <span>
                             Customised or specially ordered kits or
                             lab-equipment tailored to a client’s requirements.
@@ -127,7 +139,7 @@ export default function ReturnRefundPolicy() {
                         </li>
 
                         <li className="flex gap-3">
-                          <AlertCircle className="w-5 h-5 text-amber-600 mt-0.5" />
+                          <AlertCircle className="text-lg text-amber-600 mt-0.5" />
                           <span>
                             Items purchased as part of a bundle if the bundle
                             requirement has been partially fulfilled or
@@ -136,7 +148,7 @@ export default function ReturnRefundPolicy() {
                         </li>
 
                         <li className="flex gap-3">
-                          <AlertCircle className="w-5 h-5 text-amber-600 mt-0.5" />
+                          <AlertCircle className="text-lg text-amber-600 mt-0.5" />
                           <span>
                             Digital-only items (software licences, code
                             libraries) once the download or activation has been
@@ -154,7 +166,9 @@ export default function ReturnRefundPolicy() {
                   content={
                     <ul className="space-y-3 text-gray-700 leading-relaxed">
                       <li className="flex gap-3">
-                        <CheckCircle className="w-5 h-5 text-blue-600 mt-0.5" />
+                        <div>
+                          <CheckCircle className="text-sm text-blue-600 mt-0.5" />
+                        </div>
                         <span>
                           If a return is approved, we will issue a refund via
                           the original payment method within 10–15 business days
@@ -163,7 +177,9 @@ export default function ReturnRefundPolicy() {
                       </li>
 
                       <li className="flex gap-3">
-                        <CheckCircle className="w-5 h-5 text-blue-600 mt-0.5" />
+                        <div>
+                          <CheckCircle className="text-sm text-blue-600 mt-0.5" />
+                        </div>
                         <span>
                           Shipping, handling and installation or training fees
                           (if any) are non-refundable unless otherwise
@@ -172,7 +188,9 @@ export default function ReturnRefundPolicy() {
                       </li>
 
                       <li className="flex gap-3">
-                        <CheckCircle className="w-5 h-5 text-blue-600 mt-0.5" />
+                        <div>
+                          <CheckCircle className="text-sm text-blue-600 mt-0.5" />
+                        </div>
                         <span>
                           The refund amount will be the purchase price less any
                           shipping/handling costs and any applicable restocking
@@ -181,7 +199,9 @@ export default function ReturnRefundPolicy() {
                       </li>
 
                       <li className="flex gap-3">
-                        <CheckCircle className="w-5 h-5 text-blue-600 mt-0.5" />
+                        <div>
+                          <CheckCircle className="text-sm text-blue-600 mt-0.5" />
+                        </div>
                         <span>
                           If the product is defective or we shipped the wrong
                           item, we will cover the return shipping cost and
@@ -211,7 +231,9 @@ export default function ReturnRefundPolicy() {
                   content={
                     <ul className="space-y-3 text-gray-700 leading-relaxed">
                       <li className="flex gap-3">
-                        <CheckCircle className="w-5 h-5 text-blue-600 mt-0.5" />
+                        <div>
+                          <CheckCircle className="text-sm text-blue-600 mt-0.5" />
+                        </div>
                         <span>
                           You are responsible for the safe return shipment of
                           the product (unless we agree to cover return
@@ -220,7 +242,9 @@ export default function ReturnRefundPolicy() {
                       </li>
 
                       <li className="flex gap-3">
-                        <CheckCircle className="w-5 h-5 text-blue-600 mt-0.5" />
+                        <div>
+                          <CheckCircle className="text-sm text-blue-600 mt-0.5" />
+                        </div>
                         <span>
                           We recommend using a trackable shipping service and
                           purchasing shipping insurance. We cannot guarantee
@@ -242,12 +266,16 @@ export default function ReturnRefundPolicy() {
 
                       <ul className="space-y-3 text-gray-700 leading-relaxed">
                         <li className="flex gap-3">
-                          <CheckCircle className="w-5 h-5 text-blue-600 mt-0.5" />
+                          <div>
+                            <CheckCircle className="text-sm text-blue-600 mt-0.5" />
+                          </div>
                           <span>Check your bank account/card.</span>
                         </li>
 
                         <li className="flex gap-3">
-                          <CheckCircle className="w-5 h-5 text-blue-600 mt-0.5" />
+                          <div>
+                            <CheckCircle className="text-sm text-blue-600 mt-0.5" />
+                          </div>
                           <span>
                             Contact your payment provider — it may take some
                             time before your refund is officially posted.
@@ -255,7 +283,9 @@ export default function ReturnRefundPolicy() {
                         </li>
 
                         <li className="flex gap-3">
-                          <CheckCircle className="w-5 h-5 text-blue-600 mt-0.5" />
+                          <div>
+                            <CheckCircle className="text-sm text-blue-600 mt-0.5" />
+                          </div>
                           <span>
                             If you still haven’t received it, please contact us
                             at info@bdseducation.in.
@@ -281,7 +311,7 @@ export default function ReturnRefundPolicy() {
                     </div>
 
                     <div className="flex items-start gap-3 text-gray-700">
-                      <MapPin className="w-5 h-5 text-blue-600 mt-1" />
+                      <MapPin className="text-lg text-blue-600 mt-1" />
                       <span>
                         SCO-12, 1st Floor, Dayalbagh, Surajkund, Faridabad –
                         121009, Haryana, India.
@@ -289,7 +319,7 @@ export default function ReturnRefundPolicy() {
                     </div>
 
                     <div className="flex items-center gap-3 text-gray-700">
-                      <Phone className="w-5 h-5 text-blue-600" />
+                      <Phone className="text-lg text-blue-600" />
                       <a
                         href="tel:+918826730055"
                         className="hover:text-blue-600 transition-colors"
@@ -299,7 +329,7 @@ export default function ReturnRefundPolicy() {
                     </div>
 
                     <div className="flex items-center gap-3 text-gray-700">
-                      <Mail className="w-5 h-5 text-blue-600" />
+                      <Mail className="text-lg text-blue-600" />
                       <a
                         href="mailto:nc@bdseducation.in"
                         className="hover:text-blue-600 transition-colors"

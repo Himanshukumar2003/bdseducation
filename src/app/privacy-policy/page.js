@@ -31,10 +31,13 @@ export default function PrivacyPolicy() {
               <p className="mt-4 text-blue-50 leading-relaxed">
                 Welcome to BDS Education. This Privacy Policy explains how we
                 collect, use, disclose and safeguard your information when you
-                visit our website
-                <strong> https://www.bdseducation.in </strong> (the “Site”)
-                and/or purchase our products (“Services”). By accessing or using
-                the Site, you consent to the practices described in this policy.
+                visit our website{" "}
+                <a href="https://www.bdseducation.in">
+                  https://www.bdseducation.in
+                </a>{" "}
+                (the “Site”) and/or purchase our products (“Services”). By
+                accessing or using the Site, you consent to the practices
+                described in this policy.
               </p>
             </div>
 
@@ -195,22 +198,27 @@ export default function PrivacyPolicy() {
                       <li className="flex gap-3">
                         <CheckCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
                         <span>
-                          You may opt-out of marketing emails anytime via the
-                          unsubscribe link.
+                          You may opt-out of receiving marketing emails from us
+                          at any time by following the unsubscribe link in those
+                          emails or contacting us at the details below.
                         </span>
                       </li>
                       <li className="flex gap-3">
                         <CheckCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
                         <span>
-                          You may request access, correction, update, or
-                          deletion of your information.
+                          You may access, correct, update or request deletion of
+                          your personal information by contacting us. We will
+                          respond in accordance with applicable law.
                         </span>
                       </li>
                       <li className="flex gap-3">
                         <CheckCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
                         <span>
-                          <strong>Cookies:</strong> You can disable cookies, but
-                          parts of the Site may not work properly.
+                          <strong>Cookies:</strong> Most web browsers are set to
+                          accept cookies by default; you can modify your browser
+                          settings to decline cookies or alert you when cookies
+                          are being sent. However, some parts of the Site may
+                          not function properly if you disable cookies.
                         </span>
                       </li>
                     </ul>
@@ -227,13 +235,16 @@ export default function PrivacyPolicy() {
                         <Lock className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
                         <span>
                           We implement reasonable security measures to protect
-                          your personal information. However, no method of
-                          transmission or storage is 100% secure.
+                          the confidentiality of your personal information.
+                          However, no method of electronic transmission or
+                          storage is completely secure and we cannot guarantee
+                          absolute security.
                         </span>
                       </p>
                       <p className="text-gray-700 leading-relaxed">
-                        We retain your information as long as necessary for the
-                        purposes outlined in this policy.
+                        We will retain your information as long as necessary for
+                        the purposes set out in this policy and as required by
+                        applicable law.
                       </p>
                     </div>
                   }
@@ -245,10 +256,13 @@ export default function PrivacyPolicy() {
                   title="Children's Privacy"
                   content={
                     <p className="text-gray-700 leading-relaxed">
-                      Our Services are directed to institutions, teachers, and
-                      distributors—not children under 13. If you believe we
-                      collected information from a child under 13, contact us
-                      for deletion.
+                      Our Services are directed to schools, colleges,
+                      institutions, teachers, distributors—not to children under
+                      the age of 13. We do not knowingly collect personally
+                      identifiable information from children under 13. If you
+                      believe that we have collected information of a child
+                      under 13, please contact us and we will delete such
+                      information.
                     </p>
                   }
                 />
@@ -259,9 +273,10 @@ export default function PrivacyPolicy() {
                   title="International Transfers"
                   content={
                     <p className="text-gray-700 leading-relaxed">
-                      Your information may be processed in countries other than
-                      your own. By submitting your information, you consent to
-                      such transfer or processing.
+                      Your information may be transferred to — and processed in
+                      — countries other than your home country. By submitting
+                      your information, you consent to such transfer, storage or
+                      processing.
                     </p>
                   }
                 />
@@ -272,9 +287,9 @@ export default function PrivacyPolicy() {
                   title="Changes to This Policy"
                   content={
                     <p className="text-gray-700 leading-relaxed">
-                      We may update this Privacy Policy occasionally. Changes
-                      will be posted on this page with an updated “Last Updated”
-                      date.
+                      We may update this Privacy Policy from time to time. We
+                      will notify you of any material changes by posting the new
+                      policy on the Site and updating the “Last Updated” date.
                     </p>
                   }
                 />
