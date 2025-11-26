@@ -211,6 +211,10 @@ export default function Footer() {
             <div className="space-y-4">
               {/* Dayalbagh Address */}
               <div>
+                <p className="mb-4">
+                  <b>BHARAT DRONE SYSTEMS PVT. LTD.</b>
+                </p>
+
                 <div className="flex  items-start gap-3 mb-4">
                   <MapPin className="w-5 h-5 text-white mt-0.5 flex-shrink-0" />
                   <h5>INDIA</h5>
