@@ -216,12 +216,26 @@ export default function ReturnRefundPolicy() {
                   number="2.5"
                   title="Replacement/Exchange"
                   content={
-                    <p className="text-gray-700 leading-relaxed">
-                      If you wish to exchange a product (for the same model)
-                      rather than a refund, please contact us. Exchange is
-                      subject to availability and may incur additional shipping
-                      or handling charges.
-                    </p>
+                    <>
+                      <p className="text-gray-700 leading-relaxed">
+                        If you wish to exchange a product (for the same model)
+                        rather than a refund, please contact us. Exchange is
+                        subject to availability and may incur additional
+                        shipping or handling charges.
+                      </p>
+
+                      <ul className="space-y-3 text-gray-700 leading-relaxed">
+                        <li className="flex gap-3">
+                          <div>
+                            <CheckCircle className="text-sm text-blue-600 mt-0.5" />
+                          </div>
+                          <span>
+                            The replaced or exchanged product will be delivered
+                            in 5-7 business days
+                          </span>
+                        </li>
+                      </ul>
+                    </>
                   }
                 />
 
