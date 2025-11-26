@@ -198,6 +198,11 @@ export default function Footer() {
                   Return & Refund Policy
                 </Link>
               </li>
+              <li>
+                <Link href="/shipping-policy" className="text-white ">
+                  Shipping Policy
+                </Link>
+              </li>
             </ul>
           </div>
 
