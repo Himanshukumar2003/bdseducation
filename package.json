@@ -40,7 +40,6 @@
     "next": "^16.0.2-canary.26",
     "next-auth": "^4.24.11",
     "nuqs": "^2.7.1",
-    "pdfjs-dist": "^3.11.174",
     "prettier": "^3.6.2",
     "react": "19.1.0",
     "react-dom": "19.1.0",
