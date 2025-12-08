@@ -212,7 +212,7 @@ export default function OrderDetailsPage({}) {
                     <Image
                       width={200}
                       height={200}
-                      src={`${process.env.NEXT_PUBLIC_FILE_BASE}${item.pictures[0]}`}
+                      src={`${process.env.NEXT_PUBLIC_BDS_FILE_BASE}${item.pictures[0]}`}
                       alt={item.title}
                       className="w-16 h-16 object-cover rounded-lg mr-4 shadow-sm"
                     />

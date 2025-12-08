@@ -12,7 +12,7 @@ export default function BookPage() {
     queryKey: ["pdf-book", slug],
     queryFn: async () => {
       const { data } = await axios(
-        `${process.env.NEXT_PUBLIC_API_URL}/books/get-by-slug/${slug}`
+        `${process.env.NEXT_PUBLIC_BDS_API_URL}/books/get-by-slug/${slug}`
       );
       return data?.data;
     },
@@ -46,7 +46,7 @@ export default function BookPage() {
   // FIX: Build the absolute PDF URL
   const pdfPath = data.book_pdf?.[0];
   const pdfUrl = pdfPath
-    ? `${process.env.NEXT_PUBLIC_FILE_BASE}${pdfPath}`
+    ? `${process.env.NEXT_PUBLIC_BDS_FILE_BASE}${pdfPath}`
     : null;
 
   if (!pdfUrl) {

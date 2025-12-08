@@ -2,7 +2,7 @@ import config from "@/config";
 import axios from "axios";
 
 const login = async (data) => {
-  const url = `${config.next_public_url}/api/auth/login`;
+  const url = `${config.NEXT_PUBLIC_BDS_URL}/api/auth/login`;
 
   return await axios.post(url, {
     method: "POST",

@@ -34,7 +34,7 @@ export default function ProductCard({ product, type }) {
         <div className="relative overflow-hidden h-45">
           {product.pictures?.length > 0 && (
             <Image
-              src={`${process.env.NEXT_PUBLIC_FILE_BASE}${product.pictures[0]}`}
+              src={`${process.env.NEXT_PUBLIC_BDS_FILE_BASE}${product.pictures[0]}`}
               alt={title}
               fill
             />

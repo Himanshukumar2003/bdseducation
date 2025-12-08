@@ -4,10 +4,6 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "bdsapi.bwdemo.in",
-      },
-      {
-        protocol: "https",
         hostname: "n84j51mp-3001.inc1.devtunnels.ms",
       },
       {

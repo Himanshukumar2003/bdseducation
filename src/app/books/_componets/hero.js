@@ -61,7 +61,7 @@ export default function BookHero({ product }) {
         <div className="col-span-1 flex justify-center order-1 ">
           {product.pictures?.length > 0 && (
             <Image
-              src={`${process.env.NEXT_PUBLIC_FILE_BASE}${product.pictures[0]}`}
+              src={`${process.env.NEXT_PUBLIC_BDS_FILE_BASE}${product.pictures[0]}`}
               alt={product.title}
               width={500}
               height={500}

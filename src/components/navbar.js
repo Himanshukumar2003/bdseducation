@@ -413,7 +413,7 @@ export default function Navbar() {
                               <Image
                                 width={180}
                                 height={220}
-                                src={`${process.env.NEXT_PUBLIC_FILE_BASE}${cat.pictures[0]}`}
+                                src={`${process.env.NEXT_PUBLIC_BDS_FILE_BASE}${cat.pictures[0]}`}
                                 alt="books"
                                 className="w-24 h-36 md:w-28 md:h-40 lg:w-32 lg:h-44 object-contain rounded-lg hover:scale-105 transition-transform duration-300"
                               />

@@ -1,6 +1,6 @@
 import config from "@/config";
 import axios from "axios";
-const API_ROOT = process.env.NEXT_PUBLIC_API_URL;
+const API_ROOT = process.env.NEXT_PUBLIC_BDS_API_URL;
 
 const http = (headerType = "json", baseURL = API_ROOT) => {
   // Create the axios instance

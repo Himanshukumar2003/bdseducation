@@ -1,7 +1,7 @@
 const config = {
-  api_base: process.env.NEXT_PUBLIC_API_URL,
-  file_base: process.env.NEXT_PUBLIC_FILE_BASE,
-  next_public_url: process.env.NEXT_PUBLIC_URL,
+  api_base: process.env.NEXT_PUBLIC_BDS_API_URL,
+  file_base: process.env.NEXT_PUBLIC_BDS_FILE_BASE,
+  NEXT_PUBLIC_BDS_URL: process.env.NEXT_PUBLIC_BDS_URL,
 
   //   google_client_id: process.env.GOOGLE_CLIENT_ID,
   //   google_client_secret: process.env.GOOGLE_CLIENT_SECRET,

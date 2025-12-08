@@ -3,7 +3,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 // Environment variables
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+const API_BASE_URL = process.env.NEXT_PUBLIC_BDS_API_URL;
 export const FILE_BASE_URL = process.env.NEXT_PUBLIC_API_FILE_BASE;
 
 // Fetch all products

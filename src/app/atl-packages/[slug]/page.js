@@ -6,7 +6,7 @@ export default async function BookPage({ params }) {
   const { slug } = await params;
 
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/packages/get-by-slug/${slug}`,
+    `${process.env.NEXT_PUBLIC_BDS_API_URL}/packages/get-by-slug/${slug}`,
     { cache: "no-store" }
   );
   const data = await response.json();
@@ -22,7 +22,7 @@ export default async function BookPage({ params }) {
   // Fixed variable name from 'book' to 'product'
   const bookImages = product.pictures?.length
     ? product.pictures.map(
-        (img) => `${process.env.NEXT_PUBLIC_FILE_BASE}${img}`
+        (img) => `${process.env.NEXT_PUBLIC_BDS_FILE_BASE}${img}`
       )
     : ["/placeholder.svg"];
 

@@ -35,7 +35,7 @@ export default function BookPage() {
   const book = books[3];
   const bookImages = products.pictures?.length
     ? book.pictures.map(
-        (img) => `  ${process.env.NEXT_PUBLIC_FILE_BASE}
+        (img) => `  ${process.env.NEXT_PUBLIC_BDS_FILE_BASE}
 ${img}`
       )
     : ["/placeholder.svg"];

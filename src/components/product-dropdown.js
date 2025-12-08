@@ -12,7 +12,7 @@ export default function ListItem({ title, children, href, image, ...props }) {
             {image?.length > 0 && (
               <div className="shrink-0 size-16">
                 <Image
-                  src={`${process.env.NEXT_PUBLIC_FILE_BASE}${image[0]}`}
+                  src={`${process.env.NEXT_PUBLIC_BDS_FILE_BASE}${image[0]}`}
                   alt={title}
                   width={100}
                   height={100}
