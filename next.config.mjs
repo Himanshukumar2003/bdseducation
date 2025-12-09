@@ -11,6 +11,11 @@ const nextConfig = {
         hostname: "www.facebook.com",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "bdsapi.bwdemo.in",
+        port: "",
+      },
     ],
   },
 
