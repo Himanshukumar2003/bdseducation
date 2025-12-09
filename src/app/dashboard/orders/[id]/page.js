@@ -60,7 +60,6 @@ export default function OrderDetailsPage({}) {
   const currentStatusIndex = STATUS_STEPS.findIndex(
     (step) => step.label.toLowerCase() === currentStatus?.toLowerCase()
   );
-  console.log(currentStatus);
 
   const handleDownloadInvoice = () => {
     alert("Invoice download demo! Implement actual PDF download here.");

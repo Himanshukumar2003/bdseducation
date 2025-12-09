@@ -48,8 +48,6 @@ function Books() {
     "text-red-500",
   ];
 
-  console.log(filteredBooks);
-
   return (
     <div className="bg-blue-50 py-16">
       <div className="container max-w-7xl mx-auto px-4">

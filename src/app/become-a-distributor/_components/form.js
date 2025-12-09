@@ -20,7 +20,6 @@ export default function Distributor() {
   const handleSubmit = (e) => {
     e.preventDefault();
     alert("Form submitted! Check console for details.");
-    console.log(formData);
   };
 
   return (

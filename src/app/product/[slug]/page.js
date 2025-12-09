@@ -14,8 +14,6 @@ export default async function BookPage({ params }) {
     return <div>Not Found</div>;
   }
 
-  const product = data.data;
-
   // Fixed variable name from 'book' to 'product'
   const bookImages = product.pictures?.length
     ? product.pictures.map(
@@ -30,8 +28,6 @@ export default async function BookPage({ params }) {
         .replace(/\s{2,}/g, " ")
         .trim()
     : "";
-
-  console.log("relative :", product);
 
   return (
     <>
