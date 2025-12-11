@@ -33,6 +33,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <meta
+          name="google-site-verification"
+          content="cjo53Wxpkw1646zHPtrxUcnewM_nWW7js3yhcBbnriI"
+        />
+
         <Script id="fb">
           {`
 !function(f,b,e,v,n,t,s)
