@@ -25,7 +25,13 @@ import config from "@/config";
 import { getNavMenu } from "@/services/nav-services";
 import Loader from "./loader";
 import { fetchBooks } from "@/lib/features/productsSlice";
-import { Sheet, SheetContent, SheetHeader, SheetTrigger } from "./ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "./ui/sheet";
 import { Button } from "./ui/button";
 import {
   DropdownMenu,
@@ -197,6 +203,7 @@ export default function Navbar() {
             <SheetTrigger asChild>
               <Menu size={24} className="text-blue-900" />
             </SheetTrigger>
+            <SheetTitle className={"sr-only"}></SheetTitle>
             <SheetContent side="left">
               {[
                 { name: "About Us", link: "/about" },
@@ -375,7 +382,7 @@ export default function Navbar() {
                   const titleColor = titleColors[index % titleColors.length];
                   const grade = index + 1;
 
-                  return (
+                  return activeSection === "BOOKS" ? (
                     <Link
                       href={
                         activeSection === "BOOKS"
@@ -385,46 +392,43 @@ export default function Navbar() {
                       key={cat.id}
                       onClick={() => setIsSidebarOpen(false)}
                     >
-                      {/* BOOKS Cards */}
-                      {activeSection === "BOOKS" ? (
-                        <div
-                          className={`${bgColor} rounded-2xl p-4 shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 cursor-pointer`}
-                        >
-                          <div className="flex items-center justify-between gap-4">
-                            {/* Left Side Text */}
-                            <div className="flex-1">
-                              <h2
-                                className={`text-lg font-bold ${titleColor} mb-2 leading-snug flex items-center gap-2`}
-                              >
-                                {cat.title}
-                                {/* <span
+                      <div
+                        className={`${bgColor} rounded-2xl p-4 shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 cursor-pointer`}
+                      >
+                        <div className="flex items-center justify-between gap-4">
+                          {/* Left Side Text */}
+                          <div className="flex-1">
+                            <h2
+                              className={`text-lg font-bold ${titleColor} mb-2 leading-snug flex items-center gap-2`}
+                            >
+                              {cat.title}
+                              {/* <span
                                   className={`inline-block ${titleColor} bg-white rounded-full w-8 h-8 text-center leading-8 text-lg shadow-sm`}
                                 >
                                   {grade}
                                 </span> */}
-                              </h2>
-                              <p className="text-sm text-gray-700 line-clamp-3">
-                                {cat.description}
-                              </p>
-                            </div>
+                            </h2>
+                            <p className="text-sm text-gray-700 line-clamp-3">
+                              {cat.description}
+                            </p>
+                          </div>
 
-                            {/* Right Side Image */}
-                            <div className="flex-shrink-0">
-                              <Image
-                                width={180}
-                                height={220}
-                                src={`${process.env.NEXT_PUBLIC_BDS_FILE_BASE}${cat.pictures[0]}`}
-                                alt="books"
-                                className="w-24 h-36 md:w-28 md:h-40 lg:w-32 lg:h-44 object-contain rounded-lg hover:scale-105 transition-transform duration-300"
-                              />
-                            </div>
+                          {/* Right Side Image */}
+                          <div className="flex-shrink-0">
+                            <Image
+                              width={180}
+                              height={220}
+                              src={`${process.env.NEXT_PUBLIC_BDS_FILE_BASE}${cat.pictures[0]}`}
+                              alt="books"
+                              className="w-24 h-36 md:w-28 md:h-40 lg:w-32 lg:h-44 object-contain rounded-lg hover:scale-105 transition-transform duration-300"
+                            />
                           </div>
                         </div>
-                      ) : (
-                        // Other Packages Cards
-                        <ProductCard product={cat} type={"product"} />
-                      )}
+                      </div>
                     </Link>
+                  ) : (
+                    // Other Packages Cards
+                    <ProductCard product={cat} type={"product"} />
                   );
                 })}
               </div>

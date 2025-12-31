@@ -43,8 +43,7 @@ export default function BookHero({ product }) {
             />
 
             {product.book_pdf ? (
-              <Link href={`#`} className="btn">
-                {/* <Link href={`/books/${product.slug}/read`} className="btn"> */}
+              <Link href={`/books/${product.slug}/read`} className="btn">
                 View demo
               </Link>
             ) : (
