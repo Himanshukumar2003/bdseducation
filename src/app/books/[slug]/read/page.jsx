@@ -1,9 +1,10 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import PDFFlipbook from "./_component/pdf-flipbook";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import PDFFlipbook from "./_component/pdf-flipbook";
+import { Suspense } from "react";
 
 export default function BookPage() {
   const { slug } = useParams();
@@ -57,5 +58,9 @@ export default function BookPage() {
     );
   }
 
-  return <PDFFlipbook pdfUrl={pdfUrl} />;
+  return (
+    <Suspense fallback={"Loading..."}>
+      <PDFFlipbook pdfUrl={pdfUrl} />;
+    </Suspense>
+  );
 }
