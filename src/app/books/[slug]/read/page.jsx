@@ -3,8 +3,11 @@
 import { useParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import PDFFlipbook from "./_component/pdf-flipbook";
-import { Suspense } from "react";
+const PDFFlipbook = dynamic(() => import("./_component/pdf-flipbook"), {
+  ssr: false,
+  loading: "Loading",
+});
+import dynamic from "next/dynamic";
 
 export default function BookPage() {
   const { slug } = useParams();
@@ -58,9 +61,5 @@ export default function BookPage() {
     );
   }
 
-  return (
-    <Suspense fallback={"Loading..."}>
-      <PDFFlipbook pdfUrl={pdfUrl} />;
-    </Suspense>
-  );
+  return <PDFFlipbook pdfUrl={pdfUrl} />;
 }
