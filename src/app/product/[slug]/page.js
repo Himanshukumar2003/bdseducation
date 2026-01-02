@@ -34,7 +34,7 @@ export default async function BookPage({ params }) {
   return (
     <>
       <BookImageGallery bookImages={bookImages} product={product} />
-      {product?.related_products && (
+      {product?.content && (
         <div className="section bg-blue-50">
           <div className="max-w-7xl mx-auto py-5 px-4 container">
             <h2 className=" text-start text-4xl mb-4 font-bold ">

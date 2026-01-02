@@ -428,7 +428,11 @@ export default function Navbar() {
                     </Link>
                   ) : (
                     // Other Packages Cards
-                    <ProductCard product={cat} type={"product"} />
+                    <ProductCard
+                      product={cat}
+                      type={"product"}
+                      setIsSidebarOpen={setIsSidebarOpen}
+                    />
                   );
                 })}
               </div>

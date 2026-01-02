@@ -6,7 +6,7 @@ import { addItem, toggleCart } from "@/lib/features/slice";
 import Link from "next/link";
 import AddToCartButton from "./cart-button";
 
-export default function ProductCard({ product, type }) {
+export default function ProductCard({ product, type, setIsSidebarOpen }) {
   const {
     title,
     description,
@@ -25,6 +25,7 @@ export default function ProductCard({ product, type }) {
   return (
     <div className="bg-white relative rounded-3xl overflow-hidden shadow-lg transition-all duration-300 hover:-translate-y-3 hover:shadow-2xl h-full flex flex-col group">
       <Link
+        key={title}
         href={
           type === "package"
             ? `/atl-packages/${product.slug}`
@@ -80,6 +81,7 @@ export default function ProductCard({ product, type }) {
                   ? `/atl-packages/${product.slug}`
                   : `/product/${product.slug}`
               }
+              onClick={() => setIsSidebarOpen(false)}
               className="flex-1 bg-transparent text-gray-800 border-2 border-gray-200 px-6 py-3 rounded-full text-xs font-semibold uppercase tracking-wide transition-all duration-300 hover:bg-[var(--primary-800)] hover:text-white hover:border-[var(--primary-700)] hover:-translate-y-1"
             >
               READ MORE
