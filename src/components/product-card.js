@@ -73,7 +73,7 @@ export default function ProductCard({ product, type, setIsSidebarOpen }) {
           </span>
         </div>
 
-        <div className="flex justify-between items-center gap-4">
+        <div className="flex  justify-between items-center gap-4">
           <div>
             <Link
               href={
@@ -82,7 +82,7 @@ export default function ProductCard({ product, type, setIsSidebarOpen }) {
                   : `/product/${product.slug}`
               }
               onClick={() => setIsSidebarOpen(false)}
-              className="flex-1 bg-transparent text-gray-800 border-2 border-gray-200 px-6 py-3 rounded-full text-xs font-semibold uppercase tracking-wide transition-all duration-300 hover:bg-[var(--primary-800)] hover:text-white hover:border-[var(--primary-700)] hover:-translate-y-1"
+              className="flex-1    flex bg-transparent text-gray-800 border-2 border-gray-200 px-6 py-3 rounded-full text-xs font-semibold uppercase tracking-wide transition-all duration-300 hover:bg-[var(--primary-800)] hover:text-white hover:border-[var(--primary-700)] hover:-translate-y-1"
             >
               READ MORE
             </Link>
