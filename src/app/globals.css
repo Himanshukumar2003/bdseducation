@@ -146,6 +146,8 @@
 
   body {
     @apply bg-background text-foreground;
+      transition: overflow 0.2s ease;
+
   }
 }
 

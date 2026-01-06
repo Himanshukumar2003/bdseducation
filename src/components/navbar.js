@@ -192,6 +192,21 @@ export default function Navbar() {
           ? booksByCategory
           : [];
 
+  // scrool stop
+
+  useEffect(() => {
+    if (isSidebarOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+
+    // cleanup (important)
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [isSidebarOpen]);
+
   return (
     <div className="sticky top-0 nav   bg-white z-99">
       <div className="bg-header px-4 w-full mx-auto flex justify-between h-full lg:pr-8   ">
