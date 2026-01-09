@@ -40,7 +40,7 @@ export default function ShippingPolicy() {
               <div className="prose max-w-none">
                 {/* ORDER PROCESSING */}
                 <Section
-                  number="1.0"
+                  number="1"
                   title="Order Processing Time"
                   content={
                     <p className="text-gray-700 leading-relaxed">
@@ -53,7 +53,7 @@ export default function ShippingPolicy() {
 
                 {/* DELIVERY TIME */}
                 <Section
-                  number="2.0"
+                  number="2"
                   title="Shipping & Delivery Time"
                   content={
                     <p className="text-gray-700 leading-relaxed">
@@ -67,7 +67,7 @@ export default function ShippingPolicy() {
 
                 {/* SHIPPING CHARGES */}
                 <Section
-                  number="3.0"
+                  number="3"
                   title="Shipping Charges"
                   content={
                     <p className="text-gray-700 leading-relaxed">
@@ -79,7 +79,7 @@ export default function ShippingPolicy() {
 
                 {/* ORDER TRACKING */}
                 <Section
-                  number="4.0"
+                  number="4"
                   title="Order Tracking"
                   content={
                     <p className="text-gray-700 leading-relaxed">
@@ -92,7 +92,7 @@ export default function ShippingPolicy() {
 
                 {/* DELAYS & EXCEPTIONS */}
                 <Section
-                  number="5.0"
+                  number="5"
                   title="Delays & Exceptions"
                   content={
                     <>
@@ -117,7 +117,7 @@ export default function ShippingPolicy() {
 
                 {/* DELIVERY ATTEMPTS */}
                 <Section
-                  number="6.0"
+                  number="6"
                   title="Delivery Attempts"
                   content={
                     <p className="text-gray-700 leading-relaxed">
@@ -130,7 +130,7 @@ export default function ShippingPolicy() {
 
                 {/* DAMAGED OR MISSING ITEMS */}
                 <Section
-                  number="7.0"
+                  number="7"
                   title="Damaged or Missing Items"
                   content={
                     <p className="text-gray-700 leading-relaxed">

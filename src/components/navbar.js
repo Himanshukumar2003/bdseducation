@@ -24,6 +24,7 @@ import { getCartItems } from "@/services/cart-services";
 import config from "@/config";
 import { getNavMenu } from "@/services/nav-services";
 import Loader from "./loader";
+import { usePathname } from "next/navigation";
 import { fetchBooks } from "@/lib/features/productsSlice";
 import {
   Sheet,
@@ -54,6 +55,9 @@ export default function Navbar() {
   const dispatch = useDispatch();
   const { user } = useAuth();
   const isCartOpen = useSelector((state) => state.cart.isCartOpen);
+
+  const pathname = usePathname();
+
   const bgColors = [
     "bg-cyan-100",
     "bg-purple-100",
@@ -111,9 +115,9 @@ export default function Navbar() {
     { title: "Home", href: "/" },
     { title: "ATL Products", href: "/atl-packages" },
     { title: "Non ATL Products", hasSubmenu: true },
-    { title: "Smart Kits Combo", href: "/smart-Kits-combo" },
+    // { title: "Smart Kits Combo", href: "/smart-Kits-combo" },
     { title: "Books", hasSubmenu: true },
-    { title: "Web Recourse", href: "/web-recourse" },
+    // { title: "Web Recourse", href: "/web-recourse" },
     { title: "Become a Distributor", href: "/become-a-distributor" },
   ];
 
@@ -206,6 +210,14 @@ export default function Navbar() {
       document.body.style.overflow = "auto";
     };
   }, [isSidebarOpen]);
+
+  // back navgation off
+
+  useEffect(() => {
+    setIsSidebarOpen(false);
+    setActiveSection(null);
+    setActivePackage(null);
+  }, [pathname]);
 
   return (
     <div className="sticky top-0 nav   bg-white z-99">
@@ -335,7 +347,7 @@ export default function Navbar() {
       </div>
 
       {isSidebarOpen && (
-        <div className=" hidden lg:flex h-[600px]   overflow-hidden ">
+        <div className=" hidden lg:flex h-[calc(100vh-91.36px)]   overflow-hidden ">
           <div
             className={cn(
               "fixed md:static gap-0 w-[33vw] top-0 left-0 bg-[#003366] text-white z-50 custom-clip",
@@ -446,6 +458,7 @@ export default function Navbar() {
                     <ProductCard
                       product={cat}
                       type={"product"}
+                      key={cat.id}
                       setIsSidebarOpen={setIsSidebarOpen}
                     />
                   );

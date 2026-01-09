@@ -18,7 +18,7 @@ export function AuthorSidebar() {
               {
                 title:
                   "Knowledge Through Projects – Learning That Stays for Life",
-                image: "/images/hero-2.png",
+                image: "/images/blog/Picture1.png",
                 slug: "/blog/knowledge-through-projects",
                 des: "Introduction: The Problem with “Remembering Without Doing",
               },

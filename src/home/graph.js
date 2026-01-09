@@ -18,7 +18,7 @@ const images = [
     date: "Oct 17, 2025",
     author: "ADMIN",
     category: "EDUCATION",
-    img: "/images/blog/Picture2.png",
+    img: "/images/blog/Picture3.png",
     slug: "/blog/teach-it-yourself",
   },
   {
@@ -27,7 +27,7 @@ const images = [
     date: "Oct 17, 2025",
     author: "ADMIN",
     category: "EDUCATION",
-    img: "/images/blog/Picture3.png",
+    img: "/images/blog/Picture2.png",
     slug: "/blog/from-learners-to-makers",
   },
   {
@@ -45,7 +45,7 @@ const images = [
     date: "Oct 17, 2025",
     author: "ADMIN",
     category: "EDUCATION",
-    img: "/images/blog/Picture2.png",
+    img: "/images/blog/Picture3.png",
     slug: "/blog/teach-it-yourself",
   },
   {
@@ -54,7 +54,7 @@ const images = [
     date: "Oct 17, 2025",
     author: "ADMIN",
     category: "EDUCATION",
-    img: "/images/blog/Picture3.png",
+    img: "/images/blog/Picture2.png",
     slug: "/blog/from-learners-to-makers",
   },
 ];

@@ -47,7 +47,7 @@ export default function App() {
             <div className="px-8 py-10">
               <div className="prose max-w-none">
                 <Section
-                  number="3.1"
+                  number="1"
                   title="Acceptance of Terms"
                   content={
                     <p className="text-gray-700 leading-relaxed">
@@ -67,7 +67,7 @@ export default function App() {
                 />
 
                 <Section
-                  number="3.2"
+                  number="2"
                   title="Eligibility"
                   content={
                     <p className="text-gray-700 leading-relaxed">
@@ -82,7 +82,7 @@ export default function App() {
                 />
 
                 <Section
-                  number="3.3"
+                  number="3"
                   title="Product Orders & Payments"
                   content={
                     <ul className="space-y-3 text-gray-700 leading-relaxed">
@@ -105,7 +105,7 @@ export default function App() {
                 />
 
                 <Section
-                  number="3.4"
+                  number="4"
                   title="Shipping & Delivery"
                   content={
                     <ul className="space-y-3 text-gray-700 leading-relaxed">
@@ -125,7 +125,7 @@ export default function App() {
                 />
 
                 <Section
-                  number="3.5"
+                  number="5"
                   title="Use of Products & Training"
                   content={
                     <ul className="space-y-3 text-gray-700 leading-relaxed">
@@ -145,7 +145,7 @@ export default function App() {
                 />
 
                 <Section
-                  number="3.6"
+                  number="6"
                   title="Intellectual Property"
                   content={
                     <ul className="space-y-3 text-gray-700 leading-relaxed">
@@ -165,7 +165,7 @@ export default function App() {
                 />
 
                 <Section
-                  number="3.7"
+                  number="7"
                   title="Limitation of Liability & Disclaimer"
                   content={
                     <ul className="space-y-3 text-gray-700 leading-relaxed">
@@ -186,7 +186,7 @@ export default function App() {
                 />
 
                 <Section
-                  number="3.8"
+                  number="8"
                   title="Governing Law & Dispute Resolution"
                   content={
                     <ul className="space-y-3 text-gray-700 leading-relaxed">
@@ -206,7 +206,7 @@ export default function App() {
                 />
 
                 <Section
-                  number="3.9"
+                  number="9"
                   title="Modifications to Terms"
                   content={
                     <p className="text-gray-700 leading-relaxed">
@@ -220,7 +220,7 @@ export default function App() {
                 />
 
                 <Section
-                  number="3.10"
+                  number="10"
                   title="Severability & Waiver"
                   content={
                     <p className="text-gray-700 leading-relaxed">
@@ -235,7 +235,7 @@ export default function App() {
                 />
 
                 <Section
-                  number="3.11"
+                  number="11"
                   title="Entire Agreement"
                   content={
                     <p className="text-gray-700 leading-relaxed">
@@ -252,7 +252,7 @@ export default function App() {
                 <div className="mt-12 bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-8 border-2 border-blue-200">
                   <h3 className="text-2xl font-bold text-blue-900 mb-6 flex items-center gap-2">
                     <span className="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">
-                      3.12
+                      12
                     </span>
                     Contact Details
                   </h3>

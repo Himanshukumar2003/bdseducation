@@ -44,7 +44,7 @@ export default function ReturnRefundPolicy() {
             <div className="px-8 py-10">
               <div className="prose max-w-none">
                 <Section
-                  number="2.1"
+                  number="1"
                   title="Scope"
                   content={
                     <p className="text-gray-700 leading-relaxed">
@@ -56,7 +56,7 @@ export default function ReturnRefundPolicy() {
                 />
 
                 <Section
-                  number="2.2"
+                  number="2"
                   title="Return Eligibility"
                   content={
                     <ul className="space-y-3 text-gray-700 leading-relaxed">
@@ -113,7 +113,7 @@ export default function ReturnRefundPolicy() {
                 />
 
                 <Section
-                  number="2.3"
+                  number="3"
                   title="Non-Returnable Items"
                   content={
                     <div>
@@ -161,7 +161,7 @@ export default function ReturnRefundPolicy() {
                 />
 
                 <Section
-                  number="2.4"
+                  number="4"
                   title="Refunds"
                   content={
                     <ul className="space-y-3 text-gray-700 leading-relaxed">
@@ -213,7 +213,7 @@ export default function ReturnRefundPolicy() {
                 />
 
                 <Section
-                  number="2.5"
+                  number="5"
                   title="Replacement/Exchange"
                   content={
                     <>
@@ -240,7 +240,7 @@ export default function ReturnRefundPolicy() {
                 />
 
                 <Section
-                  number="2.6"
+                  number="6"
                   title="Shipping Returns"
                   content={
                     <ul className="space-y-3 text-gray-700 leading-relaxed">
@@ -270,7 +270,7 @@ export default function ReturnRefundPolicy() {
                 />
 
                 <Section
-                  number="2.7"
+                  number="7"
                   title="Late or Missing Refunds"
                   content={
                     <div>

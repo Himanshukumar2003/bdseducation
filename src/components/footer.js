@@ -8,8 +8,10 @@ import {
   Mail,
   YoutubeIcon,
 } from "lucide-react";
+
 import Image from "next/image";
 import Link from "next/link";
+import { BsDot } from "react-icons/bs";
 
 export default function Footer() {
   return (
@@ -158,22 +160,22 @@ export default function Footer() {
                   Non ATL Products
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link href="/smart-Kits-combo" className="text-white">
                   Smart Kits Combo
                 </Link>
-              </li>
+              </li> */}
               <li>
                 <Link href="/books" className="text-white ">
                   Books
                 </Link>
               </li>
 
-              <li>
+              {/* <li>
                 <Link href="/web-recourse" className="text-white ">
                   Web Recourse
                 </Link>
-              </li>
+              </li> */}
 
               <li>
                 <Link href="/become-a-distributor" className="text-white ">
@@ -210,34 +212,53 @@ export default function Footer() {
             <h3 className="text-lg font-semibold text-white mb-4">Contact</h3>
             <div className="space-y-4">
               {/* Dayalbagh Address */}
+
               <div>
                 <p className="mb-4">
                   <b>BHARAT DRONE SYSTEMS PVT. LTD.</b>
                 </p>
 
-                <div className="flex  items-start gap-3 mb-4">
-                  <MapPin className="w-5 h-5 text-white mt-0.5 flex-shrink-0" />
-                  <h5>INDIA</h5>
-                </div>
-                <p className="text-sm text-white mb-2">
-                  Near St Columbus School Gate No.2, SCO-12, 1st Floor,
-                  Dayalbagh, Surajkund, Faridabad - 121009
-                </p>
+                {/* INDIA */}
+                <div className="mb-4">
+                  <div className="flex items-start gap-3 mb-2">
+                    <MapPin className="w-5 h-5 text-white mt-0.5 flex-shrink-0" />
+                    <h5>INDIA</h5>
+                  </div>
 
-                <p> 772, Sector -14, Faridabad, Haryana - 121007</p>
+                  <div className="">
+                    <div className="flex items-start gap-1 mb-2">
+                      <BsDot className="text-white text-3xl -mt-1 flex-shrink-0" />
+                      <p className="text-sm text-white">
+                        Near St Columbus School Gate No.2, SCO-12, 1st Floor,
+                        Dayalbagh, Surajkund, Faridabad - 121009
+                      </p>
+                    </div>
+
+                    <div className="flex items-start gap-1">
+                      <BsDot className="text-white text-3xl -mt-1 flex-shrink-0" />
+                      <p className="text-sm text-white">
+                        772, Sector -14, Faridabad, Haryana - 121007
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
 
-              {/* Sec 14 Address */}
-
-              {/* Sydney Address */}
-              <div>
-                <div className="flex  items-start gap-3 mb-4">
+              {/* AUSTRALIA */}
+              <div className="mt-6">
+                <div className="flex items-start gap-3 mb-2">
                   <MapPin className="w-5 h-5 text-white mt-0.5 flex-shrink-0" />
                   <h5>Australia</h5>
                 </div>
-                <p className="text-sm text-white">
-                  1/25, Park Avenue, Tahmoor, NSW, Sydney Australia
-                </p>
+
+                <div className="">
+                  <div className="flex items-start gap-1">
+                    <BsDot className="text-white text-3xl -mt-1 flex-shrink-0" />
+                    <p className="text-sm text-white">
+                      1/25, Park Avenue, Tahmoor, NSW, Sydney Australia
+                    </p>
+                  </div>
+                </div>
               </div>
 
               {/* Phone Numbers */}

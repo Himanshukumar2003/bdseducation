@@ -18,7 +18,7 @@ const blogPosts = [
     date: "Oct 17, 2025",
     author: "ADMIN",
     category: "EDUCATION",
-    image: "/images/blog/Picture2.png",
+    image: "/images/blog/Picture3.png",
     slug: "/blog/teach-it-yourself",
   },
   {
@@ -28,7 +28,7 @@ const blogPosts = [
     date: "Oct 17, 2025",
     author: "ADMIN",
     category: "EDUCATION",
-    image: "/images/blog/Picture3.png",
+    image: "/images/blog/Picture2.png",
     slug: "/blog/from-learners-to-makers",
   },
 ];

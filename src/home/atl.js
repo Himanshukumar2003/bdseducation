@@ -125,10 +125,9 @@ export default function AtlProductLine() {
         </div>
       </section>
 
-      <section className="section bg-blue-50">
+      {/* <section className="section bg-blue-50">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid md:grid-cols-2 gap-12 lg:gap-16 items-center">
-            {/* Image Column - Left Side */}
             <div className="flex justify-center order-2 md:order-1">
               <div className="relative w-full max-w-md">
                 <Image
@@ -142,7 +141,6 @@ export default function AtlProductLine() {
               </div>
             </div>
 
-            {/* Content Column - Right Side */}
             <div className="space-y-4 order-1 md:order-2">
               <div className="space-y-4">
                 <h2 className="text-3xl sm:text-4xl font-bold text-balance">
@@ -167,7 +165,7 @@ export default function AtlProductLine() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
     </>
   );
 }

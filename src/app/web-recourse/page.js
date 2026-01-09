@@ -25,7 +25,7 @@ export default function Products() {
   return (
     <>
       <Breadcrumb
-        title="Web Recourse"
+        title="Web Recourse "
         backgroundImage="/img/header1.webp"
         items={[
           {

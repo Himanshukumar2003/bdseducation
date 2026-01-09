@@ -1,5 +1,6 @@
 import { Phone, Mail, MapPin } from "lucide-react";
 import Image from "next/image";
+import { BsDot } from "react-icons/bs";
 
 export function ContactSection() {
   return (
@@ -70,29 +71,47 @@ export function ContactSection() {
               </p>
             </div>
 
-            {/* Address */}
             <div className="sm:col-span-2">
-              <div className="flex items-center gap-2 text-black mb-2">
+              <div className="flex items-center gap-2 text-black mb-3">
                 <MapPin className="w-5 h-5" />
                 <span className="font-semibold">Our Locations</span>
               </div>
-              <div className=" mb-2">
-                <p>
-                  <span className="text-gray-700 font-semibold"> INDIA : </span>{" "}
-                  Near St Columbus School Gate No.2, SCO-12, 1st Floor,
-                  Dayalbagh, Surajkund, Faridabad – 121009
-                </p>
-                <p className="mt-2">
-                  772, Sector-14, Faridabad, Haryana – 121007{" "}
-                </p>
+
+              {/* INDIA */}
+              <div className="mb-4">
+                <div className="flex items-center gap-2 font-semibold text-gray-700">
+                  <span>INDIA</span>
+                </div>
+
+                <div className="mt-2 pl-2">
+                  <div className="flex items-start gap-1">
+                    <BsDot className="text-3xl -mt-1 flex-shrink-0" />
+                    <p>
+                      Near St Columbus School Gate No.2, SCO-12, 1st Floor,
+                      Dayalbagh, Surajkund, Faridabad – 121009
+                    </p>
+                  </div>
+
+                  <div className="flex items-start gap-1">
+                    <BsDot className="text-3xl -mt-1 flex-shrink-0" />
+                    <p>772, Sector-14, Faridabad, Haryana – 121007</p>
+                  </div>
+                </div>
               </div>
 
-              <p className="flex gap-2">
-                <span className="font-semibold text-gray-700">Australia:</span>
-                <span className="">
-                  1/25, Park Avenue, Tahmoor, NSW, Sydney Australia
-                </span>
-              </p>
+              {/* AUSTRALIA */}
+              <div>
+                <div className="flex items-center gap-2 font-semibold text-gray-700">
+                  <span>Australia</span>
+                </div>
+
+                <div className="mt-2 pl-2">
+                  <div className="flex items-start gap-1">
+                    <BsDot className="text-3xl -mt-1 flex-shrink-0" />
+                    <p>1/25, Park Avenue, Tahmoor, NSW, Sydney Australia</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

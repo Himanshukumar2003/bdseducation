@@ -74,8 +74,8 @@ export default function MobileMenu({ setMobileNav, user }) {
   const quickLinks = [
     { title: "Home", slug: "/" },
     { title: "ATL Products", slug: "/atl-packages" },
-    { title: "Smart Kits Combo", slug: "/smart-Kits-combo" },
-    { title: "Web Recourse", slug: "/web-recourse" },
+    // { title: "Smart Kits Combo", slug: "/smart-Kits-combo" },
+    // { title: "Web Recourse", slug: "/web-recourse" },
     { title: "Become a Distributor", slug: "/become-a-distributor" },
   ];
 
