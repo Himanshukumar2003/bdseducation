@@ -9,7 +9,7 @@ export default function PrivacyPolicy() {
         title="Privacy Policy
 
         "
-        backgroundImage="/img/header1.webp"
+        backgroundImage="/img/headerwebp"
         items={[
           {
             label: "Privacy Policy",
@@ -43,17 +43,17 @@ export default function PrivacyPolicy() {
 
             <div className="px-8 py-10">
               <div className="prose max-w-none">
-                {/* 1.1 */}
+                {/* 1 */}
                 <Section
-                  number="1.1"
+                  number="1"
                   title="Information We Collect"
                   content={
                     <ul className="space-y-3 text-gray-700 leading-relaxed">
                       <li className="flex gap-3">
                         <div>
-                            <CheckCircle className="text-sm text-blue-600 mt-0.5" />
-                          </div>
-                        
+                          <CheckCircle className="text-sm text-blue-600 mt-0.5" />
+                        </div>
+
                         <span>
                           <strong>Personal Information you provide:</strong>{" "}
                           When you contact us via forms, become a distributor,
@@ -65,8 +65,8 @@ export default function PrivacyPolicy() {
                       </li>
                       <li className="flex gap-3">
                         <div>
-                            <CheckCircle className="text-sm text-blue-600 mt-0.5" />
-                          </div>
+                          <CheckCircle className="text-sm text-blue-600 mt-0.5" />
+                        </div>
                         <span>
                           <strong>Payment & Order Information:</strong> If you
                           make purchases via the Site, we collect billing &
@@ -76,8 +76,8 @@ export default function PrivacyPolicy() {
                       </li>
                       <li className="flex gap-3">
                         <div>
-                            <CheckCircle className="text-sm text-blue-600 mt-0.5" />
-                          </div>
+                          <CheckCircle className="text-sm text-blue-600 mt-0.5" />
+                        </div>
                         <span>
                           <strong>Automatically Collected Information:</strong>{" "}
                           We may automatically collect device and usage
@@ -89,8 +89,8 @@ export default function PrivacyPolicy() {
                       </li>
                       <li className="flex gap-3">
                         <div>
-                            <CheckCircle className="text-sm text-blue-600 mt-0.5" />
-                          </div>
+                          <CheckCircle className="text-sm text-blue-600 mt-0.5" />
+                        </div>
                         <span>
                           <strong>Cookies & Tracking Technologies:</strong> We
                           use cookies, web beacons, pixels or similar tracking
@@ -102,9 +102,9 @@ export default function PrivacyPolicy() {
                   }
                 />
 
-                {/* 1.2 */}
+                {/* 2 */}
                 <Section
-                  number="1.2"
+                  number="2"
                   title="How We Use Your Information"
                   content={
                     <>
@@ -169,9 +169,9 @@ export default function PrivacyPolicy() {
                   }
                 />
 
-                {/* 1.3 */}
+                {/* 3 */}
                 <Section
-                  number="1.3"
+                  number="3"
                   title="How We Share Your Information"
                   content={
                     <>
@@ -216,16 +216,16 @@ export default function PrivacyPolicy() {
                   }
                 />
 
-                {/* 1.4 */}
+                {/* 4 */}
                 <Section
-                  number="1.4"
+                  number="4"
                   title="Your Choices & Rights"
                   content={
                     <ul className="space-y-3 text-gray-700 leading-relaxed">
                       <li className="flex gap-3">
                         <div>
-                            <CheckCircle className="text-sm text-blue-600 mt-0.5" />
-                          </div>
+                          <CheckCircle className="text-sm text-blue-600 mt-0.5" />
+                        </div>
                         <span>
                           You may opt-out of receiving marketing emails from us
                           at any time by following the unsubscribe link in those
@@ -234,8 +234,8 @@ export default function PrivacyPolicy() {
                       </li>
                       <li className="flex gap-3">
                         <div>
-                            <CheckCircle className="text-sm text-blue-600 mt-0.5" />
-                          </div>
+                          <CheckCircle className="text-sm text-blue-600 mt-0.5" />
+                        </div>
                         <span>
                           You may access, correct, update or request deletion of
                           your personal information by contacting us. We will
@@ -244,8 +244,8 @@ export default function PrivacyPolicy() {
                       </li>
                       <li className="flex gap-3">
                         <div>
-                            <CheckCircle className="text-sm text-blue-600 mt-0.5" />
-                          </div>
+                          <CheckCircle className="text-sm text-blue-600 mt-0.5" />
+                        </div>
                         <span>
                           <strong>Cookies:</strong> Most web browsers are set to
                           accept cookies by default; you can modify your browser
@@ -258,9 +258,9 @@ export default function PrivacyPolicy() {
                   }
                 />
 
-                {/* 1.5 */}
+                {/* 5 */}
                 <Section
-                  number="1.5"
+                  number="5"
                   title="Security & Retention"
                   content={
                     <div>
@@ -283,9 +283,9 @@ export default function PrivacyPolicy() {
                   }
                 />
 
-                {/* 1.6 */}
+                {/* 6 */}
                 <Section
-                  number="1.6"
+                  number="6"
                   title="Children's Privacy"
                   content={
                     <p className="text-gray-700 leading-relaxed">
@@ -300,9 +300,9 @@ export default function PrivacyPolicy() {
                   }
                 />
 
-                {/* 1.7 */}
+                {/* 7 */}
                 <Section
-                  number="1.7"
+                  number="7"
                   title="International Transfers"
                   content={
                     <p className="text-gray-700 leading-relaxed">
@@ -314,9 +314,9 @@ export default function PrivacyPolicy() {
                   }
                 />
 
-                {/* 1.8 */}
+                {/* 8 */}
                 <Section
-                  number="1.8"
+                  number="8"
                   title="Changes to This Policy"
                   content={
                     <p className="text-gray-700 leading-relaxed">
@@ -327,9 +327,9 @@ export default function PrivacyPolicy() {
                   }
                 />
 
-                {/* 1.9 Contact Us */}
+                {/* 9 Contact Us */}
                 <Section
-                  number="1.9"
+                  number="9"
                   title="Contact Us"
                   content={
                     <div className="space-y-4 text-gray-700 leading-relaxed">

@@ -48,6 +48,9 @@ export function OrdersDetails({ orders }) {
               <th className="px-6 py-3 font-semibold tracking-wide">Date</th>
               <th className="px-6 py-3 font-semibold tracking-wide">Total</th>
               <th className="px-6 py-3 font-semibold tracking-wide">Status</th>
+              <th className="px-6 py-3 font-semibold tracking-wide  ">
+                Invoice
+              </th>
             </tr>
           </thead>
 
@@ -91,12 +94,11 @@ export function OrdersDetails({ orders }) {
                   >
                     {order.order_status}
                   </Badge>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
                   <Link
                     href={`/dashboard/orders/${order.id}/invoice`}
-                    className={cn(
-                      "text-xs font-medium px-3 py-1 rounded-full shadow-sm capitalize",
-                      statusMap[order.order_status] || statusMap.pending
-                    )}
+                    className="text-xs font-medium px-3 py-1 rounded-full shadow-sm bg-blue-500 text-white"
                   >
                     Download invoice
                   </Link>
