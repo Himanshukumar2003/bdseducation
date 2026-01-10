@@ -91,6 +91,15 @@ export function OrdersDetails({ orders }) {
                   >
                     {order.order_status}
                   </Badge>
+                  <Link
+                    href={`/dashboard/orders/${order.id}/invoice`}
+                    className={cn(
+                      "text-xs font-medium px-3 py-1 rounded-full shadow-sm capitalize",
+                      statusMap[order.order_status] || statusMap.pending
+                    )}
+                  >
+                    Download invoice
+                  </Link>
                 </td>
               </tr>
             ))}

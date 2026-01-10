@@ -4,6 +4,8 @@ export const endpoints = {
     signup: "/auth/signup",
     refresh: "/auth/refresh",
     username: "/auth/username",
+    forgotPassword: "/auth/forgot-password",
+    resetPassword: "/auth/reset-password",
   },
   profile: "/users/me",
   files: {

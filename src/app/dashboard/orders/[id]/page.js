@@ -20,6 +20,7 @@ import Image from "next/image";
 import { useParams } from "next/navigation";
 import Loader from "@/components/loader";
 import Card from "@/components/productsCardTwo";
+import Link from "next/link";
 
 const STATUS_STEPS = [
   { label: "Order Accepted", icon: ClipboardCheck },
@@ -51,6 +52,7 @@ export default function OrderDetailsPage({}) {
 
   const orderData = data?.data;
   const items = orderData?.items || [];
+  console.log(orderData);
 
   if (!items.length) {
     return <p className="p-6 text-red-500">No items found for this order</p>;
@@ -60,10 +62,6 @@ export default function OrderDetailsPage({}) {
   const currentStatusIndex = STATUS_STEPS.findIndex(
     (step) => step.label.toLowerCase() === currentStatus?.toLowerCase()
   );
-
-  const handleDownloadInvoice = () => {
-    alert("Invoice download demo! Implement actual PDF download here.");
-  };
 
   return (
     <div className="min-h-screen bg-gray-50 py-8 px-4 section">
@@ -96,13 +94,13 @@ export default function OrderDetailsPage({}) {
                 <></>
               ) : (
                 <div className="flex flex-col sm:flex-row gap-3">
-                  <button
-                    onClick={handleDownloadInvoice}
+                  <Link
+                    href={`/dashboard/orders/${order?.data?.id}/invoice`}
                     className="btn flex gap-2 w-full text-nowrap"
                   >
                     <Download className="w-4 h-4 mr-2" />
                     Download Invoice
-                  </button>
+                  </Link>
                 </div>
               )}
             </div>
