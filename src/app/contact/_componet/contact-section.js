@@ -66,7 +66,7 @@ export function ContactSection() {
               <p className="flex gap-2">
                 <span className="font-semibold">Wasim:</span>
                 <span className="text-gray-700 hover:underline cursor-pointer">
-                  Wasim.khan@bdseducation.in
+                  Wasim.khan@bdseducation.inh
                 </span>
               </p>
             </div>

@@ -6,6 +6,8 @@ export const endpoints = {
     username: "/auth/username",
     forgotPassword: "/auth/forgot-password",
     resetPassword: "/auth/reset-password",
+    forgotUsername: "/auth/forgot-username",
+    resetUsername: "/auth/reset-username",
   },
   profile: "/users/me",
   files: {

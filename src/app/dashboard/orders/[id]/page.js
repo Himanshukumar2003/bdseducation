@@ -6,6 +6,10 @@ import { getOrder, getOrderItems } from "@/services/order-services";
 import { MdOutlineDirectionsTransitFilled } from "react-icons/md";
 import { TbTruckDelivery } from "react-icons/tb";
 import { FaCheck } from "react-icons/fa6";
+import { useMutation } from "@tanstack/react-query";
+import http from "@/utils/http";
+import { endpoints } from "@/utils/endpoints";
+
 import {
   Package,
   Calendar,
@@ -15,6 +19,7 @@ import {
   PackageSearch,
   BookX,
   CircleX,
+  Loader2,
 } from "lucide-react";
 import Image from "next/image";
 import { useParams } from "next/navigation";
@@ -45,6 +50,29 @@ export default function OrderDetailsPage({}) {
   } = useQuery({
     queryKey: ["orders", id],
     queryFn: () => getOrder(id),
+  });
+  const invoiceMutation = useMutation({
+    mutationFn: async (orderId) => {
+      return http().post(
+        `${endpoints.orders.getAll}/${orderId}/invoice`,
+        {},
+        false,
+        "arraybuffer"
+      );
+    },
+    onSuccess: (data, orderId) => {
+      const blob = new Blob([data], { type: "application/pdf" });
+      const url = window.URL.createObjectURL(blob);
+
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `Invoice-${orderId}.pdf`;
+      document.body.appendChild(a);
+      a.click();
+
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+    },
   });
 
   if (isLoading) return <Loader></Loader>;
@@ -94,13 +122,27 @@ export default function OrderDetailsPage({}) {
                 <></>
               ) : (
                 <div className="flex flex-col sm:flex-row gap-3">
-                  <Link
-                    href={`/dashboard/orders/${order?.data?.id}/invoice`}
-                    className="btn flex gap-2 w-full text-nowrap"
+                  <button
+                    onClick={() => invoiceMutation.mutate(order?.data?.id)}
+                    disabled={invoiceMutation.isLoading}
+                    className={`btn flex items-center gap-2 w-full text-nowrap ${
+                      invoiceMutation.isLoading
+                        ? "opacity-70 cursor-not-allowed"
+                        : ""
+                    }`}
                   >
-                    <Download className="w-4 h-4 mr-2" />
-                    Download Invoice
-                  </Link>
+                    {invoiceMutation.isLoading ? (
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        Downloading...
+                      </>
+                    ) : (
+                      <>
+                        <Download className="w-4 h-4" />
+                        Download Invoice
+                      </>
+                    )}
+                  </button>
                 </div>
               )}
             </div>

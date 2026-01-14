@@ -1,10 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+import { useMutation } from "@tanstack/react-query";
+import http from "@/utils/http";
+import { endpoints } from "@/utils/endpoints";
 
 const statusMap = {
   completed: "bg-green-100 text-green-700",
@@ -16,6 +19,54 @@ const ORDERS_PER_PAGE = 5;
 
 export function OrdersDetails({ orders }) {
   const [page, setPage] = useState(1);
+  const [id, setId] = useState(null);
+
+  const { data, mutate } = useMutation({
+    mutationFn: async () => {
+      const data = await http().post(
+        `${endpoints.orders.getAll}/${id}/invoice`,
+        {},
+        false,
+        "arraybuffer"
+      );
+      return data;
+    },
+  });
+
+  useEffect(() => {
+    if (data) {
+      console.log({ data });
+      try {
+        let binaryData;
+
+        if (typeof data === "string") {
+          binaryData = new Uint8Array(
+            data.split("").map((char) => char.charCodeAt(0))
+          );
+        } else {
+          binaryData = data;
+        }
+
+        const blob = new Blob([binaryData], { type: "application/pdf" });
+
+        if (blob.size === 0) {
+          console.error("PDF blob is empty!");
+          return;
+        }
+
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `Invoice-${Date.now()}.pdf`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
+      } catch (error) {
+        console.error("Error downloading PDF:", error);
+      }
+    }
+  }, [data, id]);
 
   if (!orders || orders.length === 0) {
     return (
@@ -96,12 +147,17 @@ export function OrdersDetails({ orders }) {
                   </Badge>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <Link
-                    href={`/dashboard/orders/${order.id}/invoice`}
+                  <Button
+                    type="button"
+                    // href={`/dashboard/orders/${order.id}/invoice`}
                     className="text-xs font-medium px-3 py-1 rounded-full shadow-sm bg-blue-500 text-white"
+                    onClick={() => {
+                      setId(order.id);
+                      mutate({});
+                    }}
                   >
                     Download invoice
-                  </Link>
+                  </Button>
                 </td>
               </tr>
             ))}

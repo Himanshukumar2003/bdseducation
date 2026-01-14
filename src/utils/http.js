@@ -50,11 +50,19 @@ const http = (headerType = "json", baseURL = API_ROOT) => {
     return client.get(path).then((response) => response.data);
   }
 
-  async function post(path, payload, isFormData = false) {
+  async function post(path, payload, isFormData = false, responseType = null) {
     let config = {};
+
     if (isFormData) {
       config.headers = { "Content-Type": "multipart/form-data" };
     }
+
+    if (responseType) {
+      config.responseType = responseType;
+      // Don't transform binary responses
+      config.transformResponse = [(data) => data];
+    }
+
     return client.post(path, payload, config).then((response) => {
       return response.data;
     });

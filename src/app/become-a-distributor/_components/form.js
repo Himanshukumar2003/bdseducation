@@ -1,123 +1,186 @@
 "use client";
 
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+
+export const distributorInquirySchema = z.object({
+  first_name: z
+    .string()
+    .trim()
+    .min(1, "First name is required")
+    .max(50, "First name is too long"),
+
+  last_name: z
+    .string()
+    .trim()
+    .min(1, "Last name is required")
+    .max(50, "Last name is too long"),
+
+  email: z
+    .string()
+    .trim()
+    .email("Invalid email address")
+    .max(100, "Email is too long"),
+
+  phone: z
+    .string()
+    .trim()
+    .min(7, "Phone number is too short")
+    .max(15, "Phone number is too long")
+    .regex(/^[0-9+\-\s()]+$/, "Invalid phone number"),
+
+  city: z
+    .string()
+    .trim()
+    .min(2, "City is required")
+    .max(50, "City name is too long"),
+
+  message: z.string().trim().max(500, "Message is too long").optional(),
+});
 
 export default function Distributor() {
-  const [formData, setFormData] = useState({
-    fullName: "",
-    email: "",
-    phone: "",
-    city: "",
-    message: "",
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm({
+    resolver: zodResolver(distributorInquirySchema),
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+  const onSubmit = async (data) => {
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BDS_API_URL}/distributor-inquiries`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    alert("Form submitted! Check console for details.");
+      if (!response.ok) {
+        throw new Error("Failed to submit");
+      }
+
+      alert("Distributor inquiry submitted successfully");
+      reset();
+    } catch (error) {
+      console.error(error);
+      alert("Something went wrong. Please try again.");
+    }
   };
 
   return (
-    <div className="w-full shadow-none relative ">
-      <div className="rounded-lg">
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="block text-xs font-semibold text-slate-700 uppercase mb-2">
-                First Name
-              </label>
-              <input
-                type="text"
-                name="fullName"
-                value={formData.fullName}
-                onChange={handleChange}
-                placeholder="Amit"
-                className="w-full px-3 py-2 border border-slate-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-                required
-              />
-            </div>
-            <div>
-              <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wide mb-2">
-                Last Name
-              </label>
-              <input
-                type="text"
-                placeholder="Verma"
-                className="w-full px-3 py-2 border border-slate-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-              />
-            </div>
-          </div>
-
+    <div className="w-full">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+        {/* FIRST + LAST NAME */}
+        <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wide mb-2">
-              Email Address
+            <label className="block text-xs font-semibold uppercase mb-2">
+              First Name
             </label>
             <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="amit.verma@example.in"
-              className="w-full px-3 py-2 border border-slate-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-              required
+              {...register("first_name")}
+              placeholder="Amit"
+              className="w-full px-3 py-2 border rounded text-sm"
             />
+            {errors.first_name && (
+              <p className="text-red-500 text-xs mt-1">
+                {errors.first_name.message}
+              </p>
+            )}
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wide mb-2">
-              Phone Number
+            <label className="block text-xs font-semibold uppercase mb-2">
+              Last Name
             </label>
             <input
-              type="tel"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              placeholder="+91 98765 43210"
-              className="w-full px-3 py-2 border border-slate-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-              required
+              {...register("last_name")}
+              placeholder="Verma"
+              className="w-full px-3 py-2 border rounded text-sm"
             />
+            {errors.last_name && (
+              <p className="text-red-500 text-xs mt-1">
+                {errors.last_name.message}
+              </p>
+            )}
           </div>
+        </div>
 
-          <div>
-            <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wide mb-2">
-              City
-            </label>
-            <input
-              type="text"
-              name="city"
-              value={formData.city}
-              onChange={handleChange}
-              placeholder="Mumbai"
-              className="w-full px-3 py-2 border border-slate-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-              required
-            />
-          </div>
+        {/* EMAIL */}
+        <div>
+          <label className="block text-xs font-semibold uppercase mb-2">
+            Email Address
+          </label>
+          <input
+            {...register("email")}
+            type="email"
+            placeholder="amit.verma@example.in"
+            className="w-full px-3 py-2 border rounded text-sm"
+          />
+          {errors.email && (
+            <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>
+          )}
+        </div>
 
-          <div>
-            <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wide mb-2">
-              Message
-            </label>
-            <textarea
-              name="message"
-              value={formData.message}
-              onChange={handleChange}
-              placeholder="Message"
-              rows={4}
-              className="w-full px-3 py-2 border border-slate-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent resize-none"
-              required
-            />
-          </div>
+        {/* PHONE */}
+        <div>
+          <label className="block text-xs font-semibold uppercase mb-2">
+            Phone Number
+          </label>
+          <input
+            {...register("phone")}
+            placeholder="+91 9876543210"
+            className="w-full px-3 py-2 border rounded text-sm"
+          />
+          {errors.phone && (
+            <p className="text-red-500 text-xs mt-1">{errors.phone.message}</p>
+          )}
+        </div>
 
-          <Button type="submit" className="btn">
-            Submit
-          </Button>
-        </form>
-      </div>
+        {/* CITY */}
+        <div>
+          <label className="block text-xs font-semibold uppercase mb-2">
+            City
+          </label>
+          <input
+            {...register("city")}
+            placeholder="Mumbai"
+            className="w-full px-3 py-2 border rounded text-sm"
+          />
+          {errors.city && (
+            <p className="text-red-500 text-xs mt-1">{errors.city.message}</p>
+          )}
+        </div>
+
+        {/* MESSAGE */}
+        <div>
+          <label className="block text-xs font-semibold uppercase mb-2">
+            Message
+          </label>
+          <textarea
+            {...register("message")}
+            rows={4}
+            placeholder="Your message (optional)"
+            className="w-full px-3 py-2 border rounded text-sm resize-none"
+          />
+          {errors.message && (
+            <p className="text-red-500 text-xs mt-1">
+              {errors.message.message}
+            </p>
+          )}
+        </div>
+
+        <Button type="submit" disabled={isSubmitting}>
+          {isSubmitting ? "Submitting..." : "Submit"}
+        </Button>
+      </form>
     </div>
   );
 }

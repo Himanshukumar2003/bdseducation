@@ -52,6 +52,21 @@ const resetPassword = async (data) => {
   });
 };
 
+const forgotUsername = async (data) => {
+  const res = await axios.post("/api/auth/forgot-username", {
+    method: "POST",
+    body: JSON.stringify(data),
+  });
+  return res;
+};
+
+const resetUsername = async (data) => {
+  return await axios.post("/api/auth/reset-username", {
+    method: "POST",
+    body: JSON.stringify(data),
+  });
+};
+
 const auth = {
   login: login,
   loginRequest: loginRequest,
@@ -60,6 +75,8 @@ const auth = {
   registerVerify: registerVerify,
   forgotPassword: forgotPassword,
   resetPassword: resetPassword,
+  forgotUsername: forgotUsername,
+  resetUsername: resetUsername,
 };
 
 export default auth;

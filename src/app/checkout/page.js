@@ -241,7 +241,7 @@ export default function CheckoutPage() {
                         delete your account and remove your data from our
                         servers.
                       </DialogDescription>
-                      <AddressForm />
+                      <AddressForm type="create" />
                     </DialogHeader>
                   </DialogContent>
                 </Dialog>

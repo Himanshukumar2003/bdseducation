@@ -4,17 +4,25 @@ import { useForm } from "react-hook-form";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { postAddress } from "@/services/address-services";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  getAddress,
+  postAddress,
+  updateAddress,
+} from "@/services/address-services";
 import { handleError } from "@/lib/handle-error-toast";
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
+import { useEffect } from "react";
+import Loader from "./loader";
+import Error from "next/error";
 
-export default function AddressForm() {
+export default function AddressForm({ type = "create", id, callback }) {
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({
     defaultValues: {
       address: {
@@ -37,15 +45,59 @@ export default function AddressForm() {
     onSuccess: () => {
       toast.success("Address added");
       queryClient.invalidateQueries(["addresses"]);
+      callback?.();
+    },
+    onError: (error) => {
+      handleError(error);
+    },
+  });
+  const updateMutation = useMutation({
+    mutationFn: (data) => updateAddress(id, data),
+    onSuccess: () => {
+      toast.success("Address updated");
+      queryClient.invalidateQueries(["addresses"]);
+      callback?.();
     },
     onError: (error) => {
       handleError(error);
     },
   });
 
+  // fetch single address on type = edit form
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ["addresses", id],
+    queryFn: () => getAddress(id),
+    enabled: !!id,
+  });
+
   const onSubmit = (data) => {
-    createMutation.mutate(data);
+    type === "create"
+      ? createMutation.mutate(data)
+      : updateMutation.mutate(data);
   };
+
+  useEffect(() => {
+    if (data) {
+      console.log({ data });
+      reset({ address: data.address });
+    }
+  }, [data, id, type, reset]);
+
+  if (type === "edit" && isLoading) return <Loader />;
+  if (type === "edit" && isError)
+    return (
+      <Error
+        title={
+          error?.response?.data?.message ??
+          error?.message ??
+          "SOmething went wrong"
+        }
+      />
+    );
+
+  const isFormPending =
+    (type === "create" && createMutation.isPending) ||
+    (type === "edit" && updateMutation.isPending);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -177,9 +229,9 @@ export default function AddressForm() {
 
           {/* Submit Button */}
           <div className="pt-4">
-            <Button type="submit" className="btn">
-              {createMutation.isPending && <Loader2 className="animate-spin" />}{" "}
-              Save Address
+            <Button type="submit" className="btn" disabled={isFormPending}>
+              {isFormPending && <Loader2 className="animate-spin" />} Save
+              Address
             </Button>
           </div>
         </CardContent>

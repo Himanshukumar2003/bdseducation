@@ -1,125 +1,263 @@
+import { useState } from "react";
 import Loader from "@/components/loader";
-import { getAddresses } from "@/services/address-services";
-import { createOrder } from "@/services/order-services";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { Building2, Home, MapPin, Phone, User } from "lucide-react";
+import AddressForm from "@/components/address-form";
+import { deleteAddress, getAddresses } from "@/services/address-services";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  Building2,
+  Edit2,
+  Home,
+  MapPin,
+  Phone,
+  Trash2,
+  User,
+  X,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { toast } from "sonner";
 
-export default function Addresses(params) {
-  const createMutation = useMutation({
-    mutationFn: createOrder,
-  });
+export default function Addresses() {
+  const queryClient = useQueryClient();
 
+  // ===== STATES =====
+  const [editAddressId, setEditAddressId] = useState(null);
+  const [confirmEditId, setConfirmEditId] = useState(null);
+  const [confirmDeleteId, setConfirmDeleteId] = useState(null);
+
+  // ===== FETCH ADDRESSES =====
   const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["addressees"],
+    queryKey: ["addresses"],
     queryFn: getAddresses,
   });
 
+  // ===== DELETE MUTATION =====
+  const deleteMutation = useMutation({
+    mutationFn: deleteAddress,
+    onSuccess: () => {
+      toast.success("Address deleted successfully");
+      queryClient.invalidateQueries({ queryKey: ["addresses"] });
+    },
+    onError: (err) => {
+      const message =
+        err?.response?.data?.message ||
+        err?.response?.data?.error ||
+        "Failed to delete address";
+      toast.error(message);
+    },
+  });
+
+  // ===== UI STATES =====
+  if (isLoading) return <Loader />;
+
+  if (isError) {
+    return (
+      <p className="text-red-500 text-center mt-10">
+        {error?.message || "Something went wrong"}
+      </p>
+    );
+  }
+
   return (
     <>
-      {isLoading ? (
-        <Loader />
-      ) : isError ? (
-        <p className="text-red-500">
-          {error?.message ?? "Something went wrong"}
-        </p>
-      ) : (
-        <div className="space-y-4">
-          <div className=" bg-gradient-to-br from-blue-50 to-blue-100">
-            <div className=" mx-auto px-4 py-12">
-              <div className="mb-8">
-                <h1 className="text-4xl font-bold text-blue-800 mb-2">
-                  Saved Address
-                </h1>
-                <p className="text-blue-600">Total addresses: {data.total}</p>
-              </div>
+      <div className="bg-gradient-to-br from-blue-50 to-blue-100 min-h-screen">
+        <div className="max-w-6xl mx-auto px-4 py-12">
+          {/* HEADER */}
+          <div className="mb-10">
+            <h1 className="text-4xl font-bold text-blue-800">
+              Saved Addresses
+            </h1>
+            <p className="text-blue-600 mt-1">
+              Total addresses: {data?.total || 0}
+            </p>
+          </div>
 
-              <div className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-4">
-                  {data.addresses.map((item) => (
-                    <div
-                      key={item.id}
-                      className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden"
+          {/* ADDRESS LIST */}
+          <div className="grid md:grid-cols-2 gap-6">
+            {data?.addresses?.map((item) => (
+              <div
+                key={item.id}
+                className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition overflow-hidden"
+              >
+                {/* CARD HEADER */}
+                <div className="bg-gradient-to-r from-blue-700 to-blue-600 px-6 py-5 flex justify-between items-center">
+                  <div className="flex items-center gap-3 text-white">
+                    <User className="w-6 h-6" />
+                    <h2 className="text-xl font-semibold">
+                      {item.address.fullname}
+                    </h2>
+                  </div>
+
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => setConfirmEditId(item.id)}
+                      className="p-2 hover:bg-blue-500 rounded-lg"
+                      aria-label="Edit address"
                     >
-                      <div className="bg-gradient-to-r from-blue-700 to-blue-600 px-8 py-6">
-                        <div className="flex items-center gap-3 text-white">
-                          <User className="w-6 h-6" />
-                          <h2 className="text-2xl font-semibold">
-                            {item.address.fullname}
-                          </h2>
-                        </div>
-                      </div>
+                      <Edit2 className="w-5 h-5 text-white" />
+                    </button>
 
-                      <div className="p-8">
-                        <div className="grid md:grid-cols-2 gap-6">
-                          <div className="flex items-start gap-4">
-                            <div className="mt-1 p-2 bg-blue-100 rounded-lg">
-                              <Home className="w-5 h-5 text-blue-700" />
-                            </div>
-                            <div className="flex-1">
-                              <p className="text-xs font-semibold text-blue-500 uppercase tracking-wide mb-1">
-                                Street Address
-                              </p>
-                              <p className="text-blue-800 font-medium">
-                                {item.address.house}, {item.address.street}
-                              </p>
-                            </div>
-                          </div>
+                    <button
+                      onClick={() => setConfirmDeleteId(item.id)}
+                      className="p-2 hover:bg-red-500 rounded-lg"
+                      aria-label="Delete address"
+                    >
+                      <Trash2 className="w-5 h-5 text-white" />
+                    </button>
+                  </div>
+                </div>
 
-                          <div className="flex items-start gap-4">
-                            <div className="mt-1 p-2 bg-blue-100 rounded-lg">
-                              <Building2 className="w-5 h-5 text-blue-700" />
-                            </div>
-                            <div className="flex-1">
-                              <p className="text-xs font-semibold text-blue-500 uppercase tracking-wide mb-1">
-                                City & State
-                              </p>
-                              <p className="text-blue-800 font-medium">
-                                {item.address.city}, {item.address.state}
-                              </p>
-                            </div>
-                          </div>
+                {/* CARD BODY */}
+                <div className="p-6 grid gap-5 md:grid-cols-2">
+                  <AddressItem
+                    icon={<Home />}
+                    label="Street Address"
+                    value={`${item.address.house}, ${item.address.street}`}
+                  />
 
-                          <div className="flex items-start gap-4">
-                            <div className="mt-1 p-2 bg-blue-100 rounded-lg">
-                              <MapPin className="w-5 h-5 text-blue-700" />
-                            </div>
-                            <div className="flex-1">
-                              <p className="text-xs font-semibold text-blue-500 uppercase tracking-wide mb-1">
-                                Postal Code
-                              </p>
-                              <p className="text-blue-800 font-medium">
-                                {item.address.postal_code}
-                              </p>
-                            </div>
-                          </div>
-                          <div className="space-y-5">
-                            <div className="flex items-start gap-4">
-                              <div className="mt-1 p-2 bg-blue-100 rounded-lg">
-                                <Phone className="w-5 h-5 text-blue-700" />
-                              </div>
-                              <div className="flex-1">
-                                <p className="text-xs font-semibold text-blue-500 uppercase tracking-wide mb-1">
-                                  Phone Number
-                                </p>
-                                <a
-                                  href={`tel:${item.address.phone}`}
-                                  className="text-blue-800 font-medium hover:text-blue-600 transition-colors"
-                                >
-                                  {item.address.phone}
-                                </a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
+                  <AddressItem
+                    icon={<Building2 />}
+                    label="City & State"
+                    value={`${item.address.city}, ${item.address.state}`}
+                  />
+
+                  <AddressItem
+                    icon={<MapPin />}
+                    label="Postal Code"
+                    value={item.address.postal_code}
+                  />
+
+                  <AddressItem
+                    icon={<Phone />}
+                    label="Phone Number"
+                    value={item.address.phone}
+                    isLink
+                  />
                 </div>
               </div>
-            </div>
+            ))}
           </div>
         </div>
-      )}
+      </div>
+
+      {/* ===== EDIT CONFIRM DIALOG ===== */}
+      <Dialog
+        open={!!confirmEditId}
+        onOpenChange={() => setConfirmEditId(null)}
+      >
+        <DialogContent className="max-w-sm">
+          <DialogHeader>
+            <DialogTitle>Edit Address?</DialogTitle>
+          </DialogHeader>
+
+          <p className="text-sm text-gray-600">
+            Are you sure you want to edit this address?
+          </p>
+
+          <div className="flex justify-end gap-3 mt-6">
+            <Button variant="outline" onClick={() => setConfirmEditId(null)}>
+              Cancel
+            </Button>
+
+            <Button
+              onClick={() => {
+                setEditAddressId(confirmEditId);
+                setConfirmEditId(null);
+              }}
+            >
+              Yes, Edit
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* ===== DELETE CONFIRM DIALOG ===== */}
+      <Dialog
+        open={!!confirmDeleteId}
+        onOpenChange={() => setConfirmDeleteId(null)}
+      >
+        <DialogContent className="max-w-sm">
+          <DialogHeader>
+            <DialogTitle>Delete Address?</DialogTitle>
+          </DialogHeader>
+
+          <p className="text-sm text-gray-600">
+            This action cannot be undone. Are you sure?
+          </p>
+
+          <div className="flex justify-end gap-3 mt-6">
+            <Button variant="outline" onClick={() => setConfirmDeleteId(null)}>
+              Cancel
+            </Button>
+
+            <Button
+              variant="destructive"
+              onClick={() => {
+                deleteMutation.mutate(confirmDeleteId);
+                setConfirmDeleteId(null);
+              }}
+              disabled={deleteMutation.isPending}
+            >
+              Yes, Delete
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* ===== EDIT FORM DIALOG ===== */}
+      <Dialog
+        open={!!editAddressId}
+        onOpenChange={() => setEditAddressId(null)}
+      >
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle>Edit Address</DialogTitle>
+            <button
+              onClick={() => setEditAddressId(null)}
+              className="absolute top-4 right-4 p-1 hover:bg-gray-100 rounded-lg"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </DialogHeader>
+
+          <AddressForm
+            type="edit"
+            id={editAddressId}
+            callback={() => setEditAddressId(null)}
+          />
+        </DialogContent>
+      </Dialog>
     </>
+  );
+}
+
+/* ===== REUSABLE ADDRESS ITEM ===== */
+function AddressItem({ icon, label, value, isLink }) {
+  return (
+    <div className="flex items-start gap-4">
+      <div className="mt-1 p-2 bg-blue-100 rounded-lg text-blue-700">
+        {icon}
+      </div>
+      <div>
+        <p className="text-xs font-semibold text-blue-500 uppercase mb-1">
+          {label}
+        </p>
+        {isLink ? (
+          <a
+            href={`tel:${value}`}
+            className="text-blue-800 font-medium hover:text-blue-600"
+          >
+            {value}
+          </a>
+        ) : (
+          <p className="text-blue-800 font-medium">{value}</p>
+        )}
+      </div>
+    </div>
   );
 }

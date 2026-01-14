@@ -82,7 +82,17 @@ export default function LoginPage() {
             <CardContent>
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="username">Username</Label>
+                  <div className="flex items-center justify-between">
+                    <Label htmlFor="username">Username</Label>
+
+                    <Link
+                      href="/forgot-username"
+                      className="text-sm text-blue-600 hover:text-blue-500"
+                    >
+                      Forgot Username?
+                    </Link>
+                  </div>
+
                   <Input
                     id="username"
                     type="text"
