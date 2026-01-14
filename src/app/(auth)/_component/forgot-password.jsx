@@ -206,10 +206,12 @@ export default function ForgotPasswordForm({ type }) {
             <button
               disabled={forgotMutation.isPending || resetMutation.isPending}
               type="submit"
-              className="btn mx-auto"
+              className="btn w-full flex items-center justify-center gap-2"
             >
-              {(forgotMutation.isPending || resetMutation.isPending) && (
+              {forgotMutation.isPending || resetMutation.isPending ? (
                 <LoaderCircle className="h-5 w-5 animate-spin" />
+              ) : (
+                <Mail className="h-5 w-5" />
               )}
               {type === "forgot" ? "Send reset link" : "Reset password"}
             </button>

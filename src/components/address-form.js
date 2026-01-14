@@ -11,7 +11,7 @@ import {
   updateAddress,
 } from "@/services/address-services";
 import { handleError } from "@/lib/handle-error-toast";
-import { Loader2 } from "lucide-react";
+import { Home, Loader2, LoaderCircle } from "lucide-react";
 import { toast } from "sonner";
 import { useEffect } from "react";
 import Loader from "./loader";
@@ -230,8 +230,12 @@ export default function AddressForm({ type = "create", id, callback }) {
           {/* Submit Button */}
           <div className="pt-4">
             <Button type="submit" className="btn" disabled={isFormPending}>
-              {isFormPending && <Loader2 className="animate-spin" />} Save
-              Address
+              {isFormPending ? (
+                <LoaderCircle className="h-5 w-5 animate-spin" />
+              ) : (
+                <Home />
+              )}{" "}
+              Add Address
             </Button>
           </div>
         </CardContent>
