@@ -44,7 +44,9 @@ export default function LoginPage() {
 
       return resp.data;
     } catch (err) {
-      setError("Invalid credentials");
+      setError(
+        err.response?.data?.message ?? err?.message ?? "Invalid credentials"
+      );
       setIsLoading(false);
     } finally {
       setIsLoading(false);
