@@ -104,7 +104,11 @@ export default function AddressForm({ type = "create", id, callback }) {
       <Card className="rounded-xl border-none py-5">
         <CardHeader className="pb-4">
           <CardTitle className="text-2xl font-bold text-gray-800">
-            Add Address
+            {type === "create" ? (
+              <span>Add Address</span>
+            ) : (
+              <span>Edit Address</span>
+            )}
           </CardTitle>
         </CardHeader>
 
@@ -234,8 +238,12 @@ export default function AddressForm({ type = "create", id, callback }) {
                 <LoaderCircle className="h-5 w-5 animate-spin" />
               ) : (
                 <Home />
-              )}{" "}
-              Add Address
+              )}
+              {type === "create" ? (
+                <span>Add Address</span>
+              ) : (
+                <span>Update Address</span>
+              )}
             </Button>
           </div>
         </CardContent>

@@ -23,4 +23,5 @@ export const endpoints = {
   categories: { getAll: "/categories" },
   products: { getAll: "/products" },
   books: { getAll: "/books" },
+  users: { getAll: "/users" },
 };

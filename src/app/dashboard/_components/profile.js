@@ -1,10 +1,53 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Mail, MapPin, Calendar, Phone, BadgeUser } from "lucide-react";
+import {
+  Mail,
+  MapPin,
+  Calendar,
+  Phone,
+  BadgeUser,
+  Loader,
+  Loader2,
+} from "lucide-react";
 import { useAuth } from "@/providers/auth-provider";
+import { useMutation } from "@tanstack/react-query";
+import auth from "@/services/auth";
+import { useForm } from "react-hook-form";
+import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 
 export function ProfileDetails({}) {
-  const { user, isUserLoading } = useAuth();
+  const { user, setUser, isUserLoading } = useAuth();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { isDirty },
+    getValues,
+  } = useForm({
+    defaultValues: {
+      fullname: user.fullname,
+      email: user.email,
+      mobile_number: user.mobile_number,
+    },
+  });
+
+  const updateMutation = useMutation({
+    mutationFn: (data) => auth.updateProfile(user.id, data),
+    onSuccess: (data) => {
+      toast.success("Profile updated");
+      setUser({
+        ...user,
+        ...getValues(),
+      });
+    },
+    onError: (error) => {},
+  });
+
+  const onSubmit = (data) => {
+    updateMutation.mutate(data);
+  };
+
   if (isUserLoading) return "Loading...";
 
   return (
@@ -43,34 +86,60 @@ export function ProfileDetails({}) {
 
         {/* Details */}
         <div className="lg:col-span-2 border shadow-sm rounded-xl bg-white">
-          <CardContent className="space-y-6 py-8 px-6 ">
-            {/* Grid Info */}
+          <CardContent className="space-y-6 py-8 px-6">
             <CardTitle className="text-blue-900">
               Personal & Account Details
             </CardTitle>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="grid grid-cols-1 md:grid-cols-2 gap-6"
+            >
+              {/* Full Name */}
               <div className="space-y-1">
-                <span className="text-sm text-muted-foreground">Full Name</span>
-                <p className="font-semibold text-lg text-foreground">
-                  {user.fullname}
-                </p>
+                <label className="text-sm text-muted-foreground">
+                  Full Name
+                </label>
+                <input
+                  type="text"
+                  {...register("fullname")}
+                  className="w-full rounded-lg border px-4 py-2 text-foreground focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
               </div>
 
+              {/* Email */}
               <div className="space-y-1">
-                <span className="text-sm text-muted-foreground flex items-center gap-1">
+                <label className="text-sm text-muted-foreground flex items-center gap-1">
                   <Mail className="h-4 w-4" /> Email Address
-                </span>
-                <p className="font-medium text-foreground">{user.email}</p>
+                </label>
+                <input
+                  type="email"
+                  {...register("email")}
+                  className="w-full rounded-lg border px-4 py-2 text-foreground focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
               </div>
+
+              {/* Phone */}
               <div className="space-y-1">
-                <span className="text-sm text-muted-foreground flex items-center gap-1">
+                <label className="text-sm text-muted-foreground flex items-center gap-1">
                   <Phone className="h-4 w-4" /> Phone Number
-                </span>
-                <p className="font-medium text-blue-800">
-                  {user.mobile_number}
-                </p>
+                </label>
+                <input
+                  type="tel"
+                  {...register("email")}
+                  className="w-full rounded-lg border px-4 py-2 text-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
               </div>
-            </div>
+
+              <div className="col-span-full">
+                <Button disabled={!isDirty || updateMutation.isPending}>
+                  {updateMutation.isPending && (
+                    <Loader2 className="animate-spin" />
+                  )}
+                  Submit
+                </Button>
+              </div>
+            </form>
           </CardContent>
         </div>
       </div>
