@@ -251,9 +251,6 @@ export default function App() {
                 {/* Contact Section */}
                 <div className="mt-12 bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-8 border-2 border-blue-200">
                   <h3 className="text-2xl font-bold text-blue-900 mb-6 flex items-center gap-2">
-                    <span className="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold">
-                      12
-                    </span>
                     Contact Details
                   </h3>
                   <div className="space-y-4">

@@ -60,7 +60,7 @@ export function ContactSection() {
               <p className="flex gap-2 mb-1">
                 <span className="font-semibold">Official:</span>
                 <span className="text-gray-700 hover:underline cursor-pointer">
-                  nc@bdseducation.in
+                  nc@bdseducation.in, info@@bdseducation.in
                 </span>
               </p>
               <p className="flex gap-2">

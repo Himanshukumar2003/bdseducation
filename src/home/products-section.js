@@ -34,7 +34,7 @@ export default function ProductsSection({ sliceCount = null }) {
         {/* {loading && <p className="text-center">Loading products...</p>}
         {error && <p className="text-center text-red-500">{error}</p>} */}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid gap-4 grid-cols-[repeat(auto-fit,minmax(280px,1fr))]">
           {(sliceCount ? products.slice(0, sliceCount) : products).map(
             (product, index) => (
               <ProductCard key={index} product={product} />

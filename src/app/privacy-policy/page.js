@@ -329,7 +329,6 @@ export default function PrivacyPolicy() {
 
                 {/* 9 Contact Us */}
                 <Section
-                  number="9"
                   title="Contact Us"
                   content={
                     <div className="space-y-4 text-gray-700 leading-relaxed">

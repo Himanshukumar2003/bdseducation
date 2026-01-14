@@ -347,10 +347,10 @@ export default function Navbar() {
       </div>
 
       {isSidebarOpen && (
-        <div className=" hidden lg:flex h-[calc(100vh-91.36px)]   overflow-hidden ">
+        <div className=" hidden lg:flex h-[calc(100vh-91.36px)]     overflow-y-auto   ">
           <div
             className={cn(
-              "fixed md:static gap-0 w-[33vw] top-0 left-0 bg-[#003366] text-white z-50 custom-clip",
+              "fixed md:static gap-0 w-[33vw] top-0 left-0 bg-[#003366] text-white z-50 custom-clip  ",
               isSidebarOpen
                 ? "translate-x-0"
                 : "-translate-x-full md:translate-x-0"
@@ -366,7 +366,7 @@ export default function Navbar() {
                   <button
                     onClick={() => setActivePackage(pkg)}
                     className={cn(
-                      "w-full border-t-1 border-blue-400      capitalize cursor-pointer text-left pl-[100px] pr-[80px] transition duration-300 font-bold text-lg py-6 flex hover:bg-[#0d477b] hover:pl-[130px] justify-between items-center",
+                      "w-full border-t-1 border-blue-400      capitalize cursor-pointer text-left pl-[100px] pr-[80px] transition duration-300 font-bold text-md py-5 flex hover:bg-[#0d477b] hover:pl-[130px] justify-between items-center",
                       {
                         "bg-blue-500": activePackage?.id === pkg.id,
                       }
@@ -384,7 +384,12 @@ export default function Navbar() {
               <Loader />
             ) : activePackage ? (
               <div
-                className={`grid grid-cols-1 md:grid-cols-2 gap-6 ${activeSection === "BOOKS" ? "lg:grid-cols-2" : "lg:grid-cols-3 "}`}
+                className={cn(
+                  "grid gap-6",
+                  activeSection === "BOOKS"
+                    ? "lg:grid-cols-2"
+                    : "grid-container"
+                )}
               >
                 {(activeSection === "BOOKS"
                   ? activePackage.categories

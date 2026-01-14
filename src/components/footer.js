@@ -288,8 +288,8 @@ export default function Footer() {
               </div>
 
               {/* Emails */}
-              <div className="flex items-center gap-3">
-                <Mail className="w-5 h-5 text-white flex-shrink-0" />
+              <div className="flex items-start gap-3">
+                <Mail className="w-5 h-5 text-white flex-shrink-0 pt-1" />
                 <p className="text-sm text-white">
                   <a href="mailto:nc@bdseducation.in" className="underline">
                     nc@bdseducation.in
@@ -300,6 +300,10 @@ export default function Footer() {
                     className="underline"
                   >
                     Wasim.khan@bdseducation.in
+                  </a>
+                  <br></br>
+                  <a href="mailto:info@bdseducation.in" className="underline">
+                    info@bdseducation.in
                   </a>
                 </p>
               </div>
