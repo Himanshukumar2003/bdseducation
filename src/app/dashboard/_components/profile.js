@@ -15,7 +15,15 @@ import auth from "@/services/auth";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
-
+import z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+const userSchema = z.object({
+  fullname: z.string().min(2, "Full name must be at least 2 characters"),
+  email: z.email("Invalid email address"),
+  mobile_number: z
+    .string()
+    .regex(/^\d{10}$/, "Mobile number must be 10 digits"),
+});
 export function ProfileDetails({}) {
   const { user, setUser, isUserLoading } = useAuth();
 
@@ -30,6 +38,7 @@ export function ProfileDetails({}) {
       email: user.email,
       mobile_number: user.mobile_number,
     },
+    resolver: zodResolver(userSchema),
   });
 
   const updateMutation = useMutation({
