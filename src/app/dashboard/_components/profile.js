@@ -126,7 +126,7 @@ export function ProfileDetails({}) {
                 </label>
                 <input
                   type="tel"
-                  {...register("email")}
+                  {...register("mobile_number")}
                   className="w-full rounded-lg border px-4 py-2 text-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>

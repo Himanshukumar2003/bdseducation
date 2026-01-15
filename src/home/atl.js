@@ -68,7 +68,7 @@ export default function AtlProductLine() {
 
               <div className="">
                 <Link href="/atl-packages" className="btn">
-                  View all Products
+                  View all Packages
                 </Link>
               </div>
             </div>
@@ -105,7 +105,7 @@ export default function AtlProductLine() {
 
               <div className="">
                 <Link className="btn" href="/product">
-                  View all Packages
+                  View all Products
                 </Link>
               </div>
             </div>
