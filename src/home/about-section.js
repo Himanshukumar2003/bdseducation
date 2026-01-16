@@ -25,10 +25,10 @@ export default function AboutSection() {
             <span className="text-[var(--primary-blue)] font-semibold text-sm tracking-widest uppercase mb-4 block">
               ABOUT US
             </span>
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-800 mb-6 leading-tight">
+            <h1 className="text-3xl lg:text-4xl font-bold text-gray-800 mb-6 leading-tight">
               At BDS Education, we believe that true learning happens when
               curiosity meets creation.
-            </h2>
+            </h1>
             <p className="text-gray-600 text-lg leading-relaxed mb-8">
               Teach It Yourself (TIY) model and Knowledge-Through-Projects
               approach. <br></br>Founded by Armed Forces veterans, academicians,
