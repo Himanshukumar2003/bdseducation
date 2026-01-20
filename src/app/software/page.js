@@ -3,7 +3,13 @@ import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import { Breadcrumb } from "@/components/breadcrumb";
 import Link from "next/link";
-
+export const metadata = {
+  title: "Educational Software & Learning Tools – BDS Education",
+  description:
+    "Explore BDS Education’s educational software for coding, AI, and robotics. Our interactive tools support project-based learning and help educators deliver engaging STEM education in classrooms.",
+  keywords:
+    "education software, coding software India, AI learning tools for schools, robotics platforms, STEM education software",
+};
 export default function Software() {
   const softwareItems = [
     {

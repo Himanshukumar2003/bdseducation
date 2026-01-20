@@ -1,5 +1,3 @@
-"use client";
-
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
@@ -25,6 +23,17 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Distributor from "./_components/form";
 import { Breadcrumb } from "@/components/breadcrumb";
+export const metadata = {
+  title: "Become a Distributor – BDS Education STEM Learning Kits",
+  description:
+    "Partner with BDS Education to distribute coding, AI, and robotics educational kits. Join our mission to expand hands-on technology learning across schools and communities.",
+  keywords: [
+    "distributor program",
+    "educational kit distribution",
+    "STEM partners",
+    "coding kit reseller",
+  ],
+};
 
 export default function PartnerSection() {
   return (
