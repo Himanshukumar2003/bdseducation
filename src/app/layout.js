@@ -40,6 +40,8 @@ export const metadata = {
     "Turnkey robotics lab solutions for schools",
   ],
 
+  
+
   icons: {
     icon: "/favicon.ico",
   },
