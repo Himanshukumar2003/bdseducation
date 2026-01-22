@@ -328,46 +328,42 @@ export default function PrivacyPolicy() {
                 />
 
                 {/* 9 Contact Us */}
-                <Section
-                  title="Contact Us"
-                  content={
-                    <div className="space-y-4 text-gray-700 leading-relaxed">
-                      <p>
-                        If you have questions about this Privacy Policy, please
-                        contact us at:
-                      </p>
-
-                      <div className="flex items-center gap-3">
-                        <Mail className="w-5 h-5 text-blue-600" />
-                        <a
-                          href="mailto:info@bdseducation.in"
-                          className="font-medium hover:text-blue-600"
-                        >
-                          info@bdseducation.in
-                        </a>
-                      </div>
-
-                      <div className="flex items-center gap-3">
-                        <Phone className="w-5 h-5 text-blue-600" />
-                        <a
-                          href="tel:+918826730055"
-                          className="font-medium hover:text-blue-600"
-                        >
-                          +91 88267 30055
-                        </a>
-                      </div>
-
-                      <div className="flex items-start gap-3">
-                        <MapPin className="w-5 h-5 text-blue-600 mt-1" />
-                        <span>
-                          SCO-12, 1st Floor, Dayalbagh, Surajkund,
-                          <br />
-                          Faridabad – 121009, Haryana, India.
-                        </span>
-                      </div>
+                <div className="mt-12 bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-8 border-2 border-blue-200">
+                  <h3 className="text-2xl font-bold text-blue-900 mb-6 flex items-center gap-2">
+                    Contact Details
+                  </h3>
+                  <div className="space-y-4">
+                    <div className="text-xl font-semibold text-blue-900">
+                      BDS Education
                     </div>
-                  }
-                />
+
+                    <div className="flex items-start gap-3 text-gray-700">
+                      <MapPin className="w-5 h-5 text-blue-600 mt-1" />
+                      SCO-12, 1st Floor, Dayalbagh, Surajkund, Faridabad –
+                      121009, Haryana, India.
+                    </div>
+
+                    <div className="flex items-center gap-3 text-gray-700">
+                      <Phone className="w-5 h-5 text-blue-600" />
+                      <a
+                        href="tel:+918826730055"
+                        className="hover:text-blue-600 transition"
+                      >
+                        +91 88267 30055
+                      </a>
+                    </div>
+
+                    <div className="flex items-center gap-3 text-gray-700">
+                      <Mail className="w-5 h-5 text-blue-600" />
+                      <a
+                        href="mailto:info@bdseducation.in"
+                        className="hover:text-blue-600 transition"
+                      >
+                        info@bdseducation.in
+                      </a>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

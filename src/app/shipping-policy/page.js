@@ -146,37 +146,34 @@ export default function ShippingPolicy() {
                   <h3 className="text-2xl font-bold text-blue-900 mb-6 flex items-center gap-2">
                     Contact Details
                   </h3>
-
                   <div className="space-y-4">
                     <div className="text-xl font-semibold text-blue-900">
                       BDS Education
                     </div>
 
                     <div className="flex items-start gap-3 text-gray-700">
-                      <MapPin className="text-lg text-blue-600 mt-1" />
-                      <span>
-                        SCO-12, 1st Floor, Dayalbagh, Surajkund, Faridabad –
-                        121009, Haryana, India.
-                      </span>
+                      <MapPin className="w-5 h-5 text-blue-600 mt-1" />
+                      SCO-12, 1st Floor, Dayalbagh, Surajkund, Faridabad –
+                      121009, Haryana, India.
                     </div>
 
                     <div className="flex items-center gap-3 text-gray-700">
-                      <Phone className="text-lg text-blue-600" />
+                      <Phone className="w-5 h-5 text-blue-600" />
                       <a
                         href="tel:+918826730055"
-                        className="hover:text-blue-600 transition-colors"
+                        className="hover:text-blue-600 transition"
                       >
                         +91 88267 30055
                       </a>
                     </div>
 
                     <div className="flex items-center gap-3 text-gray-700">
-                      <Mail className="text-lg text-blue-600" />
+                      <Mail className="w-5 h-5 text-blue-600" />
                       <a
-                        href="mailto:nc@bdseducation.in"
-                        className="hover:text-blue-600 transition-colors"
+                        href="mailto:info@bdseducation.in"
+                        className="hover:text-blue-600 transition"
                       >
-                        nc@bdseducation.in
+                        info@bdseducation.in
                       </a>
                     </div>
                   </div>
