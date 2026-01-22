@@ -74,6 +74,7 @@ export default function AddressForm({ type = "create", id, callback }) {
     type === "create"
       ? createMutation.mutate(data)
       : updateMutation.mutate(data);
+    callback?.();
   };
 
   useEffect(() => {

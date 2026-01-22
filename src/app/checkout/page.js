@@ -68,7 +68,7 @@ export default function CheckoutPage() {
   const [paymentMethod, setPaymentMethod] = useState("card");
   const [codConfirmed, setCodConfirmed] = useState(false);
   const [selectedAddressId, setSelectedAddressId] = useState(null);
-
+  const [isAddressModal, setIsAddressModal] = useState(false);
   const { register, handleSubmit, formState, setValue, watch } = useForm({
     mode: "onChange",
     resolver: zodResolver(createOrderSchema.pick({ shipping_address: true })),
@@ -229,8 +229,18 @@ export default function CheckoutPage() {
                 )}
               </div>
               <div className=" mt-4 ">
-                <Dialog>
-                  <DialogTrigger className="btn">Add address</DialogTrigger>
+                <Button
+                  type="button"
+                  className="btn"
+                  onClick={() => setIsAddressModal(true)}
+                >
+                  Add address
+                </Button>
+
+                <Dialog open={isAddressModal} onOpenChange={setIsAddressModal}>
+                  <DialogTrigger className="btn sr-only">
+                    Add address
+                  </DialogTrigger>
                   <DialogContent>
                     <DialogHeader>
                       <DialogTitle className={"sr-only"}>
@@ -241,7 +251,10 @@ export default function CheckoutPage() {
                         delete your account and remove your data from our
                         servers.
                       </DialogDescription>
-                      <AddressForm type="create" />
+                      <AddressForm
+                        type="create"
+                        callback={() => setIsAddressModal(false)}
+                      />
                     </DialogHeader>
                   </DialogContent>
                 </Dialog>
