@@ -124,6 +124,16 @@ export default function Footer() {
                   Gallery
                 </Link>
               </li>
+
+              <li>
+                <Link
+                  href="/robotics-lab-provider-india"
+                  className="text-white hover:text-white transition-colors"
+                >
+                  Robotics Lab Provider in India
+                </Link>
+              </li>
+
               <li>
                 <Link
                   href="/blog"
