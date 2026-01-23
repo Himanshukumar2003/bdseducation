@@ -49,7 +49,7 @@ export const orderItemSchema = z.object({
 
 export const createOrderSchema = z.object({
   shipping_address: addressSchema,
-  billing_address: addressSchema.optional(),
+  billing_address: addressSchema,
   order_items: z
     .array(orderItemSchema)
     .min(1, "order_items must contain at least one item"),
@@ -77,7 +77,9 @@ export default function CheckoutPage() {
 
   const { register, handleSubmit, formState, setValue, watch } = useForm({
     mode: "onChange",
-    resolver: zodResolver(createOrderSchema.pick({ shipping_address: true })),
+    resolver: zodResolver(
+      createOrderSchema.pick({ billing_address: true, shipping_address: true })
+    ),
     defaultValues: {
       shipping_address: {
         fullname: "",
@@ -101,7 +103,7 @@ export default function CheckoutPage() {
   });
 
   const { isValid, errors, isDirty } = formState;
-
+  console.log({ errors });
   const {
     data: cartItems,
     isLoading: isCartLoading,
@@ -146,7 +148,6 @@ export default function CheckoutPage() {
 
   const estimatedTaxes = subtotal * 0;
   const total = subtotal + estimatedTaxes;
-
   const onSubmit = (formData) => {
     if (!user) {
       toast.error("Please login first to place an order");
@@ -587,6 +588,7 @@ export default function CheckoutPage() {
           </div>
         </div>
       </form>
+
       <Dialog open={isAddressModal} onOpenChange={setIsAddressModal}>
         <DialogContent className="max-w-md">
           <DialogHeader>
