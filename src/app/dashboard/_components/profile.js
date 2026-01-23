@@ -8,6 +8,7 @@ import {
   BadgeUser,
   Loader,
   Loader2,
+  BadgePoundSterling,
 } from "lucide-react";
 import { useAuth } from "@/providers/auth-provider";
 import { useMutation } from "@tanstack/react-query";
@@ -20,9 +21,17 @@ import { zodResolver } from "@hookform/resolvers/zod";
 const userSchema = z.object({
   fullname: z.string().min(2, "Full name must be at least 2 characters"),
   email: z.email("Invalid email address"),
-  mobile_number: z
+
+  mobile_number: z.string().regex(/^\+?\d{10,13}$/, "Invalid mobile number"),
+
+  gstin: z
     .string()
-    .regex(/^\d{10}$/, "Mobile number must be 10 digits"),
+    .regex(
+      /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/,
+      "Invalid GST number"
+    )
+    .optional()
+    .or(z.literal("")),
 });
 export function ProfileDetails({}) {
   const { user, setUser, isUserLoading } = useAuth();
@@ -30,13 +39,14 @@ export function ProfileDetails({}) {
   const {
     register,
     handleSubmit,
-    formState: { isDirty },
+    formState: { isDirty, errors },
     getValues,
   } = useForm({
     defaultValues: {
       fullname: user.fullname,
       email: user.email,
       mobile_number: user.mobile_number,
+      gstin: user.gstin,
     },
     resolver: zodResolver(userSchema),
   });
@@ -54,7 +64,7 @@ export function ProfileDetails({}) {
   });
 
   const onSubmit = (data) => {
-    updateMutation.mutate(data);
+    updateMutation.mutate({ ...data, gstin: data.gstin.toUpperCase() });
   };
 
   if (isUserLoading) return "Loading...";
@@ -114,6 +124,11 @@ export function ProfileDetails({}) {
                   {...register("fullname")}
                   className="w-full rounded-lg border px-4 py-2 text-foreground focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
+                {errors.fullname && (
+                  <p className="text-sm text-red-500">
+                    {errors.fullname.message}
+                  </p>
+                )}
               </div>
 
               {/* Email */}
@@ -126,6 +141,9 @@ export function ProfileDetails({}) {
                   {...register("email")}
                   className="w-full rounded-lg border px-4 py-2 text-foreground focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
+                {errors.email && (
+                  <p className="text-sm text-red-500">{errors.email.message}</p>
+                )}
               </div>
 
               {/* Phone */}
@@ -138,8 +156,27 @@ export function ProfileDetails({}) {
                   {...register("mobile_number")}
                   className="w-full rounded-lg border px-4 py-2 text-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
+                {errors.mobile_number && (
+                  <p className="text-sm text-red-500">
+                    {errors.mobile_number.message}
+                  </p>
+                )}
               </div>
+              <div>
+                <label className="text-sm text-muted-foreground flex items-center gap-1">
+                  <BadgePoundSterling className="h-4 w-4" /> GST Number
+                </label>
 
+                <input
+                  type="text"
+                  {...register("gstin")}
+                  className="w-full rounded-lg border px-4 py-2"
+                />
+
+                {errors.gstin && (
+                  <p className="text-sm text-red-500">{errors.gstin.message}</p>
+                )}
+              </div>
               <div className="col-span-full">
                 <Button disabled={!isDirty || updateMutation.isPending}>
                   {updateMutation.isPending && (

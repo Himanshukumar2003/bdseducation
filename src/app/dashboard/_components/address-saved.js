@@ -9,6 +9,7 @@ import {
   Home,
   MapPin,
   Phone,
+  Plus,
   Trash2,
   User,
   X,
@@ -29,6 +30,7 @@ export default function Addresses() {
   const [editAddressId, setEditAddressId] = useState(null);
   const [confirmEditId, setConfirmEditId] = useState(null);
   const [confirmDeleteId, setConfirmDeleteId] = useState(null);
+  const [isAddressModal, setIsAddressModal] = useState(false);
 
   // ===== FETCH ADDRESSES =====
   const { data, isLoading, isError, error } = useQuery({
@@ -65,16 +67,42 @@ export default function Addresses() {
 
   return (
     <>
-      <div className="bg-gradient-to-br from-blue-50 to-blue-100 min-h-screen">
+      <div className="bg-gradient-to-br from-blue-50 to-blue-100 h-full">
         <div className="max-w-6xl mx-auto px-4 py-12">
           {/* HEADER */}
           <div className="mb-10">
-            <h1 className="text-4xl font-bold text-blue-800">
-              Saved Addresses
-            </h1>
-            <p className="text-blue-600 mt-1">
-              Total addresses: {data?.total || 0}
-            </p>
+            <div className="  flex justify-between">
+              <div>
+                <h1 className="text-4xl font-bold text-blue-800">
+                  Saved Addresses
+                </h1>
+                <p className="text-blue-600 mt-1">
+                  Total addresses: {data?.total || 0}
+                </p>
+              </div>
+
+              <Button
+                type="button"
+                className="btn"
+                onClick={() => {
+                  setIsAddressModal(true);
+                }}
+              >
+                <Plus className="w-4 h-4" />
+                Add New Address
+              </Button>
+              <Dialog open={isAddressModal} onOpenChange={setIsAddressModal}>
+                <DialogContent className="max-w-md">
+                  <DialogHeader className="sr-only">
+                    <DialogTitle>Add Address</DialogTitle>
+                  </DialogHeader>
+                  <AddressForm
+                    type="create"
+                    callback={() => setIsAddressModal(false)}
+                  />
+                </DialogContent>
+              </Dialog>
+            </div>
           </div>
 
           {/* ADDRESS LIST */}

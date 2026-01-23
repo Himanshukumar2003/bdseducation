@@ -24,6 +24,7 @@ export default function SignupPage() {
     username: "",
     fullname: "",
     email: "",
+    gstin: "",
     mobile_number: "",
     password: "",
     confirmPassword: "",
@@ -32,6 +33,7 @@ export default function SignupPage() {
   const [agreedToTerms, setAgreedToTerms] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const GST_REGEX = /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/;
 
   const router = useRouter();
 
@@ -42,14 +44,21 @@ export default function SignupPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Password validation
+    // Password match check
     if (formData.password !== formData.confirmPassword) {
       setError("Passwords do not match");
       return;
     }
 
+    // Terms check
     if (!agreedToTerms) {
       setError("You must agree to the Terms and Privacy Policy");
+      return;
+    }
+
+    // ✅ GST OPTIONAL BUT VALIDATED
+    if (formData.gstin && !GST_REGEX.test(formData.gstin)) {
+      setError("Invalid GST number format");
       return;
     }
 
@@ -67,6 +76,7 @@ export default function SignupPage() {
             fullname: formData.fullname,
             email: formData.email,
             mobile_number: formData.mobile_number,
+            gstin: formData.gstin || null, // optional
             password: formData.password,
           }),
         }
@@ -78,7 +88,6 @@ export default function SignupPage() {
         setError(data.message || "Something went wrong");
       } else {
         toast.success("Signup successful! Redirecting to login...");
-
         router.push("/login");
       }
     } catch (err) {
@@ -107,112 +116,130 @@ export default function SignupPage() {
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-4">
                 {/* Full Name */}
-                <div className="space-y-2">
-                  <Label htmlFor="fullname">Full Name</Label>
-                  <Input
-                    id="fullname"
-                    placeholder="John Doe"
-                    value={formData.fullname}
-                    onChange={(e) =>
-                      handleInputChange("fullname", e.target.value)
-                    }
-                    required
-                    className="h-11"
-                  />
-                </div>
 
-                {/* Username */}
-                <div className="space-y-2">
-                  <Label htmlFor="username">Username</Label>
-                  <Input
-                    id="username"
-                    placeholder="User123"
-                    value={formData.username}
-                    onChange={(e) =>
-                      handleInputChange("username", e.target.value)
-                    }
-                    required
-                    className="h-11"
-                  />
-                </div>
-
-                {/* Email */}
-                <div className="space-y-2">
-                  <Label htmlFor="email">Email</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="amit@example.com"
-                    value={formData.email}
-                    onChange={(e) => handleInputChange("email", e.target.value)}
-                    required
-                    className="h-11"
-                  />
-                </div>
-
-                {/* Mobile Number */}
-                <div className="space-y-2">
-                  <Label htmlFor="mobile_number">Mobile Number</Label>
-                  <Input
-                    id="mobile_number"
-                    type="tel"
-                    placeholder="+91 1234567890"
-                    value={formData.mobile_number}
-                    onChange={(e) =>
-                      handleInputChange("mobile_number", e.target.value)
-                    }
-                    required
-                    className="h-11"
-                  />
-                </div>
-
-                {/* Password */}
-                <div className="space-y-2">
-                  <Label htmlFor="password">Password</Label>
-                  <div className="relative">
+                <div className="grid lg:grid-cols-2 gap-2">
+                  <div className="space-y-2">
+                    <Label htmlFor="fullname">Full Name</Label>
                     <Input
-                      id="password"
-                      type={showPassword ? "text" : "password"}
-                      placeholder="Create a password"
-                      value={formData.password}
+                      id="fullname"
+                      placeholder="John Doe"
+                      value={formData.fullname}
                       onChange={(e) =>
-                        handleInputChange("password", e.target.value)
+                        handleInputChange("fullname", e.target.value)
                       }
                       required
-                      className="h-11 pr-10"
+                      className="h-11"
                     />
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      size="sm"
-                      className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
-                      onClick={() => setShowPassword(!showPassword)}
-                    >
-                      {showPassword ? (
-                        <EyeOff className="h-4 w-4 text-muted-foreground" />
-                      ) : (
-                        <Eye className="h-4 w-4 text-muted-foreground" />
-                      )}
-                    </Button>
+                  </div>
+
+                  {/* Username */}
+                  <div className="space-y-2">
+                    <Label htmlFor="username">Username</Label>
+                    <Input
+                      id="username"
+                      placeholder="User123"
+                      value={formData.username}
+                      onChange={(e) =>
+                        handleInputChange("username", e.target.value)
+                      }
+                      required
+                      className="h-11"
+                    />
+                  </div>
+
+                  {/* Email */}
+                  <div className="space-y-2">
+                    <Label htmlFor="email">Email</Label>
+                    <Input
+                      id="email"
+                      type="email"
+                      placeholder="amit@example.com"
+                      value={formData.email}
+                      onChange={(e) =>
+                        handleInputChange("email", e.target.value)
+                      }
+                      required
+                      className="h-11"
+                    />
+                  </div>
+
+                  {/* Mobile Number */}
+                  <div className="space-y-2">
+                    <Label htmlFor="mobile_number">Mobile Number</Label>
+                    <Input
+                      id="mobile_number"
+                      type="tel"
+                      placeholder="+91 1234567890"
+                      value={formData.mobile_number}
+                      onChange={(e) =>
+                        handleInputChange("mobile_number", e.target.value)
+                      }
+                      required
+                      className="h-11"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="gstin">GST Number (Optional)</Label>
+                    <Input
+                      id="gstin"
+                      type="text"
+                      placeholder="09AAACH7409R1ZZ"
+                      value={formData.gstin}
+                      onChange={(e) =>
+                        handleInputChange("gstin", e.target.value.toUpperCase())
+                      }
+                      className="h-11"
+                    />
+                  </div>
+
+                  {/* Password */}
+                  <div className="space-y-2">
+                    <Label htmlFor="password">Password</Label>
+                    <div className="relative">
+                      <Input
+                        id="password"
+                        type={showPassword ? "text" : "password"}
+                        placeholder="Create a password"
+                        value={formData.password}
+                        onChange={(e) =>
+                          handleInputChange("password", e.target.value)
+                        }
+                        required
+                        className="h-11 pr-10"
+                      />
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+                        onClick={() => setShowPassword(!showPassword)}
+                      >
+                        {showPassword ? (
+                          <EyeOff className="h-4 w-4 text-muted-foreground" />
+                        ) : (
+                          <Eye className="h-4 w-4 text-muted-foreground" />
+                        )}
+                      </Button>
+                    </div>
+                  </div>
+
+                  {/* Confirm Password */}
+                  <div className="space-y-2">
+                    <Label htmlFor="confirmPassword">Confirm Password</Label>
+                    <Input
+                      id="confirmPassword"
+                      type="password"
+                      placeholder="Confirm your password"
+                      value={formData.confirmPassword}
+                      onChange={(e) =>
+                        handleInputChange("confirmPassword", e.target.value)
+                      }
+                      required
+                      className="h-11"
+                    />
                   </div>
                 </div>
-
-                {/* Confirm Password */}
-                <div className="space-y-2">
-                  <Label htmlFor="confirmPassword">Confirm Password</Label>
-                  <Input
-                    id="confirmPassword"
-                    type="password"
-                    placeholder="Confirm your password"
-                    value={formData.confirmPassword}
-                    onChange={(e) =>
-                      handleInputChange("confirmPassword", e.target.value)
-                    }
-                    required
-                    className="h-11"
-                  />
-                </div>
-
                 {/* Terms */}
                 <div className="flex items-center space-x-2">
                   <Checkbox

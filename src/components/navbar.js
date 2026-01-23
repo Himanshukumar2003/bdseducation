@@ -220,7 +220,7 @@ export default function Navbar() {
   }, [pathname]);
 
   return (
-    <div className="sticky top-0 nav   bg-white z-99">
+    <div className="sticky top-0 nav   bg-white z-10">
       <div className="bg-header px-4 w-full mx-auto flex justify-between h-full lg:pr-8   ">
         <div
           className="flex shrink-0 items-center bg-white h-ful w-full justify-between lg:w-auto  lg:pr-[70px] clipPath-logo "
