@@ -119,7 +119,7 @@ export default function robotics(params) {
         </div>
       </section>
 
-      <div className="">
+      <div className="" id="contact">
         <ContactForm />
         <TestimonialsSection />
       </div>

@@ -8,6 +8,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 // schemas/contact-inquiry-schema.ts
 import { z } from "zod";
+import { useForm } from "react-hook-form";
+import { useMutation } from "@tanstack/react-query";
+import { toast } from "sonner";
 
 export const contactInquirySchema = z.object({
   name: z
@@ -37,78 +40,38 @@ export const contactInquirySchema = z.object({
 });
 
 export function ContactForm() {
-  const [formData, setFormData] = useState({
-    name: "",
-    phone: "",
-    email: "",
-    message: "",
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+    reset,
+  } = useForm({
+    defaultValues: {
+      name: "",
+      phone: "",
+      email: "",
+      message: "",
+    },
   });
 
-  const [errors, setErrors] = useState({});
-  const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState("");
-
-  function handleChange(e) {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-
-    // clear field error on typing
-    setErrors({
-      ...errors,
-      [e.target.name]: "",
-    });
-  }
-
-  async function handleSubmit(e) {
-    e.preventDefault();
-    setSuccess("");
-    setErrors({});
-
-    const validation = contactInquirySchema.safeParse(formData);
-
-    if (!validation.success) {
-      const fieldErrors = {};
-      validation.error.errors.forEach((err) => {
-        fieldErrors[err.path[0]] = err.message;
+  const { mutate, isError, error, isPending } = useMutation({
+    mutationFn: async (data) => {
+      await fetch(`${process.env.NEXT_PUBLIC_BDS_API_URL}/contact-inquiries`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
       });
-      setErrors(fieldErrors);
-      return;
-    }
+    },
+    onSuccess: () => {
+      toast.success("Inquiry sent successfully.");
+      reset({});
+    },
+  });
 
-    try {
-      setLoading(true);
-
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BDS_API_URL}/contact-inquiries`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Something went wrong");
-      }
-
-      setSuccess("Your message has been sent successfully!");
-      setFormData({
-        name: "",
-        phone: "",
-        email: "",
-        message: "",
-      });
-    } catch (error) {
-      setErrors({
-        form: "Failed to submit form. Please try again.",
-      });
-    } finally {
-      setLoading(false);
-    }
+  async function onSubmit(formData) {
+    mutate(formData);
   }
 
   return (
@@ -139,20 +102,17 @@ export function ContactForm() {
             </CardHeader>
 
             <CardContent>
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                 {/* Name */}
                 <div>
                   <label className="block text-sm font-medium mb-2">
                     Name*
                   </label>
-                  <Input
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    placeholder="Enter your name"
-                  />
+                  <Input {...register("name")} placeholder="Enter your name" />
                   {errors.name && (
-                    <p className="text-red-500 text-sm mt-1">{errors.name}</p>
+                    <p className="text-red-500 text-sm mt-1">
+                      {errors.name.message}
+                    </p>
                   )}
                 </div>
 
@@ -161,14 +121,11 @@ export function ContactForm() {
                   <label className="block text-sm font-medium mb-2">
                     Phone*
                   </label>
-                  <Input
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    placeholder="+91 1234567890"
-                  />
+                  <Input {...register("phone")} placeholder="+91 1234567890" />
                   {errors.phone && (
-                    <p className="text-red-500 text-sm mt-1">{errors.phone}</p>
+                    <p className="text-red-500 text-sm mt-1">
+                      {errors.phone.message}
+                    </p>
                   )}
                 </div>
 
@@ -178,14 +135,14 @@ export function ContactForm() {
                     Email*
                   </label>
                   <Input
-                    name="email"
+                    {...register("email")}
                     type="email"
-                    value={formData.email}
-                    onChange={handleChange}
                     placeholder="example@email.com"
                   />
                   {errors.email && (
-                    <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+                    <p className="text-red-500 text-sm mt-1">
+                      {errors.email.message}
+                    </p>
                   )}
                 </div>
 
@@ -195,29 +152,28 @@ export function ContactForm() {
                     Message*
                   </label>
                   <Textarea
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
+                    {...register("message")}
                     placeholder="Write your message..."
                     className="min-h-[120px]"
                   />
                   {errors.message && (
                     <p className="text-red-500 text-sm mt-1">
-                      {errors.message}
+                      {errors.message.message}
                     </p>
                   )}
                 </div>
 
                 {/* Global Error */}
-                {errors.form && (
-                  <p className="text-red-600 text-sm">{errors.form}</p>
+                {isError && (
+                  <span className="text-sm text-red-500">
+                    {error?.response?.data?.message ??
+                      error?.message ??
+                      "Something went wrong."}
+                  </span>
                 )}
 
-                {/* Success */}
-                {success && <p className="text-green-600 text-sm">{success}</p>}
-
-                <Button type="submit" disabled={loading} className="w-full">
-                  {loading ? "Submitting..." : "Submit"}
+                <Button type="submit" disabled={isPending} className="w-full">
+                  {isPending ? "Submitting..." : "Submit"}
                 </Button>
               </form>
             </CardContent>

@@ -2,9 +2,9 @@ import Image from "next/image";
 
 export default function HeroBanner() {
   return (
-    <section className="w-full bg-[url('/images/hero-bg.png')] bg-cover bg-center bg-no-repeat">
-      <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-10">
+    <section className="w-full bg-[url('/images/hero-bg.png')] bg-cover bg-center bg-no-repeat pt-10 lg:pt-0">
+      <div className="  mx-auto  container lg:px-20  px-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-10">
           {/* LEFT CONTENT */}
           <div className="text-white">
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight">
@@ -19,9 +19,14 @@ export default function HeroBanner() {
               training for schools and colleges.
             </p>
 
-            <button className="mt-6 bg-white text-[#0f3c68] font-semibold px-6 py-3 rounded-md hover:bg-blue-100 transition">
-              Join Now
-            </button>
+            <div className="mt-8">
+              <a
+                href="#contact"
+                className="mt-6 bg-white text-[#0f3c68] font-semibold px-6 py-3 rounded-md hover:bg-blue-100 transition"
+              >
+                Join Now
+              </a>
+            </div>
           </div>
 
           {/* RIGHT IMAGE */}
@@ -33,8 +38,8 @@ export default function HeroBanner() {
               src="/images/robot.png"
               alt="AI Robot"
               width={500}
-              height={600}
-              className="object-contain"
+              height={500}
+              className="object-contain max-h-[500px]"
             />
           </div>
         </div>

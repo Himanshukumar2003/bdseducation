@@ -37,7 +37,9 @@ export default function ProductCard({ product, type, setIsSidebarOpen }) {
             <Image
               src={`${process.env.NEXT_PUBLIC_BDS_FILE_BASE}${product.pictures[0]}`}
               alt={title}
-              fill
+              width={500}
+              height={500}
+              className="  h-45 object-contain"
             />
           )}
           {stock == 0 && (
