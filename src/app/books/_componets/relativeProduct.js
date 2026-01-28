@@ -94,8 +94,7 @@ function Books() {
                         <h2
                           className={`text-lg font-bold ${titleColor} mb-2 leading-snug`}
                         >
-                          Easy Computers & <br />
-                          Coding Grade{" "}
+                          {item.title}
                           {/* <span
                             className={`inline-block ${titleColor} bg-white rounded-full w-8 h-8 text-center leading-8 text-lg shadow-sm`}
                           >
