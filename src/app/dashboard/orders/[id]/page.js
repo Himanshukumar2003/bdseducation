@@ -80,7 +80,6 @@ export default function OrderDetailsPage({}) {
 
   const orderData = data?.data;
   const items = orderData?.items || [];
-  console.log(orderData);
 
   if (!items.length) {
     return <p className="p-6 text-red-500">No items found for this order</p>;
@@ -118,9 +117,7 @@ export default function OrderDetailsPage({}) {
                   })}
                 </div>
               </div>
-              {currentStatus == "Canceled" ? (
-                <></>
-              ) : (
+              {order?.data.is_paid && (
                 <div className="flex flex-col sm:flex-row gap-3">
                   <button
                     onClick={() => invoiceMutation.mutate(order?.data?.id)}
@@ -164,7 +161,7 @@ export default function OrderDetailsPage({}) {
                 return (
                   <div
                     key={index}
-                    className="flex flex-col items-center relative z-10 w-full lg:w-1/4 mt-10 lg:mt-0"
+                    className="flex flex-col items-center relative z-2 w-full lg:w-1/4 mt-10 lg:mt-0"
                   >
                     {/* Circle */}
                     <div

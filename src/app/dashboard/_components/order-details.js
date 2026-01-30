@@ -147,19 +147,22 @@ export function OrdersDetails({ orders }) {
                     {order.order_status}
                   </Badge>
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <Button
-                    type="button"
-                    // href={`/dashboard/orders/${order.id}/invoice`}
-                    className="text-xs font-medium px-3 py-1 rounded-full shadow-sm bg-blue-500 text-white"
-                    onClick={() => {
-                      setId(order.id);
-                      mutate({});
-                    }}
-                  >
-                    Download invoice
-                  </Button>
-                </td>
+
+                {order.is_paid && (
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <Button
+                      type="button"
+                      // href={`/dashboard/orders/${order.id}/invoice`}
+                      className="text-xs font-medium px-3 py-1 rounded-full shadow-sm bg-blue-500 text-white"
+                      onClick={() => {
+                        setId(order.id);
+                        mutate({});
+                      }}
+                    >
+                      Download invoice
+                    </Button>
+                  </td>
+                )}
               </tr>
             ))}
           </tbody>
