@@ -5,13 +5,14 @@ import { NextResponse } from "next/server";
 
 const API_URL = process.env.NEXT_PUBLIC_BDS_API_URL;
 
-export async function GET(request) {
+export async function POST(request) {
   try {
     const cookieStore = await cookies();
+    // console.log({ cookieStore });
+    // return;
     let token = cookieStore.get("token")?.value;
     const refresh_token = cookieStore.get("refresh_token")?.value;
-
-    // If no access token but has refresh token, refresh it
+    // Token refresh logic
     if (!token && refresh_token) {
       try {
         const refreshResponse = await axios.post(
@@ -28,10 +29,9 @@ export async function GET(request) {
             (new Date(newTokenData.expire_time).getTime() - Date.now()) / 1000
           );
 
-          // Set new token in cookies
           cookieStore.set("token", token, {
             path: "/",
-            maxAge: newTokenData.expire_time,
+            maxAge: maxAge,
             httpOnly: true,
             sameSite: "lax",
             secure: process.env.NODE_ENV === "production",
@@ -53,7 +53,6 @@ export async function GET(request) {
       }
     }
 
-    // If still no token after refresh attempt
     if (!token) {
       return NextResponse.json(
         { message: "No user logged in" },
@@ -61,37 +60,57 @@ export async function GET(request) {
       );
     }
 
-    // Fetch user profile with valid token
+    // Parse URL-encoded payment data
+    const body = await request.text();
+    const params = new URLSearchParams(body);
+
+    const data = {};
+    for (const [key, value] of params) {
+      data[key] = value;
+    }
+
     try {
-      const res = await axios.get(`${API_URL}${endpoints.profile}`, {
+      // OPTION 1: If your backend expects GET with query params
+      const res = await axios.post(`${API_URL}/payments/success`, data, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
+        withCredentials: true,
       });
 
-      return NextResponse.json({ user: res.data }, { status: 200 });
-    } catch (profileError) {
-      console.error("Profile fetch error:", profileError?.response?.status);
+      return NextResponse.json(
+        {
+          success: true,
+          message: "Payment verified successfully",
+          data: res.data,
+        },
+        { status: 200 }
+      );
+    } catch (paymentError) {
+      console.error(
+        "Payment verification error:",
+        paymentError?.response?.data
+      );
 
-      // If profile request also fails with 401, tokens are invalid
-      if (profileError?.response?.status === 401) {
+      if (paymentError?.response?.status === 401) {
         cookieStore.delete("token");
         cookieStore.delete("refresh_token");
       }
 
       return NextResponse.json(
         {
+          success: false,
           message:
-            profileError?.response?.data?.message ?? "Failed to fetch profile",
+            paymentError?.response?.data?.message ?? "Failed to verify payment",
         },
-        { status: profileError?.response?.status || 500 }
+        { status: paymentError?.response?.status || 500 }
       );
     }
   } catch (error) {
-    console.error("Profile route error:", error);
+    console.error("Payment callback error:", error);
     return NextResponse.json(
-      { message: "Internal server error" },
+      { success: false, message: "Internal server error" },
       { status: 500 }
     );
   }

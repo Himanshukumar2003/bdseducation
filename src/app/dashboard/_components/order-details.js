@@ -33,9 +33,10 @@ export function OrdersDetails({ orders }) {
     },
   });
 
+  console.log(data);
+
   useEffect(() => {
     if (data) {
-      console.log({ data });
       try {
         let binaryData;
 

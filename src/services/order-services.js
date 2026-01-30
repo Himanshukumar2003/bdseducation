@@ -2,7 +2,8 @@ import { endpoints } from "@/utils/endpoints";
 import http from "@/utils/http";
 
 export const createOrder = async (item) => {
-  return await http().post(endpoints.orders.getAll, item);
+  const { data } = await http().post(endpoints.orders.getAll, item);
+  return data;
 };
 
 export const updateOrder = async (id, item) => {

@@ -11,7 +11,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { CreditCard, Wallet, MapPin, Plus } from "lucide-react";
 import Image from "next/image";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useAuth } from "@/providers/auth-provider";
 import { z } from "zod";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -30,6 +30,8 @@ import Loader from "@/components/loader";
 import { getCartItems } from "@/services/cart-services";
 import AddressForm from "@/components/address-form";
 import * as csc from "country-state-city";
+import { generateTransactionID } from "@/lib/generate-transaction-id";
+import config from "@/config";
 
 export const addressSchema = z.object({
   fullname: z.string().min(1, "fullname is required"),
@@ -53,9 +55,7 @@ export const createOrderSchema = z.object({
   order_items: z
     .array(orderItemSchema)
     .min(1, "order_items must contain at least one item"),
-  payment_method: z
-    .enum(["card", "upi", "cod", "paypal", "bank_transfer"])
-    .optional(),
+  payment_method: z.enum(["paypal"]).optional(),
   coupon_code: z.string().trim().optional(),
 });
 
@@ -64,9 +64,8 @@ export default function CheckoutPage() {
   const dispatch = useDispatch();
   const router = useRouter();
   const queryClient = useQueryClient();
+  const payuFormRef = useRef(null);
 
-  const [paymentMethod, setPaymentMethod] = useState("card");
-  const [codConfirmed, setCodConfirmed] = useState(false);
   const [selectedShippingAddressId, setSelectedShippingAddressId] =
     useState(null);
   const [selectedBillingAddressId, setSelectedBillingAddressId] =
@@ -103,7 +102,6 @@ export default function CheckoutPage() {
   });
 
   const { isValid, errors, isDirty } = formState;
-  console.log({ errors });
   const {
     data: cartItems,
     isLoading: isCartLoading,
@@ -119,11 +117,15 @@ export default function CheckoutPage() {
 
   const createMutation = useMutation({
     mutationFn: createOrder,
-    onSuccess: () => {
-      toast.success("Order created");
-      queryClient.invalidateQueries({ queryKey: ["cart"] });
-      queryClient.invalidateQueries({ queryKey: ["cart-items"] });
-      router.push("/dashboard");
+    onSuccess: async (data) => {
+      // toast.success("Order created");
+      setTimeout(() => {
+        if (payuFormRef.current) {
+          payuFormRef.current.submit();
+        }
+      }, 100);
+      // payuFormRef.current?.submit();
+      // router.push("/dashboard");
     },
     onError: (error) => {
       handleError(error);
@@ -159,11 +161,6 @@ export default function CheckoutPage() {
       return;
     }
 
-    if (paymentMethod === "cod" && !codConfirmed) {
-      toast.error("Please confirm Cash on Delivery terms");
-      return;
-    }
-
     const order_items = cartItems?.map((item) => ({
       item_type: item.item_type,
       item_id: item.item_id,
@@ -173,7 +170,7 @@ export default function CheckoutPage() {
     const order = {
       ...formData,
       order_items,
-      payment_method: paymentMethod,
+      // payment_method: paymentMethod,
       billing_address: useSameAddress
         ? formData.shipping_address
         : formData.billing_address,
@@ -182,8 +179,8 @@ export default function CheckoutPage() {
     const toastId = toast.loading("Placing your order...");
 
     createMutation.mutate(order, {
-      onSuccess: () => {
-        toast.success("Order placed successfully!");
+      onSuccess: async (data) => {
+        // toast.success("Order placed successfully!");
         toast.dismiss(toastId);
       },
       onError: (error) => {
@@ -226,7 +223,6 @@ export default function CheckoutPage() {
       </div>
     </div>
   );
-
   return (
     <>
       <form
@@ -276,7 +272,6 @@ export default function CheckoutPage() {
                             address={addr.address}
                             isSelected={selectedShippingAddressId === addr.id}
                             onSelect={() => {
-                              console.log({ addr });
                               setSelectedShippingAddressId(addr.id);
                               setValue("shipping_address", addr.address);
                               if (useSameAddress) {
@@ -400,103 +395,7 @@ export default function CheckoutPage() {
 
               {/* Payment Section */}
               <Card className="shadow-sm border-gray-200 p-4">
-                <CardHeader className="border-b border-gray-100 pb-4">
-                  <CardTitle className="text-xl text-gray-900">
-                    Payment Method
-                  </CardTitle>
-                </CardHeader>
                 <CardContent className="pt-6 space-y-6">
-                  <p className="text-sm text-gray-600">
-                    All transactions are secure and encrypted.
-                  </p>
-
-                  {/* Payment Options */}
-                  <div className="space-y-3">
-                    <button
-                      type="button"
-                      onClick={() => setPaymentMethod("card")}
-                      className={`w-full flex items-center gap-4 p-4 border-2 rounded-lg transition-all ${
-                        paymentMethod === "card"
-                          ? "border-blue-500 bg-blue-50"
-                          : "border-gray-200 hover:border-gray-300"
-                      }`}
-                    >
-                      <div
-                        className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all ${
-                          paymentMethod === "card"
-                            ? "border-blue-500 bg-blue-500"
-                            : "border-gray-300 bg-white"
-                        }`}
-                      >
-                        {paymentMethod === "card" && (
-                          <div className="w-2 h-2 bg-white rounded-full" />
-                        )}
-                      </div>
-                      <CreditCard className="w-5 h-5 text-gray-600" />
-                      <div className="text-left">
-                        <p className="font-semibold text-gray-900">
-                          Card / UPI / PayPal
-                        </p>
-                        <p className="text-xs text-gray-500">
-                          Secure online payment
-                        </p>
-                      </div>
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={() => setPaymentMethod("cod")}
-                      className={`w-full flex items-center gap-4 p-4 border-2 rounded-lg transition-all ${
-                        paymentMethod === "cod"
-                          ? "border-green-500 bg-green-50"
-                          : "border-gray-200 hover:border-gray-300"
-                      }`}
-                    >
-                      <div
-                        className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all ${
-                          paymentMethod === "cod"
-                            ? "border-green-500 bg-green-500"
-                            : "border-gray-300 bg-white"
-                        }`}
-                      >
-                        {paymentMethod === "cod" && (
-                          <div className="w-2 h-2 bg-white rounded-full" />
-                        )}
-                      </div>
-                      <Wallet className="w-5 h-5 text-gray-600" />
-                      <div className="text-left">
-                        <p className="font-semibold text-gray-900">
-                          Cash on Delivery
-                        </p>
-                        <p className="text-xs text-gray-500">
-                          Pay when you receive
-                        </p>
-                      </div>
-                    </button>
-                  </div>
-
-                  {/* COD Confirmation */}
-                  {paymentMethod === "cod" && (
-                    <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
-                      <div className="flex items-start gap-3">
-                        <Checkbox
-                          id="cod-confirm"
-                          checked={codConfirmed}
-                          onCheckedChange={setCodConfirmed}
-                          className="mt-1"
-                        />
-                        <Label
-                          htmlFor="cod-confirm"
-                          className="text-sm text-gray-700 cursor-pointer font-normal"
-                        >
-                          I confirm that I will pay cash upon delivery. I
-                          understand that additional charges may apply if I
-                          refuse the order.
-                        </Label>
-                      </div>
-                    </div>
-                  )}
-
                   {!user && (
                     <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-center text-sm font-medium">
                       Please log in first to place an order
@@ -512,11 +411,7 @@ export default function CheckoutPage() {
                     }
                     className="w-full h-12 text-base font-semibold"
                   >
-                    {createMutation.isPending
-                      ? "Processing..."
-                      : paymentMethod === "cod"
-                        ? "Place Order"
-                        : "Pay Now"}
+                    {createMutation.isPending ? "Processing..." : "Pay Now"}
                   </Button>
                 </CardContent>
               </Card>
@@ -588,6 +483,69 @@ export default function CheckoutPage() {
           </div>
         </div>
       </form>
+
+      {createMutation.isSuccess && (
+        <form
+          action="https://secure.payu.in/_payment"
+          method="POST"
+          ref={payuFormRef}
+          style={{ display: "none" }}
+        >
+          <input type="hidden" name="key" value={createMutation.data.key} />
+          <input
+            type="hidden"
+            name="txnid"
+            value={createMutation.data.transaction_id}
+          />
+          <input
+            type="hidden"
+            name="amount"
+            value={createMutation.data.order.amount}
+          />
+          <input
+            type="hidden"
+            name="productinfo"
+            value={createMutation.data.order.order_number}
+          />
+          <input
+            type="hidden"
+            name="firstname"
+            value={createMutation.data.order.first_name}
+          />
+          <input
+            type="hidden"
+            name="email"
+            value={createMutation.data.order.email}
+          />
+          <input
+            type="hidden"
+            name="phone"
+            value={createMutation.data.order.phone}
+          />
+          <input
+            type="hidden"
+            name="surl"
+            value={`${config.api_base}/payments/success`}
+          />
+          <input
+            type="hidden"
+            name="furl"
+            value={`${config.api_base}/payments/failure`}
+          />
+
+          {/* <input
+            type="hidden"
+            name="surl"
+            value={`${window.location.origin}/api/payu/success`}
+          />
+          <input
+            type="hidden"
+            name="furl"
+            value={`${window.location.origin}/api/payu/failure`}
+          /> */}
+          <input type="hidden" name="hash" value={createMutation.data.hash} />
+        </form>
+      )}
 
       <Dialog open={isAddressModal} onOpenChange={setIsAddressModal}>
         <DialogContent className="max-w-md">
