@@ -8,6 +8,7 @@ import Link from "next/link";
 import { useMutation } from "@tanstack/react-query";
 import http from "@/utils/http";
 import { endpoints } from "@/utils/endpoints";
+import { Loader2 } from "lucide-react";
 
 const statusMap = {
   completed: "bg-green-100 text-green-700",
@@ -21,7 +22,7 @@ export function OrdersDetails({ orders }) {
   const [page, setPage] = useState(1);
   const [id, setId] = useState(null);
 
-  const { data, mutate } = useMutation({
+  const { data, mutate, isPending } = useMutation({
     mutationFn: async () => {
       const data = await http().post(
         `${endpoints.orders.getAll}/${id}/invoice`,
@@ -32,8 +33,6 @@ export function OrdersDetails({ orders }) {
       return data;
     },
   });
-
-  console.log(data);
 
   useEffect(() => {
     if (data) {
@@ -68,7 +67,7 @@ export function OrdersDetails({ orders }) {
       }
     }
   }, [data, id]);
-
+  console.log({ isPending, id });
   if (!orders || orders.length === 0) {
     return (
       <div className="text-center text-gray-500 text-lg mt-10">
@@ -152,13 +151,22 @@ export function OrdersDetails({ orders }) {
                   <td className="px-6 py-4 whitespace-nowrap">
                     <Button
                       type="button"
-                      // href={`/dashboard/orders/${order.id}/invoice`}
-                      className="text-xs font-medium px-3 py-1 rounded-full shadow-sm bg-blue-500 text-white"
+                      disabled={isPending && id === order.id}
+                      className="
+    text-xs font-medium px-3 py-1 rounded-full shadow-sm
+    bg-blue-500 text-white
+    disabled:opacity-60
+    disabled:cursor-not-allowed
+    flex items-center gap-2
+  "
                       onClick={() => {
                         setId(order.id);
-                        mutate({});
+                        mutate();
                       }}
                     >
+                      {isPending && id === order.id && (
+                        <Loader2 className="animate-spin" />
+                      )}
                       Download invoice
                     </Button>
                   </td>

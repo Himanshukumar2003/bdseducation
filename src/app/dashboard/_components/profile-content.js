@@ -4,7 +4,6 @@ import { Separator } from "@/components/ui/separator";
 import { CalendarCheck, ShieldCheck } from "lucide-react";
 
 export function ProfileContent({ user, orders }) {
-  console.log(user);
   return (
     <div className="space-y-6 p-4">
       {/* Page Title */}

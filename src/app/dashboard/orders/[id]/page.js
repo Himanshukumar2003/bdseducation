@@ -37,7 +37,7 @@ const STATUS_STEPS = [
 
 export default function OrderDetailsPage({}) {
   const { id } = useParams();
-  const { data, isLoading, isError, error } = useQuery({
+  const { data, isLoading, isError, error, isPending } = useQuery({
     queryKey: ["order-items", id],
     queryFn: () => getOrderItems(id),
   });
@@ -128,7 +128,7 @@ export default function OrderDetailsPage({}) {
                         : ""
                     }`}
                   >
-                    {invoiceMutation.isLoading ? (
+                    {invoiceMutation.isPending ? (
                       <>
                         <Loader2 className="w-4 h-4 animate-spin" />
                         Downloading...
@@ -245,13 +245,15 @@ export default function OrderDetailsPage({}) {
                     key={item.id}
                     className="flex items-center p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors duration-200"
                   >
-                    <Image
-                      width={200}
-                      height={200}
-                      src={`${process.env.NEXT_PUBLIC_BDS_FILE_BASE}${item.pictures[0]}`}
-                      alt={item.title}
-                      className="w-16 h-16 object-cover rounded-lg mr-4 shadow-sm"
-                    />
+                    {item?.pictures?.[0] && (
+                      <Image
+                        width={200}
+                        height={200}
+                        src={`${process.env.NEXT_PUBLIC_BDS_FILE_BASE}${item?.pictures[0]}`}
+                        alt={item.title}
+                        className="w-16 h-16 object-cover rounded-lg mr-4 shadow-sm"
+                      />
+                    )}
                     <div className="flex-1">
                       <h3 className="font-medium text-gray-900">
                         {item.title}

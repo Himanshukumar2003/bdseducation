@@ -15,7 +15,6 @@ export async function POST(request) {
     const json = res.data;
     return NextResponse.json(json, { status: res.status });
   } catch (err) {
-    console.log({ err });
     return NextResponse.json(
       {
         message:
