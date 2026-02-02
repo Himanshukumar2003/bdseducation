@@ -116,6 +116,7 @@ export default function PartnerSection() {
                 <Button className="btn">Become a Distributor</Button>
               </DialogTrigger>
               <DialogContent className="max-h-5xl z-9999">
+                <DialogTitle className="sr-only">Distributor</DialogTitle>
                 <Distributor></Distributor>
               </DialogContent>
             </Dialog>

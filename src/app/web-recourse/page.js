@@ -45,7 +45,7 @@ export default function Products() {
                     href={product.href}
                     className="group relative block overflow-hidden h-[400px] transition-all duration-300 hover:shadow-xl"
                   >
-                    <div className="absolute inset-0 transition-all duration-300 bg-[rgba(0,61,116,0.7)] z-10 group-hover:bg-blue-900"></div>
+                    <div className="absolute inset-0 transition-all duration-300 bg-[rgba(0,61,116,0.7)] z-8 group-hover:bg-blue-900"></div>
 
                     <div className="absolute inset-0">
                       <Image

@@ -3,6 +3,12 @@ import Solutions from "./_components/solutions";
 import Image from "next/image";
 import { ContactForm } from "../contact/_componet/contact-form";
 import { TestimonialsSection } from "../contact/_componet/testimonials-section";
+import ServicesSection from "./_components/services";
+import WhyChooseUs from "./_components/why-choose";
+import { ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import Link from "next/link";
 
 export const metadata = {
   title: "Robotics, AI & STEM Lab Provider in India | BDS Education",
@@ -118,11 +124,47 @@ export default function robotics(params) {
           </div>
         </div>
       </section>
-
+      <ServicesSection></ServicesSection>
+      <WhyChooseUs></WhyChooseUs>
       <div className="" id="contact">
         <ContactForm />
         <TestimonialsSection />
       </div>
+      <section className="relative px-4 py-20 sm:px-6 lg:px-8 overflow-hidden">
+        {/* Background Glow */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-blue-600/20 rounded-full blur-[140px]" />
+
+        <div className="relative mx-auto max-w-4xl">
+          <Card className="bg-[url('/images/bg-2.png')] bg-cover bg-center py-8 px-4 md:px-8 text-center text-white">
+            {/* Badge */}
+
+            <h2 className="mb-4 text-3xl sm:text-4xl font-bold ">
+              Get Started Today!
+            </h2>
+
+            <p className="mb-5 text-lg  max-w-2xl mx-auto">
+              We provide{" "}
+              <span className="font-semibold text-blue-600">
+                Robotics Lab Setup
+              </span>{" "}
+              with Training, Curriculum, Kits & Full Support for Schools and
+              Colleges across India.
+            </p>
+
+            <div className="flex justify-center">
+              <Link href="/contact">
+                <Button
+                  size="lg"
+                  className="group bg-blue-600 hover:bg-blue-700 text-white px-8 py-6 text-base rounded-xl shadow-lg transition-all duration-300 hover:scale-105"
+                >
+                  Contact Our Team
+                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </Button>
+              </Link>
+            </div>
+          </Card>
+        </div>
+      </section>
     </>
   );
 }
