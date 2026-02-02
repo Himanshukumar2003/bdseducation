@@ -4,8 +4,8 @@ export default function Blogs(params) {
   return (
     <>
       <Breadcrumb
-        title="Our Blog"
-        items={[{ label: "blog", href: "/blog", isCurrent: true }]}
+        title="Our Blogs"
+        items={[{ label: "blogs", href: "/blog", isCurrent: true }]}
       />
       <BlogSection />
     </>

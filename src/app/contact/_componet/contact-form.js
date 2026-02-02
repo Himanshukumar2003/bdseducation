@@ -11,6 +11,7 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 export const contactInquirySchema = z.object({
   name: z
@@ -46,6 +47,7 @@ export function ContactForm() {
     handleSubmit,
     reset,
   } = useForm({
+    resolver: zodResolver(contactInquirySchema),
     defaultValues: {
       name: "",
       phone: "",
