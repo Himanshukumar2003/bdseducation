@@ -6,7 +6,7 @@ import {
   CheckCircle,
   CheckCheck,
 } from "lucide-react";
-import Section from "./_componet/section";
+import Section from "./_components/section";
 import { Breadcrumb } from "@/components/breadcrumb";
 
 export default function App() {

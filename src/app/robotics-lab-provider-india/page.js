@@ -1,8 +1,8 @@
 import { Breadcrumb } from "@/components/breadcrumb";
 import Solutions from "./_components/solutions";
 import Image from "next/image";
-import { ContactForm } from "../contact/_componet/contact-form";
-import { TestimonialsSection } from "../contact/_componet/testimonials-section";
+import { ContactForm } from "../contact/_components/contact-form";
+import { TestimonialsSection } from "../contact/_components/testimonials-section";
 import ServicesSection from "./_components/services";
 import WhyChooseUs from "./_components/why-choose";
 import { ArrowRight } from "lucide-react";

@@ -2,7 +2,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Calendar, MessageCircle, Play } from "lucide-react";
 import Image from "next/image";
-import { AuthorSidebar } from "@/app/blog/_componet/slider";
+import { AuthorSidebar } from "@/app/blog/_components/slider";
 import { Breadcrumb } from "@/components/breadcrumb";
 
 export default function BlogPost() {

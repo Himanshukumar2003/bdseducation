@@ -1,5 +1,5 @@
 import { RotateCcw, Phone, Mail, MapPin } from "lucide-react";
-import Section from "../terms-and-conditions/_componet/section";
+import Section from "../terms-and-conditions/_components/section";
 import { Breadcrumb } from "@/components/breadcrumb";
 
 export default function ShippingPolicy() {
