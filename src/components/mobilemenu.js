@@ -12,7 +12,7 @@ import Loader from "./loader";
 import Image from "next/image";
 import { handleLogout } from "@/providers/auth-provider";
 
-export default function MobileMenu({ setMobileNav, user }) {
+export default function MobileMenu({ setMobileNav, user, handleConversion }) {
   const dispatch = useDispatch();
   const { books } = useSelector((state) => state.products);
 
@@ -276,7 +276,10 @@ export default function MobileMenu({ setMobileNav, user }) {
         <div className="px-4 w-auto mt-4">
           <Link
             href="/login"
-            onClick={() => setMobileNav(false)}
+            onClick={() => {
+              handleConversion();
+              setMobileNav(false);
+            }}
             className="btn flex mb-4 gap-2 items-center"
           >
             <LogIn className="w-4 h-4" /> Login

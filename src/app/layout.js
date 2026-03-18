@@ -40,8 +40,6 @@ export const metadata = {
     "Turnkey robotics lab solutions for schools",
   ],
 
-  
-
   icons: {
     icon: "/favicon.ico",
   },
@@ -86,7 +84,27 @@ fbq('track', 'PageView');`}
               gtag('js', new Date());
 
               gtag('config', 'G-RBJESJVNXN');
+              gtag('config', 'AW-17844158729');
+
             `}
+        </Script>
+
+        <Script id="gtag_report">
+          {`
+function gtag_report_conversion(url) {
+var callback = function () {
+if (typeof(url) != 'undefined') {
+window.location = url;
+}
+};
+gtag('event', 'conversion', {
+'send_to': 'AW-17844158729/ZxCTCL-20fEbEImC4bxC',
+'value': 1.0,
+'currency': 'INR',
+'event_callback': callback
+});
+return false;
+}`}
         </Script>
 
         <Script

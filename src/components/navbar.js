@@ -3,16 +3,7 @@
 import { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import {
-  ChevronDown,
-  X,
-  ShoppingCart,
-  User,
-  LogIn,
-  Menu,
-  ChevronDownIcon,
-  MoreHorizontalIcon,
-} from "lucide-react";
+import { ChevronDown, X, ShoppingCart, LogIn, Menu } from "lucide-react";
 import { BsChevronRight } from "react-icons/bs";
 import { cn } from "@/lib/utils";
 import MobileMenu from "./mobilemenu";
@@ -21,23 +12,14 @@ import { toggleCart } from "@/lib/features/slice";
 import { useAuth, handleLogout } from "@/providers/auth-provider";
 import { useQuery } from "@tanstack/react-query";
 import { getCartItems } from "@/services/cart-services";
-import config from "@/config";
 import { getNavMenu } from "@/services/nav-services";
 import Loader from "./loader";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { fetchBooks } from "@/lib/features/productsSlice";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "./ui/sheet";
-import { Button } from "./ui/button";
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "./ui/sheet";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
 } from "./ui/dropdown-menu";
 import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
@@ -218,6 +200,12 @@ export default function Navbar() {
     setActiveSection(null);
     setActivePackage(null);
   }, [pathname]);
+  const router = useRouter();
+
+  function handleConversion() {
+    gtag_report_conversion("https://bdseducation.in/contact");
+    router.push("/login");
+  }
 
   return (
     <div className="sticky top-0 nav   bg-white z-[500]">
@@ -335,15 +323,24 @@ export default function Navbar() {
             )}
             {!user && (
               <>
-                <Link href="/login" className="btn flex gap-2 items-center">
+                <button
+                  onClick={handleConversion}
+                  className="btn flex gap-2 items-center"
+                >
                   <LogIn className="w-4 h-4" /> Login
-                </Link>
+                </button>
               </>
             )}
           </div>
         </div>
 
-        {mobileNav && <MobileMenu setMobileNav={setMobileNav} user={user} />}
+        {mobileNav && (
+          <MobileMenu
+            setMobileNav={setMobileNav}
+            user={user}
+            handleConversion={handleConversion}
+          />
+        )}
       </div>
 
       {isSidebarOpen && (
