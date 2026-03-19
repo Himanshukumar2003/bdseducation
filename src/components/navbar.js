@@ -203,7 +203,7 @@ export default function Navbar() {
   const router = useRouter();
 
   function handleConversion() {
-    gtag_report_conversion("https://bdseducation.in/login");
+    gtag_report_conversion("/login");
     router.push("/login");
   }
 
