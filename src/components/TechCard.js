@@ -1,12 +1,12 @@
 import Image from "next/image";
 
-export default function TechCard({ title, imageSrc, imageAlt }) {
+export default function TechCard({ title, imageSrc }) {
   return (
     <div className="bg-white rounded-2xl p-4 shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:scale-105">
       <div className=" mb-3 rounded-xl overflow-hidden bg-blue-50">
         <Image
           src={imageSrc}
-          alt={imageAlt}
+          alt={title}
           width={500}
           height={500}
           className="w-full object-cover"

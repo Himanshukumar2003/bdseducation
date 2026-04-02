@@ -12,7 +12,8 @@ export default function AboutSection() {
             <div className="text-center relative">
               <Image
                 src="/images/about.png"
-                alt="Kindergarten Teacher"
+                alt="At BDS Education, we believe that true learning happens when
+              curiosity meets creation."
                 width={500}
                 height={400}
                 className="max-w-full h-auto"

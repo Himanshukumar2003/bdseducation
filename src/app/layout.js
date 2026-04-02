@@ -12,20 +12,20 @@ import Image from "next/image";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: "swap", // ✅ Prevents font blocking render
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap", // ✅ Prevents font blocking render
 });
 
 export const metadata = {
   title:
     "Robotics, AI & STEM Lab Provider for Schools & Colleges | BDS Education",
-
   description:
     "BDS Education is a leading robotics, AI and STEM lab provider for schools and colleges in India. We offer complete lab setup, curriculum, training, and educational robotics solutions.",
-
   keywords: [
     "Robotics lab provider for schools and colleges",
     "Robotics, AI & STEM lab provider",
@@ -38,14 +38,46 @@ export const metadata = {
     "Complete robotics lab with training and curriculum",
     "Turnkey robotics lab solutions for schools",
   ],
-
   icons: {
     icon: "/favicon.ico",
   },
-
   authors: [{ name: "BDS Education", url: "https://bdseducation.in" }],
   creator: "BDS Education",
   publisher: "BDS Education",
+
+  // ✅ Open Graph — social sharing & Google rich results
+  openGraph: {
+    title:
+      "Robotics, AI & STEM Lab Provider for Schools & Colleges | BDS Education",
+    description:
+      "BDS Education empowers schools & colleges with AI, coding, and robotics labs. Get books, teacher training, online support, and exciting student projects.",
+    url: "https://bdseducation.in",
+    siteName: "BDS Education",
+    locale: "en_IN",
+    type: "website",
+    images: [
+      {
+        url: "https://bdseducation.in/images/og-image.jpg", // ✅ Replace with your actual OG image
+        width: 1200,
+        height: 630,
+        alt: "BDS Education — Robotics, AI & STEM Lab Provider for Schools and Colleges in India",
+      },
+    ],
+  },
+
+  // ✅ Twitter Card
+  twitter: {
+    card: "summary_large_image",
+    title: "Robotics, AI & STEM Lab Provider | BDS Education",
+    description:
+      "India's trusted STEM, AI & Robotics lab provider for schools and colleges. Turnkey lab setup, curriculum & training included.",
+    images: ["https://bdseducation.in/images/og-image.jpg"],
+  },
+
+  // ✅ Canonical URL
+  alternates: {
+    canonical: "https://bdseducation.in",
+  },
 
   robots: {
     index: true,
@@ -63,10 +95,6 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-  // const path = usePathname();
-  // const pathName = ["/dashboard"];
-  // if (pathName.includes(path)) return children;
-
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -75,7 +103,21 @@ export default function RootLayout({ children }) {
           content="cjo53Wxpkw1646zHPtrxUcnewM_nWW7js3yhcBbnriI"
         />
 
-        <Script id="fb">
+        {/* ✅ Preconnect to critical third-party origins — reduces DNS + TLS time */}
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="preconnect" href="https://connect.facebook.net" />
+        <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+
+        {/* ✅ Preload LCP hero image so it loads instantly */}
+        <link
+          rel="preload"
+          as="image"
+          href="/images/hero-1.jpg"
+          fetchPriority="high"
+        />
+
+        {/* ✅ Facebook Pixel — afterInteractive so it doesn't block render */}
+        <Script id="fb" strategy="afterInteractive">
           {`
 !function(f,b,e,v,n,t,s)
 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -89,38 +131,35 @@ fbq('init', '2052760585472820');
 fbq('track', 'PageView');`}
         </Script>
 
+        {/* ✅ Google Tag Manager — afterInteractive */}
         <Script
-          async
+          strategy="afterInteractive"
           src="https://www.googletagmanager.com/gtag/js?id=G-RBJESJVNXN"
-        ></Script>
+        />
 
-        <Script id="config">
+        <Script id="config" strategy="afterInteractive">
           {`
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-
-              gtag('config', 'G-RBJESJVNXN');
-              gtag('config', 'AW-17844158729');
-
-            `}
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-RBJESJVNXN');
+gtag('config', 'AW-17844158729');
+          `}
         </Script>
 
-        <Script id="gtag_report">
+        <Script id="gtag_report" strategy="afterInteractive">
           {`
 function gtag_report_conversion(url) {
-var callback = function () {
-if (typeof(url) != 'undefined') {
-window.location = url;
-}
-};
-gtag('event', 'conversion', {
-'send_to': 'AW-17844158729/ZxCTCL-20fEbEImC4bxC',
-'value': 1.0,
-'currency': 'INR',
-'event_callback': callback
-});
-return false;
+  var callback = function () {
+    if (typeof(url) != 'undefined') { window.location = url; }
+  };
+  gtag('event', 'conversion', {
+    'send_to': 'AW-17844158729/ZxCTCL-20fEbEImC4bxC',
+    'value': 1.0,
+    'currency': 'INR',
+    'event_callback': callback
+  });
+  return false;
 }`}
         </Script>
 
@@ -316,14 +355,16 @@ return false;
 }`}
         </Script>
       </head>
+
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        {/* ✅ Facebook noscript fallback */}
         <noscript>
           <Image
             height="1"
             width="1"
-            alt="fb"
+            alt="Facebook pixel tracking — BDS Education"
             style={{ display: "none" }}
             src="https://www.facebook.com/tr?id=2052760585472820&ev=PageView&noscript=1"
           />
@@ -336,6 +377,7 @@ return false;
             </NuqsProvider>
           </Providers>
         </QueryProvider>
+
         <Toaster richColors />
       </body>
     </html>
