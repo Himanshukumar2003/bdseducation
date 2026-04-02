@@ -97,9 +97,9 @@ export default function Navbar() {
     { title: "Home", href: "/" },
     { title: "ATL Products", href: "/atl-packages" },
     { title: "Non ATL Products", hasSubmenu: true },
-    // { title: "Smart Kits Combo", href: "/smart-Kits-combo" },
+
     { title: "Books", hasSubmenu: true },
-    // { title: "Web Recourse", href: "/web-recourse" },
+
     { title: "Become a Distributor", href: "/become-a-distributor" },
   ];
 
@@ -223,6 +223,8 @@ export default function Navbar() {
               {[
                 { name: "About Us", link: "/about" },
                 { name: "Software", link: "/software" },
+                { name: "Smart Kits Combo", link: "/smart-Kits-combo" },
+                { name: "Web Recourse", link: "/web-recourse" },
                 { name: "Blog", link: "/blog" },
                 { name: "Gallery", link: "/gallery" },
                 { name: "Contact Us", link: "/contact" },

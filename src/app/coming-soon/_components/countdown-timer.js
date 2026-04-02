@@ -20,7 +20,7 @@ function pad(n) {
 
 export function CountdownTimer() {
   // 👇 Set your fixed launch date here
-  const targetDate = "2025-11-14T00:00:00"; // 30 days from today
+  const targetDate = "2026-04-26T00:00:00"; // 30 days from today
   const target = useMemo(() => new Date(targetDate), [targetDate]);
   const [timeLeft, setTimeLeft] = useState(() => getTimeLeft(target));
 

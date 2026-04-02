@@ -22,6 +22,7 @@ const geistMono = Geist_Mono({
 export const metadata = {
   title:
     "Robotics, AI & STEM Lab Provider for Schools & Colleges | BDS Education",
+
   description:
     "BDS Education is a leading robotics, AI and STEM lab provider for schools and colleges in India. We offer complete lab setup, curriculum, training, and educational robotics solutions.",
 
@@ -30,18 +31,34 @@ export const metadata = {
     "Robotics, AI & STEM lab provider",
     "Educational robotics lab solutions",
     "STEM lab provider in India",
-
     "Robotics lab setup",
     "AI and robotics education solutions",
     "STEM education solutions",
     "Robotics lab equipment provider",
-
     "Complete robotics lab with training and curriculum",
     "Turnkey robotics lab solutions for schools",
   ],
 
   icons: {
     icon: "/favicon.ico",
+  },
+
+  authors: [{ name: "BDS Education", url: "https://bdseducation.in" }],
+  creator: "BDS Education",
+  publisher: "BDS Education",
+
+  robots: {
+    index: true,
+    follow: true,
+    nocache: false,
+    googleBot: {
+      index: true,
+      follow: true,
+      noimageindex: false,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 };
 

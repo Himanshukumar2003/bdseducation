@@ -35,12 +35,12 @@ export function ComingSoonHero({ targetDate }) {
         <CountdownTimer targetDate={targetDate} />
       </div>
 
-      <div className="mt-6">
+      {/* <div className="mt-6">
         <NotifyForm />
         <p className="mt-3 text-xs text-blue-500  italic">
           We respect your privacy. Unsubscribe at any time.
         </p>
-      </div>
+      </div> */}
     </section>
   );
 }
