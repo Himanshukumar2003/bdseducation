@@ -12,13 +12,13 @@ import Image from "next/image";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
-  display: "swap", // ✅ Prevents font blocking render
+  display: "swap",
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
-  display: "swap", // ✅ Prevents font blocking render
+  display: "swap",
 });
 
 export const metadata = {
@@ -45,7 +45,6 @@ export const metadata = {
   creator: "BDS Education",
   publisher: "BDS Education",
 
-  // ✅ Open Graph — social sharing & Google rich results
   openGraph: {
     title:
       "Robotics, AI & STEM Lab Provider for Schools & Colleges | BDS Education",
@@ -65,7 +64,6 @@ export const metadata = {
     ],
   },
 
-  // ✅ Twitter Card
   twitter: {
     card: "summary_large_image",
     title: "Robotics, AI & STEM Lab Provider | BDS Education",
@@ -103,12 +101,10 @@ export default function RootLayout({ children }) {
           content="cjo53Wxpkw1646zHPtrxUcnewM_nWW7js3yhcBbnriI"
         />
 
-        {/* ✅ Preconnect to critical third-party origins — reduces DNS + TLS time */}
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="preconnect" href="https://connect.facebook.net" />
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
 
-        {/* ✅ Preload LCP hero image so it loads instantly */}
         <link
           rel="preload"
           as="image"
@@ -116,7 +112,6 @@ export default function RootLayout({ children }) {
           fetchPriority="high"
         />
 
-        {/* ✅ Facebook Pixel — afterInteractive so it doesn't block render */}
         <Script id="fb" strategy="afterInteractive">
           {`
 !function(f,b,e,v,n,t,s)
@@ -131,7 +126,6 @@ fbq('init', '2052760585472820');
 fbq('track', 'PageView');`}
         </Script>
 
-        {/* ✅ Google Tag Manager — afterInteractive */}
         <Script
           strategy="afterInteractive"
           src="https://www.googletagmanager.com/gtag/js?id=G-RBJESJVNXN"
