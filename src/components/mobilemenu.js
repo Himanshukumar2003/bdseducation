@@ -1,18 +1,16 @@
 "use client";
 
-import { useState, useEffect, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback } from "react";
 import { ChevronLeft, ChevronRight, LogIn, X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { getNavMenu } from "@/services/nav-services";
-import { fetchBooks } from "@/lib/features/productsSlice";
 import Loader from "./loader";
 import Image from "next/image";
 import { handleLogout } from "@/providers/auth-provider";
 
-// ✅ Static data outside component
 const QUICK_LINKS = [
   { title: "Home", slug: "/" },
   { title: "ATL Products", slug: "/atl-packages" },
@@ -21,7 +19,6 @@ const QUICK_LINKS = [
   { title: "Become a Distributor", slug: "/become-a-distributor" },
 ];
 
-// ✅ Animation variants outside component
 const SLIDE_VARIANTS = {
   hidden: { x: "100%" },
   visible: { x: 0, transition: { type: "tween", duration: 0.25 } },
@@ -29,37 +26,26 @@ const SLIDE_VARIANTS = {
 };
 
 export default function MobileMenu({ setMobileNav, user, handleConversion }) {
-  const dispatch = useDispatch();
+  // ✅ FIX 1: No dispatch/fetchBooks here — Navbar already fetches and caches
   const { books } = useSelector((state) => state.products);
   const [activeCategory, setActiveCategory] = useState(null);
   const [activeSubCategory, setActiveSubCategory] = useState(null);
 
+  // ✅ FIX 2: Same queryKey "navMenu" as Navbar — React Query returns
+  //    cached response instantly, zero extra network request
   const {
     data: packages,
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["navMenuMobile"],
+    queryKey: ["navMenu"],
     queryFn: async () => {
       const { data } = await getNavMenu();
       return data.packages;
     },
-    // ✅ Cache nav menu — it rarely changes
     staleTime: 5 * 60 * 1000,
     refetchOnWindowFocus: false,
   });
-
-  useEffect(() => {
-    dispatch(fetchBooks());
-  }, [dispatch]);
-
-  // ✅ Lock body scroll when mobile menu is open
-  useEffect(() => {
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = "auto";
-    };
-  }, []);
 
   const nonAtlProducts = useMemo(() => {
     if (!packages) return [];
@@ -103,23 +89,25 @@ export default function MobileMenu({ setMobileNav, user, handleConversion }) {
     [nonAtlProducts, booksByCategory]
   );
 
-  // ✅ useCallback for stable refs
   const closeMobileNav = useCallback(() => setMobileNav(false), [setMobileNav]);
-
   const currentMain = dynamicMenuItems.find((i) => i.id === activeCategory);
 
   if (isLoading) return <Loader />;
-  if (isError) return <p className="text-center py-6">Failed to load menu.</p>;
+  if (isError)
+    return (
+      <p className="text-center py-6 text-red-500">
+        Menu load nahi hua. Refresh karein.
+      </p>
+    );
 
   return (
-    // ✅ <nav> with aria-label for accessibility & SEO
     <nav
       aria-label="Mobile navigation"
       className="fixed top-0 left-0 w-full h-screen bg-white z-[9999] overflow-y-auto shadow-lg"
     >
       {/* Header */}
       <div
-        className="flex shrink-0 items-center bg-white w-full justify-between clipPath-logo"
+        className="flex shrink-0 items-center bg-white w-full justify-between"
         style={{ clipPath: "polygon(0 0, 100% 0%, 83% 100%, 0% 100%)" }}
       >
         <Link
@@ -146,93 +134,9 @@ export default function MobileMenu({ setMobileNav, user, handleConversion }) {
         </button>
       </div>
 
-      {/* MENU BODY */}
       <AnimatePresence mode="wait">
-        {activeCategory === null ? (
-          <motion.div
-            key="main-menu"
-            initial={{ x: 0 }}
-            animate={{ x: 0 }}
-            exit={{ x: "-100%" }}
-          >
-            {/* Static links */}
-            {QUICK_LINKS.map((link) => (
-              <Link key={link.slug} href={link.slug} onClick={closeMobileNav}>
-                <div className="w-full py-4 px-5 text-left font-medium border-b capitalize hover:bg-gray-100">
-                  {link.title}
-                </div>
-              </Link>
-            ))}
-
-            {/* Dynamic sections */}
-            {dynamicMenuItems.map((item) => (
-              <div key={item.id} className="border-b">
-                <button
-                  onClick={() => setActiveCategory(item.id)}
-                  aria-haspopup="true"
-                  aria-expanded={activeCategory === item.id}
-                  className="w-full py-4 px-5 flex justify-between items-center text-left font-medium hover:bg-gray-100"
-                >
-                  {item.title}
-                  <ChevronRight
-                    className="h-5 w-5 text-blue-600"
-                    aria-hidden="true"
-                  />
-                </button>
-              </div>
-            ))}
-          </motion.div>
-        ) : (
-          <motion.div
-            key="sub-menu"
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            variants={SLIDE_VARIANTS}
-          >
-            <div className="border-b sticky top-0 bg-white z-10">
-              <button
-                className="w-full py-4 px-5 flex items-center text-left font-medium hover:bg-gray-100"
-                onClick={() => setActiveCategory(null)}
-                aria-label={`Back to main menu from ${currentMain?.title}`}
-              >
-                <ChevronLeft
-                  className="h-5 w-5 text-blue-600 mr-2"
-                  aria-hidden="true"
-                />
-                {currentMain?.title}
-              </button>
-            </div>
-
-            <div>
-              {currentMain?.id === "NON"
-                ? currentMain.items.map((cat) => (
-                    <Link
-                      key={cat.id}
-                      href={`/product/${cat.slug}`}
-                      onClick={closeMobileNav}
-                    >
-                      <div className="w-full py-4 px-5 text-left border-b hover:bg-gray-100 capitalize">
-                        {cat.title}
-                      </div>
-                    </Link>
-                  ))
-                : currentMain?.items.map((pkg) => (
-                    <div key={pkg.id} className="border-b">
-                      <button
-                        onClick={() => setActiveSubCategory(pkg)}
-                        className="w-full py-4 px-5 text-left font-medium hover:bg-gray-100"
-                      >
-                        {pkg.title}
-                      </button>
-                    </div>
-                  ))}
-            </div>
-          </motion.div>
-        )}
-
-        {/* Book subcategory */}
-        {activeSubCategory && (
+        {activeSubCategory ? (
+          // Level 3: Book subcategory items
           <motion.div
             key="category-menu"
             initial="hidden"
@@ -253,7 +157,6 @@ export default function MobileMenu({ setMobileNav, user, handleConversion }) {
                 {activeSubCategory.title}
               </button>
             </div>
-
             {activeSubCategory.categories.map((book) => (
               <Link
                 href={`/books/${book.slug}`}
@@ -264,6 +167,89 @@ export default function MobileMenu({ setMobileNav, user, handleConversion }) {
                   {book.title || book.category_name}
                 </div>
               </Link>
+            ))}
+          </motion.div>
+        ) : activeCategory ? (
+          // Level 2: Category items
+          <motion.div
+            key="sub-menu"
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            variants={SLIDE_VARIANTS}
+          >
+            <div className="border-b sticky top-0 bg-white z-10">
+              <button
+                className="w-full py-4 px-5 flex items-center text-left font-medium hover:bg-gray-100"
+                onClick={() => setActiveCategory(null)}
+                aria-label={`Back to main menu from ${currentMain?.title}`}
+              >
+                <ChevronLeft
+                  className="h-5 w-5 text-blue-600 mr-2"
+                  aria-hidden="true"
+                />
+                {currentMain?.title}
+              </button>
+            </div>
+            <div>
+              {currentMain?.id === "NON"
+                ? currentMain.items.map((cat) => (
+                    <Link
+                      key={cat.id}
+                      href={`/product/${cat.slug}`}
+                      onClick={closeMobileNav}
+                    >
+                      <div className="w-full py-4 px-5 text-left border-b hover:bg-gray-100 capitalize">
+                        {cat.title}
+                      </div>
+                    </Link>
+                  ))
+                : currentMain?.items.map((pkg) => (
+                    <div key={pkg.id} className="border-b">
+                      <button
+                        onClick={() => setActiveSubCategory(pkg)}
+                        className="w-full py-4 px-5 text-left font-medium hover:bg-gray-100 flex justify-between items-center"
+                      >
+                        {pkg.title}
+                        <ChevronRight
+                          className="h-5 w-5 text-blue-600"
+                          aria-hidden="true"
+                        />
+                      </button>
+                    </div>
+                  ))}
+            </div>
+          </motion.div>
+        ) : (
+          // Level 1: Main menu
+          <motion.div
+            key="main-menu"
+            initial={{ x: 0 }}
+            animate={{ x: 0 }}
+            exit={{ x: "-100%" }}
+          >
+            {QUICK_LINKS.map((link) => (
+              <Link key={link.slug} href={link.slug} onClick={closeMobileNav}>
+                <div className="w-full py-4 px-5 text-left font-medium border-b capitalize hover:bg-gray-100">
+                  {link.title}
+                </div>
+              </Link>
+            ))}
+            {dynamicMenuItems.map((item) => (
+              <div key={item.id} className="border-b">
+                <button
+                  onClick={() => setActiveCategory(item.id)}
+                  aria-haspopup="true"
+                  aria-expanded={activeCategory === item.id}
+                  className="w-full py-4 px-5 flex justify-between items-center text-left font-medium hover:bg-gray-100"
+                >
+                  {item.title}
+                  <ChevronRight
+                    className="h-5 w-5 text-blue-600"
+                    aria-hidden="true"
+                  />
+                </button>
+              </div>
             ))}
           </motion.div>
         )}
@@ -290,7 +276,12 @@ export default function MobileMenu({ setMobileNav, user, handleConversion }) {
         <div className="px-4 w-auto mt-4">
           <button
             onClick={() => {
-              handleConversion();
+              // ✅ FIX 4: Guard before calling — GA may not be loaded yet
+              if (typeof gtag_report_conversion === "function") {
+                handleConversion();
+              } else {
+                router.push("/login");
+              }
               closeMobileNav();
             }}
             className="btn flex mb-4 gap-2 items-center w-full justify-center"

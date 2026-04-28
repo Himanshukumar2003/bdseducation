@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useEffect, useCallback } from "react";
+import { useState, useMemo, useEffect, useCallback, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ChevronDown, X, ShoppingCart, LogIn, Menu } from "lucide-react";
@@ -25,7 +25,6 @@ import {
 import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 import ProductCard from "./product-card";
 
-// ✅ Moved outside component — no re-creation on every render
 const SECONDARY_NAV_LINKS = [
   { name: "About Us", link: "/about" },
   { name: "Software", link: "/software" },
@@ -65,12 +64,14 @@ export default function Navbar() {
   const [activeSection, setActiveSection] = useState(null);
   const [mobileNav, setMobileNav] = useState(false);
 
-  const { books } = useSelector((state) => state.products);
+  const { books, booksStatus } = useSelector((state) => state.products);
   const dispatch = useDispatch();
   const { user } = useAuth();
   const isCartOpen = useSelector((state) => state.cart.isCartOpen);
   const pathname = usePathname();
   const router = useRouter();
+
+  const sidebarRef = useRef(null);
 
   const { data: cartData } = useQuery({
     queryKey: ["cart", isCartOpen],
@@ -79,7 +80,6 @@ export default function Navbar() {
       return data;
     },
     enabled: !!user,
-    // ✅ Don't refetch on window focus — reduces unnecessary network calls
     refetchOnWindowFocus: false,
   });
 
@@ -89,7 +89,6 @@ export default function Navbar() {
       const { data } = await getNavMenu();
       return data.packages;
     },
-    // ✅ Nav menu rarely changes — cache for 5 mins
     staleTime: 5 * 60 * 1000,
     refetchOnWindowFocus: false,
   });
@@ -123,7 +122,6 @@ export default function Navbar() {
     }));
   }, [books]);
 
-  // ✅ useCallback — stable reference, avoids child re-renders
   const handleNavClick = useCallback(
     (item) => {
       const sectionMap = {
@@ -147,6 +145,12 @@ export default function Navbar() {
     [activeSection, atlPackages, nonPackages, booksByCategory]
   );
 
+  const closeSidebar = useCallback(() => {
+    setIsSidebarOpen(false);
+    setActiveSection(null);
+    setActivePackage(null);
+  }, []);
+
   const currentPackages =
     activeSection === "ATL"
       ? atlPackages
@@ -157,10 +161,11 @@ export default function Navbar() {
           : [];
 
   useEffect(() => {
-    dispatch(fetchBooks());
-  }, [dispatch]);
+    if (booksStatus === "idle") {
+      dispatch(fetchBooks());
+    }
+  }, [dispatch, booksStatus]);
 
-  // ✅ Lock body scroll when sidebar open
   useEffect(() => {
     document.body.style.overflow = isSidebarOpen ? "hidden" : "auto";
     return () => {
@@ -168,20 +173,27 @@ export default function Navbar() {
     };
   }, [isSidebarOpen]);
 
-  // ✅ Close sidebar on route change
   useEffect(() => {
-    setIsSidebarOpen(false);
-    setActiveSection(null);
-    setActivePackage(null);
+    closeSidebar();
   }, [pathname]);
 
+  useEffect(() => {
+    if (!isSidebarOpen) return;
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") closeSidebar();
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [isSidebarOpen, closeSidebar]);
+
   const handleConversion = useCallback(() => {
-    gtag_report_conversion("/login");
+    if (typeof gtag_report_conversion === "function") {
+      gtag_report_conversion("/login");
+    }
     router.push("/login");
   }, [router]);
 
   return (
-    // ✅ <nav> instead of <div> — semantic HTML for SEO & accessibility
     <nav
       aria-label="Main navigation"
       className="sticky top-0 nav bg-white z-[500]"
@@ -194,12 +206,10 @@ export default function Navbar() {
         >
           <Sheet>
             <SheetTrigger asChild>
-              {/* ✅ aria-label for screen readers */}
               <button aria-label="Open secondary menu">
                 <Menu size={24} className="text-blue-900" />
               </button>
             </SheetTrigger>
-            {/* ✅ Accessible sheet title */}
             <SheetTitle className="sr-only">Secondary Navigation</SheetTitle>
             <SheetContent side="left">
               {SECONDARY_NAV_LINKS.map((item) => (
@@ -207,7 +217,7 @@ export default function Navbar() {
                   <Link
                     href={item.link}
                     className="py-4 px-5 text-left font-medium border-b capitalize hover:bg-gray-100 hover:text-blue-900 block"
-                    onClick={() => setIsSidebarOpen(false)}
+                    onClick={closeSidebar}
                   >
                     {item.name}
                   </Link>
@@ -216,7 +226,6 @@ export default function Navbar() {
             </SheetContent>
           </Sheet>
 
-          {/* ✅ aria-label on logo link */}
           <Link
             href="/"
             className="py-4 pl-0 lg:pl-2"
@@ -228,7 +237,6 @@ export default function Navbar() {
               height={60}
               alt="BDS Education — Robotics, AI & STEM Lab Provider"
               className="ml-5 bg-white p-2 w-[150px] max-h-[60px] rounded-sm"
-              // ✅ Logo is LCP candidate on mobile — priority load
               priority
             />
           </Link>
@@ -250,7 +258,7 @@ export default function Navbar() {
               {item.href ? (
                 <Link
                   href={item.href}
-                  onClick={() => setIsSidebarOpen(false)}
+                  onClick={closeSidebar}
                   className="px-4 nav-links py-6 border-b-4 text-white font-semibold border-[#0053a3] flex items-center hover:border-white"
                 >
                   {item.title}
@@ -258,7 +266,14 @@ export default function Navbar() {
               ) : (
                 <button
                   onClick={() => handleNavClick(item)}
-                  aria-expanded={activeSection !== null}
+                  aria-expanded={
+                    activeSection ===
+                    (item.title === "Non ATL Products"
+                      ? "NON"
+                      : item.title === "Books"
+                        ? "BOOKS"
+                        : "ATL")
+                  }
                   aria-haspopup="true"
                   className="px-4 nav-links py-6 border-b-4 border-[#0053a3] text-white font-semibold flex items-center hover:border-white"
                 >
@@ -334,22 +349,31 @@ export default function Navbar() {
         )}
       </div>
 
+      {isSidebarOpen && (
+        <div
+          className="fixed inset-0  z-[40] lg:block hidden"
+          onClick={closeSidebar}
+          aria-hidden="true"
+        />
+      )}
+
       {/* MEGA MENU SIDEBAR */}
       {isSidebarOpen && (
-        <div className="hidden lg:flex h-[calc(100vh-91.36px)] overflow-y-auto">
+        <div
+          ref={sidebarRef}
+          className="hidden lg:flex h-[calc(100vh-91.36px)] overflow-y-auto relative z-[50]"
+          role="dialog"
+          aria-modal="true"
+          aria-label={`${activeSection} products menu`}
+        >
           {/* Left panel */}
-          <div
-            className={cn(
-              "fixed md:static gap-0 w-[33vw] top-0 left-0 bg-[#003366] text-white z-50 custom-clip",
-              isSidebarOpen
-                ? "translate-x-0"
-                : "-translate-x-full md:translate-x-0"
-            )}
-          >
+          <div className="w-[33vw] bg-[#003366] text-white custom-clip overflow-y-auto">
             {isLoading ? (
               <Loader />
             ) : currentPackages.length === 0 ? (
-              <p className="p-6 text-center">No packages available</p>
+              <p className="p-6 text-center text-white">
+                No packages available
+              </p>
             ) : (
               currentPackages.map((pkg) => (
                 <button
@@ -357,7 +381,7 @@ export default function Navbar() {
                   onClick={() => setActivePackage(pkg)}
                   aria-pressed={activePackage?.id === pkg.id}
                   className={cn(
-                    "w-full border-t-1 border-blue-400 capitalize cursor-pointer text-left pl-[100px] pr-[80px] transition duration-300 font-bold text-md py-5 flex hover:bg-[#0d477b] hover:pl-[130px] justify-between items-center",
+                    "w-full border-t border-blue-400 capitalize cursor-pointer text-left pl-[100px] pr-[80px] transition duration-300 font-bold text-md py-5 flex hover:bg-[#0d477b] hover:pl-[130px] justify-between items-center",
                     { "bg-blue-500": activePackage?.id === pkg.id }
                   )}
                 >
@@ -369,7 +393,7 @@ export default function Navbar() {
           </div>
 
           {/* Right panel */}
-          <div className="flex-1 p-8 border-t-1 border-gray-100 overflow-y-auto">
+          <div className="flex-1 p-8 border-t border-gray-100 overflow-y-auto">
             {isLoading ? (
               <Loader />
             ) : activePackage ? (
@@ -388,11 +412,16 @@ export default function Navbar() {
                   const bgColor = BG_COLORS[index % BG_COLORS.length];
                   const titleColor = TITLE_COLORS[index % TITLE_COLORS.length];
 
+                  const imageUrl =
+                    cat.pictures?.length > 0
+                      ? `${process.env.NEXT_PUBLIC_BDS_FILE_BASE}${cat.pictures[0]}`
+                      : null;
+
                   return activeSection === "BOOKS" ? (
                     <Link
                       href={`/books/${cat.slug}`}
                       key={cat.id}
-                      onClick={() => setIsSidebarOpen(false)}
+                      onClick={closeSidebar}
                     >
                       <div
                         className={`${bgColor} rounded-2xl p-4 shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 cursor-pointer`}
@@ -408,17 +437,20 @@ export default function Navbar() {
                               {cat.description}
                             </p>
                           </div>
-                          <div className="flex-shrink-0">
-                            <Image
-                              width={128}
-                              height={176}
-                              src={`${process.env.NEXT_PUBLIC_BDS_FILE_BASE}${cat.pictures[0]}`}
-                              // ✅ SEO-rich alt for book images
-                              alt={`${cat.title} — Educational robotics book for students by BDS Education`}
-                              className="w-24 h-36 md:w-28 md:h-40 lg:w-32 lg:h-44 object-contain rounded-lg hover:scale-105 transition-transform duration-300"
-                              loading="lazy"
-                              sizes="(max-width: 768px) 96px, (max-width: 1024px) 112px, 128px"
-                            />
+                          <div className="flex-shrink-0 w-24 h-36">
+                            {imageUrl ? (
+                              <Image
+                                width={128}
+                                height={176}
+                                src={imageUrl}
+                                alt={`${cat.title} — Educational robotics book by BDS Education`}
+                                className="w-full h-full object-contain rounded-lg group-hover:scale-105 transition-transform duration-300"
+                                loading="lazy"
+                                sizes="96px"
+                              />
+                            ) : (
+                              <div className="w-full h-full bg-gray-200 rounded-lg" />
+                            )}
                           </div>
                         </div>
                       </div>
@@ -434,8 +466,8 @@ export default function Navbar() {
                 })}
               </div>
             ) : (
-              <p className="text-gray-600">
-                Select a package to view categories
+              <p className="text-gray-500 text-center mt-12">
+                Select a category from the left to view products
               </p>
             )}
           </div>
