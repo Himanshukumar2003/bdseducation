@@ -26,13 +26,10 @@ const SLIDE_VARIANTS = {
 };
 
 export default function MobileMenu({ setMobileNav, user, handleConversion }) {
-  // ✅ FIX 1: No dispatch/fetchBooks here — Navbar already fetches and caches
   const { books } = useSelector((state) => state.products);
   const [activeCategory, setActiveCategory] = useState(null);
   const [activeSubCategory, setActiveSubCategory] = useState(null);
 
-  // ✅ FIX 2: Same queryKey "navMenu" as Navbar — React Query returns
-  //    cached response instantly, zero extra network request
   const {
     data: packages,
     isLoading,
@@ -46,9 +43,11 @@ export default function MobileMenu({ setMobileNav, user, handleConversion }) {
     staleTime: 5 * 60 * 1000,
     refetchOnWindowFocus: false,
   });
-
   const nonAtlProducts = useMemo(() => {
     if (!packages) return [];
+
+    const seen = new Set();
+
     return packages
       .filter((pkg) => pkg.package_type === "non-atl")
       .flatMap(
@@ -58,7 +57,12 @@ export default function MobileMenu({ setMobileNav, user, handleConversion }) {
             package_type: pkg.package_type,
             pkgId: pkg.id,
           })) ?? []
-      );
+      )
+      .filter((item) => {
+        if (seen.has(item.slug)) return false;
+        seen.add(item.slug);
+        return true;
+      });
   }, [packages]);
 
   const booksByCategory = useMemo(() => {
