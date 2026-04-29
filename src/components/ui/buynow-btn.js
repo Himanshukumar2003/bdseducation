@@ -5,10 +5,12 @@ import { useRouter } from "next/navigation";
 import { ArrowRight } from "lucide-react"; // react icon import
 import { useMutation } from "@tanstack/react-query";
 import { addToCart } from "@/services/cart-services";
+import { useAuth } from "@/providers/auth-provider";
 
 function BuyNowButton({ product }) {
   const dispatch = useDispatch();
   const router = useRouter();
+  const { user } = useAuth();
 
   // const handleBuyNow = () => {
   //   dispatch(addItem(product));
@@ -34,6 +36,7 @@ function BuyNowButton({ product }) {
   });
 
   const handleBuyNow = () => {
+    if (!user) return router.push("/login");
     mutate(product); // product should include id, name, price, etc.
   };
 
