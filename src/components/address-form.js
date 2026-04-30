@@ -302,7 +302,11 @@ export default function AddressForm({ type = "create", id, callback }) {
             {/* Pincode */}
             <div>
               <Label>Pincode</Label>
-              <Controller
+              <Input
+                placeholder="Enter pincode"
+                {...register("address.postal_code")}
+              />
+              {/* <Controller
                 name="address.postal_code"
                 control={control}
                 render={({ field }) => (
@@ -315,7 +319,7 @@ export default function AddressForm({ type = "create", id, callback }) {
                     error={pincodeDataError}
                   />
                 )}
-              />
+              /> */}
               {errors?.address?.postal_code && (
                 <p className="text-sm text-red-500">
                   {errors.address.postal_code.message}
